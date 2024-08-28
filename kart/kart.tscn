@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://kcisw76ucbri"]
+
+[ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjli0"]
+albedo_texture = ExtResource("2_6f66f")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_3d5m8"]
+lightmap_size_hint = Vector2i(17, 10)
+material = SubResource("StandardMaterial3D_gjli0")
+height = 0.3
+
+[sub_resource type="BoxMesh" id="BoxMesh_rf181"]
+size = Vector3(1, 0.5, 3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iplh1"]
+points = PackedVector3Array(0.5, 0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, -0.5, 0.25, 1.5, -0.5, -0.25, 1.5, 0.5, -0.25, -1.5, -0.5, 0.25, -1.5, -0.5, -0.25, -1.5)
+
+[node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera")]
+gravity_scale = 4.0
+center_of_mass_mode = 1
+center_of_mass = Vector3(0, -0.1, 0.5)
+script = ExtResource("1_bsaip")
+camera_pivot = NodePath("CamPivot")
+camera = NodePath("CamPivot/Camera3D")
+
+[node name="CamPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CamPivot"]
+transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 2, -4)
+
+[node name="FrontLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 1)
+use_as_steering = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.4
+suspension_travel = 0.15
+suspension_stiffness = 120.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FrontLeft"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_3d5m8")
+
+[node name="FrontRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, 1)
+use_as_steering = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.4
+suspension_travel = 0.15
+suspension_stiffness = 120.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FrontRight"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_3d5m8")
+
+[node name="BackLeft" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, -1)
+use_as_traction = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.1
+suspension_travel = 0.15
+suspension_stiffness = 80.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BackLeft"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.00483692, 0.00231433, 0.000223875)
+mesh = SubResource("CylinderMesh_3d5m8")
+
+[node name="BackRight" type="VehicleWheel3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.75, 0, -1)
+use_as_traction = true
+wheel_roll_influence = 0.01
+wheel_rest_length = 0.2
+wheel_friction_slip = 1.1
+suspension_travel = 0.15
+suspension_stiffness = 80.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BackRight"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0)
+mesh = SubResource("CylinderMesh_3d5m8")
+
+[node name="Wheels" type="Node3D" parent="."]
+
+[node name="Body" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_rf181")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_iplh1")
