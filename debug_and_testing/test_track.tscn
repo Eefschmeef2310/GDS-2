@@ -1,12 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=5 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="1_tw5a5"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
-size = Vector2(100, 100)
+size = Vector2(1000, 1000)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_mmjx8"]
-points = PackedVector3Array(-50, 0, -50, -50, 0, 50, 50, 0, -50, 50, 0, 50)
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
+points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
+
+[sub_resource type="Curve3D" id="Curve3D_qnr0h"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, -100.63, 0, -1, -150.996, 0, -72.1923, -26.09, 0, -16.88, -2.095, 0, -1.795, -187.888, 7.62939e-06, 82.1825, -53.085, 0, 10.94, 48.69, 0, -12.15, -77.685, 7.62939e-06, 120.245, -85.33, 0, 0, 8.125, 0, 0, 37.3482, 3.81469e-06, 151.326, -5.325, 0, 30.555, 0, 0, 0, 99.3773, 7.62939e-06, 115.981, -0.05, 0, 20.245, 1.135, 0, -40.16, 108.832, 7.62939e-06, 24.5949, 34.685, 0, 0, 0, 0, 0, 72.6295, 7.62939e-06, -72.1305, 0, 0, 0, 0, 0, 0, 5.47937, 7.62939e-06, -72.2992),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 8
 
 [node name="TestTrack" type="Node3D"]
 
@@ -17,10 +24,10 @@ mesh = SubResource("PlaneMesh_ndcnv")
 skeleton = NodePath("../..")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("ConvexPolygonShape3D_mmjx8")
+shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.255239, 0.593819, 2.74475)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 0.593819, 2.74475)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
@@ -28,3 +35,21 @@ transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 16, -14)
 current = true
+
+[node name="Track" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
+curve = SubResource("Curve3D_qnr0h")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
+polygon = PackedVector2Array(-20, 0, -20, 1, 20, 1, 20, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 0.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+smooth_faces = true

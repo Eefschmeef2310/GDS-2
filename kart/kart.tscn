@@ -1,7 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=10 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
+[ext_resource type="Script" path="res://kart/track_tracker.gd" id="3_6in2l"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_wqjpp"]
+top_radius = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_g7kqg"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjli0"]
 albedo_texture = ExtResource("2_6f66f")
@@ -29,6 +35,13 @@ camera = NodePath("CamPivot/Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="CamPivot"]
 transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 2, -4)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CamPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_wqjpp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CamPivot"]
+mesh = SubResource("SphereMesh_g7kqg")
 
 [node name="FrontLeft" type="VehicleWheel3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.75, 0, 1)
@@ -89,3 +102,6 @@ mesh = SubResource("BoxMesh_rf181")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_iplh1")
+
+[node name="TrackTracker" type="Node" parent="."]
+script = ExtResource("3_6in2l")
