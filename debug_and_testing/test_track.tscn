@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=7 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="1_tw5a5"]
 
@@ -15,6 +15,14 @@ _data = {
 }
 point_count = 8
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_6mdfc"]
+material = SubResource("StandardMaterial3D_hg2qt")
+radius = 5.0
+height = 10.0
+
 [node name="TestTrack" type="Node3D"]
 
 [node name="Floor" type="StaticBody3D" parent="."]
@@ -28,14 +36,17 @@ shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 6.79969, -73.9125)
-max_steer = 0.8
-engine_power = 300
+
+[node name="TrackTracker" parent="Kart" index="8" node_paths=PackedStringArray("track", "test_ball")]
+track = NodePath("../../Track")
+test_ball = NodePath("../../MeshInstance3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 16, -14)
+transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 16, -119)
+current = true
 
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
@@ -55,3 +66,8 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_6mdfc")
+
+[editable path="Kart"]

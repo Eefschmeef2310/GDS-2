@@ -24,13 +24,13 @@ extends VehicleBody3D
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var look_at
+var look
 
 #endregion
 
 #region Godot methods
 func _ready():
-	look_at = global_position
+	look = global_position
 
 func _physics_process(delta):
 	steering = move_toward(steering, Input.get_axis("Right", "Left") * max_steer, delta * 2.5)
@@ -38,8 +38,8 @@ func _physics_process(delta):
 	
 	camera_pivot.global_position = camera_pivot.global_position.lerp(global_position, delta * 20.0)
 	camera_pivot.transform = camera_pivot.transform.interpolate_with(transform, delta * 5.0)
-	look_at = look_at.lerp(global_position + linear_velocity, delta * 5.0)
-	#camera.look_at(look_at)
+	look = look.lerp(global_position + linear_velocity, delta * 5.0)
+	#camera.look(look)
 	
 #endregion
 

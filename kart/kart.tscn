@@ -113,8 +113,9 @@ mesh = SubResource("BoxMesh_rf181")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_iplh1")
 
-[node name="TrackTracker" type="Node" parent="."]
+[node name="TrackTracker" type="Node" parent="." node_paths=PackedStringArray("parent")]
 script = ExtResource("3_6in2l")
+parent = NodePath("..")
 
 [node name="DebugTrail" type="GPUParticles3D" parent="."]
 visible = false
