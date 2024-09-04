@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=13 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
@@ -22,6 +22,16 @@ size = Vector3(1, 0.5, 3)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_iplh1"]
 points = PackedVector3Array(0.5, 0.25, 1.5, 0.5, -0.25, 1.5, 0.5, 0.25, -1.5, -0.5, 0.25, 1.5, -0.5, -0.25, 1.5, 0.5, -0.25, -1.5, -0.5, 0.25, -1.5, -0.5, -0.25, -1.5)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ptko"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b741q"]
+albedo_color = Color(0, 0.0562351, 1, 1)
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_dcobt"]
+material = SubResource("StandardMaterial3D_b741q")
 
 [node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera")]
 gravity_scale = 4.0
@@ -105,3 +115,10 @@ shape = SubResource("ConvexPolygonShape3D_iplh1")
 
 [node name="TrackTracker" type="Node" parent="."]
 script = ExtResource("3_6in2l")
+
+[node name="DebugTrail" type="GPUParticles3D" parent="."]
+visible = false
+amount = 6000
+lifetime = 600.0
+process_material = SubResource("ParticleProcessMaterial_7ptko")
+draw_pass_1 = SubResource("QuadMesh_dcobt")

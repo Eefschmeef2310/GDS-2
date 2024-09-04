@@ -27,20 +27,22 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 0.593819, 2.74475)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 6.79969, -73.9125)
+max_steer = 0.8
+engine_power = 300
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 16, -14)
-current = true
 
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
 curve = SubResource("Curve3D_qnr0h")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
+use_collision = true
 polygon = PackedVector2Array(-20, 0, -20, 1, 20, 1, 20, 0)
 mode = 2
 path_node = NodePath("..")
