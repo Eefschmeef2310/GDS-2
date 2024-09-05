@@ -35,7 +35,7 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 6.79969, -73.9125)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 1.61147, -73.9125)
 
 [node name="TrackTracker" parent="Kart" index="8" node_paths=PackedStringArray("track", "test_ball")]
 track = NodePath("../../Track")
@@ -45,7 +45,7 @@ test_ball = NodePath("../../MeshInstance3D")
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 16, -119)
+transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 5, -88)
 current = true
 
 [node name="Track" type="Path3D" parent="."]
@@ -68,6 +68,7 @@ path_joined = true
 smooth_faces = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_6mdfc")
 
 [editable path="Kart"]

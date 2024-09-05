@@ -38,10 +38,13 @@ gravity_scale = 4.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0.5)
 script = ExtResource("1_bsaip")
+max_steer = 0.1
+engine_power = 200
 camera_pivot = NodePath("CamPivot")
 camera = NodePath("CamPivot/Camera3D")
 
 [node name="CamPivot" type="Node3D" parent="."]
+top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="CamPivot"]
 transform = Transform3D(-1, 0, 8.74228e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 2, -4)
