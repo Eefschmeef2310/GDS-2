@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=8 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="1_tw5a5"]
 
@@ -7,6 +7,51 @@ size = Vector2(1000, 1000)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
 points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
+
+[sub_resource type="GDScript" id="GDScript_r6rw7"]
+script/source = "extends Camera3D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	#Runs per frame
+	pass
+
+func _input(event):
+	if event.is_action_pressed(\"debug_cam\"):
+		current = !current
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
 
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
@@ -35,7 +80,7 @@ skeleton = NodePath("../..")
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.33467, 1.61147, -73.9125)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.33467, 1.61147, -73.9125)
 
 [node name="TrackTracker" parent="Kart" index="8" node_paths=PackedStringArray("track", "test_ball")]
 track = NodePath("../../Track")
@@ -45,8 +90,9 @@ test_ball = NodePath("../../MeshInstance3D")
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, 0, 5, -88)
+transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, -83, 30, -133)
 current = true
+script = SubResource("GDScript_r6rw7")
 
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
