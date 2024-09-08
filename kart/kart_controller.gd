@@ -4,6 +4,8 @@ class_name Kart
 
 #region Variables
 	#Signals
+@warning_ignore("unused_signal")
+signal hit_item_box(item : Resource)
 
 	#Enums
 
