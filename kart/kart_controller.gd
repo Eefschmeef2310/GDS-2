@@ -45,9 +45,9 @@ func _physics_process(delta):
 	camera_pivot.global_position = global_position
 	#camera_pivot.global_position = camera_pivot.global_position.lerp(global_position, delta * 20.0)
 	camera_pivot.transform = camera_pivot.transform.interpolate_with(transform, delta * 5.0)
-	look = look.lerp(global_position + linear_velocity, delta)
+	#look = look.lerp(global_position + linear_velocity, delta)
 	#look = global_position + linear_velocity
-	camera.look_at(look)
+	#camera.look_at(look)
 	
 #endregion
 
