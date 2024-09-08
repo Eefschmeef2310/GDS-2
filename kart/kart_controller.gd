@@ -1,5 +1,5 @@
 extends VehicleBody3D
-	#class_name
+class_name Kart
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -24,18 +24,13 @@ extends VehicleBody3D
 @export var camera_pivot : Node3D
 @export var camera : Camera3D
 
-
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var look
 
 #endregion
 
 #region Godot methods
-func _ready():
-	look = global_position
-
 func _physics_process(delta):
 	steering = move_toward(steering, Input.get_axis("Right", "Left") * max_steer, delta * 2.5)
 	engine_force = Input.get_axis("Down", "Up") * engine_power
@@ -43,11 +38,7 @@ func _physics_process(delta):
 	brake = brake_strength if (!Input.is_action_pressed("Up") and !Input.is_action_pressed("Down")) else 0.0
 	
 	camera_pivot.global_position = global_position
-	#camera_pivot.global_position = camera_pivot.global_position.lerp(global_position, delta * 20.0)
 	camera_pivot.transform = camera_pivot.transform.interpolate_with(transform, delta * 5.0)
-	#look = look.lerp(global_position + linear_velocity, delta)
-	#look = global_position + linear_velocity
-	#camera.look_at(look)
 	
 #endregion
 

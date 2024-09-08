@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=9 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="1_tw5a5"]
 
@@ -55,10 +55,51 @@ func _input(event):
 
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -100.63, 0, -1, -150.996, 0, -72.1923, -26.09, 0, -16.88, -2.095, 0, -1.795, -187.888, 7.62939e-06, 82.1825, -53.085, 0, 10.94, 48.69, 0, -12.15, -77.685, 7.62939e-06, 120.245, -85.33, 0, 0, 8.125, 0, 0, 37.3482, 3.81469e-06, 151.326, -5.325, 0, 30.555, 0, 0, 0, 99.3773, 7.62939e-06, 115.981, -0.05, 0, 20.245, 1.135, 0, -40.16, 108.832, 7.62939e-06, 24.5949, 34.685, 0, 0, 0, 0, 0, 72.6295, 7.62939e-06, -72.1305, 0, 0, 0, 0, 0, 0, 5.47937, 7.62939e-06, -72.2992),
+"points": PackedVector3Array(0, 0, 0, -124.035, 0, -0.33, -150.996, 0, -72.192, -26.09, 0, -16.88, -2.095, 0, -1.795, -187.888, 7.62939e-06, 82.1825, -53.085, 0, 10.94, 48.69, 0, -12.15, -77.685, 7.62939e-06, 120.245, -85.33, 0, 0, 8.125, 0, 0, 37.3482, 3.81469e-06, 151.326, -5.325, 0, 30.555, 0, 0, 0, 99.3773, 7.62939e-06, 115.981, -0.05, 0, 20.245, 1.135, 0, -40.16, 108.832, 7.62939e-06, 24.5949, 34.685, 0, 0, 0, 0, 0, 72.6295, 7.62939e-06, -72.1305, 0, 0, 0, 0, 0, 0, 5.47937, 7.62939e-06, -72.2992),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
+
+[sub_resource type="GDScript" id="GDScript_4w7ra"]
+script/source = "extends Path3D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	for point in range(curve.point_count):
+		add_child(Area3D.new())
+
+func _process(_delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
 albedo_color = Color(1, 0, 0, 1)
@@ -82,9 +123,9 @@ shape = SubResource("ConvexPolygonShape3D_bpd1i")
 [node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.33467, 1.61147, -73.9125)
 
-[node name="TrackTracker" parent="Kart" index="8" node_paths=PackedStringArray("track", "test_ball")]
-track = NodePath("../../Track")
-test_ball = NodePath("../../MeshInstance3D")
+[node name="TrackTracker" parent="Kart/Scripts" index="0" node_paths=PackedStringArray("track", "test_ball")]
+track = NodePath("../../../Track")
+test_ball = NodePath("../../../MeshInstance3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
@@ -96,6 +137,7 @@ script = SubResource("GDScript_r6rw7")
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
 curve = SubResource("Curve3D_qnr0h")
+script = SubResource("GDScript_4w7ra")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
 use_collision = true

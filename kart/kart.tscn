@@ -43,6 +43,14 @@ engine_power = 200
 camera_pivot = NodePath("CamPivot")
 camera = NodePath("CamPivot/Camera3D")
 
+[node name="Scripts" type="Node" parent="."]
+
+[node name="TrackTracker" type="Node" parent="Scripts" node_paths=PackedStringArray("parent")]
+script = ExtResource("3_6in2l")
+parent = NodePath("../..")
+
+[node name="DataContainer" type="Node" parent="Scripts"]
+
 [node name="CamPivot" type="Node3D" parent="."]
 top_level = true
 
@@ -115,10 +123,6 @@ mesh = SubResource("BoxMesh_rf181")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("ConvexPolygonShape3D_iplh1")
-
-[node name="TrackTracker" type="Node" parent="." node_paths=PackedStringArray("parent")]
-script = ExtResource("3_6in2l")
-parent = NodePath("..")
 
 [node name="DebugTrail" type="GPUParticles3D" parent="."]
 visible = false

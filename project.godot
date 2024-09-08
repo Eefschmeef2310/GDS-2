@@ -17,8 +17,11 @@ config/icon="res://icon.svg"
 [file_customization]
 
 folder_colors={
+"res://autoloads/": "pink",
 "res://debug_and_testing/": "red",
-"res://kart/": "green"
+"res://items/": "yellow",
+"res://kart/": "green",
+"res://player/": "blue"
 }
 
 [input]
