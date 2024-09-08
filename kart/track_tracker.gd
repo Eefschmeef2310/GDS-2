@@ -25,7 +25,8 @@ var closest_point_index : int = 0
 
 #region Godot methods
 func _process(_delta):
-	get_closest_point_index()
+	print(track.curve.get_closest_offset(owner.global_position))
+	#get_closest_point_index()
 #endregion
 
 #region Signal methods
