@@ -21,6 +21,7 @@ folder_colors={
 "res://debug_and_testing/": "red",
 "res://items/": "yellow",
 "res://kart/": "green",
+"res://managers/": "red",
 "res://player/": "blue"
 }
 
