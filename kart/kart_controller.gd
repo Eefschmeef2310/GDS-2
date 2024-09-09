@@ -28,6 +28,7 @@ signal hit_item_box(item : Resource)
 @export_group("Node References")
 @export var camera_pivot : Node3D
 @export var camera : Camera3D
+@export var player_ui : PlayerUI
 
 	#Onready Variables
 
@@ -40,6 +41,7 @@ func _ready():
 	# TODO: change this logic when we implement AI and shit
 	if !is_player:
 		camera.current = false
+		player_ui.hide()
 	pass
 
 

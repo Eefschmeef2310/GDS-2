@@ -15,6 +15,8 @@ var kart_placements : Dictionary
 var karts_sorted : Array[Kart]
 var course : Course
 
+var total_laps : int = 3
+
 
 @export var kart_scene : PackedScene
 
@@ -40,6 +42,9 @@ func _ready():
 			kart_placements[new_kart] = KartPlacement.new()
 			karts_sorted.append(new_kart)
 			course.add_child(new_kart)
+			
+			if new_kart.is_player:
+				new_kart.player_ui.ri = self
 
 
 func _physics_process(_delta):
@@ -59,10 +64,15 @@ func start_race():
 
 func update_kart_placements():
 	for kart in kart_placements.keys():
-		pass
+		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.position)
 	
 	karts_sorted.sort_custom(sort_karts_by_placement)
 	
+	var s = ""
+	for n in karts_sorted.size():
+		var kart = karts_sorted[n]
+		s += str(n+1) + ". " + kart.name + "(" + str(kart_placements[kart].track_offset) + ")" + "\n"
+	$CanvasLayer/DebugKartPlacements.text = s
 
 
 func sort_karts_by_placement(a, b):
@@ -76,7 +86,7 @@ func sort_karts_by_placement(a, b):
 	if kart_placements[a].laps != kart_placements[b].laps:
 		return kart_placements[a].laps > kart_placements[b].laps
 	
-	return kart_placements[a].track_offset <= kart_placements[b].track_offset
+	return kart_placements[a].track_offset > kart_placements[b].track_offset
 
 
 func _on_racer_checkpoint_passed(racer : Node3D, checkpoint : int):
