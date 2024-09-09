@@ -1,8 +1,10 @@
-[gd_scene load_steps=13 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=15 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
 [ext_resource type="Script" path="res://kart/track_tracker.gd" id="3_6in2l"]
+[ext_resource type="Script" path="res://player/player_data.gd" id="3_wkpv8"]
+[ext_resource type="Script" path="res://player/item_user.gd" id="4_prpj0"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wqjpp"]
 top_radius = 0.0
@@ -50,6 +52,13 @@ script = ExtResource("3_6in2l")
 parent = NodePath("../..")
 
 [node name="DataContainer" type="Node" parent="Scripts"]
+
+[node name="PlayerDataContainer" type="Node" parent="Scripts"]
+script = ExtResource("3_wkpv8")
+
+[node name="ItemUser" type="Node" parent="Scripts" node_paths=PackedStringArray("data")]
+script = ExtResource("4_prpj0")
+data = NodePath("../PlayerDataContainer")
 
 [node name="CamPivot" type="Node3D" parent="."]
 top_level = true
@@ -130,3 +139,5 @@ amount = 6000
 lifetime = 600.0
 process_material = SubResource("ParticleProcessMaterial_7ptko")
 draw_pass_1 = SubResource("QuadMesh_dcobt")
+
+[connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]

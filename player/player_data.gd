@@ -1,5 +1,5 @@
 extends Node
-	#class_name
+class_name PlayerData
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -12,18 +12,15 @@ extends Node
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var engines : Array[Item]
-@export var tires : Array[Item]
-@export var spoilers : Array[Item]
-@export var oils : Array[Item]
+@export var inventory : Dictionary = {
+	"hand" : null,
+	Item.Part.Engine : null,
+	Item.Part.Tire : null,
+	Item.Part.Spoiler : null,
+	Item.Part.Oil : null,
+}
 
 	#Onready Variables
-@onready var complete_dictionary : Dictionary = {
-	Item.Part.Engine : engines,
-	Item.Part.Tire : tires,
-	Item.Part.Spoiler : spoilers,
-	Item.Part.Oil : oils,
-}
 
 	#Other Variables (please try to separate and organise!)
 
@@ -40,10 +37,12 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-
+func _on_kart_hit_item_box(item: Resource) -> void:
+	if inventory["hand"] == null:
+		print("adding new item to hand!")
+		inventory["hand"] = item
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func get_random_item(part_type : Item.Part):
-	return complete_dictionary[part_type].pick_random()
+
 #endregion

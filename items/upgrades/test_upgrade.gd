@@ -1,4 +1,4 @@
-extends Node
+extends Upgrade
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -12,18 +12,8 @@ extends Node
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var engines : Array[Item]
-@export var tires : Array[Item]
-@export var spoilers : Array[Item]
-@export var oils : Array[Item]
 
 	#Onready Variables
-@onready var complete_dictionary : Dictionary = {
-	Item.Part.Engine : engines,
-	Item.Part.Tire : tires,
-	Item.Part.Spoiler : spoilers,
-	Item.Part.Oil : oils,
-}
 
 	#Other Variables (please try to separate and organise!)
 
@@ -44,6 +34,5 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func get_random_item(part_type : Item.Part):
-	return complete_dictionary[part_type].pick_random()
+
 #endregion

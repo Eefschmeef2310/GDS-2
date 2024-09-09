@@ -1,4 +1,4 @@
-extends Node
+extends Area3D
 	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -12,18 +12,9 @@ extends Node
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var engines : Array[Item]
-@export var tires : Array[Item]
-@export var spoilers : Array[Item]
-@export var oils : Array[Item]
+@export var part_type : Item.Part
 
 	#Onready Variables
-@onready var complete_dictionary : Dictionary = {
-	Item.Part.Engine : engines,
-	Item.Part.Tire : tires,
-	Item.Part.Spoiler : spoilers,
-	Item.Part.Oil : oils,
-}
 
 	#Other Variables (please try to separate and organise!)
 
@@ -31,7 +22,6 @@ extends Node
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
 	pass
 
 func _process(_delta):
@@ -40,10 +30,11 @@ func _process(_delta):
 #endregion
 
 #region Signal methods
-
+func _on_body_entered(body: Node3D) -> void:
+	if body is Kart:
+		body.hit_item_box.emit(ItemManager.get_random_item(part_type))
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func get_random_item(part_type : Item.Part):
-	return complete_dictionary[part_type].pick_random()
+
 #endregion
