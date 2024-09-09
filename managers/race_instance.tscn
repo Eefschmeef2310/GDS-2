@@ -1,6 +1,11 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=4 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://managers/race_instance.gd" id="1_0d5f1"]
+[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="2_cg5dc"]
+[ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="3_8vgv8"]
 
 [node name="RaceInstance" type="Node"]
 script = ExtResource("1_0d5f1")
+kart_scene = ExtResource("2_cg5dc")
+debug_start = true
+debug_start_course_scene = ExtResource("3_8vgv8")
