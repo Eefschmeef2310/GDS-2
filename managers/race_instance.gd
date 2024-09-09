@@ -21,15 +21,25 @@ var course : Course
 @export_group("Debug Start")
 @export var debug_start : bool = false
 @export var debug_start_course_scene : PackedScene
+@export var debug_start_number_of_racers : int = 8
 
 
 func _ready():
 	if debug_start:
 		course = debug_start_course_scene.instantiate()
 		add_child(course)
+		course.camera.current = false
 		
-		var new_kart = kart_scene.instantiate()
-		course.add_child(new_kart)
+		for n in debug_start_number_of_racers:
+			var new_kart : Kart = kart_scene.instantiate()
+			if n == 0:
+				new_kart.is_player = true
+			new_kart.position = course.kart_spawns.get_child(n).position
+			new_kart.rotation = course.kart_spawns.get_child(n).rotation
+			
+			kart_placements[new_kart] = KartPlacement.new()
+			karts_sorted.append(new_kart)
+			course.add_child(new_kart)
 
 
 func _physics_process(_delta):
