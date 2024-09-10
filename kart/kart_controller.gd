@@ -7,6 +7,8 @@ class_name Kart
 @warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
 
+signal checkpoint_passed(index : int)
+
 	#Enums
 
 	#Constants
@@ -64,3 +66,7 @@ func _physics_process(delta):
 #region Other methods (please try to separate and organise!)
 
 #endregion
+
+
+func _on_collision_detector_area_entered(area: Area3D) -> void:
+	pass # Replace with function body.
