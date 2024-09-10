@@ -1,16 +1,17 @@
 extends CanvasLayer
 class_name PlayerUI
 
-@export var hand : GridContainer
+@export var hand : Control
+@export var slots : Control
 @export var data : PlayerData
 
 var ri : RaceInstance
 var kart : Kart
 
 func _ready():
+	_on_player_data_container_hand_updated()
 	if owner is Kart:
 		kart = owner
-
 
 func _physics_process(_delta):
 	if ri:
@@ -23,3 +24,5 @@ func _on_player_data_container_hand_updated() -> void:
 	hand.visible = data.inventory["hand"] != null
 	if hand.visible:
 		hand.update(data)
+		
+	slots.update(data)

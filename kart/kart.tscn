@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=20 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://player/player_data.gd" id="3_wkpv8"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="4_prpj0"]
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="6_gtixf"]
+[ext_resource type="Script" path="res://player/slots_ui.gd" id="7_rsmvj"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="7_ytdyb"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wqjpp"]
@@ -177,13 +178,14 @@ lifetime = 600.0
 process_material = SubResource("ParticleProcessMaterial_7ptko")
 draw_pass_1 = SubResource("QuadMesh_dcobt")
 
-[node name="PlayerUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("hand", "data")]
+[node name="PlayerUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("hand", "slots", "data")]
 layer = 0
 script = ExtResource("6_gtixf")
 hand = NodePath("Hand")
+slots = NodePath("MarginContainer")
 data = NodePath("../Scripts/PlayerDataContainer")
 
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI"]
+[node name="MarginContainer" type="MarginContainer" parent="PlayerUI" node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -192,6 +194,11 @@ offset_bottom = 93.0
 grow_horizontal = 0
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
+script = ExtResource("7_rsmvj")
+engine = NodePath("VBoxContainer/Slots/Engine/Label")
+tire = NodePath("VBoxContainer/Slots/Tire/Label2")
+spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
+oil = NodePath("VBoxContainer/Slots/Oil/Label4")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/MarginContainer"]
 layout_mode = 2
@@ -217,7 +224,6 @@ offset_top = 40.0
 offset_right = 40.0
 offset_bottom = 62.0
 rotation = 4.71239
-text = "Equipped"
 label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -227,15 +233,45 @@ layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 0.968331, 0, 1)
 
+[node name="Label2" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Tire"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Spoiler" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 1, 0.0199184, 1)
 
+[node name="Label3" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Spoiler"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Oil" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0.0316691, 1, 1)
+
+[node name="Label4" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Oil"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Control" type="Control" parent="PlayerUI/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 100)
@@ -256,7 +292,7 @@ polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2
 vertex_colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 script = SubResource("GDScript_fbgso")
 
-[node name="Hand" type="GridContainer" parent="PlayerUI" node_paths=PackedStringArray("current_slot_desc", "current_slot_name")]
+[node name="Hand" type="GridContainer" parent="PlayerUI" node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -266,8 +302,10 @@ offset_bottom = 163.0
 grow_horizontal = 2
 columns = 5
 script = ExtResource("7_ytdyb")
-current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/Label")
+current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
 current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
+stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
+item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
 
 [node name="Panel" type="Panel" parent="PlayerUI/Hand"]
 custom_minimum_size = Vector2(130, 0)
@@ -319,10 +357,24 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item"]
+[node name="HandItemName" type="Label" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stat" type="Label" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item"]
 layout_mode = 2
-text = "^ Speed
-V Acceleration"
+text = "^ Stat 1
+V Stat 2"
 
 [node name="Label2" type="Label" parent="PlayerUI/Hand"]
 layout_mode = 2
@@ -365,7 +417,7 @@ text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label" type="Label" parent="PlayerUI/Hand/Current Slot/MarginContainer/Old Item"]
+[node name="CurrentItemStats" type="Label" parent="PlayerUI/Hand/Current Slot/MarginContainer/Old Item"]
 visible = false
 layout_mode = 2
 text = "^ Speed

@@ -1,5 +1,5 @@
-extends Node
-class_name Upgrade
+extends MarginContainer
+	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -12,22 +12,19 @@ class_name Upgrade
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@export var part : Item.Part
+@export_group("Slots")
+@export var engine : Label
+@export var tire : Label
+@export var spoiler : Label
+@export var oil : Label
 
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-var item_name : String
-var up_stat : String
-var down_stat : String
 
 #endregion
 
 #region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
 func _process(_delta):
 	#Runs per frame
 	pass
@@ -38,8 +35,9 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-func init(item : Item):
-	item_name = item.item_name
-	up_stat = item.up_stat
-	down_stat = item.down_stat
+func update(data : PlayerData):
+	engine.text = "Equipped" if data.inventory[Item.Part.Engine] else ""
+	tire.text = "Equipped" if data.inventory[Item.Part.Tire] else ""
+	spoiler.text = "Equipped" if data.inventory[Item.Part.Spoiler] else ""
+	oil.text = "Equipped" if data.inventory[Item.Part.Oil] else ""
 #endregion

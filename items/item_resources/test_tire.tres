@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://deohn7t4rmd11"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8gcy2"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="1_io0pp"]
+[ext_resource type="PackedScene" uid="uid://dllkjyert7hia" path="res://items/upgrades/test_upgrade.tscn" id="3_6287h"]
+
+[resource]
+script = ExtResource("1_io0pp")
+upgrade = ExtResource("3_6287h")
+hazard = ExtResource("1_8gcy2")
+type = 1
+item_name = "Test Tires"
+up_stat = &"Handling"
+down_stat = &"Acceleration"

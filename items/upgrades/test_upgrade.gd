@@ -25,10 +25,6 @@ func _ready():
 	# eg: stat changes, enabling feature, ect
 	# TODO: should we use this or create equip() and remove() functions that are run by the kart instead?
 	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
 	
 func _exit_tree() -> void:
 	# the code here is run when the mod is removed from the kart

@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://yu8du71ih055"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8epot"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="1_gaekx"]
+[ext_resource type="PackedScene" uid="uid://dllkjyert7hia" path="res://items/upgrades/test_upgrade.tscn" id="3_ih0hu"]
+
+[resource]
+script = ExtResource("1_gaekx")
+upgrade = ExtResource("3_ih0hu")
+hazard = ExtResource("1_8epot")
+type = 3
+item_name = "Test Oil"
+up_stat = &"Acceleration"
+down_stat = &"Traction"

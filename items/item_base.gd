@@ -9,3 +9,5 @@ enum Part {Engine, Tire, Spoiler, Oil}
 @export var type : Part
 
 @export var item_name : String
+@export var up_stat : StringName
+@export var down_stat : StringName
