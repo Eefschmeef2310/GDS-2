@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=20 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
@@ -295,29 +295,6 @@ rn :(        )"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Checkpoints" type="Label" parent="PlayerUI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -39.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-horizontal_alignment = 2
-
-[node name="CheckpointDetector" type="Area3D" parent="."]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CheckpointDetector"]
-shape = SubResource("BoxShape3D_thdqr")
-
-[connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
-[connection signal="area_entered" from="CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
 [node name="Label" type="Label" parent="PlayerUI/Hand"]
 layout_mode = 2
 text = "L
@@ -397,6 +374,28 @@ layout_mode = 2
 text = "^ Speed
 V Acceleration"
 
+[node name="Checkpoints" type="Label" parent="PlayerUI"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -39.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="CheckpointDetector" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CheckpointDetector"]
+shape = SubResource("BoxShape3D_thdqr")
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="area_entered" from="CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]

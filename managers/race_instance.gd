@@ -26,13 +26,14 @@ var total_laps : int = 3
 @export var debug_start : bool = false
 @export var debug_start_course_scene : PackedScene
 @export var debug_start_number_of_racers : int = 8
+var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Shiver", "Frye", "Big Man"]
 
 
 func _ready():
 	if debug_start:
 		course = debug_start_course_scene.instantiate()
 		add_child(course)
-		course.camera.current = false
+		#course.camera.current = false
 		var check_count = course.track.curve.point_count - 1
 		
 		for n in debug_start_number_of_racers:
@@ -51,6 +52,10 @@ func _ready():
 			
 			if new_kart.is_player:
 				new_kart.player_ui.ri = self
+				new_kart.name = "You"
+			else:
+				new_kart.name = debug_names[0]
+				debug_names.remove_at(0)
 
 
 func _physics_process(_delta):
@@ -77,7 +82,7 @@ func update_kart_placements():
 	var s = ""
 	for n in karts_sorted.size():
 		var kart = karts_sorted[n]
-		s += str(n+1) + ". " + kart.name + "(" + str(kart_placements[kart].track_offset) + ")" + "\n"
+		s += str(n+1) + ". " + kart.name + "\n"
 	$CanvasLayer/DebugKartPlacements.text = s
 
 
