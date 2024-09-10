@@ -19,6 +19,7 @@ var course : Course
 
 var total_laps : int = 3
 
+var race_timer : float
 
 @export var kart_scene : PackedScene
 
@@ -61,6 +62,22 @@ func _ready():
 func _physics_process(_delta):
 	update_kart_placements()
 
+func _process(delta):
+	if !$DebugWin.visible:
+		race_timer += delta
+	
+	var minutes
+	var seconds
+	var milliseconds
+	var time_string
+	minutes = race_timer / 60
+	seconds = fmod(race_timer, 60)
+	milliseconds = fmod(race_timer, 1) * 100
+	time_string = "%02d:%02d:%02d" % [minutes, seconds, milliseconds]
+	$CanvasLayer/Timer.text = time_string
+	
+	if Input.is_action_just_pressed("debug_reset"):
+		get_tree().reload_current_scene()
 
 func start_race():
 	# spawn karts
