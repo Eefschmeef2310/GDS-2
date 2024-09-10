@@ -18,7 +18,10 @@ class_name PlayerData
 	Item.Part.Tire : null,
 	Item.Part.Spoiler : null,
 	Item.Part.Oil : null,
-}
+} :
+	set(value):
+		
+		print(inventory["hand"])
 
 	#Onready Variables
 
@@ -28,8 +31,7 @@ class_name PlayerData
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
+	inventory["hand"] = "bingus"
 
 func _process(_delta):
 	#Runs per frame

@@ -131,6 +131,11 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.334
 track = NodePath("../../../Track")
 test_ball = NodePath("../../../MeshInstance3D")
 
+[node name="Polygon2D" parent="Kart/PlayerUI/MarginContainer/VBoxContainer/Control" index="0"]
+polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
+n = null
+radius = null
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
