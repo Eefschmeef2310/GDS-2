@@ -1,0 +1,69 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1lfpnadj0jq0"]
+
+[sub_resource type="GDScript" id="GDScript_6gmne"]
+resource_name = "explosion_hazard"
+script/source = "extends Hazard
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	print(\"explosion created\")
+	if caster:
+		print(\"has owner\")
+		global_position = caster.global_position
+		global_position.y += 5
+
+func _process(delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_mgy6n"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tbogy"]
+radius = 0.589335
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gpvsa"]
+radius = 3.59452
+
+[node name="ExplosionHazard" type="RigidBody3D"]
+script = SubResource("GDScript_6gmne")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_mgy6n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_tbogy")
+
+[node name="HitBox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+shape = SubResource("SphereShape3D_gpvsa")

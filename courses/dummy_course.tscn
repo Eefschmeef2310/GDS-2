@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://db0xaaj1kg4bb"]
+[gd_scene load_steps=12 format=3 uid="uid://db0xaaj1kg4bb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_cnisg"]
 [ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="2_xp8vo"]
+[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="3_vajtr"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
@@ -194,3 +195,7 @@ gizmo_extents = 5.0
 [node name="Marker3D8" type="Marker3D" parent="KartSpawns"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -123.92, 1.9126, -85.5864)
 gizmo_extents = 5.0
+
+[node name="Kart" parent="." instance=ExtResource("3_vajtr")]
+transform = Transform3D(0.149276, 0, -0.988796, 0, 1, 0, 0.988796, 0, 0.149276, -134.942, 1, -64.2412)
+is_player = true
