@@ -21,11 +21,17 @@ extends Upgrade
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
+	# the code here is run when the mod gets addd to the kart
+	# eg: stat changes, enabling feature, ect
+	# TODO: should we use this or create equip() and remove() functions that are run by the kart instead?
 	pass
 
 func _process(_delta):
 	#Runs per frame
+	pass
+	
+func _exit_tree() -> void:
+	# the code here is run when the mod is removed from the kart
 	pass
 #endregion
 

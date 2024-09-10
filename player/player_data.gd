@@ -4,6 +4,7 @@ class_name PlayerData
 
 #region Variables
 	#Signals
+signal hand_updated()
 
 	#Enums
 
@@ -28,7 +29,6 @@ class_name PlayerData
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
 	pass
 
 func _process(_delta):
@@ -39,8 +39,8 @@ func _process(_delta):
 #region Signal methods
 func _on_kart_hit_item_box(item: Resource) -> void:
 	if inventory["hand"] == null:
-		print("adding new item to hand!")
 		inventory["hand"] = item
+	hand_updated.emit()
 #endregion
 
 #region Other methods (please try to separate and organise!)

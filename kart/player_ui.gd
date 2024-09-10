@@ -1,6 +1,9 @@
 extends CanvasLayer
 class_name PlayerUI
 
+@export var hand : GridContainer
+@export var data : PlayerData
+
 var ri : RaceInstance
 var kart : Kart
 
@@ -12,6 +15,16 @@ func _ready():
 func _physics_process(_delta):
 	if ri:
 		var s = ""
-		s += "Lap " + str(ri.kart_placements[kart].laps) + "/" + str(min(0, ri.total_laps))
+		s += "Lap " + str(ri.kart_placements[kart].laps) + "/" + str(ri.total_laps)
 		s += "\nPlace " + str(ri.karts_sorted.find(kart)+1) + "/" + str(ri.karts_sorted.size())
-		$PlacementLabel.text = s
+		$MarginContainer/VBoxContainer/PlacementLabel.text = s
+		
+		var c = "Last checkpoint: " + str(ri.kart_placements[kart].last_checkpoint) + "\nCheckpoints: "
+		for check in ri.kart_placements[kart].checkpoints_crossed:
+			c += str(check) + ", "
+		$Checkpoints.text = c
+
+func _on_player_data_container_hand_updated() -> void:
+	hand.visible = data.inventory["hand"] != null
+	if hand.visible:
+		hand.update(data)
