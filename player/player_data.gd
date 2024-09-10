@@ -28,8 +28,7 @@ class_name PlayerData
 
 #region Godot methods
 func _ready():
-	#Runs when all children have entered the tree
-	pass
+	inventory["hand"].on_changed.connect
 
 func _process(_delta):
 	#Runs per frame
