@@ -28,7 +28,8 @@ class_name PlayerData
 
 #region Godot methods
 func _ready():
-	inventory["hand"].on_changed.connect
+	pass
+	#inventory["hand"].on_changed.connect
 
 func _process(_delta):
 	#Runs per frame

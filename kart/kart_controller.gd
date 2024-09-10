@@ -6,8 +6,7 @@ class_name Kart
 	#Signals
 @warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
-
-signal checkpoint_passed(index : int)
+signal checkpoint_passed(kart : Kart, index : int)
 
 	#Enums
 
@@ -56,17 +55,16 @@ func _physics_process(delta):
 		
 		camera_pivot.global_position = global_position
 		camera_pivot.transform = camera_pivot.transform.interpolate_with(transform, delta * 5.0)
-	
+		
 #endregion
 
 #region Signal methods
 
+func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
+	checkpoint_passed.emit(self, area.get_index())
+	
 #endregion
 
 #region Other methods (please try to separate and organise!)
 
 #endregion
-
-
-func _on_collision_detector_area_entered(area: Area3D) -> void:
-	pass # Replace with function body.
