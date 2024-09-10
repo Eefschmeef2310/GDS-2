@@ -1,3 +1,6 @@
-[gd_scene format=3 uid="uid://wq50p40geyro"]
+[gd_scene load_steps=2 format=3 uid="uid://wq50p40geyro"]
+
+[ext_resource type="Script" path="res://items/hazards/hazard_base.gd" id="1_fjfno"]
 
 [node name="TestHazard" type="Node3D"]
+script = ExtResource("1_fjfno")

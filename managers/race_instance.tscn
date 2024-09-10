@@ -1,8 +1,16 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=5 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://managers/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="2_cg5dc"]
 [ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="3_8vgv8"]
+
+[sub_resource type="GDScript" id="GDScript_2eq0k"]
+script/source = "extends Button
+
+
+func _on_pressed() -> void:
+	get_tree().reload_current_scene()
+"
 
 [node name="RaceInstance" type="Node"]
 script = ExtResource("1_0d5f1")
@@ -13,7 +21,6 @@ debug_start_course_scene = ExtResource("3_8vgv8")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DebugKartPlacements" type="Label" parent="CanvasLayer"]
-visible = false
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 67.0
@@ -26,3 +33,44 @@ text = "1. Kart
 6. Kart
 7. Kart
 8. Kart"
+
+[node name="DebugWin" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="DebugWin"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="DebugWin"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -305.0
+offset_top = -68.0
+offset_right = 305.0
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="DebugWin/VBoxContainer"]
+layout_mode = 2
+text = "You have completed three laps of the Grand Anarchy Bowl and proven yourself
+as the coolest and most badass racer in all of the Outlands.
+
+Now go, dear racer, and tell us how buggy our game is
+
+"
+horizontal_alignment = 1
+
+[node name="ResetButton" type="Button" parent="DebugWin/VBoxContainer"]
+layout_mode = 2
+text = "Reset"
+script = SubResource("GDScript_2eq0k")
+
+[connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]

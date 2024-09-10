@@ -35,7 +35,9 @@ func _input(event: InputEvent) -> void:
 	
 	if event.is_action_released("throw"):
 		if data and data.inventory["hand"]:
-			get_owner().add_sibling(data.inventory["hand"].hazard.instantiate())
+			var hazard: Hazard = data.inventory["hand"].hazard.instantiate()
+			hazard.caster = owner
+			get_owner().add_sibling(hazard)
 			data.inventory["hand"] = null
 			item_used.emit()
 #endregion

@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://b1lfpnadj0jq0"]
+
+[sub_resource type="GDScript" id="GDScript_6gmne"]
+resource_name = "explosion_hazard"
+script/source = "extends Hazard
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+@export var projectile_strength: float = 50
+#endregion
+
+#region Godot methods
+func _ready():
+	super._ready()
+	if caster:
+		global_position = caster.global_position
+		global_position.y += 2
+		rotation = caster.rotation
+		$\".\".apply_impulse(Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))*projectile_strength)
+
+func _on_timer_timeout() -> void:
+	queue_free()
+
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	queue_free()
+"
+
+[sub_resource type="SphereMesh" id="SphereMesh_mgy6n"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_tbogy"]
+radius = 0.589335
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gpvsa"]
+radius = 1.2787
+
+[node name="GreenShell" type="RigidBody3D"]
+collision_layer = 0
+script = SubResource("GDScript_6gmne")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_mgy6n")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_tbogy")
+
+[node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 4
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
+shape = SubResource("SphereShape3D_gpvsa")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
