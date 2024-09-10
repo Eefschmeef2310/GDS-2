@@ -1,3 +1,4 @@
+@tool
 extends Node3D
 
 @export_flags_3d_physics var checkpoint_collision_layer : int
@@ -5,8 +6,9 @@ extends Node3D
 
 
 func _ready():
-	get_parent().curve_changed.connect(create_checkpoints)
+	#get_parent().curve_changed.connect(create_checkpoints)
 	create_checkpoints()
+	pass
 
 
 func create_checkpoints():
@@ -32,8 +34,9 @@ func create_checkpoints():
 			new_shape.shape = BoxShape3D.new()
 			new_shape.shape.size = Vector3(5, 100, 50)
 			
-			#var point = track.curve.get_point_position(i)
-			#var point2 = point + track.curve.get_point_out(i)
-			#var dir = (point2 - point).normalized()
-			#
+			var point = track.curve.get_point_position(i)
+			var point2 = point + track.curve.get_point_out(i)
+			var dir = (point2 - point).normalized()
 			#print(dir)
+			#print(str(point) + ", " + str(point2))
+			new_area.rotation_degrees = Vector3(0, rad_to_deg(atan2(dir.z, -dir.x)), 0)
