@@ -30,7 +30,7 @@ func _ready():
 	if debug_start:
 		course = debug_start_course_scene.instantiate()
 		add_child(course)
-		course.camera.current = false
+		#course.camera.current = false
 		
 		for n in debug_start_number_of_racers:
 			var new_kart : Kart = kart_scene.instantiate()
