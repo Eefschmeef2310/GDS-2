@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=16 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
 [ext_resource type="Script" path="res://kart/track_tracker.gd" id="3_6in2l"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="3_wkpv8"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="4_prpj0"]
+[ext_resource type="Script" path="res://kart/player_ui.gd" id="6_gtixf"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wqjpp"]
 top_radius = 0.0
@@ -35,7 +36,7 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_dcobt"]
 material = SubResource("StandardMaterial3D_b741q")
 
-[node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera")]
+[node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera", "player_ui")]
 gravity_scale = 4.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0.5)
@@ -44,6 +45,7 @@ max_steer = 0.2
 engine_power = 200
 camera_pivot = NodePath("CamPivot")
 camera = NodePath("CamPivot/Camera3D")
+player_ui = NodePath("PlayerUI")
 
 [node name="Scripts" type="Node" parent="."]
 
@@ -139,5 +141,22 @@ amount = 6000
 lifetime = 600.0
 process_material = SubResource("ParticleProcessMaterial_7ptko")
 draw_pass_1 = SubResource("QuadMesh_dcobt")
+
+[node name="PlayerUI" type="CanvasLayer" parent="."]
+layer = 0
+script = ExtResource("6_gtixf")
+
+[node name="PlacementLabel" type="Label" parent="PlayerUI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 39.0
+grow_horizontal = 0
+text = "Lap 0/3
+Place 1/8"
+horizontal_alignment = 2
 
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]

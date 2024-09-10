@@ -1,11 +1,13 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=11 format=3 uid="uid://db0xaaj1kg4bb"]
 
-[ext_resource type="Script" path="res://courses/course.gd" id="1_5vntc"]
-[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="1_tw5a5"]
-[ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="3_prpub"]
+[ext_resource type="Script" path="res://courses/course.gd" id="1_cnisg"]
+[ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="2_xp8vo"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ruin"]
+albedo_color = Color(5.2643e-08, 0.0707441, 0.0240148, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
 points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
@@ -57,7 +59,7 @@ func _input(event):
 
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, -124.035, 0, -0.33, -150.996, 0, -72.192, -26.09, 0, -16.88, -2.095, 0, -1.795, -187.888, 7.62939e-06, 82.1825, -53.085, 0, 10.94, 48.69, 0, -12.15, -77.685, 7.62939e-06, 120.245, -85.33, 0, 0, 8.125, 0, 0, 37.3482, 3.81469e-06, 151.326, -5.325, 0, 30.555, 0, 0, 0, 99.3773, 7.62939e-06, 115.981, -0.05, 0, 20.245, 1.135, 0, -40.16, 108.832, 7.62939e-06, 24.5949, 34.685, 0, 0, 0, 0, 0, 72.6295, 7.62939e-06, -72.1305, 0, 0, 0, 0, 0, 0, 5.47937, 7.62939e-06, -72.2992),
+"points": PackedVector3Array(149.664, 1.90735e-05, 7.16746, -149.664, -1.90735e-05, -7.16746, -150.996, 0, -72.192, -72.0909, 0, -14.4182, 72.0909, 0, 14.4182, -176.611, -1.90735e-05, 107.806, -58.6029, 0, -0.465099, 58.6029, 0, 0.465099, -64.9861, -1.90735e-05, 34.7846, -60.9346, 0, 22.0662, 60.9346, 0, -22.0662, 49.4291, -1.90735e-05, 147.805, -1.86038, 0, 62.7888, 1.86038, 0, -62.7888, 38.2995, -1.90735e-05, 0.540929, 10.6974, 0, 46.9754, -10.6974, 0, -46.9754, 81.554, -1.90735e-05, -86.4332, 21.3947, 0, -45.1149, -21.3947, 0, 45.1149, -63.0928, -1.90735e-05, -116.2, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -111,25 +113,21 @@ material = SubResource("StandardMaterial3D_hg2qt")
 radius = 5.0
 height = 10.0
 
-[node name="TestTrack" type="Node3D" node_paths=PackedStringArray("track")]
-script = ExtResource("1_5vntc")
+[node name="DummyCourse" type="Node3D" node_paths=PackedStringArray("track", "kart_spawns", "camera")]
+script = ExtResource("1_cnisg")
 track = NodePath("Track")
+kart_spawns = NodePath("KartSpawns")
+camera = NodePath("Camera3D")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_ndcnv")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_3ruin")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
-
-[node name="Kart" parent="." instance=ExtResource("1_tw5a5")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -7.33467, 1.61147, -73.9125)
-
-[node name="TrackTracker" parent="Kart/Scripts" index="0" node_paths=PackedStringArray("track", "test_ball")]
-track = NodePath("../../../Track")
-test_ball = NodePath("../../../MeshInstance3D")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
@@ -139,7 +137,6 @@ transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5
 script = SubResource("GDScript_r6rw7")
 
 [node name="Track" type="Path3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
 curve = SubResource("Curve3D_qnr0h")
 script = SubResource("GDScript_4w7ra")
 
@@ -150,7 +147,7 @@ mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
 path_interval = 1.0
-path_simplify_angle = 6.0
+path_simplify_angle = 0.0
 path_rotation = 2
 path_local = false
 path_continuous_u = true
@@ -161,7 +158,39 @@ smooth_faces = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("SphereMesh_6mdfc")
 
-[node name="Area3D" parent="." instance=ExtResource("3_prpub")]
+[node name="Area3D" parent="." instance=ExtResource("2_xp8vo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9489, 2.14201, -74.6363)
 
-[editable path="Kart"]
+[node name="KartSpawns" type="Node3D" parent="."]
+
+[node name="Marker3D" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -144.406, 1.9126, -58.7205)
+gizmo_extents = 5.0
+
+[node name="Marker3D2" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -141.474, 1.9126, -68.0541)
+gizmo_extents = 5.0
+
+[node name="Marker3D3" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -139.122, 1.9126, -76.765)
+gizmo_extents = 5.0
+
+[node name="Marker3D4" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -136.023, 1.9126, -85.5864)
+gizmo_extents = 5.0
+
+[node name="Marker3D5" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -132.303, 1.9126, -58.7205)
+gizmo_extents = 5.0
+
+[node name="Marker3D6" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -129.371, 1.9126, -68.0541)
+gizmo_extents = 5.0
+
+[node name="Marker3D7" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -127.018, 1.9126, -76.765)
+gizmo_extents = 5.0
+
+[node name="Marker3D8" type="Marker3D" parent="KartSpawns"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -123.92, 1.9126, -85.5864)
+gizmo_extents = 5.0
