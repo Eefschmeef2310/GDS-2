@@ -33,7 +33,7 @@ signal hit_item_box(item : Resource)
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
-
+var is_stunned: bool = false
 #endregion
 
 #region Godot methods
@@ -47,10 +47,11 @@ func _ready():
 
 func _physics_process(delta):
 	if is_player:
-		steering = move_toward(steering, Input.get_axis("Right", "Left") * max_steer, delta * 2.5)
-		engine_force = Input.get_axis("Down", "Up") * engine_power
-		
-		brake = brake_strength if (!Input.is_action_pressed("Up") and !Input.is_action_pressed("Down")) else 0.0
+		if !is_stunned:
+			steering = move_toward(steering, Input.get_axis("Right", "Left") * max_steer, delta * 2.5)
+			engine_force = Input.get_axis("Down", "Up") * engine_power
+			
+			brake = brake_strength if (!Input.is_action_pressed("Up") and !Input.is_action_pressed("Down")) else 0.0
 		
 		camera_pivot.global_position = global_position
 		camera_pivot.transform = camera_pivot.transform.interpolate_with(transform, delta * 5.0)
@@ -63,4 +64,12 @@ func _physics_process(delta):
 
 #region Other methods (please try to separate and organise!)
 
+#Hazard should contain the values for stun duration
+func hurt(hazard: Node3D):
+	steering = 0
+	engine_force = 0
+	brake = 5
+	is_stunned = true
+	await get_tree().create_timer(1).timeout
+	is_stunned = false
 #endregion

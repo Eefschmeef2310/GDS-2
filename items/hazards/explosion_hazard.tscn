@@ -7,43 +7,26 @@ script/source = "extends Hazard
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
+@export var projectile_strength: float = 50
 #endregion
 
 #region Godot methods
 func _ready():
 	super._ready()
-	print(\"explosion created\")
 	if caster:
-		print(\"has owner\")
 		global_position = caster.global_position
-		global_position.y += 5
+		global_position.y += 2
+		rotation = caster.rotation
+		$\".\".apply_impulse(Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))*projectile_strength)
 
-func _process(delta):
-	#Runs per frame
-	pass
-#endregion
+func _on_kart_collider_body_entered(body: Node3D) -> void:
+	#if body is Kart && caster && body != caster: Will be changed back once we have more players
+	if body is Kart:
+		body.hurt(self)
+		queue_free()
 
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
+func _on_timer_timeout() -> void:
+	queue_free()
 "
 
 [sub_resource type="SphereMesh" id="SphereMesh_mgy6n"]
@@ -52,7 +35,7 @@ func _process(delta):
 radius = 0.589335
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gpvsa"]
-radius = 3.59452
+radius = 1.2787
 
 [node name="ExplosionHazard" type="RigidBody3D"]
 script = SubResource("GDScript_6gmne")
@@ -63,7 +46,15 @@ mesh = SubResource("SphereMesh_mgy6n")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_tbogy")
 
-[node name="HitBox" type="Area3D" parent="."]
+[node name="Hitbox" type="Area3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="HitBox"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("SphereShape3D_gpvsa")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_kart_collider_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
