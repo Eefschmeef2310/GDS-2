@@ -13,6 +13,7 @@ debug_start_course_scene = ExtResource("3_8vgv8")
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="DebugKartPlacements" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 67.0
