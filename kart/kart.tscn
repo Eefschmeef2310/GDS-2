@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=17 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
@@ -36,7 +36,12 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_dcobt"]
 material = SubResource("StandardMaterial3D_b741q")
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x880c"]
+radius = 0.593671
+height = 3.85047
+
 [node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera", "player_ui")]
+collision_layer = 5
 gravity_scale = 4.0
 center_of_mass_mode = 1
 center_of_mass = Vector3(0, -0.1, 0.5)
@@ -159,4 +164,14 @@ text = "Lap 0/3
 Place 1/8"
 horizontal_alignment = 2
 
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_layer = 4
+collision_mask = 8
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+shape = SubResource("CapsuleShape3D_x880c")
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
+[connection signal="area_entered" from="Hurtbox" to="." method="hurt"]
+[connection signal="body_entered" from="Hurtbox" to="." method="hurt"]

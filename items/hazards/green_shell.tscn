@@ -19,13 +19,10 @@ func _ready():
 		rotation = caster.rotation
 		$\".\".apply_impulse(Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))*projectile_strength)
 
-func _on_kart_collider_body_entered(body: Node3D) -> void:
-	#if body is Kart && caster && body != caster: Will be changed back once we have more players
-	if body is Kart:
-		body.hurt(self)
-		queue_free()
-
 func _on_timer_timeout() -> void:
+	queue_free()
+
+func _on_hitbox_body_entered(body: Node3D) -> void:
 	queue_free()
 "
 
@@ -37,7 +34,8 @@ radius = 0.589335
 [sub_resource type="SphereShape3D" id="SphereShape3D_gpvsa"]
 radius = 1.2787
 
-[node name="ExplosionHazard" type="RigidBody3D"]
+[node name="GreenShell" type="RigidBody3D"]
+collision_layer = 0
 script = SubResource("GDScript_6gmne")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -47,6 +45,8 @@ mesh = SubResource("SphereMesh_mgy6n")
 shape = SubResource("SphereShape3D_tbogy")
 
 [node name="Hitbox" type="Area3D" parent="."]
+collision_layer = 8
+collision_mask = 4
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("SphereShape3D_gpvsa")
@@ -56,5 +56,5 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_kart_collider_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

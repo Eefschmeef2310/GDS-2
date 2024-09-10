@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dfw6dgrhodsqs"]
 
-[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/explosion_hazard.tscn" id="1_lreq6"]
+[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/green_shell.tscn" id="1_lreq6"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_pngig"]
 [ext_resource type="PackedScene" uid="uid://dllkjyert7hia" path="res://items/upgrades/test_upgrade.tscn" id="1_rnoqg"]
 

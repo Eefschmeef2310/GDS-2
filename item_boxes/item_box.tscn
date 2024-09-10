@@ -16,6 +16,7 @@ points = PackedVector3Array(0.457871, 0.198079, 0.0157824, -0.48874, -0.0916874,
 
 [node name="Area3D" type="Area3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -114.099, 2.14201, -74.6363)
+collision_mask = 4
 script = ExtResource("1_tqoeq")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]

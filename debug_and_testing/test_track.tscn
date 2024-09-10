@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=11 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_5vntc"]
+[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="3_mrl71"]
 [ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="3_prpub"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
@@ -155,3 +156,7 @@ mesh = SubResource("SphereMesh_6mdfc")
 
 [node name="Area3D" parent="." instance=ExtResource("3_prpub")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9489, 2.14201, -74.6363)
+
+[node name="Kart" parent="." instance=ExtResource("3_mrl71")]
+transform = Transform3D(-0.16262, 0, -0.986689, 0, 1, 0, 0.986689, 0, -0.16262, -7.79845, 1.67496, -73.4545)
+is_player = true

@@ -68,7 +68,7 @@ func _physics_process(delta):
 func hurt(hazard: Node3D):
 	steering = 0
 	engine_force = 0
-	brake = 5
+	brake = 20
 	is_stunned = true
 	await get_tree().create_timer(1).timeout
 	is_stunned = false
