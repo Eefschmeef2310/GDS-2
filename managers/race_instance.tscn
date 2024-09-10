@@ -34,6 +34,16 @@ text = "1. Kart
 7. Kart
 8. Kart"
 
+[node name="Timer" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -39.0
+offset_right = 56.0
+offset_bottom = -16.0
+grow_vertical = 0
+
 [node name="DebugWin" type="CanvasLayer" parent="."]
 visible = false
 
