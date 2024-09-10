@@ -1,6 +1,9 @@
 extends CanvasLayer
 class_name PlayerUI
 
+@export var hand : GridContainer
+@export var data : PlayerData
+
 var ri : RaceInstance
 var kart : Kart
 
@@ -20,3 +23,8 @@ func _physics_process(_delta):
 		for check in ri.kart_placements[kart].checkpoints_crossed:
 			c += str(check) + ", "
 		$Checkpoints.text = c
+
+func _on_player_data_container_hand_updated() -> void:
+	hand.visible = data.inventory["hand"] != null
+	if hand.visible:
+		hand.update(data)

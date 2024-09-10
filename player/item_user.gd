@@ -4,6 +4,7 @@ extends Node
 
 #region Variables
 	#Signals
+signal item_used()
 
 	#Enums
 
@@ -22,17 +23,20 @@ extends Node
 
 #region Godot methods
 func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("equip"):
+	if event.is_action_released("equip"):
 		if data and data.inventory["hand"]:
 			var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
+			item.init(data.inventory["hand"])
 			data.inventory[item.part] = item
 			get_owner().add_child(item)
 			data.inventory["hand"] = null
+			item_used.emit()
 	
-	if event.is_action_pressed("throw"):
+	if event.is_action_released("throw"):
 		if data and data.inventory["hand"]:
 			get_owner().add_sibling(data.inventory["hand"].hazard.instantiate())
 			data.inventory["hand"] = null
+			item_used.emit()
 #endregion
 
 #region Signal methods

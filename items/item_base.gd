@@ -7,3 +7,5 @@ enum Part {Engine, Tire, Spoiler, Oil}
 @export var upgrade : PackedScene
 @export var hazard : PackedScene
 @export var type : Part
+
+@export var item_name : String

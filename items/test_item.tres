@@ -8,3 +8,5 @@
 script = ExtResource("1_pngig")
 upgrade = ExtResource("1_rnoqg")
 hazard = ExtResource("1_1iisg")
+type = 0
+item_name = "Test Engine"

@@ -45,7 +45,6 @@ func _ready():
 		player_ui.hide()
 	pass
 
-
 func _physics_process(delta):
 	if is_player:
 		steering = move_toward(steering, Input.get_axis("Right", "Left") * max_steer, delta * 2.5)

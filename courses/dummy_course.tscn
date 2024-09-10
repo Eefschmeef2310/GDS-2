@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://courses/course.gd" id="1_cnisg"]
 [ext_resource type="Script" path="res://courses/checkpoints.gd" id="2_cksux"]
 [ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="2_xp8vo"]
+[ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="4_fb526"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
@@ -13,77 +14,36 @@ albedo_color = Color(5.2643e-08, 0.0707441, 0.0240148, 1)
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
 points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
 
-[sub_resource type="GDScript" id="GDScript_r6rw7"]
-script/source = "extends Camera3D
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-
-func _input(event):
-	if event.is_action_pressed(\"debug_cam\"):
-		current = !current
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-"
-
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
-"points": PackedVector3Array(97.4481, 0, 40.5576, -147.85, 0, -40.558, -150.996, 0, -72.192, -72.0909, 0, -14.4182, 72.091, 0, 14.483, -214.581, 0, 105.336, -63.6002, 0, -2.39999, 63.6002, 0, 2.39999, -96.8146, 8.09338, 42.9027, -60.9346, 0, 22.0662, 60.9346, 0, -22.0662, 26.0523, 0, 144.433, -1.86038, 0, 62.7888, 1.86038, 0, -62.7888, 13.5723, 0, -2.38821, -4.97186, 0, 77.8927, 4.97186, 0, -77.8927, 69.3678, 0, -108.455, 9.10426, 1.90735e-05, -77.7569, -9.10426, -1.90735e-05, 77.7569, -63.0928, -1.90735e-05, -116.2, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
+"points": PackedVector3Array(153.636, 0, 65.6066, -153.636, 0, -65.6066, -150.996, 0, -72.192, -72.0909, 0, -14.4182, 72.091, 0, 14.483, -214.581, 0, 105.336, -58.6029, 0, -0.465099, 58.6029, 0, 0.465099, -111.841, 0, 37.387, -60.9346, 0, 22.0662, 60.9346, 0, -22.0662, 26.0523, 0, 144.433, -1.86038, 0, 62.7888, 1.86038, 0, -62.7888, 13.5723, 0, -2.38821, -4.97186, 0, 77.8927, 4.97186, 0, -77.8927, 69.3678, 0, -108.455, 9.10426, 1.90735e-05, -77.7569, -9.10426, -1.90735e-05, 77.7569, -63.0928, -1.90735e-05, -116.2, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_khmh1"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n62to"]
+albedo_color = Color(0, 0, 0, 1)
+uv1_scale = Vector3(0.04, 2.875, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pnxba"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_x0v1v"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ixg67"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_j2271"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8nnft"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yjvrv"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_oayvs"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_3jq5n"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_uxyqt"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_0di50"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_wvi1g"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_p3vit"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_neqrc"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
@@ -94,13 +54,10 @@ material = SubResource("StandardMaterial3D_hg2qt")
 radius = 5.0
 height = 10.0
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gwojn"]
-
-[node name="DummyCourse" type="Node3D" node_paths=PackedStringArray("track", "kart_spawns", "camera")]
+[node name="DummyCourse" type="Node3D" node_paths=PackedStringArray("track", "kart_spawns")]
 script = ExtResource("1_cnisg")
 track = NodePath("Track")
 kart_spawns = NodePath("KartSpawns")
-camera = NodePath("Camera3D")
 
 [node name="Floor" type="StaticBody3D" parent="."]
 
@@ -115,14 +72,10 @@ shape = SubResource("ConvexPolygonShape3D_bpd1i")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, -82.4747, 276.64, -25.3545)
-script = SubResource("GDScript_r6rw7")
-
 [node name="Track" type="Path3D" parent="."]
 curve = SubResource("Curve3D_qnr0h")
 
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
+[node name="Track" type="CSGPolygon3D" parent="Track"]
 use_collision = true
 polygon = PackedVector2Array(-20, 0, -20, 1, 20, 1, 20, 0)
 mode = 2
@@ -136,72 +89,100 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
+material = SubResource("StandardMaterial3D_n62to")
 
 [node name="Checkpoints" type="Node3D" parent="Track"]
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
 
-[node name="@Area3D@70838" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(0.964373, 0, -0.264545, 0, 1, 0, 0.264545, 0, 0.964373, -150.996, 0, -72.192)
+[node name="@Area3D@34864" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70839" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70838"]
-shape = SubResource("BoxShape3D_khmh1")
+[node name="@CollisionShape3D@34865" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34864"]
+shape = SubResource("BoxShape3D_pnxba")
 
-[node name="@Area3D@70840" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@34866" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.980411, 0, 0.196963, 0, 1, 0, -0.196963, 0, -0.980411, -214.581, 0, 105.336)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70841" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70840"]
-shape = SubResource("BoxShape3D_x0v1v")
+[node name="@CollisionShape3D@34867" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34866"]
+shape = SubResource("BoxShape3D_ixg67")
 
-[node name="@Area3D@70842" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.999289, 0, 0.0377088, 0, 1, 0, -0.0377088, 0, -0.999289, -96.8146, 8.09338, 42.9027)
+[node name="@Area3D@34868" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.999969, 0, 0.00793631, 0, 1, 0, -0.00793631, 0, -0.999969, -111.841, 0, 37.387)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70843" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70842"]
-shape = SubResource("BoxShape3D_j2271")
+[node name="@CollisionShape3D@34869" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34868"]
+shape = SubResource("BoxShape3D_8nnft")
 
-[node name="@Area3D@70844" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@34870" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.940248, 0, -0.340491, 0, 1, 0, 0.340491, 0, -0.940248, 26.0523, 0, 144.433)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70845" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70844"]
-shape = SubResource("BoxShape3D_yjvrv")
+[node name="@CollisionShape3D@34871" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34870"]
+shape = SubResource("BoxShape3D_oayvs")
 
-[node name="@Area3D@70846" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@34872" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0296161, 0, -0.999561, 0, 1, 0, 0.999561, 0, -0.0296161, 13.5723, 0, -2.38821)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70847" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70846"]
-shape = SubResource("BoxShape3D_3jq5n")
+[node name="@CollisionShape3D@34873" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34872"]
+shape = SubResource("BoxShape3D_uxyqt")
 
-[node name="@Area3D@70848" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@34874" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0637, 0, -0.997969, 0, 1, 0, 0.997969, 0, -0.0637, 69.3678, 0, -108.455)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70849" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70848"]
-shape = SubResource("BoxShape3D_0di50")
+[node name="@CollisionShape3D@34875" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34874"]
+shape = SubResource("BoxShape3D_wvi1g")
 
-[node name="@Area3D@70850" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@34876" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.116292, 0, 0.993215, 0, 1, 0, -0.993215, 0, 0.116292, -63.0928, -1.90735e-05, -116.2)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@70851" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@70850"]
-shape = SubResource("BoxShape3D_p3vit")
+[node name="@CollisionShape3D@34877" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@34876"]
+shape = SubResource("BoxShape3D_neqrc")
+
+[node name="Area3D" parent="Track" instance=ExtResource("2_xp8vo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -159.555, 1.32001, -64.8673)
+
+[node name="InnerPavement" type="CSGPolygon3D" parent="Track"]
+polygon = PackedVector2Array(-21, 0, -21, 2, -20, 2, -20, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 6.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
+
+[node name="OuterPavement" type="CSGPolygon3D" parent="Track"]
+polygon = PackedVector2Array(21, 0, 21, 2, 20, 2, 20, 0)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 1.0
+path_simplify_angle = 6.0
+path_rotation = 2
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("SphereMesh_6mdfc")
-
-[node name="Area3D" parent="." instance=ExtResource("2_xp8vo")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9489, 2.14201, -74.6363)
 
 [node name="KartSpawns" type="Node3D" parent="."]
 
@@ -237,7 +218,7 @@ gizmo_extents = 5.0
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -123.92, 1.9126, -85.5864)
 gizmo_extents = 5.0
 
-[node name="Area3D2" type="Area3D" parent="."]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
-shape = SubResource("ConvexPolygonShape3D_gwojn")
+[node name="Decal" type="Decal" parent="."]
+transform = Transform3D(-0.338951, 2.96321e-08, 0.940804, -8.74228e-08, -1, -3.17144e-15, 0.940804, -8.22477e-08, 0.338951, -150.601, -6.3302, -71.9104)
+size = Vector3(39.6219, 15.5261, 7.82812)
+texture_albedo = ExtResource("4_fb526")

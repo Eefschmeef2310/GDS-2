@@ -19,7 +19,7 @@ func create_checkpoints():
 			var new_area : Area3D = Area3D.new()
 			add_child(new_area)
 			new_area.owner = owner
-			#new_area.name = "Checkpoint"
+			#new_area.name = "Checkpoint" + str(i)
 			new_area.collision_layer = checkpoint_collision_layer
 			new_area.collision_mask = checkpoint_collision_mask
 			new_area.global_position = track.curve.get_point_position(i)
