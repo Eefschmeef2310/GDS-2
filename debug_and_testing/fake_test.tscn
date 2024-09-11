@@ -4,10 +4,10 @@
 [ext_resource type="Script" path="res://debug_and_testing/fake_kart.gd" id="2_ypaxm"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_138su"]
-size = Vector3(1, 0.5, 3)
+size = Vector3(3, 1, 6)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_whup8"]
-size = Vector3(1, 0.5, 3)
+size = Vector3(3, 1, 6)
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_63mc2"]
 top_radius = 0.0
@@ -19,12 +19,13 @@ top_radius = 0.0
 [node name="DummyCourse" parent="." instance=ExtResource("1_2nku1")]
 
 [node name="FakeKart" type="RigidBody3D" parent="." node_paths=PackedStringArray("camera_pivot", "camera")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 1.4892, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 2.4892, 7)
 collision_layer = 4
 collision_mask = 5
-linear_damp = 5.0
+gravity_scale = 3.0
 script = ExtResource("2_ypaxm")
-compression_force = 25.0
+suspension_strength = 25.0
+suspension_damping = 3.0
 camera_pivot = NodePath("CamPivot")
 camera = NodePath("CamPivot/Camera3D")
 
@@ -37,26 +38,23 @@ shape = SubResource("BoxShape3D_whup8")
 [node name="WheelRaycasts" type="Node3D" parent="FakeKart"]
 
 [node name="FrontLeft" type="RayCast3D" parent="FakeKart/WheelRaycasts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.24, 1.5)
-target_position = Vector3(0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.49, 2.75)
+metadata/_edit_group_ = true
 
 [node name="FrontRight" type="RayCast3D" parent="FakeKart/WheelRaycasts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.24, 1.5)
-target_position = Vector3(0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.49, 2.75)
 
 [node name="BackLeft" type="RayCast3D" parent="FakeKart/WheelRaycasts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, -0.24, -1.5)
-target_position = Vector3(0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.25, -0.49, -2.75)
 
 [node name="BackRight" type="RayCast3D" parent="FakeKart/WheelRaycasts"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.24, -1.5)
-target_position = Vector3(0, -0.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.25, -0.49, -2.75)
 
 [node name="CamPivot" type="Node3D" parent="FakeKart"]
 top_level = true
 
 [node name="Camera3D" type="Camera3D" parent="FakeKart/CamPivot"]
-transform = Transform3D(-1, 5.68435e-14, 8.74227e-08, 1.42288e-08, 0.986666, 0.162758, -8.6257e-08, 0.162758, -0.986666, 4.76837e-07, 3.10388, -5.72721)
+transform = Transform3D(-1, 5.68435e-14, 8.74227e-08, 1.42288e-08, 0.986666, 0.162758, -8.6257e-08, 0.162758, -0.986666, 4.76837e-07, 4.52102, -11.6181)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="FakeKart/CamPivot/Camera3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
