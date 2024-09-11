@@ -37,7 +37,7 @@ extends Node3D
 var speed : float
 var current_speed : float
 
-var new_rotate : float
+var rotate : float
 var current_rotate : float
 
 var drifting : bool
@@ -54,44 +54,7 @@ var c : Color
 
 #region Godot methods
 func _process(delta):
-	position = sphere.position - Vector3(0, 0.4, 0);
-	
-	speed = max_speed if Input.is_action_pressed("Accelerate") else 0
-	
 	var steer_axis = Input.get_axis("Right", "Left")
-	if steer_axis != 0:
-		var dir : float = sign(steer_axis)
-		var amount : float = abs(steer_axis)
-		steer(dir, amount)
-		
-	#if Input.is_action_just_pressed("drift") and !drifting and Input.get_axis("Right", "Left") != 0:
-		#drifting = true
-		#drift_direction = 1 if Input.get_axis("Right", "Left") else -1
-		
-		#Perform jump here
-		
-	#if drifting:
-		#var control : float = (Input.get_axis("Right", "Left") + 1) if (drift_direction == 1) else (abs(Input.get_axis("Right", "Left") - 1))
-		#var power_control : float = remap_axis(Input.get_axis("Right", "Left"), .2, 1) if (drift_direction == 1) else remap_axis(Input.get_axis("Right", "Left"), 1, .2)
-		#steer(drift_direction, control)
-		#drift_power += power_control
-		#
-		#color_drift()
-	
-	#if Input.is_action_just_released("jump") and drifting:
-		#boost()
-	
-	#if !boost_timer.is_stopped():
-		#current_speed = move_toward(current_speed, speed * 3, delta * 12)
-	#elif current_speed > speed * 3:
-		#current_speed = move_toward(current_speed, speed, delta * 4)
-	
-	#Apply extra rotation for drifting
-	if !drifting:
-		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(kart_model.rotation_degrees.z,90 + steer_axis * 15, kart_model.rotation_degrees.z), .2)
-	else:
-		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-		kart_model.rotation = Vector3(0, lerp(kart_model.rotation.y, control * 15 * drift_direction, .2), 0)
 	
 	#Animate wheels
 	front_wheels.rotation = Vector3(0, steer_axis * 15, front_wheels.rotation.z)
@@ -102,16 +65,68 @@ func _process(delta):
 	steering_wheel.rotation = Vector3(-25, 90, steer_axis * 45)
 	
 func _physics_process(delta: float) -> void:
-	current_speed = move_toward(current_speed, speed, acceleration)
-	current_rotate = move_toward(current_rotate, new_rotate, turn_speed)
-	new_rotate = 0
+	# Move kart model to sphere
+	position = sphere.position - Vector3(0, 0.4, 0);
+	
+	# Get acceleration/brake
+	if Input.is_action_pressed("Accelerate"):
+		speed = max_speed
+	elif Input.is_action_pressed("brake"):
+		speed = -max_speed
+	else:
+		speed = 0
+	
+	# Get steer axis
+	var steer_axis = Input.get_axis("Right", "Left")
+	if steer_axis != 0:
+		var dir : float = sign(steer_axis)
+		var amount : float = abs(steer_axis)
+		steer(dir, amount)
+	
+	# Drift
+	if Input.is_action_just_pressed("drift") and !drifting and steer_axis != 0:
+		drifting = true
+		drift_direction = sign(steer_axis)
+		
+	# Perform jump animation here
+		
+	if drifting:
+		var control : float = (steer_axis + 1) if (drift_direction == 1) else (abs(steer_axis - 1))
+		var power_control : float = remap_axis(steer_axis, .2, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .2)
+		steer(drift_direction, control)
+		drift_power += power_control
+		
+		print(control)
+		
+		color_drift()
+	
+	if Input.is_action_just_released("drift") and drifting:
+		boost()
+	
+	if !boost_timer.is_stopped():
+		current_speed = move_toward(current_speed, max_speed * 3, acceleration*2)
+	else:
+		current_speed = move_toward(current_speed, speed, acceleration)
+	
+	current_rotate = move_toward(current_rotate, rotate, turn_speed)
+	
+	speed = 0
+	rotate = 0
+	
+	#Apply extra rotation for drifting
+	if !drifting:
+		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , 90 + steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
+	else:
+		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
+		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, (control) * drift_direction, 10), 0)
+	
+	###############################################################################################
 	
 	#Forward acceleration
 	if !drifting:
 		sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
-		print(-kart_model.global_transform.basis.x)
 	else:
-		sphere.apply_force(-global_transform.basis.z)
+		sphere.apply_force(-global_transform.basis.z * current_speed)
 	
 	#Gravity
 	sphere.apply_force(Vector3.DOWN * gravity)
@@ -127,7 +142,7 @@ func _physics_process(delta: float) -> void:
 
 #region Other methods (please try to separate and organise!)
 func steer(direction : int, amount : float) -> void:
-	new_rotate = (steering * direction) * amount
+	rotate = (steering * direction) * amount
 
 func remap_axis(input : float, lower : float, higher : float) -> float:
 	var normalized = inverse_lerp(-1, 1, input)
@@ -157,4 +172,6 @@ func boost():
 	
 	if drift_mode > 0:
 		boost_timer.start(.3 * drift_mode)
+		
+		print("Starting boost for " + str(boost_timer.wait_time))
 #endregion

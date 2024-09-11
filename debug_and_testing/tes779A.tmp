@@ -163,8 +163,8 @@ angular_damp = 1.0
 [node name="Kart" parent="BallKart" index="1"]
 max_speed = 100.0
 steering = 0.25
-gravity = 40.0
-acceleration = 5.0
+gravity = 10.0
+acceleration = 10.0
 turn_speed = 0.01
 
 [node name="Camera3D" type="Camera3D" parent="BallKart/Kart" index="0"]
@@ -173,21 +173,6 @@ script = SubResource("GDScript_r6rw7")
 
 [node name="KartModel" parent="BallKart/Kart" index="1"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-
-[node name="Tube001" parent="BallKart/Kart/KartModel" index="3"]
-transform = Transform3D(0.917401, 0.397964, 0, -0.397964, 0.917401, 0, 0, 0, 1, -0.636298, 0.874706, 0.648662)
-
-[node name="Cylinder004" parent="BallKart/Kart/KartModel" index="5"]
-transform = Transform3D(-0.725338, 6.34111e-08, -1.22465e-16, -6.34111e-08, -0.725338, 4.37114e-08, -2.68296e-15, -3.17055e-08, -1, 0.481485, 0.346605, -0.504242)
-
-[node name="Cylinder005" parent="BallKart/Kart/KartModel" index="6"]
-transform = Transform3D(-0.85792, -7.50018e-08, -1.4485e-16, 7.50018e-08, -0.85792, 5.17012e-08, 3.3835e-15, -3.75009e-08, -1.18279, -0.901468, 0.464149, -0.504242)
-
-[node name="Tube002" parent="BallKart/Kart/KartModel" index="7"]
-transform = Transform3D(0.917401, 0.397964, 0, -0.397964, 0.917401, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
-
-[node name="Boost Timer" parent="BallKart" index="2"]
-one_shot = true
 
 [editable path="BallKart"]
 [editable path="BallKart/Kart/KartModel"]
