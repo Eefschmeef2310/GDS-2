@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://ckv22y8pvdafx"]
+
+[ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="1_2nku1"]
+[ext_resource type="Script" path="res://debug_and_testing/fake_kart.gd" id="2_ypaxm"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_138su"]
+size = Vector3(1, 0.5, 3)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_whup8"]
+size = Vector3(1, 0.5, 3)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_63mc2"]
+top_radius = 0.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_dpxuj"]
+
+[node name="FakeTest" type="Node3D"]
+
+[node name="DummyCourse" parent="." instance=ExtResource("1_2nku1")]
+
+[node name="FakeKart" type="RigidBody3D" parent="." node_paths=PackedStringArray("camera_pivot", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 100, 0.596825, 0)
+script = ExtResource("2_ypaxm")
+camera_pivot = NodePath("CamPivot")
+camera = NodePath("CamPivot/Camera3D")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FakeKart"]
+mesh = SubResource("BoxMesh_138su")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="FakeKart"]
+shape = SubResource("BoxShape3D_whup8")
+
+[node name="CamPivot" type="Node3D" parent="FakeKart"]
+top_level = true
+
+[node name="Camera3D" type="Camera3D" parent="FakeKart/CamPivot"]
+transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 1.42288e-08, 0.986666, 0.162758, -8.6257e-08, 0.162758, -0.986666, 4.76837e-07, 4.38309, -9.76755)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FakeKart/CamPivot/Camera3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("CylinderMesh_63mc2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="FakeKart/CamPivot"]
+mesh = SubResource("SphereMesh_dpxuj")
