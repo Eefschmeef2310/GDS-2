@@ -37,7 +37,7 @@ extends Node3D
 var speed : float
 var current_speed : float
 
-var rotate : float
+var new_rotate : float
 var current_rotate : float
 
 var drifting : bool
@@ -53,7 +53,7 @@ var c : Color
 #endregion
 
 #region Godot methods
-func _process(delta):
+func _process(_delta):
 	var steer_axis = Input.get_axis("Right", "Left")
 	
 	#Animate wheels
@@ -79,7 +79,7 @@ func _physics_process(delta: float) -> void:
 	# Get steer axis
 	var steer_axis = Input.get_axis("Right", "Left")
 	if steer_axis != 0:
-		var dir : float = sign(steer_axis)
+		var dir : int = sign(steer_axis)
 		var amount : float = abs(steer_axis)
 		steer(dir, amount)
 	
@@ -96,7 +96,7 @@ func _physics_process(delta: float) -> void:
 		steer(drift_direction, control)
 		drift_power += power_control
 		
-		print(control)
+		#print(control)
 		
 		color_drift()
 	
@@ -108,17 +108,17 @@ func _physics_process(delta: float) -> void:
 	else:
 		current_speed = move_toward(current_speed, speed, acceleration)
 	
-	current_rotate = move_toward(current_rotate, rotate, turn_speed)
+	current_rotate = move_toward(current_rotate, new_rotate, turn_speed)
 	
 	speed = 0
-	rotate = 0
+	new_rotate = 0
 	
 	#Apply extra rotation for drifting
 	if !drifting:
 		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , 90 + steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
 	else:
 		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, (control) * drift_direction, 10), 0)
+		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, control * drift_direction, 10), 0)
 	
 	###############################################################################################
 	
@@ -134,7 +134,7 @@ func _physics_process(delta: float) -> void:
 	#Steering
 	rotation = lerp(rotation, Vector3(0, rotation.y + current_rotate, 0), delta * 5)
 	
-	#Rotate according to slop
+	#Rotate according to slope
 	#if hit_near.is_colliding():
 		#kart_model.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
 		#kart_model.rotation_degrees.y = rotation_degrees.y
@@ -142,7 +142,7 @@ func _physics_process(delta: float) -> void:
 
 #region Other methods (please try to separate and organise!)
 func steer(direction : int, amount : float) -> void:
-	rotate = (steering * direction) * amount
+	new_rotate = (steering * direction) * amount
 
 func remap_axis(input : float, lower : float, higher : float) -> float:
 	var normalized = inverse_lerp(-1, 1, input)
@@ -172,6 +172,14 @@ func boost():
 	
 	if drift_mode > 0:
 		boost_timer.start(.3 * drift_mode)
+	
+	drift_power = 0
+	drift_mode = 0
+	first = false
+	second = false
+	third = false
+	
+	kart_model.rotation = Vector3.ZERO
 		
-		print("Starting boost for " + str(boost_timer.wait_time))
+	print("Starting boost for " + str(boost_timer.wait_time))
 #endregion
