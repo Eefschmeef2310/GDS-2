@@ -57,10 +57,11 @@ func _process(delta):
 	position = sphere.position - Vector3(0, 0.4, 0);
 	
 	speed = max_speed if Input.is_action_pressed("Accelerate") else 0
-		
-	if Input.get_axis("Right", "Left") != 0:
-		var dir := 1 if Input.get_axis("Right", "Left") > 0 else 1
-		var amount : float = abs(Input.get_axis("Right", "Left"))
+	
+	var steer_axis = Input.get_axis("Right", "Left")
+	if steer_axis != 0:
+		var dir : float = sign(steer_axis)
+		var amount : float = abs(steer_axis)
 		steer(dir, amount)
 		
 	#if Input.is_action_just_pressed("drift") and !drifting and Input.get_axis("Right", "Left") != 0:
@@ -87,18 +88,18 @@ func _process(delta):
 	
 	#Apply extra rotation for drifting
 	if !drifting:
-		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0.,90 + Input.get_axis("Right", "Left") * 15, kart_model.rotation_degrees.z), .2)
+		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(kart_model.rotation_degrees.z,90 + steer_axis * 15, kart_model.rotation_degrees.z), .2)
 	else:
-		var control : float = remap_axis(Input.get_axis("Right", "Left"), .5, 2) if drift_direction == 1 else remap_axis(Input.get_axis("Right", "Left"), 2, .5)
+		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
 		kart_model.rotation = Vector3(0, lerp(kart_model.rotation.y, control * 15 * drift_direction, .2), 0)
 	
 	#Animate wheels
-	front_wheels.rotation = Vector3(0, Input.get_axis("Right", "Left") * 15, front_wheels.rotation.z)
+	front_wheels.rotation = Vector3(0, steer_axis * 15, front_wheels.rotation.z)
 	front_wheels.rotation += Vector3(0,0, sphere.linear_velocity.length()/2)
 	back_wheels.rotation += Vector3(0,0, sphere.linear_velocity.length()/2)
 	
 	#Steering wheel animate
-	steering_wheel.rotation = Vector3(-25, 90, Input.get_axis("Right", "Left") * 45)
+	steering_wheel.rotation = Vector3(-25, 90, steer_axis * 45)
 	
 func _physics_process(delta: float) -> void:
 	current_speed = move_toward(current_speed, speed, acceleration)
@@ -107,9 +108,10 @@ func _physics_process(delta: float) -> void:
 	
 	#Forward acceleration
 	if !drifting:
-		sphere.apply_force(kart_model.transform.basis.x * current_speed)
+		sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
+		print(-kart_model.global_transform.basis.x)
 	else:
-		sphere.apply_force(transform.basis.z)
+		sphere.apply_force(-global_transform.basis.z)
 	
 	#Gravity
 	sphere.apply_force(Vector3.DOWN * gravity)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=11 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_5vntc"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_2ppmk"]
@@ -6,53 +6,11 @@
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhsil"]
+albedo_color = Color(0.109804, 0, 0.109804, 1)
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
 points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
-
-[sub_resource type="GDScript" id="GDScript_r6rw7"]
-script/source = "extends Camera3D
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
-
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-
-func _input(event):
-	if event.is_action_pressed(\"debug_cam\"):
-		current = !current
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-"
 
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
@@ -110,6 +68,51 @@ material = SubResource("StandardMaterial3D_hg2qt")
 radius = 5.0
 height = 10.0
 
+[sub_resource type="GDScript" id="GDScript_r6rw7"]
+script/source = "extends Camera3D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	pass
+
+func _process(_delta):
+	#Runs per frame
+	pass
+
+func _input(event):
+	if event.is_action_pressed(\"debug_cam\"):
+		current = !current
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
 [node name="TestTrack" type="Node3D" node_paths=PackedStringArray("track")]
 script = ExtResource("1_5vntc")
 track = NodePath("Track")
@@ -119,16 +122,13 @@ track = NodePath("Track")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_ndcnv")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rhsil")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 0.350207, 0.936672, 0, -0.936672, 0.350207, -23.737, 43.15, -32.398)
-script = SubResource("GDScript_r6rw7")
 
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
@@ -155,6 +155,24 @@ mesh = SubResource("SphereMesh_6mdfc")
 
 [node name="BallKart" parent="." instance=ExtResource("2_2ppmk")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9602, 1.04245, -73.8472)
+
+[node name="Ball" parent="BallKart" index="0"]
+linear_damp = 1.0
+angular_damp = 1.0
+
+[node name="Kart" parent="BallKart" index="1"]
+max_speed = 100.0
+steering = 0.5
+gravity = 10.0
+acceleration = 10.0
+turn_speed = 80.0
+
+[node name="Camera3D" type="Camera3D" parent="BallKart/Kart" index="0"]
+transform = Transform3D(1, 0, 0, 0, 0.95567, 0.294441, 0, -0.294441, 0.95567, 0, 4.94138, 7.84613)
+script = SubResource("GDScript_r6rw7")
+
+[node name="KartModel" parent="BallKart/Kart" index="1"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 
 [editable path="BallKart"]
 [editable path="BallKart/Kart/KartModel"]
