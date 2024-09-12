@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=15 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_5vntc"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_2ppmk"]
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_hrvk1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
@@ -113,6 +114,16 @@ func _input(event):
 #endregion
 "
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8b5w4"]
+sky_cover = ExtResource("3_hrvk1")
+
+[sub_resource type="Sky" id="Sky_jcpfh"]
+sky_material = SubResource("ProceduralSkyMaterial_8b5w4")
+
+[sub_resource type="Environment" id="Environment_myymi"]
+background_mode = 2
+sky = SubResource("Sky_jcpfh")
+
 [node name="TestTrack" type="Node3D" node_paths=PackedStringArray("track")]
 script = ExtResource("1_5vntc")
 track = NodePath("Track")
@@ -161,32 +172,21 @@ linear_damp = 1.0
 angular_damp = 3.0
 
 [node name="Kart" parent="BallKart" index="1"]
-max_speed = 150.0
+max_speed = 50.0
 acceleration = 4.0
+turn_speed = 5.0
 boost_multiplier = 2.0
 boost_acceleration = 25.0
 
-[node name="Camera3D" type="Camera3D" parent="BallKart/Kart" index="0"]
+[node name="Camera3D" type="Camera3D" parent="BallKart/Kart/Normal" index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.963003, 0.269492, 0, -0.269492, 0.963003, 9.53674e-07, 4.45611, 5.44022)
 script = SubResource("GDScript_r6rw7")
-
-[node name="KartModel" parent="BallKart/Kart" index="1"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
-
-[node name="Tube001" parent="BallKart/Kart/KartModel" index="3"]
-transform = Transform3D(0.917401, 0.397964, 0, -0.397964, 0.917401, 0, 0, 0, 1, -0.636298, 0.874706, 0.648662)
-
-[node name="Cylinder004" parent="BallKart/Kart/KartModel" index="5"]
-transform = Transform3D(-0.725338, 6.34111e-08, -1.22465e-16, -6.34111e-08, -0.725338, 4.37114e-08, -2.68296e-15, -3.17055e-08, -1, 0.481485, 0.346605, -0.504242)
-
-[node name="Cylinder005" parent="BallKart/Kart/KartModel" index="6"]
-transform = Transform3D(-0.85792, -7.50018e-08, -1.4485e-16, 7.50018e-08, -0.85792, 5.17012e-08, 3.3835e-15, -3.75009e-08, -1.18279, -0.901468, 0.464149, -0.504242)
-
-[node name="Tube002" parent="BallKart/Kart/KartModel" index="7"]
-transform = Transform3D(0.917401, 0.397964, 0, -0.397964, 0.917401, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
 
 [node name="Boost Timer" parent="BallKart" index="2"]
 one_shot = true
 
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_myymi")
+
 [editable path="BallKart"]
-[editable path="BallKart/Kart/KartModel"]
+[editable path="BallKart/Kart/KartModelOld"]

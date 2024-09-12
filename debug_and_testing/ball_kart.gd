@@ -14,7 +14,6 @@ extends Node3D
 	#@export_subgroup("Subgroup")
 @export_group("Stats")
 @export var max_speed : float = 30
-@export var steering : float = 80
 @export var gravity : float = 10
 @export var acceleration : float = 1
 @export var turn_speed : float = 80
@@ -25,13 +24,14 @@ extends Node3D
 @export var turbo_colors : Array[Color]
 
 @export_group("Node References")
-@export var sphere : RigidBody3D
-@export var boost_timer : Timer
 @export var kart_model : Node3D
+@export var kart_normal : Node3D
+@export var sphere : RigidBody3D
 @export var front_wheels : Node3D
 @export var back_wheels : Node3D
 @export var steering_wheel : Node3D
 @export var hit_near : RayCast3D
+@export var boost_timer : Timer
 
 	#Onready Variables
 
@@ -59,12 +59,12 @@ func _process(_delta):
 	var steer_axis = Input.get_axis("Right", "Left")
 	
 	#Animate wheels
-	front_wheels.rotation = Vector3(0, steer_axis * 15, front_wheels.rotation.z)
-	front_wheels.rotation += Vector3(0,0, sphere.linear_velocity.length()/2)
-	back_wheels.rotation += Vector3(0,0, sphere.linear_velocity.length()/2)
+	front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
+	front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
+	back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
 	
 	#Steering wheel animate
-	steering_wheel.rotation = Vector3(-25, 90, steer_axis * 45)
+	steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
 	
 func _physics_process(delta: float) -> void:
 	# Move kart model to sphere
@@ -98,8 +98,6 @@ func _physics_process(delta: float) -> void:
 		steer(drift_direction, control)
 		drift_power += power_control
 		
-		#print(control)
-		
 		color_drift()
 	
 	if Input.is_action_just_released("drift") and drifting:
@@ -111,8 +109,7 @@ func _physics_process(delta: float) -> void:
 		current_speed = move_toward(current_speed, speed, acceleration)
 	
 	current_rotate = move_toward(current_rotate, new_rotate, turn_speed)
-	
-	speed = 0
+
 	new_rotate = 0
 	
 	#Apply extra rotation for drifting
@@ -120,7 +117,7 @@ func _physics_process(delta: float) -> void:
 		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , 90 + steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
 	else:
 		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, 90 + (control * 15 * drift_direction), 10), 0)
+		kart_model.get_parent().rotation_degrees = Vector3(0, move_toward(kart_model.get_parent().rotation_degrees.y, (control * 15 * drift_direction), 10), 0)
 	
 	###############################################################################################
 	
@@ -134,23 +131,23 @@ func _physics_process(delta: float) -> void:
 	sphere.apply_force(Vector3.DOWN * gravity)
 	
 	#Steering
-	rotation = lerp(rotation, Vector3(0, rotation.y + current_rotate, 0), delta * 5)
+	rotation_degrees = lerp(rotation_degrees, Vector3(0, rotation_degrees.y + current_rotate, 0), delta * 5)
 	
 	#Rotate according to slope
-	#if hit_near.is_colliding():
-		#kart_model.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
-		#kart_model.rotation_degrees.y = rotation_degrees.y
+	if hit_near.is_colliding():
+		kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
+		#kart_normal.rotation_degrees.y = rotation_degrees.y
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func steer(direction : int, amount : float) -> void:
-	new_rotate = (steering * direction) * amount
+	new_rotate = (turn_speed * direction) * amount
 
 func remap_axis(input : float, lower : float, higher : float) -> float:
 	var normalized = inverse_lerp(-1, 1, input)
 	return lerp(lower, higher, normalized)
 
-func color_drift():
+func color_drift(): #This method handles drifting brackets (blue, orange, pink)
 	if !first:
 		c = Color(0,0,0,0)
 		
@@ -181,7 +178,7 @@ func boost():
 	second = false
 	third = false
 	
-	kart_model.rotation = Vector3.ZERO
+	kart_model.get_parent().rotation_degrees = Vector3.ZERO
 		
 	print("Starting boost for " + str(boost_timer.wait_time))
 #endregion
