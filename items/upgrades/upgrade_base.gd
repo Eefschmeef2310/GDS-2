@@ -15,6 +15,7 @@ class_name Upgrade
 @export var part : Item.Part
 
 	#Onready Variables
+@onready var parent : Kart = get_parent()
 
 	#Other Variables (please try to separate and organise!)
 var item_name : String

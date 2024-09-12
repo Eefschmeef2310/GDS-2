@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_1dowc"]
 [ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_5vyxi"]
-[ext_resource type="PackedScene" uid="uid://dllkjyert7hia" path="res://items/upgrades/test_upgrade.tscn" id="3_y14mn"]
+[ext_resource type="PackedScene" uid="uid://cv5fgsuiaerf3" path="res://items/upgrades/test_engine_upgrade.tscn" id="3_8dpes"]
 
 [resource]
 script = ExtResource("1_1dowc")
-upgrade = ExtResource("3_y14mn")
+upgrade = ExtResource("3_8dpes")
 hazard = ExtResource("1_5vyxi")
 type = 0
 item_name = "Test Engine"

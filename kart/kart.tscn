@@ -460,6 +460,8 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CheckpointDetector"]
 shape = SubResource("BoxShape3D_thdqr")
 
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
