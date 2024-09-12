@@ -16,6 +16,11 @@ shape = SubResource("SphereShape3D_qnbc7")
 
 [node name="Kart" type="Node3D" parent="." node_paths=PackedStringArray("sphere", "boost_timer", "kart_model", "front_wheels", "back_wheels", "steering_wheel", "hit_near")]
 script = ExtResource("1_2kftq")
+max_speed = 100.0
+steering = 0.25
+gravity = 40.0
+acceleration = 5.0
+turn_speed = 0.02
 turbo_colors = Array[Color]([Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)])
 sphere = NodePath("../Ball")
 boost_timer = NodePath("../Boost Timer")

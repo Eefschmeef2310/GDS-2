@@ -18,6 +18,8 @@ extends Node3D
 @export var gravity : float = 10
 @export var acceleration : float = 1
 @export var turn_speed : float = 80
+@export var boost_multiplier : float = 3
+@export var boost_acceleration : float = 10
 
 @export_group("Data")
 @export var turbo_colors : Array[Color]
@@ -91,8 +93,8 @@ func _physics_process(delta: float) -> void:
 	# Perform jump animation here
 		
 	if drifting:
-		var control : float = (steer_axis + 1) if (drift_direction == 1) else (abs(steer_axis - 1))
-		var power_control : float = remap_axis(steer_axis, .2, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .2)
+		var control : float = (remap_axis(steer_axis, .4, 2)) if (drift_direction == 1) else (remap_axis(steer_axis, 2, .4))
+		var power_control : float = remap_axis(steer_axis, .5, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .5)
 		steer(drift_direction, control)
 		drift_power += power_control
 		
@@ -104,7 +106,7 @@ func _physics_process(delta: float) -> void:
 		boost()
 	
 	if !boost_timer.is_stopped():
-		current_speed = move_toward(current_speed, max_speed * 3, acceleration*2)
+		current_speed = move_toward(current_speed, max_speed * boost_multiplier, boost_acceleration)
 	else:
 		current_speed = move_toward(current_speed, speed, acceleration)
 	
@@ -118,7 +120,7 @@ func _physics_process(delta: float) -> void:
 		kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , 90 + steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
 	else:
 		var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, control * drift_direction, 10), 0)
+		kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, 90 + (control * 15 * drift_direction), 10), 0)
 	
 	###############################################################################################
 	
