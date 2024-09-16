@@ -1,7 +1,13 @@
-[gd_scene load_steps=30 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=34 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart.gd" id="1_2kftq"]
 [ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="1_kj480"]
+[ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
+[ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="3_57wie"]
+[ext_resource type="Script" path="res://player/item_user.gd" id="3_axfps"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
+absorbent = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qnbc7"]
 radius = 1.5
@@ -9,7 +15,6 @@ radius = 1.5
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4aw"]
 resource_name = "Standardmaterial"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 emission_enabled = true
 emission_energy_multiplier = 0.0
 
@@ -216,7 +221,6 @@ albedo_color = Color(0, 0.992108, 1, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycafr"]
 resource_name = "Standardmaterial"
 vertex_color_use_as_albedo = true
-albedo_color = Color(1, 1, 1, 1)
 emission_enabled = true
 emission_energy_multiplier = 0.0
 
@@ -294,30 +298,42 @@ shadow_mesh = SubResource("ArrayMesh_3f3nh")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utx2h"]
 albedo_color = Color(1, 0, 0.965711, 1)
 
-[node name="BallKart" type="Node3D"]
+[node name="BallKart" type="Node3D" node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+script = ExtResource("1_2kftq")
+max_speed = 10.0
+acceleration = 0.5
+kart_model = NodePath("Kart/Normal/Parent/KartModel")
+kart_normal = NodePath("Kart/Normal")
+sphere = NodePath("Ball")
+front_wheels = NodePath("Kart/Normal/Parent/KartModel/FrontWheels")
+back_wheels = NodePath("Kart/Normal/Parent/KartModel/BackWheels")
+steering_wheel = NodePath("Kart/Normal/Parent/KartModel/SteeringWheel")
+hit_near = NodePath("HitNear")
+boost_timer = NodePath("Boost Timer")
+kart = NodePath("Kart")
+player_ui = NodePath("PlayerUI")
+
+[node name="Scripts" type="Node" parent="."]
+
+[node name="PlayerDataContainer" type="Node" parent="Scripts"]
+script = ExtResource("2_3ouaj")
+
+[node name="ItemUser" type="Node" parent="Scripts" node_paths=PackedStringArray("data")]
+script = ExtResource("3_axfps")
+data = NodePath("../PlayerDataContainer")
 
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+collision_layer = 5
+physics_material_override = SubResource("PhysicsMaterial_1ruac")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_qnbc7")
 
-[node name="Kart" type="Node3D" parent="." node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer")]
-script = ExtResource("1_2kftq")
-max_speed = 100.0
-gravity = 40.0
-acceleration = 5.0
-turbo_colors = Array[Color]([Color(0, 0, 0, 1), Color(0, 0, 0, 1), Color(0, 0, 0, 1)])
-kart_model = NodePath("Normal/Parent/KartModel")
-kart_normal = NodePath("Normal")
-sphere = NodePath("../Ball")
-front_wheels = NodePath("Normal/Parent/KartModel/FrontWheels")
-back_wheels = NodePath("Normal/Parent/KartModel/BackWheels")
-steering_wheel = NodePath("Normal/Parent/KartModel/SteeringWheel")
-hit_near = NodePath("../HitNear")
-boost_timer = NodePath("../Boost Timer")
+[node name="Kart" type="Node3D" parent="."]
 
 [node name="Normal" type="Node3D" parent="Kart"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
 
 [node name="Parent" type="Node3D" parent="Kart/Normal"]
 
@@ -369,6 +385,10 @@ transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1,
 mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
+[node name="Camera3D" type="Camera3D" parent="Kart/Normal"]
+transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 6)
+fov = 90.0
+
 [node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
 visible = false
 
@@ -380,5 +400,12 @@ transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1,
 [node name="HitNear" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 target_position = Vector3(0, -2, 0)
+
+[node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
+data = NodePath("../Scripts/PlayerDataContainer")
+
+[connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
+[connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 
 [editable path="Kart/KartModelOld"]

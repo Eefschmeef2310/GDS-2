@@ -1,5 +1,5 @@
 extends VehicleBody3D
-class_name Kart
+class_name KartOld
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables

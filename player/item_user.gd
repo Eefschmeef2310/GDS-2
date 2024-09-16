@@ -27,7 +27,6 @@ func _input(event: InputEvent) -> void:
 		if data and data.inventory["hand"]:
 			var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
 			item.init(data.inventory["hand"])
-			print(data.inventory["hand"].type)
 			data.inventory[data.inventory["hand"].type] = item
 			get_owner().add_child(item)
 			data.inventory["hand"] = null

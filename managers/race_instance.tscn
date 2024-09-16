@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://managers/race_instance.gd" id="1_0d5f1"]
-[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="2_cg5dc"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
 [ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="3_8vgv8"]
 
 [sub_resource type="GDScript" id="GDScript_2eq0k"]
@@ -14,7 +14,7 @@ func _on_pressed() -> void:
 
 [node name="RaceInstance" type="Node"]
 script = ExtResource("1_0d5f1")
-kart_scene = ExtResource("2_cg5dc")
+kart_scene = ExtResource("2_me725")
 debug_start = true
 debug_start_course_scene = ExtResource("3_8vgv8")
 
