@@ -300,7 +300,7 @@ albedo_color = Color(1, 0, 0.965711, 1)
 
 [node name="BallKart" type="Node3D" node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
 script = ExtResource("1_2kftq")
-max_speed = 10.0
+max_speed = 20.0
 acceleration = 0.5
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
@@ -308,7 +308,7 @@ sphere = NodePath("Ball")
 front_wheels = NodePath("Kart/Normal/Parent/KartModel/FrontWheels")
 back_wheels = NodePath("Kart/Normal/Parent/KartModel/BackWheels")
 steering_wheel = NodePath("Kart/Normal/Parent/KartModel/SteeringWheel")
-hit_near = NodePath("HitNear")
+hit_near = NodePath("Kart/HitNear")
 boost_timer = NodePath("Boost Timer")
 kart = NodePath("Kart")
 player_ui = NodePath("PlayerUI")
@@ -326,6 +326,7 @@ data = NodePath("../PlayerDataContainer")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 collision_layer = 5
 physics_material_override = SubResource("PhysicsMaterial_1ruac")
+linear_damp = 0.5
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_qnbc7")
@@ -395,11 +396,12 @@ visible = false
 [node name="Tube002" parent="Kart/KartModelOld" index="7"]
 transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
 
-[node name="Boost Timer" type="Timer" parent="."]
-
-[node name="HitNear" type="RayCast3D" parent="."]
+[node name="HitNear" type="RayCast3D" parent="Kart"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
 target_position = Vector3(0, -2, 0)
+
+[node name="Boost Timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")

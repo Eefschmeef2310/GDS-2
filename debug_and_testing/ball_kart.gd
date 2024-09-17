@@ -98,7 +98,9 @@ func _physics_process(delta: float) -> void:
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
 			var amount : float = abs(steer_axis)
-			steer(dir, amount)
+			print(current_speed)
+			if current_speed != 0:
+				steer(dir, amount)
 		
 		# Drift
 		if Input.is_action_just_pressed("drift") and !drifting and steer_axis != 0:
