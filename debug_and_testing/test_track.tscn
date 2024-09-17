@@ -188,9 +188,6 @@ surface_material_override/0 = null
 transform = Transform3D(1, 0, 0, 0, 0.963003, 0.269492, 0, -0.269492, 0.963003, 9.53674e-07, 4.45611, 5.44022)
 script = SubResource("GDScript_r6rw7")
 
-[node name="Boost Timer" parent="BallKart" index="3"]
-one_shot = true
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_myymi")
 

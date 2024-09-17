@@ -98,7 +98,6 @@ func _physics_process(delta: float) -> void:
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
 			var amount : float = abs(steer_axis)
-			print(current_speed)
 			if current_speed != 0:
 				steer(dir, amount)
 		
@@ -143,6 +142,9 @@ func _physics_process(delta: float) -> void:
 			sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
 		else:
 			sphere.apply_force(kart.global_transform.basis.z * current_speed)
+			
+		#Update speed label
+		player_ui.update_speed(sphere.linear_velocity.length())
 		
 		#Gravity
 		sphere.apply_force(Vector3.DOWN * gravity)

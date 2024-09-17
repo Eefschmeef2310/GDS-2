@@ -4,6 +4,7 @@ class_name PlayerUI
 @export var hand : Control
 @export var slots : Control
 @export var data : PlayerData
+@export var speed_label : Label
 
 var ri : RaceInstance
 var kart : Kart
@@ -31,3 +32,6 @@ func _on_player_data_container_hand_updated() -> void:
 		hand.update(data)
 		
 	slots.update(data)
+
+func update_speed(speed : float):
+	speed_label.text = str(snapped(speed * 10, 0.1)) + " km/h"
