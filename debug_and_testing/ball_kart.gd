@@ -6,6 +6,7 @@ class_name Kart
 	#Signals
 @warning_ignore("unused_signal")
 signal checkpoint_passed(kart : Kart, index : int)
+@warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
 
 	#Enums
@@ -61,6 +62,13 @@ var second : bool
 var third : bool
 var c : Color
 
+#Stuff that can be overriden by subclasses
+var steer_axis : float
+var accelerating : bool
+var braking : bool
+var drift_input : bool
+var drift_released : bool
+
 #endregion
 
 #region Godot methods
@@ -69,9 +77,7 @@ func _ready():
 		player_ui.queue_free()
 
 func _process(_delta):
-	if is_player:
-		var steer_axis = Input.get_axis("Right", "Left")
-		
+	if is_player:		
 		#Animate wheels
 		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
 		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
@@ -86,15 +92,14 @@ func _physics_process(delta: float) -> void:
 		kart.position = sphere.position - Vector3(0, 0.4, 0);
 		
 		# Get acceleration/brake
-		if Input.is_action_pressed("Accelerate"):
+		if accelerating:
 			speed = max_speed
-		elif Input.is_action_pressed("brake"):
+		elif braking:
 			speed = -max_speed
 		else:
 			speed = 0
 		
 		# Get steer axis
-		var steer_axis = Input.get_axis("Right", "Left")
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
 			var amount : float = abs(steer_axis)
@@ -102,7 +107,7 @@ func _physics_process(delta: float) -> void:
 				steer(dir, amount)
 		
 		# Drift
-		if Input.is_action_just_pressed("drift") and !drifting and steer_axis != 0:
+		if drift_input and !drifting and steer_axis != 0:
 			drifting = true
 			drift_direction = sign(steer_axis)
 			
@@ -116,7 +121,7 @@ func _physics_process(delta: float) -> void:
 			
 			color_drift()
 		
-		if Input.is_action_just_released("drift") and drifting:
+		if drift_released and drifting:
 			boost()
 		
 		if !boost_timer.is_stopped():
@@ -156,6 +161,11 @@ func _physics_process(delta: float) -> void:
 		if hit_near.is_colliding():
 			kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
 			#kart_normal.rotation_degrees.y = rotation_degrees.y
+#endregion
+
+#region Signal methods
+func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
+	checkpoint_passed.emit(self, area.get_index())
 #endregion
 
 #region Other methods (please try to separate and organise!)
