@@ -35,7 +35,7 @@ folder_colors={
 "res://items/": "yellow",
 "res://kart/": "green",
 "res://managers/": "red",
-"res://menus/": "(0.9647, 0.5882, 1, 1)",
+"res://menus/": "meow meow meow!",
 "res://player/": "blue"
 }
 
