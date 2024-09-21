@@ -1,0 +1,5 @@
+
+
+- Menu: picking mode, server browser
+- Lobby: Picking character, color, track
+- Components: peices to use to build the different menus
