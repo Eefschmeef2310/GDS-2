@@ -1,0 +1,191 @@
+[gd_scene load_steps=6 format=3 uid="uid://cq2jngyq8a24k"]
+
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="1_h8qi5"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1ft1v"]
+viewport_path = NodePath("HBoxContainer/TextureRect/SubViewport")
+
+[sub_resource type="PrismMesh" id="PrismMesh_t77sr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pi4me"]
+albedo_texture = ExtResource("1_h8qi5")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_udwro"]
+top_radius = 1.0
+bottom_radius = 1.2
+height = 0.1
+
+[node name="CharacterSelectorModule" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("ViewportTexture_1ft1v")
+stretch_mode = 6
+
+[node name="SubViewport" type="SubViewport" parent="HBoxContainer/TextureRect"]
+transparent_bg = true
+
+[node name="Camera3D" type="Camera3D" parent="HBoxContainer/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 0.993491, 0.113914, 0, -0.113914, 0.993491, 0, 0.0347109, 0.0798964)
+
+[node name="TheKart" type="MeshInstance3D" parent="HBoxContainer/TextureRect/SubViewport"]
+transform = Transform3D(0.713874, 0, 0.700274, 0, 1, 0, -0.700274, 0, 0.713874, 0, 0, -2.12753)
+mesh = SubResource("PrismMesh_t77sr")
+skeleton = NodePath("../Camera3D")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="HBoxContainer/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.96602, -2.38419e-07, -1.53861)
+light_color = Color(1, 0.415686, 1, 1)
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="HBoxContainer/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.79167, -2.38419e-07, -2.1093)
+light_color = Color(0.121569, 0.745098, 0.992157, 1)
+
+[node name="Turntable" type="MeshInstance3D" parent="HBoxContainer/TextureRect/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.558418, -2.08232)
+material_override = SubResource("StandardMaterial3D_pi4me")
+mesh = SubResource("CylinderMesh_udwro")
+skeleton = NodePath("../Camera3D")
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 100
+
+[node name="Panel" type="Panel" parent="HBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer/MarginContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/MarginContainer/Panel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Characters" type="GridContainer" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Cat"
+
+[node name="Button2" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Dog"
+
+[node name="Button3" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Lizard"
+
+[node name="Button4" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Owl"
+
+[node name="Button5" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Crocodile"
+
+[node name="Button6" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Kitten"
+
+[node name="Button7" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+visible = false
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Cat"
+
+[node name="Button8" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+visible = false
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Cat"
+
+[node name="Button9" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Characters"]
+visible = false
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Cat"
+
+[node name="Colors" type="GridContainer" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer"]
+visible = false
+layout_mode = 2
+columns = 3
+
+[node name="Button" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Red"
+
+[node name="Button2" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Blue"
+
+[node name="Button3" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Yellow"
+
+[node name="Button4" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Green"
+
+[node name="Button5" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Purple"
+
+[node name="Button6" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Pink"
+
+[node name="Button7" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Orange"
+
+[node name="Button8" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "Black"
+
+[node name="Button9" type="Button" parent="HBoxContainer/MarginContainer/Panel/CenterContainer/MarginContainer/Colors"]
+custom_minimum_size = Vector2(125, 125)
+layout_mode = 2
+text = "White"
