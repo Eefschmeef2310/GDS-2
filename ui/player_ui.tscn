@@ -38,12 +38,11 @@ func update_polygon():
 		polygon = points
 "
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "data")]
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots")]
 layer = 0
 script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
-data = NodePath("")
 
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 anchors_preset = 1
