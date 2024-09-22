@@ -2,6 +2,7 @@ extends Control
 
 @export_subgroup("NodeRefences")
 @export var controller_list : VBoxContainer
+@export var no_controller_prompt : Label
 
 const MAX_PLAYERS : int = 8
 
@@ -16,14 +17,19 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	handle_join_input()
+	no_controller_prompt.visible = connected_controllers.size() < 1
+		
 	pass
 
 func add_controller(controller_id : int):
 	connected_controllers.append(controller_id)
 	var controller_name : String = Input.get_joy_name(controller_id)
+	if (controller_id == -1):
+		controller_name = "Keyboard"
 	var new_button : Button = Button.new()
 	new_button.text = str(controller_id) + " : " + controller_name
 	new_button.pressed.connect(func(): _on_controller_changed(controller_id, false))
+	controller_list.add_child(new_button)
 	# create button and bind to remove signal
 	pass
 
@@ -33,10 +39,14 @@ func add_controller(controller_id : int):
 func _on_controller_changed(device : int, connected : bool):
 	#if not connected and GameManager.isLocal():
 	if not connected:
+		var controller_name : String = Input.get_joy_name(device)
+		if (device == -1):
+			controller_name = "Keyboard"
+		var check : String = str(device) + " : " + controller_name
 		connected_controllers.erase(device)
-		for card in controller_list.get_children():
-			if card.device_id == device:
-				card.queue_free()
+		for button in controller_list.get_children():
+			if button.text == check:
+				button.queue_free()
 
 #region Local Input Management
 # call this from a loop in the main menu or anywhere they can join
@@ -55,7 +65,11 @@ func handle_join_input():
 			pass
 
 func is_device_joined(device: int) -> bool:
-	var check : String = str(device) + " : " + Input.get_joy_name(device)
+	var controller_name : String = Input.get_joy_name(device)
+	if (device == -1):
+		controller_name = "Keyboard"
+	var check : String = str(device) + " : " + controller_name
+	
 	for button in controller_list.get_children():
 		var d = button.text
 		if check == d: return true # controller is already connected

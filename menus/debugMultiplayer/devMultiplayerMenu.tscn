@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 
-[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list")]
+[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
 controller_list = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList")
+no_controller_prompt = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList/NoControllerLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -38,7 +39,7 @@ fit_content = true
 [node name="Subtitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 bbcode_enabled = true
-text = "[center]Press [i]Space[/i] or [i]X[/i] to Join! - Click to Remove"
+text = "[center]Press [i]E[/i] or [i]Start[/i] to Join! - Click to Remove"
 fit_content = true
 
 [node name="Panel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
@@ -54,21 +55,10 @@ theme_override_constants/margin_bottom = 10
 [node name="ControllerList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
+[node name="NoControllerLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
 layout_mode = 2
-text = "Keyboard"
-
-[node name="Button2" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
-layout_mode = 2
-text = "Controller 1"
-
-[node name="Button3" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
-layout_mode = 2
-text = "Controller 1"
-
-[node name="Button4" type="Button" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
-layout_mode = 2
-text = "Controller 1"
+text = "~ No Controllers Connected ~"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
