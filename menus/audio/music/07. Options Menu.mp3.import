@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2nvrfyjltsya"
+path="res://.godot/imported/07. Options Menu.mp3-fb80a72e6e2375a5912854cd89592b7b.mp3str"
+
+[deps]
+
+source_file="res://menus/audio/music/07. Options Menu.mp3"
+dest_files=["res://.godot/imported/07. Options Menu.mp3-fb80a72e6e2375a5912854cd89592b7b.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
