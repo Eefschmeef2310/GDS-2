@@ -21,7 +21,9 @@ signal hit_item_box(item : Resource)
 @export_group("Stats")
 @export var max_speed : float = 30
 @export var gravity : float = 10
-@export var acceleration : float = 1
+@export var acceleration : float = 1:
+	set(value):
+		acceleration = clamp(value, 0, 100)
 @export var turn_speed : float = 10
 @export var boost_multiplier : float = 3
 @export var boost_acceleration : float = 10
@@ -76,16 +78,6 @@ func _ready():
 	if !is_player:
 		player_ui.queue_free()
 
-func _process(_delta):
-	if is_player:		
-		#Animate wheels
-		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
-		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		
-		#Steering wheel animate
-		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
-	
 func _physics_process(delta: float) -> void:
 	if is_player:
 		# Move kart model to sphere
@@ -120,7 +112,7 @@ func _physics_process(delta: float) -> void:
 			drift_power += power_control
 			
 			color_drift()
-		
+			
 		if drift_released and drifting:
 			boost()
 		
@@ -156,6 +148,14 @@ func _physics_process(delta: float) -> void:
 		
 		#Steering
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
+		
+		#Animate wheels
+		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
+		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
+		back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
+		
+		#Steering wheel animate
+		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
 		
 		#Rotate according to slope
 		if hit_near.is_colliding():

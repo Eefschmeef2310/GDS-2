@@ -22,12 +22,13 @@ extends Upgrade
 #region Godot methods
 func _ready():
 	if kart:
-		print("bingus")
-		kart.max_speed += 50
+		kart.max_speed += 5
+		kart.acceleration -= 0.5
 	
 func _exit_tree() -> void:
-	# the code here is run when the mod is removed from the kart
-	pass
+	if kart:
+		kart.max_speed += 5
+		kart.acceleration -= 0.5
 #endregion
 
 #region Signal methods

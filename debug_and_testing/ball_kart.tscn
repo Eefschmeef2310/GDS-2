@@ -305,7 +305,7 @@ size = Vector3(2.5, 1, 2)
 [node name="BallKart" type="Node3D" node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
 script = ExtResource("1_i6kgw")
 max_speed = 20.0
-acceleration = 0.1
+boost_acceleration = 5.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
 sphere = NodePath("Ball")
