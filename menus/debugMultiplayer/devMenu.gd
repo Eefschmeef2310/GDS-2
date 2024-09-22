@@ -100,6 +100,7 @@ func _on_start_button_pressed() -> void:
 
 func _on_feedback_button_pressed() -> void:
 	#load feedback form
+	OS.shell_open("http://tabbycat.dev")
 	pass # Replace with function body.
 
 
