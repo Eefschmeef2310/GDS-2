@@ -1,13 +1,11 @@
-[gd_scene load_steps=22 format=3 uid="uid://kcisw76ucbri"]
+[gd_scene load_steps=18 format=3 uid="uid://kcisw76ucbri"]
 
 [ext_resource type="Script" path="res://kart/kart_controller.gd" id="1_bsaip"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_6f66f"]
 [ext_resource type="Script" path="res://kart/track_tracker.gd" id="3_6in2l"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="3_wkpv8"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="4_prpj0"]
-[ext_resource type="Script" path="res://kart/player_ui.gd" id="6_gtixf"]
-[ext_resource type="Script" path="res://player/slots_ui.gd" id="7_rsmvj"]
-[ext_resource type="Script" path="res://player/player_hand.gd" id="7_ytdyb"]
+[ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="6_nwin5"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_wqjpp"]
 top_radius = 0.0
@@ -38,40 +36,6 @@ billboard_mode = 1
 [sub_resource type="QuadMesh" id="QuadMesh_dcobt"]
 material = SubResource("StandardMaterial3D_b741q")
 
-[sub_resource type="LabelSettings" id="LabelSettings_rqmv5"]
-font_size = 8
-font_color = Color(0, 0, 0, 1)
-
-[sub_resource type="GDScript" id="GDScript_fbgso"]
-script/source = "@tool
-extends Polygon2D
-
-@export var n = 5:
-	set(value):
-		n = value
-		update_polygon()
-@export var radius = 30:
-	set(value):
-		radius = value
-		update_polygon()
-
-
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	update_polygon()
-		
-func update_polygon():
-	var points = []
-	for i in range(n):
-		var theta = (PI*2/ n * i) + deg_to_rad(270)
-		var x = radius * cos(theta)
-		var y = radius * sin(theta)
-		
-		var point = Vector2(x,y)
-		points.append(point)
-		polygon = points
-"
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_x880c"]
 radius = 0.593671
 height = 3.85047
@@ -79,7 +43,7 @@ height = 3.85047
 [sub_resource type="BoxShape3D" id="BoxShape3D_thdqr"]
 size = Vector3(1.5, 1, 3)
 
-[node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera", "player_ui")]
+[node name="Kart" type="VehicleBody3D" node_paths=PackedStringArray("camera_pivot", "camera")]
 collision_layer = 5
 gravity_scale = 4.0
 center_of_mass_mode = 1
@@ -89,7 +53,6 @@ max_steer = 0.2
 engine_power = 200
 camera_pivot = NodePath("CamPivot")
 camera = NodePath("CamPivot/Camera3D")
-player_ui = NodePath("PlayerUI")
 
 [node name="Scripts" type="Node" parent="."]
 
@@ -186,264 +149,7 @@ lifetime = 600.0
 process_material = SubResource("ParticleProcessMaterial_7ptko")
 draw_pass_1 = SubResource("QuadMesh_dcobt")
 
-[node name="PlayerUI" type="CanvasLayer" parent="." node_paths=PackedStringArray("hand", "slots", "data")]
-layer = 0
-script = ExtResource("6_gtixf")
-hand = NodePath("Hand")
-slots = NodePath("MarginContainer")
-data = NodePath("../Scripts/PlayerDataContainer")
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI" node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -70.0
-offset_bottom = 93.0
-grow_horizontal = 0
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 15
-script = ExtResource("7_rsmvj")
-engine = NodePath("VBoxContainer/Slots/Engine/Label")
-tire = NodePath("VBoxContainer/Slots/Tire/Label2")
-spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
-oil = NodePath("VBoxContainer/Slots/Oil/Label4")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PlayerUI/MarginContainer"]
-layout_mode = 2
-
-[node name="PlacementLabel" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer"]
-layout_mode = 2
-text = "Lap 0/3
-Place 1/8"
-horizontal_alignment = 2
-
-[node name="Slots" type="HBoxContainer" parent="PlayerUI/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 40)
-layout_mode = 2
-
-[node name="Engine" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 0, 0, 1)
-
-[node name="Label" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Engine"]
-layout_mode = 1
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 62.0
-rotation = 4.71239
-label_settings = SubResource("LabelSettings_rqmv5")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Tire" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(1, 0.968331, 0, 1)
-
-[node name="Label2" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Tire"]
-layout_mode = 1
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 62.0
-rotation = 4.71239
-label_settings = SubResource("LabelSettings_rqmv5")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Spoiler" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 1, 0.0199184, 1)
-
-[node name="Label3" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Spoiler"]
-layout_mode = 1
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 62.0
-rotation = 4.71239
-label_settings = SubResource("LabelSettings_rqmv5")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Oil" type="ColorRect" parent="PlayerUI/MarginContainer/VBoxContainer/Slots"]
-layout_mode = 2
-size_flags_horizontal = 3
-color = Color(0, 0.0316691, 1, 1)
-
-[node name="Label4" type="Label" parent="PlayerUI/MarginContainer/VBoxContainer/Slots/Oil"]
-layout_mode = 1
-offset_top = 40.0
-offset_right = 40.0
-offset_bottom = 62.0
-rotation = 4.71239
-label_settings = SubResource("LabelSettings_rqmv5")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Control" type="Control" parent="PlayerUI/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
-
-[node name="BackgroundCircle" type="Polygon2D" parent="PlayerUI/MarginContainer/VBoxContainer/Control"]
-color = Color(0.124991, 0.155174, 0.423967, 1)
-offset = Vector2(50, 50)
-polygon = PackedVector2Array(-5.51091e-15, -30, 1.71266, -29.9511, 3.41974, -29.8045, 5.11567, -29.5606, 6.7949, -29.2204, 8.45198, -28.7848, 10.0815, -28.2553, 11.6781, -27.6337, 13.2366, -26.922, 14.752, -26.1224, 16.2192, -25.2376, 17.6336, -24.2705, 18.9904, -23.2242, 20.2852, -22.1022, 21.514, -20.9081, 22.6725, -19.6458, 23.7571, -18.3194, 24.7642, -16.9333, 25.6905, -15.4919, 26.533, -14, 27.289, -12.4625, 27.9559, -10.8842, 28.5317, -9.27051, 29.0144, -7.62655, 29.4025, -5.95771, 29.6946, -4.26944, 29.89, -2.56725, 29.9878, -0.856682, 29.9878, 0.856682, 29.89, 2.56725, 29.6946, 4.26944, 29.4025, 5.95771, 29.0144, 7.62655, 28.5317, 9.27051, 27.9559, 10.8842, 27.289, 12.4625, 26.533, 14, 25.6905, 15.4919, 24.7642, 16.9333, 23.7571, 18.3194, 22.6725, 19.6458, 21.514, 20.9081, 20.2852, 22.1022, 18.9904, 23.2242, 17.6336, 24.2705, 16.2192, 25.2376, 14.752, 26.1224, 13.2366, 26.922, 11.6781, 27.6337, 10.0815, 28.2553, 8.45198, 28.7848, 6.7949, 29.2204, 5.11567, 29.5606, 3.41974, 29.8045, 1.71266, 29.9511, 9.18485e-15, 30, -1.71266, 29.9511, -3.41974, 29.8045, -5.11567, 29.5606, -6.7949, 29.2204, -8.45198, 28.7848, -10.0815, 28.2553, -11.6781, 27.6337, -13.2366, 26.922, -14.752, 26.1224, -16.2192, 25.2376, -17.6336, 24.2705, -18.9904, 23.2242, -20.2852, 22.1022, -21.514, 20.9081, -22.6725, 19.6458, -23.7571, 18.3194, -24.7642, 16.9333, -25.6905, 15.4919, -26.533, 14, -27.289, 12.4625, -27.9559, 10.8842, -28.5317, 9.27051, -29.0144, 7.62655, -29.4025, 5.95771, -29.6946, 4.26944, -29.89, 2.56725, -29.9878, 0.856682, -29.9878, -0.856682, -29.89, -2.56725, -29.6946, -4.26944, -29.4025, -5.95771, -29.0144, -7.62655, -28.5317, -9.27051, -27.9559, -10.8842, -27.289, -12.4625, -26.533, -14, -25.6905, -15.4919, -24.7642, -16.9333, -23.7571, -18.3194, -22.6725, -19.6458, -21.514, -20.9081, -20.2852, -22.1022, -18.9904, -23.2242, -17.6336, -24.2705, -16.2192, -25.2376, -14.752, -26.1224, -13.2366, -26.922, -11.6781, -27.6337, -10.0815, -28.2553, -8.45198, -28.7848, -6.7949, -29.2204, -5.11567, -29.5606, -3.41974, -29.8045, -1.71266, -29.9511)
-script = SubResource("GDScript_fbgso")
-n = 110
-
-[node name="Polygon2D2" type="Polygon2D" parent="PlayerUI/MarginContainer/VBoxContainer/Control"]
-offset = Vector2(50, 50)
-polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
-vertex_colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
-script = SubResource("GDScript_fbgso")
-
-[node name="Hand" type="GridContainer" parent="PlayerUI" node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -235.5
-offset_right = 235.5
-offset_bottom = 163.0
-grow_horizontal = 2
-columns = 5
-script = ExtResource("7_ytdyb")
-current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
-current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
-stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
-item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
-
-[node name="Panel" type="Panel" parent="PlayerUI/Hand"]
-custom_minimum_size = Vector2(130, 0)
-layout_mode = 2
-
-[node name="Label3" type="Label" parent="PlayerUI/Hand/Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -82.5
-offset_top = -11.5
-offset_right = 82.5
-offset_bottom = 11.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "THROW!
-(non functional
-rn :(        )"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label" type="Label" parent="PlayerUI/Hand"]
-layout_mode = 2
-text = "L
-<-"
-horizontal_alignment = 1
-
-[node name="Current Item" type="PanelContainer" parent="PlayerUI/Hand"]
-custom_minimum_size = Vector2(130, 100)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI/Hand/Current Item"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Old Item" type="VBoxContainer" parent="PlayerUI/Hand/Current Item/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Panel" type="Panel" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="HandItemName" type="Label" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item/Panel"]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -21.0
-offset_right = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Item here"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Stat" type="Label" parent="PlayerUI/Hand/Current Item/MarginContainer/Old Item"]
-layout_mode = 2
-text = "^ Stat 1
-V Stat 2"
-
-[node name="Label2" type="Label" parent="PlayerUI/Hand"]
-layout_mode = 2
-text = "R
-->"
-horizontal_alignment = 1
-
-[node name="Current Slot" type="PanelContainer" parent="PlayerUI/Hand"]
-custom_minimum_size = Vector2(130, 100)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PlayerUI/Hand/Current Slot"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Old Item" type="VBoxContainer" parent="PlayerUI/Hand/Current Slot/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Panel" type="Panel" parent="PlayerUI/Hand/Current Slot/MarginContainer/Old Item"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="CurrentItemLabel" type="Label" parent="PlayerUI/Hand/Current Slot/MarginContainer/Old Item/Panel"]
-layout_mode = 1
-anchors_preset = 13
-anchor_left = 0.5
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -21.0
-offset_right = 21.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Item here"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="CurrentItemStats" type="Label" parent="PlayerUI/Hand/Current Slot/MarginContainer/Old Item"]
-visible = false
-layout_mode = 2
-text = "^ Speed
-V Acceleration"
-
-[node name="Checkpoints" type="Label" parent="PlayerUI"]
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -56.0
-offset_top = -39.0
-offset_right = -16.0
-offset_bottom = -16.0
-grow_horizontal = 0
-grow_vertical = 0
-horizontal_alignment = 2
+[node name="PlayerUI" parent="." instance=ExtResource("6_nwin5")]
 
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 4
@@ -463,8 +169,8 @@ shape = SubResource("BoxShape3D_thdqr")
 [node name="RayCast3D" type="RayCast3D" parent="."]
 
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
-[connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
-[connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="area_entered" from="Hurtbox" to="." method="hurt"]
 [connection signal="body_entered" from="Hurtbox" to="." method="hurt"]
 [connection signal="area_entered" from="CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
+
+[editable path="PlayerUI"]

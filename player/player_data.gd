@@ -27,22 +27,9 @@ signal hand_updated()
 
 #endregion
 
-#region Godot methods
-func _ready():
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
 #region Signal methods
 func _on_kart_hit_item_box(item: Resource) -> void:
 	if inventory["hand"] == null:
 		inventory["hand"] = item
 	hand_updated.emit()
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
 #endregion

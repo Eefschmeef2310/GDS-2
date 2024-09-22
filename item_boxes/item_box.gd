@@ -20,21 +20,8 @@ extends Area3D
 
 #endregion
 
-#region Godot methods
-func _ready():
-	pass
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
 #region Signal methods
 func _on_body_entered(body: Node3D) -> void:
-	if body is Kart:
-		body.hit_item_box.emit(ItemManager.get_random_item(part_type))
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
+	if body.get_parent() is Kart:
+		body.get_parent().hit_item_box.emit(ItemManager.get_random_item(part_type))
 #endregion

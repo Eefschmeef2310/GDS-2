@@ -1,5 +1,5 @@
 extends VehicleBody3D
-class_name Kart
+class_name KartOld
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -68,7 +68,7 @@ func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
 #region Other methods (please try to separate and organise!)
 
 #Hazard should contain the values for stun duration
-func hurt(hazard: Node3D):
+func hurt(_hazard: Node3D):
 	steering = 0
 	engine_force = 0
 	brake = 20

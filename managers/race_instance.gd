@@ -38,7 +38,7 @@ func _ready():
 		var check_count = course.track.curve.point_count - 1
 		
 		for n in debug_start_number_of_racers:
-			var new_kart : Kart = kart_scene.instantiate()
+			var new_kart : PlayerKart = kart_scene.instantiate()
 			if n == 0:
 				new_kart.is_player = true
 			new_kart.position = course.kart_spawns.get_child(n).position

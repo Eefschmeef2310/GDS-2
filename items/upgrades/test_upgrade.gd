@@ -21,14 +21,14 @@ extends Upgrade
 
 #region Godot methods
 func _ready():
-	# the code here is run when the mod gets addd to the kart
-	# eg: stat changes, enabling feature, ect
-	# TODO: should we use this or create equip() and remove() functions that are run by the kart instead?
-	pass
+	if kart:
+		kart.max_speed += 5
+		kart.acceleration -= 0.5
 	
 func _exit_tree() -> void:
-	# the code here is run when the mod is removed from the kart
-	pass
+	if kart:
+		kart.max_speed += 5
+		kart.acceleration -= 0.5
 #endregion
 
 #region Signal methods
