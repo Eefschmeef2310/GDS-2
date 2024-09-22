@@ -36,7 +36,8 @@ var number_of_racers : int = 8
 
 func _ready():
 	if debug_start:
-		connected_controllers.append(-1)
+		if connected_controllers.is_empty():
+			connected_controllers.append(-1)
 		course_scene = debug_start_course_scene
 		number_of_racers = debug_start_number_of_racers
 		
@@ -90,7 +91,8 @@ func start_race():
 		if n < connected_controllers.size():
 			new_kart.is_player = true
 			new_kart.player_ui.ri = self
-			new_kart.name = "You"
+			new_kart.name = "Player " + str(n+1)
+			new_kart.device = connected_controllers[n]
 			course.add_kart_to_viewport_grid(new_kart)
 		else:
 			new_kart.name = debug_names[0]

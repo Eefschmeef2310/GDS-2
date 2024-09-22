@@ -95,6 +95,10 @@ func get_unjoined_devices():
 
 func _on_start_button_pressed() -> void:
 	#send data to race manager thing
+	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
+	race_instance.connected_controllers = connected_controllers
+	add_child(race_instance)
+	
 	pass # Replace with function body.
 
 

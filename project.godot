@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDS2"
-run/main_scene="res://race/race_instance.tscn"
+run/main_scene="res://menus/debugMultiplayer/devMultiplayerMenu.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
