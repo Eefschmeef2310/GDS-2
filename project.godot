@@ -20,10 +20,15 @@ config/icon="res://icon.svg"
 ItemManager="*res://autoloads/item_manager.tscn"
 SteamManager="*res://multiplayer/steam/steamManager.tscn"
 GameManager="*res://multiplayer/gameManager/game_manager.gd"
+MultiplayerInput="*res://addons/multiplayer_input/multiplayer_input.gd"
 
 [display]
 
 window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg")
 
 [file_customization]
 
@@ -36,6 +41,7 @@ folder_colors={
 "res://kart/": "green",
 "res://managers/": "red",
 "res://menus/": "meow meow meow!",
+"res://menus/debugMultiplayer/": "red",
 "res://player/": "blue"
 }
 
