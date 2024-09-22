@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=7 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
@@ -38,11 +38,15 @@ func update_polygon():
 		polygon = points
 "
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots")]
+[sub_resource type="LabelSettings" id="LabelSettings_fpday"]
+font_size = 30
+
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label")]
 layer = 0
 script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
+speed_label = NodePath("SpeedContainer/SpeedLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 anchors_preset = 1
@@ -295,3 +299,21 @@ offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 horizontal_alignment = 2
+
+[node name="SpeedContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 60
+
+[node name="SpeedLabel" type="Label" parent="SpeedContainer"]
+layout_mode = 2
+text = "XXX km/h"
+label_settings = SubResource("LabelSettings_fpday")

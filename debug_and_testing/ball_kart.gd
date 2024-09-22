@@ -6,6 +6,7 @@ class_name Kart
 	#Signals
 @warning_ignore("unused_signal")
 signal checkpoint_passed(kart : Kart, index : int)
+@warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
 
 	#Enums
@@ -20,7 +21,9 @@ signal hit_item_box(item : Resource)
 @export_group("Stats")
 @export var max_speed : float = 30
 @export var gravity : float = 10
-@export var acceleration : float = 1
+@export var acceleration : float = 1:
+	set(value):
+		acceleration = clamp(value, 0, 100)
 @export var turn_speed : float = 10
 @export var boost_multiplier : float = 3
 @export var boost_acceleration : float = 10
@@ -61,6 +64,13 @@ var second : bool
 var third : bool
 var c : Color
 
+#Stuff that can be overriden by subclasses
+var steer_axis : float
+var accelerating : bool
+var braking : bool
+var drift_input : bool
+var drift_released : bool
+
 #endregion
 
 #region Godot methods
@@ -68,40 +78,28 @@ func _ready():
 	if !is_player:
 		player_ui.queue_free()
 
-func _process(_delta):
-	if is_player:
-		var steer_axis = Input.get_axis("Right", "Left")
-		
-		#Animate wheels
-		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
-		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		
-		#Steering wheel animate
-		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
-	
 func _physics_process(delta: float) -> void:
 	if is_player:
 		# Move kart model to sphere
 		kart.position = sphere.position - Vector3(0, 0.4, 0);
 		
 		# Get acceleration/brake
-		if Input.is_action_pressed("Accelerate"):
+		if accelerating:
 			speed = max_speed
-		elif Input.is_action_pressed("brake"):
+		elif braking:
 			speed = -max_speed
 		else:
 			speed = 0
 		
 		# Get steer axis
-		var steer_axis = Input.get_axis("Right", "Left")
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
 			var amount : float = abs(steer_axis)
-			steer(dir, amount)
+			if current_speed != 0:
+				steer(dir, amount)
 		
 		# Drift
-		if Input.is_action_just_pressed("drift") and !drifting and steer_axis != 0:
+		if drift_input and !drifting and steer_axis != 0:
 			drifting = true
 			drift_direction = sign(steer_axis)
 			
@@ -114,8 +112,8 @@ func _physics_process(delta: float) -> void:
 			drift_power += power_control
 			
 			color_drift()
-		
-		if Input.is_action_just_released("drift") and drifting:
+			
+		if drift_released and drifting:
 			boost()
 		
 		if !boost_timer.is_stopped():
@@ -141,6 +139,9 @@ func _physics_process(delta: float) -> void:
 			sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
 		else:
 			sphere.apply_force(kart.global_transform.basis.z * current_speed)
+			
+		#Update speed label
+		player_ui.update_speed(sphere.linear_velocity.length())
 		
 		#Gravity
 		sphere.apply_force(Vector3.DOWN * gravity)
@@ -148,10 +149,23 @@ func _physics_process(delta: float) -> void:
 		#Steering
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
 		
+		#Animate wheels
+		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
+		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
+		back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
+		
+		#Steering wheel animate
+		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
+		
 		#Rotate according to slope
 		if hit_near.is_colliding():
 			kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
 			#kart_normal.rotation_degrees.y = rotation_degrees.y
+#endregion
+
+#region Signal methods
+func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
+	checkpoint_passed.emit(self, area.get_index())
 #endregion
 
 #region Other methods (please try to separate and organise!)

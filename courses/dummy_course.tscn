@@ -25,25 +25,25 @@ point_count = 8
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r1k2k"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cb80p"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mbukw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c2qgs"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_e1je5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_trfob"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_km3s2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_4pw8o"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_24d7r"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vy482"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_df5tl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1saam"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_rlb3p"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mvheh"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
@@ -131,65 +131,65 @@ material = SubResource("StandardMaterial3D_n62to")
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
 
-[node name="@Area3D@33520" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21151" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33521" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33520"]
-shape = SubResource("BoxShape3D_r1k2k")
+[node name="@CollisionShape3D@21152" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21151"]
+shape = SubResource("BoxShape3D_cb80p")
 
-[node name="@Area3D@33522" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21153" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.980411, 0, 0.196963, 0, 1, 0, -0.196963, 0, -0.980411, -214.581, 0, 105.336)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33523" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33522"]
-shape = SubResource("BoxShape3D_mbukw")
+[node name="@CollisionShape3D@21154" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21153"]
+shape = SubResource("BoxShape3D_c2qgs")
 
-[node name="@Area3D@33524" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21155" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.999969, 0, 0.00793631, 0, 1, 0, -0.00793631, 0, -0.999969, -111.841, 0, 37.387)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33525" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33524"]
-shape = SubResource("BoxShape3D_e1je5")
+[node name="@CollisionShape3D@21156" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21155"]
+shape = SubResource("BoxShape3D_trfob")
 
-[node name="@Area3D@33526" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21157" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.940248, 0, -0.340491, 0, 1, 0, 0.340491, 0, -0.940248, 26.0523, 0, 144.433)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33527" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33526"]
-shape = SubResource("BoxShape3D_km3s2")
+[node name="@CollisionShape3D@21158" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21157"]
+shape = SubResource("BoxShape3D_4pw8o")
 
-[node name="@Area3D@33528" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21159" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0296161, 0, -0.999561, 0, 1, 0, 0.999561, 0, -0.0296161, 13.5723, 0, -2.38821)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33529" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33528"]
-shape = SubResource("BoxShape3D_24d7r")
+[node name="@CollisionShape3D@21160" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21159"]
+shape = SubResource("BoxShape3D_vy482")
 
-[node name="@Area3D@33530" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21161" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0637, 0, -0.997969, 0, 1, 0, 0.997969, 0, -0.0637, 69.3678, 0, -108.455)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33531" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33530"]
-shape = SubResource("BoxShape3D_df5tl")
+[node name="@CollisionShape3D@21162" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21161"]
+shape = SubResource("BoxShape3D_1saam")
 
-[node name="@Area3D@33532" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@21163" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.116292, 0, 0.993215, 0, 1, 0, -0.993215, 0, 0.116292, -63.0928, -1.90735e-05, -116.2)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@33533" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@33532"]
-shape = SubResource("BoxShape3D_rlb3p")
+[node name="@CollisionShape3D@21164" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@21163"]
+shape = SubResource("BoxShape3D_mvheh")
 
 [node name="InnerPavement" type="CSGPolygon3D" parent="Track"]
 use_collision = true
-polygon = PackedVector2Array(-21, 0, -21, 2, -20, 2, -20, 0)
+polygon = PackedVector2Array(-21, 0, -21, 3, -19, 3, -20, 0)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -203,7 +203,7 @@ path_joined = true
 
 [node name="OuterPavement" type="CSGPolygon3D" parent="Track"]
 use_collision = true
-polygon = PackedVector2Array(21, 0, 21, 2, 20, 2, 20, 0)
+polygon = PackedVector2Array(21, 0, 21, 3, 19, 3, 20, 0)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -284,14 +284,6 @@ part_type = 3
 
 [node name="MeshInstance3D" parent="ItemBox4" index="0"]
 mesh = SubResource("SphereMesh_mvrx4")
-
-[node name="ViewportGrid" type="GridContainer" parent="."]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
 [editable path="ItemBox"]
 [editable path="ItemBox2"]
