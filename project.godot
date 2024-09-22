@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="GDS2"
-run/main_scene="res://managers/race_instance.tscn"
+run/main_scene="res://race/race_instance.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
@@ -39,10 +39,10 @@ folder_colors={
 "res://item_boxes/": "teal",
 "res://items/": "yellow",
 "res://kart/": "green",
-"res://managers/": "red",
 "res://menus/": "meow meow meow!",
 "res://menus/debugMultiplayer/": "red",
-"res://player/": "blue"
+"res://player/": "blue",
+"res://race/": "red"
 }
 
 [input]

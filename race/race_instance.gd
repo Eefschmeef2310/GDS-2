@@ -27,36 +27,20 @@ var race_timer : float
 @export var debug_start : bool = false
 @export var debug_start_course_scene : PackedScene
 @export var debug_start_number_of_racers : int = 8
+
 var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Shiver", "Frye", "Big Man"]
 
+var connected_controllers : Array[int]
+var course_scene : PackedScene
+var number_of_racers : int = 8
 
 func _ready():
 	if debug_start:
-		course = debug_start_course_scene.instantiate()
-		add_child(course)
-		#course.camera.current = false
-		var check_count = course.track.curve.point_count - 1
+		connected_controllers.append(-1)
+		course_scene = debug_start_course_scene
+		number_of_racers = debug_start_number_of_racers
 		
-		for n in debug_start_number_of_racers:
-			var new_kart : Kart = kart_scene.instantiate()
-			if n == 0:
-				new_kart.is_player = true
-			new_kart.position = course.kart_spawns.get_child(n).position
-			new_kart.rotation = course.kart_spawns.get_child(n).rotation
-			
-			new_kart.checkpoint_passed.connect(_on_kart_checkpoint_passed)
-			
-			kart_placements[new_kart] = KartPlacement.new()
-			kart_placements[new_kart].last_checkpoint = check_count - 1
-			karts_sorted.append(new_kart)
-			course.add_child(new_kart)
-			
-			if new_kart.is_player:
-				new_kart.player_ui.ri = self
-				new_kart.name = "You"
-			else:
-				new_kart.name = debug_names[0]
-				debug_names.remove_at(0)
+		start_race()
 
 
 func _physics_process(_delta):
@@ -86,6 +70,32 @@ func start_race():
 	# start the countdown
 	# start tracking the race and shit
 	# probably an rpc call in here too
+	
+	course = course_scene.instantiate()
+	add_child(course)
+	#course.camera.current = false
+	var check_count = course.track.curve.point_count - 1
+	
+	for n in number_of_racers:
+		var new_kart : Kart = kart_scene.instantiate()
+		new_kart.position = course.kart_spawns.get_child(n).position
+		new_kart.rotation = course.kart_spawns.get_child(n).rotation
+		
+		new_kart.checkpoint_passed.connect(_on_kart_checkpoint_passed)
+		
+		kart_placements[new_kart] = KartPlacement.new()
+		kart_placements[new_kart].last_checkpoint = check_count - 1
+		karts_sorted.append(new_kart)
+		
+		if n < connected_controllers.size():
+			new_kart.is_player = true
+			new_kart.player_ui.ri = self
+			new_kart.name = "You"
+			course.add_kart_to_viewport_grid(new_kart)
+		else:
+			new_kart.name = debug_names[0]
+			debug_names.remove_at(0)
+			course.add_child(new_kart)
 	
 	pass
 
