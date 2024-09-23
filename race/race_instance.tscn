@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=6 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
@@ -12,37 +12,14 @@ func _on_pressed() -> void:
 	get_tree().reload_current_scene()
 "
 
+[sub_resource type="LabelSettings" id="LabelSettings_0cap3"]
+font_size = 100
+
 [node name="RaceInstance" type="Node"]
 script = ExtResource("1_0d5f1")
 kart_scene = ExtResource("2_me725")
 debug_start = true
 debug_start_course_scene = ExtResource("3_8vgv8")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
-[node name="DebugKartPlacements" type="Label" parent="CanvasLayer"]
-offset_left = 16.0
-offset_top = 16.0
-offset_right = 67.0
-offset_bottom = 221.0
-text = "1. Kart
-2. Kart
-3. Kart
-4. Kart
-5. Kart
-6. Kart
-7. Kart
-8. Kart"
-
-[node name="Timer" type="Label" parent="CanvasLayer"]
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-offset_left = 16.0
-offset_top = -39.0
-offset_right = 56.0
-offset_bottom = -16.0
-grow_vertical = 0
 
 [node name="DebugWin" type="CanvasLayer" parent="."]
 visible = false
@@ -82,5 +59,48 @@ horizontal_alignment = 1
 layout_mode = 2
 text = "Reset"
 script = SubResource("GDScript_2eq0k")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="DebugKartPlacements" type="Label" parent="CanvasLayer"]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 67.0
+offset_bottom = 221.0
+text = "1. Kart
+2. Kart
+3. Kart
+4. Kart
+5. Kart
+6. Kart
+7. Kart
+8. Kart"
+
+[node name="Timer" type="Label" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -39.0
+offset_right = 56.0
+offset_bottom = -16.0
+grow_vertical = 0
+
+[node name="CountdownLabel" type="Label" parent="CanvasLayer"]
+custom_minimum_size = Vector2(200, 0)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -28.5
+offset_top = -68.5
+offset_right = 28.5
+offset_bottom = 68.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "3"
+label_settings = SubResource("LabelSettings_0cap3")
+horizontal_alignment = 1
 
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]

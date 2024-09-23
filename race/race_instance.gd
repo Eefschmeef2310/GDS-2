@@ -34,6 +34,8 @@ var connected_controllers : Array[int]
 var course_scene : PackedScene
 var number_of_racers : int = 8
 
+var countdown_timer = 3.0
+
 func _ready():
 	if debug_start:
 		if connected_controllers.is_empty():
@@ -50,6 +52,18 @@ func _physics_process(_delta):
 func _process(delta):
 	if !$DebugWin.visible:
 		race_timer += delta
+	
+	if countdown_timer > -1:
+		var still_counting = countdown_timer > 0
+		countdown_timer -= delta
+		if countdown_timer <= 0:
+			$CanvasLayer/CountdownLabel.text = "GO!"
+			if still_counting:
+				release_karts()
+		else:
+			$CanvasLayer/CountdownLabel.text = str(ceil(countdown_timer))
+	else:
+		$CanvasLayer/CountdownLabel.text = ""
 	
 	var minutes
 	var seconds
@@ -81,6 +95,7 @@ func start_race():
 		var new_kart : Kart = kart_scene.instantiate()
 		new_kart.position = course.kart_spawns.get_child(n).position
 		new_kart.rotation = course.kart_spawns.get_child(n).rotation
+		new_kart.can_control = false
 		
 		new_kart.checkpoint_passed.connect(_on_kart_checkpoint_passed)
 		
@@ -102,17 +117,23 @@ func start_race():
 	pass
 
 
+func release_karts():
+	for kart in karts_sorted:
+		kart.can_control = true
+
+
 func update_kart_placements():
 	for kart in kart_placements.keys():
-		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.position)
+		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.ball.global_position)
 	
 	karts_sorted.sort_custom(sort_karts_by_placement)
 	
-	var s = ""
-	for n in karts_sorted.size():
-		var kart = karts_sorted[n]
-		s += str(n+1) + ". " + kart.name + "\n"
-	$CanvasLayer/DebugKartPlacements.text = s
+	if !$DebugWin.visible:
+		var s = ""
+		for n in karts_sorted.size():
+			var kart = karts_sorted[n]
+			s += str(n+1) + ". " + kart.name + "\n"
+		$CanvasLayer/DebugKartPlacements.text = s
 
 
 func sort_karts_by_placement(a, b):
