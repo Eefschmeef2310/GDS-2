@@ -25,6 +25,9 @@ signal item_used()
 func _process(_delta: float) -> void:
 	if MultiplayerInput.is_action_just_released(data.device, "equip"):
 		if data and data.inventory["hand"]:
+			if data.inventory[data.inventory["hand"].type]:
+				data.inventory[data.inventory["hand"].type].queue_free()
+			
 			var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
 			item.init(data.inventory["hand"])
 			data.inventory[data.inventory["hand"].type] = item
