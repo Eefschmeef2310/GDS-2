@@ -1,9 +1,10 @@
-[gd_scene load_steps=37 format=4 uid="uid://d0shgyjk01mtv"]
+[gd_scene load_steps=38 format=4 uid="uid://d0shgyjk01mtv"]
 
-[ext_resource type="Script" path="res://debug_and_testing/cpu_kart.gd" id="1_kwu5n"]
+[ext_resource type="Script" path="res://cpu_stuff/cpu_kart.gd" id="1_kwu5n"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_ob3wg"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="3_e0uft"]
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart_camera.gd" id="4_774sy"]
+[ext_resource type="Script" path="res://cpu_stuff/cpu_input_manager.gd" id="4_gscc5"]
 [ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="5_bax12"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
@@ -328,6 +329,9 @@ script = ExtResource("2_ob3wg")
 [node name="ItemUser" type="Node" parent="Scripts" node_paths=PackedStringArray("data")]
 script = ExtResource("3_e0uft")
 data = NodePath("../PlayerDataContainer")
+
+[node name="CPUInputManager" type="Node" parent="Scripts"]
+script = ExtResource("4_gscc5")
 
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
