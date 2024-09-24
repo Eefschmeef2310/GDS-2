@@ -274,13 +274,14 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -21.0
-offset_right = 21.0
+offset_left = -59.0
+offset_right = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Stat" type="Label" parent="Hand/Current Item/MarginContainer/Old Item"]
 layout_mode = 2
@@ -320,13 +321,14 @@ anchors_preset = 13
 anchor_left = 0.5
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -21.0
-offset_right = 21.0
+offset_left = -60.0
+offset_right = 61.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="CurrentItemStats" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item"]
 visible = false
