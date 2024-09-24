@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdmps41heha7q"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_owxeq"]
+
+[node name="HydrogenUpgrade" type="Node"]
+script = ExtResource("1_owxeq")
+increase_stat = 3
+increase_stat_amount = 3.0
+decrease_stat = 4
+decrease_stat_amount = 3.0

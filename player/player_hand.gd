@@ -39,5 +39,5 @@ func update(data : PlayerData):
 		
 	#Update hand section
 	item_name.text = data.inventory["hand"].item_name
-	stat.text = "+ " + data.inventory["hand"].up_stat + "\n- " + data.inventory["hand"].down_stat
+	stat.text = "+ " + Item.Stat.keys()[data.inventory["hand"].up_stat] + "\n- " + Item.Stat.keys()[data.inventory["hand"].down_stat]
 #endregion

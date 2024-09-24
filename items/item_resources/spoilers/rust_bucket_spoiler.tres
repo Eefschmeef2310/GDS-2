@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bwgqik8oivde7"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_dyhq8"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_k8b7m"]
+[ext_resource type="PackedScene" uid="uid://cnepsb4v5hx0o" path="res://items/upgrades/rust_bucket_upgrade.tscn" id="3_53k7j"]
+
+[resource]
+script = ExtResource("2_k8b7m")
+upgrade = ExtResource("3_53k7j")
+hazard = ExtResource("1_dyhq8")
+type = 3
+item_name = "Rusty Oil"
+up_stat = 0
+down_stat = 1

@@ -47,7 +47,7 @@ var max_turn_strength = 20
 		turn_speed = clamp(value, 0, max_turn_strength)
 		stats_updated.emit()
 
-var max_boost_strength = 30
+var max_boost_strength = 10
 @export var boost_multiplier : float = 3:
 	set(value):
 		boost_multiplier = clamp(value, 0, max_boost_strength)

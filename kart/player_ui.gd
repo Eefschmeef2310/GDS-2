@@ -43,8 +43,8 @@ func update_speed(speed : float):
 	speed_label.text = str(snapped(speed * 10, 0.1)) + " km/h"
 
 func update_bars():
-	get_node(stats["Speed"]).update_bar("Speed")
-	get_node(stats["Acceleration"]).update_bar("Acceleration")
-	get_node(stats["Handling"]).update_bar("Handling")
-	get_node(stats["Boost Strength"]).update_bar("Boost Strength")
-	get_node(stats["Weight"]).update_bar("Weight")
+	get_node(stats["Speed"]).update_bar(Item.Stat.Speed)
+	get_node(stats["Acceleration"]).update_bar(Item.Stat.Acceleration)
+	get_node(stats["Handling"]).update_bar(Item.Stat.Handling)
+	get_node(stats["Boost Strength"]).update_bar(Item.Stat.Boost_Strength)
+	get_node(stats["Weight"]).update_bar(Item.Stat.Weight)

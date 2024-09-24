@@ -33,19 +33,19 @@ class_name PlayerUIStat
 #region Other methods (please try to separate and organise!)
 func update_bar(stat: String):
 	match stat:
-		"Speed":
+		Item.Stat.Speed:
 			progress_bar.max_value = ui.kart.speed_cap
 			progress_bar.value = ui.kart.max_speed
-		"Acceleration":
+		Item.Stat.Acceleration:
 			progress_bar.max_value = ui.kart.max_acceleration
 			progress_bar.value = ui.kart.acceleration
-		"Handling":
+		Item.Stat.Handling:
 			progress_bar.max_value = ui.kart.max_turn_strength
 			progress_bar.value = ui.kart.turn_speed
-		"Boost Strength":
+		Item.Stat.Boost_Strength:
 			progress_bar.max_value = ui.kart.max_boost_strength
 			progress_bar.value = ui.kart.boost_multiplier
-		"Weight":
+		Item.Stat.Weight:
 			progress_bar.max_value = ui.kart.max_weight
 			progress_bar.value = ui.kart.gravity
 #endregion

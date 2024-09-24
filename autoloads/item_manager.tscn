@@ -1,15 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://dw27gng53f2ie"]
+[gd_scene load_steps=2 format=3 uid="uid://dw27gng53f2ie"]
 
 [ext_resource type="Script" path="res://autoloads/item_manager.gd" id="1_fcvtf"]
-[ext_resource type="Script" path="res://items/item_base.gd" id="2_0lu45"]
-[ext_resource type="Resource" uid="uid://bcsf15k2nwbaj" path="res://items/item_resources/test_engine.tres" id="3_mge6t"]
-[ext_resource type="Resource" uid="uid://deohn7t4rmd11" path="res://items/item_resources/test_tire.tres" id="4_0n4au"]
-[ext_resource type="Resource" uid="uid://di7wh8pfjaini" path="res://items/item_resources/test_spoiler.tres" id="5_bekoq"]
-[ext_resource type="Resource" uid="uid://yu8du71ih055" path="res://items/item_resources/test_oil.tres" id="6_p30dj"]
 
 [node name="ItemManager" type="Node"]
 script = ExtResource("1_fcvtf")
-engines = Array[ExtResource("2_0lu45")]([ExtResource("3_mge6t")])
-tires = Array[ExtResource("2_0lu45")]([ExtResource("4_0n4au")])
-spoilers = Array[ExtResource("2_0lu45")]([ExtResource("5_bekoq")])
-oils = Array[ExtResource("2_0lu45")]([ExtResource("6_p30dj")])
