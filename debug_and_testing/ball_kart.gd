@@ -67,6 +67,9 @@ var second : bool
 var third : bool
 var c : Color
 
+#Stuff to do with getting hit
+var is_stunned: bool = false
+
 #Stuff that can be overriden by subclasses
 var steer_axis : float
 var accelerating : bool
@@ -87,6 +90,7 @@ func _physics_process(delta: float) -> void:
 		kart.position = sphere.position - Vector3(0, 0.4, 0);
 		
 		# Get acceleration/brake
+		
 		if accelerating:
 			speed = max_speed
 		elif braking:
@@ -94,6 +98,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			speed = 0
 		
+		if is_stunned:
+			speed = 0
+			steer_axis = 0
 		# Get steer axis
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
@@ -107,7 +114,8 @@ func _physics_process(delta: float) -> void:
 			drift_direction = sign(steer_axis)
 			
 		# Perform jump animation here
-			
+		
+		
 		if drifting:
 			var control : float = (remap_axis(steer_axis, .4, 2)) if (drift_direction == 1) else (remap_axis(steer_axis, 2, .4))
 			var power_control : float = remap_axis(steer_axis, .5, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .5)
@@ -211,6 +219,15 @@ func boost():
 	third = false
 	
 	kart_model.get_parent().rotation_degrees = Vector3.ZERO
+	
+func hurt(_hazard: Node3D):
+	current_rotate = 0
+	current_speed = 0
+	sphere.linear_velocity /= 5
+	drifting = false
+	is_stunned = true
+	await get_tree().create_timer(1).timeout
+	is_stunned = false
 		
 	#print("Starting boost for " + str(boost_timer.wait_time))
 #endregion
