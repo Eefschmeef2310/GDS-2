@@ -25,6 +25,8 @@ func _physics_process(_delta):
 		for check in ri.kart_placements[kart].checkpoints_crossed:
 			c += str(check) + ", "
 		$Checkpoints.text = c
+		
+		$IsBoosting.text = "BOOSTING" if !kart.boost_timer.is_stopped() else "not boosting"
 
 func _on_player_data_container_hand_updated() -> void:
 	hand.visible = data.inventory["hand"] != null

@@ -1,24 +1,87 @@
-[gd_scene format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=2 format=3 uid="uid://is6nm3y05hix"]
 
-[node name="DevMultiplayerMenu" type="Control"]
+[ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
+
+[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_wil4j")
+controller_list = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList")
+no_controller_prompt = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList/NoControllerLabel")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
 
-[node name="Label" type="RichTextLabel" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 0
 bbcode_enabled = true
-text = "[font_size=80][wave amp=50]Modline Drift Sprint 3 Edition!"
+text = "[center][font_size=75][wave amp=50]Modline Drift Sprint 3 Edition!"
 fit_content = true
+
+[node name="Subtitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Press [i]E[/i] or [i]Start[/i] to Join! - Click to Remove"
+fit_content = true
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="ControllerList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="NoControllerLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
+layout_mode = 2
+text = "~ No Controllers Connected ~"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0, 0.75194, 0.220737, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Start Race!"
+
+[node name="FeedbackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0.920769, 0.281647, 1, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Open Feedback Form"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+modulate = Color(0.993079, 0, 0.221936, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Quit"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
