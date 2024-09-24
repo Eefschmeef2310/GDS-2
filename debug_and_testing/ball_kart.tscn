@@ -308,7 +308,6 @@ data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
 turn_speed = 8.0
 boost_acceleration = 5.0
-drag_coefficient = 3.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
 sphere = NodePath("Ball")

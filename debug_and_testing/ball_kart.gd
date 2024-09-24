@@ -32,7 +32,7 @@ var can_control: bool = true
 @export var turn_speed : float = 10
 @export var boost_multiplier : float = 3
 @export var boost_acceleration : float = 10
-@export var drag_coefficient : float = 1
+@export var traction_coefficient : float = 1
 
 @export_group("Data")
 @export var turbo_colors : Array[Color] = [Color.ALICE_BLUE, Color.ALICE_BLUE, Color.ALICE_BLUE]
@@ -151,7 +151,7 @@ func _physics_process(delta: float) -> void:
 		var local_z_dir = kart.transform.basis.z
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
-		var drag_magnitude = -vel_in_local_z * drag_coefficient
+		var drag_magnitude = -vel_in_local_z * traction_coefficient
 		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
 		
 		print(drag_magnitude)
