@@ -6,13 +6,11 @@ class_name PlayerData
 	#Signals
 signal hand_updated()
 
-	#Enums
+# 0+ = controller id
+# -1 = keyboard
+# -2 = any controller
+var device : int = -1
 
-	#Constants
-
-	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
 @export var inventory : Dictionary = {
 	"hand" : null,
 	Item.Part.Engine : null,
@@ -20,10 +18,6 @@ signal hand_updated()
 	Item.Part.Spoiler : null,
 	Item.Part.Oil : null,
 }
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
 
 #endregion
 

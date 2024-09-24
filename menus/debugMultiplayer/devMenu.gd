@@ -98,13 +98,14 @@ func _on_start_button_pressed() -> void:
 	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
 	race_instance.connected_controllers = connected_controllers
 	add_child(race_instance)
+	process_mode = PROCESS_MODE_DISABLED
 	
 	pass # Replace with function body.
 
 
 func _on_feedback_button_pressed() -> void:
 	#load feedback form
-	OS.shell_open("http://tabbycat.dev")
+	OS.shell_open("https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform")
 	pass # Replace with function body.
 
 

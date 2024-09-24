@@ -19,6 +19,8 @@ signal stats_updated()
 	#@export_subgroup("Subgroup")
 @onready var ball: RigidBody3D = $Ball
 
+@export var data : PlayerData
+
 @export var is_player : bool
 var can_control: bool = true
 
@@ -54,6 +56,7 @@ var max_boost_strength = 10
 		stats_updated.emit()
 
 @export var boost_acceleration : float = 10
+@export var traction_coefficient : float = 1
 
 @export_group("Data")
 @export var turbo_colors : Array[Color] = [Color.ALICE_BLUE, Color.ALICE_BLUE, Color.ALICE_BLUE]
@@ -91,6 +94,9 @@ var second : bool
 var third : bool
 var c : Color
 
+#Stuff to do with getting hit
+var is_stunned: bool = false
+
 #Stuff that can be overriden by subclasses
 var steer_axis : float
 var accelerating : bool
@@ -111,6 +117,7 @@ func _physics_process(delta: float) -> void:
 		kart.position = sphere.position - Vector3(0, 0.4, 0);
 		
 		# Get acceleration/brake
+		
 		if accelerating:
 			speed = max_speed
 		elif braking:
@@ -118,6 +125,9 @@ func _physics_process(delta: float) -> void:
 		else:
 			speed = 0
 		
+		if is_stunned:
+			speed = 0
+			steer_axis = 0
 		# Get steer axis
 		if steer_axis != 0:
 			var dir : int = sign(steer_axis)
@@ -131,7 +141,8 @@ func _physics_process(delta: float) -> void:
 			drift_direction = sign(steer_axis)
 			
 		# Perform jump animation here
-			
+		
+		
 		if drifting:
 			var control : float = (remap_axis(steer_axis, .4, 2)) if (drift_direction == 1) else (remap_axis(steer_axis, 2, .4))
 			var power_control : float = remap_axis(steer_axis, .5, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .5)
@@ -166,6 +177,16 @@ func _physics_process(delta: float) -> void:
 			sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
 		else:
 			sphere.apply_force(kart.global_transform.basis.z * current_speed)
+		
+		# Sideways Drag
+		var vel = sphere.linear_velocity
+		var local_z_dir = kart.transform.basis.z
+		var vel_in_local_z = vel.dot(local_z_dir)
+		
+		var drag_magnitude = -vel_in_local_z * traction_coefficient
+		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
+		
+		print(drag_magnitude)
 			
 		#Update speed label
 		player_ui.update_speed(sphere.linear_velocity.length())
@@ -235,6 +256,15 @@ func boost():
 	third = false
 	
 	kart_model.get_parent().rotation_degrees = Vector3.ZERO
+	
+func hurt(_hazard: Node3D):
+	current_rotate = 0
+	current_speed = 0
+	sphere.linear_velocity /= 5
+	drifting = false
+	is_stunned = true
+	await get_tree().create_timer(1).timeout
+	is_stunned = false
 		
 	#print("Starting boost for " + str(boost_timer.wait_time))
 #endregion

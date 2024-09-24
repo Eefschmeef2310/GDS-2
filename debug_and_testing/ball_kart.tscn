@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=38 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="1_kj480"]
@@ -12,6 +12,22 @@ absorbent = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qnbc7"]
 radius = 1.5
+
+[sub_resource type="GDScript" id="GDScript_ghuyg"]
+resource_name = "Hurtbox"
+script/source = "extends Area3D
+#region Variables
+@onready var ball_kart: PlayerKart = $\"..\"
+
+#endregion
+
+func _on_area_entered(area: Hazard) -> void:
+	if area != null and ball_kart != area.caster:
+		ball_kart.hurt(area)
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ita0d"]
+radius = 2.12327
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4aw"]
 resource_name = "Standardmaterial"
@@ -302,10 +318,14 @@ albedo_color = Color(1, 0, 0.965711, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1htm1"]
 size = Vector3(2.5, 1, 2)
 
-[node name="BallKart" type="Node3D" node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+[node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_i6kgw")
+data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
+turn_speed = 8.0
 boost_acceleration = 5.0
+traction_coefficient = 2.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
 sphere = NodePath("Ball")
@@ -328,17 +348,26 @@ data = NodePath("../PlayerDataContainer")
 
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-collision_layer = 5
+collision_layer = 4
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_1ruac")
 linear_damp = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_qnbc7")
 
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = SubResource("GDScript_ghuyg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("SphereShape3D_ita0d")
+
 [node name="Kart" type="Node3D" parent="."]
 
 [node name="Normal" type="Node3D" parent="Kart"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 
 [node name="Parent" type="Node3D" parent="Kart/Normal"]
 
@@ -391,10 +420,10 @@ mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
 [node name="Camera3D" type="Camera3D" parent="Kart/Normal"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 6)
+transform = Transform3D(1, -4.21636e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
 fov = 90.0
 script = ExtResource("4_7exgq")
-tilt_max = 1.0
+tilt_max = 2.0
 
 [node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
 visible = false
@@ -420,10 +449,13 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="area_entered" from="Kart/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
 
 [editable path="Kart/KartModelOld"]
