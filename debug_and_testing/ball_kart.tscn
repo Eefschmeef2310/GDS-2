@@ -302,8 +302,9 @@ albedo_color = Color(1, 0, 0.965711, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1htm1"]
 size = Vector3(2.5, 1, 2)
 
-[node name="BallKart" type="Node3D" node_paths=PackedStringArray("kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+[node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
 script = ExtResource("1_i6kgw")
+data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
 boost_acceleration = 5.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")

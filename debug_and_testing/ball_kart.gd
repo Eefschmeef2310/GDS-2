@@ -18,6 +18,8 @@ signal hit_item_box(item : Resource)
 	#@export_subgroup("Subgroup")
 @onready var ball: RigidBody3D = $Ball
 
+@export var data : PlayerData
+
 @export var is_player : bool
 var can_control: bool = true
 

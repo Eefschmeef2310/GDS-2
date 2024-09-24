@@ -36,6 +36,9 @@ var number_of_racers : int = 8
 
 var countdown_timer = 3.0
 
+@onready var minimap: Control = $CanvasLayer/Minimap
+@onready var minimap_path: Path2D = $CanvasLayer/Minimap/Path2D
+
 func _ready():
 	if debug_start:
 		if connected_controllers.is_empty():
@@ -107,14 +110,14 @@ func start_race():
 			new_kart.is_player = true
 			new_kart.player_ui.ri = self
 			new_kart.name = "Player " + str(n+1)
-			new_kart.device = connected_controllers[n]
+			new_kart.data.device = connected_controllers[n]
 			course.add_kart_to_viewport_grid(new_kart)
 		else:
 			new_kart.name = debug_names[0]
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
 	
-	pass
+	create_minimap_from_curve(course.track.curve)
 
 
 func release_karts():
@@ -204,3 +207,12 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 		pass
 	
 	pass
+
+
+func create_minimap_from_curve(curve: Curve3D):
+	var big_extents = course.get_track_extents()
+	var small_extents = [0., minimap.custom_minimum_size.x, 0., minimap.custom_minimum_size.y]
+	var scalar = (big_extents[1] - big_extents[0]) / (small_extents[1] - small_extents[0])
+	
+	
+	print(scalar)

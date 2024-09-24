@@ -23,7 +23,7 @@ signal item_used()
 
 #region Godot methods
 func _process(_delta: float) -> void:
-	if MultiplayerInput.is_action_just_released(0, "equip"):
+	if MultiplayerInput.is_action_just_released(data.device, "equip"):
 		if data and data.inventory["hand"]:
 			var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
 			item.init(data.inventory["hand"])
@@ -32,7 +32,7 @@ func _process(_delta: float) -> void:
 			data.inventory["hand"] = null
 			item_used.emit()
 	
-	if MultiplayerInput.is_action_just_released(0, "throw"):
+	if MultiplayerInput.is_action_just_released(data.device, "throw"):
 		if data and data.inventory["hand"]:
 			var hazard: Hazard = data.inventory["hand"].hazard.instantiate()
 			hazard.caster = owner

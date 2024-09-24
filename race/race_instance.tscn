@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=8 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
@@ -14,6 +14,21 @@ func _on_pressed() -> void:
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cap3"]
 font_size = 100
+
+[sub_resource type="Curve2D" id="Curve2D_wyouu"]
+bake_interval = 6.0
+_data = {
+"points": PackedVector2Array(-18.652, 12.3024, 18.652, -12.3024, 33, 19, -50.7968, -3.9685, 50.7968, 3.9685, 136, 12, -10.715, -48.0189, 10.715, 48.0189, 179, 89, 42.0661, -11.5087, -42.0661, 11.5087, 151, 174, 37.7008, 9.92126, -37.7008, -9.92126, 89, 138, 23.811, 15.0803, -23.811, -15.0803, 21, 152, -5.15905, 19.8425, 5.15905, -19.8425, 13, 100, -4.11439, 30.2922, 4.11439, -30.2922, 74, 78, 26.589, 7.937, -26.589, -7.937, 36, 50, -9.12755, 6.74645, 9.12755, -6.74645, 33, 19)
+}
+point_count = 10
+
+[sub_resource type="GDScript" id="GDScript_bsk8j"]
+script/source = "extends Path2D
+
+
+func _draw():
+	draw_polyline(curve.get_baked_points(), Color.WHITE, 5.0)
+"
 
 [node name="RaceInstance" type="Node"]
 script = ExtResource("1_0d5f1")
@@ -102,5 +117,34 @@ grow_vertical = 2
 text = "3"
 label_settings = SubResource("LabelSettings_0cap3")
 horizontal_alignment = 1
+
+[node name="Minimap" type="Control" parent="CanvasLayer"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -232.0
+offset_top = -100.0
+offset_right = -32.0
+offset_bottom = 100.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Minimap"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Path2D" type="Path2D" parent="CanvasLayer/Minimap"]
+position = Vector2(4, 4)
+curve = SubResource("Curve2D_wyouu")
+script = SubResource("GDScript_bsk8j")
 
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]
