@@ -14,16 +14,17 @@ script/source = "extends Hazard
 func _ready():
 	super._ready()
 	if caster:
-		global_position = caster.global_position
-		global_position.y += 2
+		var direction = Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))
+		global_position = caster.global_position + 3*direction
 		rotation = caster.rotation
-		$\".\".apply_impulse(Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))*projectile_strength)
+		$\".\".apply_impulse(direction*projectile_strength)
 
 func _on_timer_timeout() -> void:
 	queue_free()
 
 func _on_hitbox_body_entered(body: Node3D) -> void:
-	queue_free()
+	if body!= caster:
+		queue_free()
 "
 
 [sub_resource type="SphereMesh" id="SphereMesh_mgy6n"]
