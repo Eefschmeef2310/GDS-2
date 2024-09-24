@@ -2,6 +2,8 @@ extends Control
 class_name Minimap
 
 @onready var icons: Node2D = $Icons
+@onready var finish_line: Sprite2D = $FinishLine
+
 const MINIMAP_ICON = preload("res://race/minimap_icon.tscn")
 
 var big_extents : Array[float] = [0,0,0,0]
