@@ -128,5 +128,5 @@ join={
 
 3d_physics/layer_1="General"
 3d_physics/layer_2="Checkpoints"
-3d_physics/layer_3="Player"
+3d_physics/layer_3="Karts"
 3d_physics/layer_4="Hazards"

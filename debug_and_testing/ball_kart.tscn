@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=38 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="1_kj480"]
@@ -12,6 +12,22 @@ absorbent = true
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qnbc7"]
 radius = 1.5
+
+[sub_resource type="GDScript" id="GDScript_ghuyg"]
+resource_name = "Hurtbox"
+script/source = "extends Area3D
+#region Variables
+@onready var ball_kart: PlayerKart = $\"..\"
+
+#endregion
+
+func _on_area_entered(area: Hazard) -> void:
+	if area != null and ball_kart != area.caster:
+		ball_kart.hurt(area)
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ita0d"]
+radius = 2.12327
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4aw"]
 resource_name = "Standardmaterial"
@@ -329,12 +345,21 @@ data = NodePath("../PlayerDataContainer")
 
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-collision_layer = 5
+collision_layer = 4
+collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_1ruac")
 linear_damp = 0.3
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_qnbc7")
+
+[node name="Hurtbox" type="Area3D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = SubResource("GDScript_ghuyg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("SphereShape3D_ita0d")
 
 [node name="Kart" type="Node3D" parent="."]
 
@@ -424,6 +449,7 @@ data = NodePath("../Scripts/PlayerDataContainer")
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="area_entered" from="Kart/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
 
 [editable path="Kart/KartModelOld"]
