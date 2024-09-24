@@ -16,7 +16,10 @@ signal hit_item_box(item : Resource)
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
+@onready var ball: RigidBody3D = $Ball
+
 @export var is_player : bool
+var can_control: bool = true
 
 @export_group("Stats")
 @export var max_speed : float = 30

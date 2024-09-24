@@ -9,7 +9,7 @@ var device : int = -1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	if is_player:
+	if is_player and can_control:
 		steer_axis = MultiplayerInput.get_axis(device, "Right", "Left")
 		accelerating = MultiplayerInput.is_action_pressed(device, "Accelerate")
 		braking = MultiplayerInput.is_action_pressed(device, "brake")
