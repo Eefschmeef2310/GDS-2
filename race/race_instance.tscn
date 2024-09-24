@@ -149,7 +149,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="DebugWin/VBoxContainer"]
 layout_mode = 2
-text = "You have completed three laps of the Grand Anarchy Bowl and proven yourself
+text = "You have completed three laps of the Anarchy Crater and proven yourself
 as the coolest and most badass racer in all of the Outlands.
 
 Now go, dear racer, and tell us how buggy our game is
@@ -217,8 +217,9 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
+offset_left = 96.0
 offset_top = -100.0
-offset_right = 200.0
+offset_right = 296.0
 offset_bottom = 100.0
 grow_vertical = 2
 script = ExtResource("4_32fo0")
