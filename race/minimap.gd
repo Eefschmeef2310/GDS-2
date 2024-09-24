@@ -14,6 +14,10 @@ func add_icon(kart : Kart):
 	icons.add_child(new_icon)
 
 
+func _ready():
+	set_left()
+
+
 func _process(delta: float) -> void:
 	for icon in icons.get_children():
 		if icon.kart:
