@@ -1,9 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=15 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
 [ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="3_8vgv8"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
+[ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
 
 [sub_resource type="GDScript" id="GDScript_2eq0k"]
 script/source = "extends Button
@@ -49,7 +50,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(96, 249)]
+"values": [Vector2(96, 224)]
 }
 
 [sub_resource type="Animation" id="Animation_3jxgp"]
@@ -91,7 +92,7 @@ tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(95, 249)]
+"values": [Vector2(96, 224)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnpum"]
@@ -109,8 +110,10 @@ script/source = "extends Path2D
 @export var color : Color
 
 
+
 func _draw():
 	draw_polyline(curve.get_baked_points(), color, 10.0)
+	
 "
 
 [node name="RaceInstance" type="Node"]
@@ -209,15 +212,14 @@ label_settings = SubResource("LabelSettings_0cap3")
 horizontal_alignment = 1
 
 [node name="Minimap" type="Control" parent="CanvasLayer"]
-custom_minimum_size = Vector2(150, 150)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 96.0
-offset_top = -75.0
-offset_right = 246.0
-offset_bottom = 75.0
+offset_top = -100.0
+offset_right = 200.0
+offset_bottom = 100.0
 grow_vertical = 2
 script = ExtResource("4_32fo0")
 
@@ -241,6 +243,11 @@ position = Vector2(4, 4)
 curve = SubResource("Curve2D_bkdvv")
 script = SubResource("GDScript_bsk8j")
 color = Color(1, 1, 1, 0.501961)
+
+[node name="FinishLine" type="Sprite2D" parent="CanvasLayer/Minimap"]
+position = Vector2(309, 92)
+scale = Vector2(0.015, 0.05)
+texture = ExtResource("5_l63o3")
 
 [node name="Icons" type="Node2D" parent="CanvasLayer/Minimap"]
 

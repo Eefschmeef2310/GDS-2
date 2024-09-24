@@ -215,12 +215,31 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 func create_minimap_from_curve():
 	var big_extents : Array[float] = course.get_track_extents()
 	var small_extents : Array[float] = [0., minimap.custom_minimum_size.x, 0., minimap.custom_minimum_size.y]
-	var scalar = (small_extents[1] - small_extents[0]) / (big_extents[1] - big_extents[0]) 
+	
+	# Extrapolate big extents so that it is always square
+	var x_len = big_extents[1] - big_extents[0]
+	var z_len = big_extents[3] - big_extents[2]
+	var big_aspect = x_len/z_len
+	
+	print(x_len)
+	print(z_len)
+	print(big_aspect)
+	
+	if big_aspect > 1: # longer x than z
+		big_extents[2] *= big_aspect
+		big_extents[3] *= big_aspect
+	elif big_aspect < 1: # longer z than x
+		big_extents[0] *= big_aspect
+		big_extents[1] *= big_aspect
+	else: # completely square, do nothing
+		pass
+	
+	var scalar = (small_extents[1] - small_extents[0]) / (big_extents[1] - big_extents[0])
 	
 	minimap.big_extents = big_extents
 	minimap.small_extents = small_extents
 	
-	var add_point_function = func add_point(n, ignore_in_out : bool = false):
+	var add_point_function = func add_point(n, use_in, use_out):
 		var point = course.track.curve.get_point_position(n)
 		
 		var point_position = Vector2.ZERO
@@ -230,15 +249,18 @@ func create_minimap_from_curve():
 		var inn = course.track.curve.get_point_in(n) * scalar
 		var out = course.track.curve.get_point_out(n) * scalar
 		
-		var point_in = Vector2(inn.x, inn.z)
-		var point_out = Vector2(out.x, out.z)
+		var point_in = Vector2(inn.x, inn.z) if use_in else Vector2.ZERO
+		var point_out = Vector2(out.x, out.z) if use_out else Vector2.ZERO
 		
-		if ignore_in_out:
-			minimap_path.curve.add_point(point_position)
-		else:
-			minimap_path.curve.add_point(point_position, point_in, point_out)
+		minimap_path.curve.add_point(point_position, point_in, point_out)
+		
+		if n == 0 and use_out:
+			var point2 = point_position + point_out
+			var dir = (point2 - point_position).normalized()
+			minimap.finish_line.rotation = atan2(dir.y, dir.x)
+			minimap.finish_line.position = point_position
 	
 	minimap_path.curve.clear_points()
 	for i in range(course.track.curve.point_count - 1):
-		add_point_function.call(i)
-	add_point_function.call(0, true)
+		add_point_function.call(i, true, true)
+	add_point_function.call(0, false, false)
