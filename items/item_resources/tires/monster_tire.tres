@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://pwud03h68mw3"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_6xxoa"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_uaby3"]
+[ext_resource type="PackedScene" uid="uid://c0en4qxx7032y" path="res://items/upgrades/monster_truck_upgrade.tscn" id="3_3utxo"]
+
+[resource]
+script = ExtResource("2_uaby3")
+upgrade = ExtResource("3_3utxo")
+hazard = ExtResource("1_6xxoa")
+type = 1
+item_name = "Monster Truck Tire"
+up_stat = 4
+down_stat = 1

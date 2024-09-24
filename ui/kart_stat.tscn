@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bld70ufksg7ql"]
+
+[ext_resource type="Script" path="res://ui/kart_stat.gd" id="1_45p3u"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_cgjw4"]
+font_size = 10
+
+[node name="Stat" type="VBoxContainer" node_paths=PackedStringArray("progress_bar")]
+custom_minimum_size = Vector2(100, 0)
+offset_right = 150.0
+offset_bottom = 28.0
+theme_override_constants/separation = 0
+script = ExtResource("1_45p3u")
+progress_bar = NodePath("ProgressBar")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 2
+text = "StatName"
+label_settings = SubResource("LabelSettings_cgjw4")
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+show_percentage = false

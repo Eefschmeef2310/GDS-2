@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://drjmsbx2p2cy0"
+path="res://.godot/imported/05. WIFI Menu.mp3-f8566496c5206b671b508a03f0649a64.mp3str"
+
+[deps]
+
+source_file="res://menus/audio/music/05. WIFI Menu.mp3"
+dest_files=["res://.godot/imported/05. WIFI Menu.mp3-f8566496c5206b671b508a03f0649a64.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

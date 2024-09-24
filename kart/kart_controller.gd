@@ -1,5 +1,5 @@
 extends VehicleBody3D
-class_name Kart
+class_name KartOld
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -17,7 +17,7 @@ signal checkpoint_passed(kart : Kart, index : int)
 	#@export_subgroup("Subgroup")
 	
 @export_range(0, PI) var max_steer : float = 0.8 #IN RADIANS
-@export var max_speed = 500
+@export var max_speed = 200
 @export var engine_power : int = 300:
 	set(value):
 		engine_power = clamp(value, 0, max_speed)
@@ -68,7 +68,7 @@ func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
 #region Other methods (please try to separate and organise!)
 
 #Hazard should contain the values for stun duration
-func hurt(hazard: Node3D):
+func hurt(_hazard: Node3D):
 	steering = 0
 	engine_force = 0
 	brake = 20

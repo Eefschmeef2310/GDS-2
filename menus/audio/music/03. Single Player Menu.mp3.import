@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ddwhlkdvhphm4"
+path="res://.godot/imported/03. Single Player Menu.mp3-0d18512d9e0a2797038de14963d61a24.mp3str"
+
+[deps]
+
+source_file="res://menus/audio/music/03. Single Player Menu.mp3"
+dest_files=["res://.godot/imported/03. Single Player Menu.mp3-0d18512d9e0a2797038de14963d61a24.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

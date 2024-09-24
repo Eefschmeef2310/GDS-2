@@ -14,10 +14,6 @@ func _ready():
 	print("Hazard Spawned")
 	#Runs when all children have entered the tree
 	pass
-
-func _process(delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods

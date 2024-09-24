@@ -1,0 +1,388 @@
+[gd_scene load_steps=8 format=3 uid="uid://bxoqa1tw6o67n"]
+
+[ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
+[ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
+[ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
+[ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_rqmv5"]
+font_size = 8
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="GDScript" id="GDScript_fbgso"]
+script/source = "@tool
+extends Polygon2D
+
+@export var n = 5:
+	set(value):
+		n = value
+		update_polygon()
+@export var radius = 30:
+	set(value):
+		radius = value
+		update_polygon()
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	update_polygon()
+		
+func update_polygon():
+	var points = []
+	for i in range(n):
+		var theta = (PI*2/ n * i) + deg_to_rad(270)
+		var x = radius * cos(theta)
+		var y = radius * sin(theta)
+		
+		var point = Vector2(x,y)
+		points.append(point)
+		polygon = points
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_fpday"]
+font_size = 30
+
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label")]
+layer = 0
+script = ExtResource("1_u0skn")
+hand = NodePath("Hand")
+slots = NodePath("MarginContainer")
+speed_label = NodePath("SpeedContainer/SpeedLabel")
+stats = {
+"Acceleration": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
+"Boost Strength": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
+"Handling": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Handling"),
+"Speed": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Speed"),
+"Weight": NodePath("MarginContainer/VBoxContainer/VBoxContainer/weight")
+}
+
+[node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -70.0
+offset_bottom = 93.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 15
+script = ExtResource("2_56hxx")
+engine = NodePath("VBoxContainer/Slots/Engine/Label")
+tire = NodePath("VBoxContainer/Slots/Tire/Label2")
+spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
+oil = NodePath("VBoxContainer/Slots/Oil/Label4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="PlacementLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Lap 0/3
+Place 1/8"
+horizontal_alignment = 2
+
+[node name="Slots" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 40)
+layout_mode = 2
+
+[node name="Engine" type="ColorRect" parent="MarginContainer/VBoxContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0, 0, 1)
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Slots/Engine"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Tire" type="ColorRect" parent="MarginContainer/VBoxContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(1, 0.968331, 0, 1)
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Slots/Tire"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Spoiler" type="ColorRect" parent="MarginContainer/VBoxContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 1, 0.0199184, 1)
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Slots/Spoiler"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Oil" type="ColorRect" parent="MarginContainer/VBoxContainer/Slots"]
+layout_mode = 2
+size_flags_horizontal = 3
+color = Color(0, 0.0316691, 1, 1)
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Slots/Oil"]
+layout_mode = 1
+offset_top = 40.0
+offset_right = 40.0
+offset_bottom = 62.0
+rotation = 4.71239
+label_settings = SubResource("LabelSettings_rqmv5")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+
+[node name="BackgroundCircle" type="Polygon2D" parent="MarginContainer/VBoxContainer/Control"]
+color = Color(0.124991, 0.155174, 0.423967, 1)
+offset = Vector2(50, 50)
+polygon = PackedVector2Array(-5.51091e-15, -30, 1.71266, -29.9511, 3.41974, -29.8045, 5.11567, -29.5606, 6.7949, -29.2204, 8.45198, -28.7848, 10.0815, -28.2553, 11.6781, -27.6337, 13.2366, -26.922, 14.752, -26.1224, 16.2192, -25.2376, 17.6336, -24.2705, 18.9904, -23.2242, 20.2852, -22.1022, 21.514, -20.9081, 22.6725, -19.6458, 23.7571, -18.3194, 24.7642, -16.9333, 25.6905, -15.4919, 26.533, -14, 27.289, -12.4625, 27.9559, -10.8842, 28.5317, -9.27051, 29.0144, -7.62655, 29.4025, -5.95771, 29.6946, -4.26944, 29.89, -2.56725, 29.9878, -0.856682, 29.9878, 0.856682, 29.89, 2.56725, 29.6946, 4.26944, 29.4025, 5.95771, 29.0144, 7.62655, 28.5317, 9.27051, 27.9559, 10.8842, 27.289, 12.4625, 26.533, 14, 25.6905, 15.4919, 24.7642, 16.9333, 23.7571, 18.3194, 22.6725, 19.6458, 21.514, 20.9081, 20.2852, 22.1022, 18.9904, 23.2242, 17.6336, 24.2705, 16.2192, 25.2376, 14.752, 26.1224, 13.2366, 26.922, 11.6781, 27.6337, 10.0815, 28.2553, 8.45198, 28.7848, 6.7949, 29.2204, 5.11567, 29.5606, 3.41974, 29.8045, 1.71266, 29.9511, 9.18485e-15, 30, -1.71266, 29.9511, -3.41974, 29.8045, -5.11567, 29.5606, -6.7949, 29.2204, -8.45198, 28.7848, -10.0815, 28.2553, -11.6781, 27.6337, -13.2366, 26.922, -14.752, 26.1224, -16.2192, 25.2376, -17.6336, 24.2705, -18.9904, 23.2242, -20.2852, 22.1022, -21.514, 20.9081, -22.6725, 19.6458, -23.7571, 18.3194, -24.7642, 16.9333, -25.6905, 15.4919, -26.533, 14, -27.289, 12.4625, -27.9559, 10.8842, -28.5317, 9.27051, -29.0144, 7.62655, -29.4025, 5.95771, -29.6946, 4.26944, -29.89, 2.56725, -29.9878, 0.856682, -29.9878, -0.856682, -29.89, -2.56725, -29.6946, -4.26944, -29.4025, -5.95771, -29.0144, -7.62655, -28.5317, -9.27051, -27.9559, -10.8842, -27.289, -12.4625, -26.533, -14, -25.6905, -15.4919, -24.7642, -16.9333, -23.7571, -18.3194, -22.6725, -19.6458, -21.514, -20.9081, -20.2852, -22.1022, -18.9904, -23.2242, -17.6336, -24.2705, -16.2192, -25.2376, -14.752, -26.1224, -13.2366, -26.922, -11.6781, -27.6337, -10.0815, -28.2553, -8.45198, -28.7848, -6.7949, -29.2204, -5.11567, -29.5606, -3.41974, -29.8045, -1.71266, -29.9511)
+script = SubResource("GDScript_fbgso")
+n = 110
+
+[node name="Polygon2D2" type="Polygon2D" parent="MarginContainer/VBoxContainer/Control"]
+offset = Vector2(50, 50)
+polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
+vertex_colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+script = SubResource("GDScript_fbgso")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Speed" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed" index="0"]
+text = "Speed"
+
+[node name="Acceleration" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Acceleration" index="0"]
+text = "Acceleration"
+
+[node name="Handling" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Handling" index="0"]
+text = "Handling"
+
+[node name="Boost Strength" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength" index="0"]
+text = "Boost Strength"
+
+[node name="weight" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
+text = "Weight"
+
+[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -235.5
+offset_right = 235.5
+offset_bottom = 163.0
+grow_horizontal = 2
+columns = 5
+script = ExtResource("3_rts2l")
+current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
+current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
+stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
+item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
+
+[node name="Panel" type="Panel" parent="Hand"]
+custom_minimum_size = Vector2(130, 0)
+layout_mode = 2
+
+[node name="Label3" type="Label" parent="Hand/Panel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.5
+offset_top = -11.5
+offset_right = 82.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "THROW!
+(non functional
+rn :(        )"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Hand"]
+layout_mode = 2
+text = "L
+<-"
+horizontal_alignment = 1
+
+[node name="Current Item" type="PanelContainer" parent="Hand"]
+custom_minimum_size = Vector2(130, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Hand/Current Item"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Old Item" type="VBoxContainer" parent="Hand/Current Item/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Hand/Current Item/MarginContainer/Old Item"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HandItemName" type="Label" parent="Hand/Current Item/MarginContainer/Old Item/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Stat" type="Label" parent="Hand/Current Item/MarginContainer/Old Item"]
+layout_mode = 2
+text = "^ Stat 1
+V Stat 2"
+
+[node name="Label2" type="Label" parent="Hand"]
+layout_mode = 2
+text = "R
+->"
+horizontal_alignment = 1
+
+[node name="Current Slot" type="PanelContainer" parent="Hand"]
+custom_minimum_size = Vector2(130, 100)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Hand/Current Slot"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Old Item" type="VBoxContainer" parent="Hand/Current Slot/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Panel" type="Panel" parent="Hand/Current Slot/MarginContainer/Old Item"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentItemLabel" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item here"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CurrentItemStats" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item"]
+visible = false
+layout_mode = 2
+text = "^ Speed
+V Acceleration"
+
+[node name="Checkpoints" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -56.0
+offset_top = -39.0
+offset_right = -16.0
+offset_bottom = -16.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="IsBoosting" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -127.0
+offset_right = -16.0
+offset_bottom = -104.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "BOOSTING"
+horizontal_alignment = 2
+
+[node name="SpeedContainer" type="MarginContainer" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -75.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 60
+
+[node name="SpeedLabel" type="Label" parent="SpeedContainer"]
+layout_mode = 2
+text = "XXX km/h"
+label_settings = SubResource("LabelSettings_fpday")
+
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/weight"]

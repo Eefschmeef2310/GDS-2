@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cei8vdbsc55k0"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_fdhso"]
+
+[node name="AluminiumUpgrade" type="Node"]
+script = ExtResource("1_fdhso")
+increase_stat_amount = 5.0
+decrease_stat = 4
+decrease_stat_amount = 1.0

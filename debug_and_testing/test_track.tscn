@@ -1,14 +1,65 @@
-[gd_scene load_steps=11 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=13 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_5vntc"]
-[ext_resource type="PackedScene" uid="uid://kcisw76ucbri" path="res://kart/kart.tscn" id="3_mrl71"]
-[ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="3_prpub"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_2ppmk"]
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_hrvk1"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
 size = Vector2(1000, 1000)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rhsil"]
+albedo_color = Color(0.109804, 0, 0.109804, 1)
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
 points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
+
+[sub_resource type="Curve3D" id="Curve3D_qnr0h"]
+_data = {
+"points": PackedVector3Array(169.98, 0, 2.42033, -169.98, 0, -2.42033, -150.023, 7.62939e-06, -71.3893, -114.986, 0, 30.8027, 114.986, 0, -30.8027, -148.234, 7.62939e-06, 59.5377, 101.706, 0, 3.01352, -101.706, 0, -3.01352, -140.227, 7.62939e-06, 171.123, 3.01349, 0, -32.3951, -3.01349, 0, 32.3951, -314.912, 7.62939e-06, 258.822, -77.3849, 0, 1.42426, 77.3849, 0, -1.42426, -243.99, 7.62939e-06, 347.98, -191.487, 0, -5.06581, 191.487, 0, 5.06581, 209.906, 7.62939e-06, 251.729, 30.3948, 0, 92.1976, -30.3948, 0, -92.1976, 365.932, 7.62939e-06, 98.7421, 50.6581, 0, 87.1318, -50.6581, 0, -87.1318, 144.05, 7.62939e-06, 39.9788, 96.248, 0, 82.6072, -96.248, 0, -82.6072, 219.024, 7.62939e-06, -152.522, 104.084, 0, 5.95991, -104.084, 0, -5.95991, -32.044, 7.62939e-06, -70.154),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="GDScript" id="GDScript_4w7ra"]
+script/source = "extends Path3D
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	for point in range(curve.point_count):
+		add_child(Area3D.new())
+
+func _process(_delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
 
 [sub_resource type="GDScript" id="GDScript_r6rw7"]
 script/source = "extends Camera3D
@@ -55,61 +106,15 @@ func _input(event):
 #endregion
 "
 
-[sub_resource type="Curve3D" id="Curve3D_qnr0h"]
-_data = {
-"points": PackedVector3Array(0, 0, 0, -124.035, 0, -0.33, -150.996, 0, -72.192, -26.09, 0, -16.88, -2.095, 0, -1.795, -187.888, 7.62939e-06, 82.1825, -53.085, 0, 10.94, 48.69, 0, -12.15, -77.685, 7.62939e-06, 120.245, -85.33, 0, 0, 8.125, 0, 0, 37.3482, 3.81469e-06, 151.326, -5.325, 0, 30.555, 0, 0, 0, 99.3773, 7.62939e-06, 115.981, -0.05, 0, 20.245, 1.135, 0, -40.16, 108.832, 7.62939e-06, 24.5949, 34.685, 0, 0, 0, 0, 0, 72.6295, 7.62939e-06, -72.1305, 0, 0, 0, 0, 0, 0, 5.47937, 7.62939e-06, -72.2992),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 8
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8b5w4"]
+sky_cover = ExtResource("3_hrvk1")
 
-[sub_resource type="GDScript" id="GDScript_4w7ra"]
-script/source = "extends Path3D
-	#class_name
-#Authored by Ethan. Please consult for any modifications or major feature requests.
+[sub_resource type="Sky" id="Sky_jcpfh"]
+sky_material = SubResource("ProceduralSkyMaterial_8b5w4")
 
-#region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
-	#Exported Variables
-	#@export_group(\"Group\")
-	#@export_subgroup(\"Subgroup\")
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-func _ready():
-	for point in range(curve.point_count):
-		add_child(Area3D.new())
-
-func _process(_delta):
-	#Runs per frame
-	pass
-#endregion
-
-#region Signal methods
-
-#endregion
-
-#region Other methods (please try to separate and organise!)
-
-#endregion
-"
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
-albedo_color = Color(1, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_6mdfc"]
-material = SubResource("StandardMaterial3D_hg2qt")
-radius = 5.0
-height = 10.0
+[sub_resource type="Environment" id="Environment_myymi"]
+background_mode = 2
+sky = SubResource("Sky_jcpfh")
 
 [node name="TestTrack" type="Node3D" node_paths=PackedStringArray("track")]
 script = ExtResource("1_5vntc")
@@ -120,16 +125,13 @@ track = NodePath("Track")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
 mesh = SubResource("PlaneMesh_ndcnv")
 skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("StandardMaterial3D_rhsil")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
 shape = SubResource("ConvexPolygonShape3D_bpd1i")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, 0, -0.183636, 0.404187, 0.896053, 0.370648, -0.815801, 0.443947, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-1, 1.42109e-14, 8.74227e-08, 4.37114e-08, 0.866025, 0.5, -7.57103e-08, 0.5, -0.866025, -83, 30, -133)
-script = SubResource("GDScript_r6rw7")
 
 [node name="Track" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174004, -7.62939e-06, -0.00303841)
@@ -138,7 +140,7 @@ script = SubResource("GDScript_4w7ra")
 
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="Track"]
 use_collision = true
-polygon = PackedVector2Array(-20, 0, -20, 1, 20, 1, 20, 0)
+polygon = PackedVector2Array(-25, 0, -25, 1, 25, 1, 25, 0)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -151,12 +153,43 @@ path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_6mdfc")
+[node name="BallKart" parent="." instance=ExtResource("2_2ppmk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9602, 1.04245, -73.8472)
 
-[node name="Area3D" parent="." instance=ExtResource("3_prpub")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.9489, 2.14201, -74.6363)
+[node name="Ball" parent="BallKart" index="1"]
+linear_damp = 1.0
+angular_damp = 3.0
 
-[node name="Kart" parent="." instance=ExtResource("3_mrl71")]
-transform = Transform3D(-0.16262, 0, -0.986689, 0, 1, 0, 0.986689, 0, -0.16262, -7.79845, 1.67496, -73.4545)
-is_player = true
+[node name="LeftFrontWheel" parent="BallKart/Kart/Normal/Parent/KartModel/FrontWheels" index="0"]
+surface_material_override/0 = null
+
+[node name="RightFrontWheel" parent="BallKart/Kart/Normal/Parent/KartModel/FrontWheels" index="1"]
+surface_material_override/0 = null
+
+[node name="BackLeftWheel" parent="BallKart/Kart/Normal/Parent/KartModel/BackWheels" index="0"]
+surface_material_override/0 = null
+
+[node name="BackRightWheel" parent="BallKart/Kart/Normal/Parent/KartModel/BackWheels" index="1"]
+surface_material_override/0 = null
+
+[node name="Body" parent="BallKart/Kart/Normal/Parent/KartModel" index="2"]
+surface_material_override/0 = null
+
+[node name="SteeringWheel" parent="BallKart/Kart/Normal/Parent/KartModel" index="3"]
+surface_material_override/0 = null
+
+[node name="RightExhaust" parent="BallKart/Kart/Normal/Parent/KartModel" index="4"]
+surface_material_override/0 = null
+
+[node name="LeftExhaust" parent="BallKart/Kart/Normal/Parent/KartModel" index="5"]
+surface_material_override/0 = null
+
+[node name="Camera3D2" type="Camera3D" parent="BallKart/Kart/Normal" index="1"]
+transform = Transform3D(1, 0, 0, 0, 0.963003, 0.269492, 0, -0.269492, 0.963003, 9.53674e-07, 4.45611, 5.44022)
+script = SubResource("GDScript_r6rw7")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_myymi")
+
+[editable path="BallKart"]
+[editable path="BallKart/Kart/KartModelOld"]
