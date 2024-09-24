@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://b32ir203vonwn"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b32ir203vonwn"]
 
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_2fgli"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_5605v"]
+[ext_resource type="PackedScene" uid="uid://bc4pnj3ctrpih" path="res://items/upgrades/tungsten_upgrade.tscn" id="3_bf3sr"]
 
 [resource]
 script = ExtResource("1_5605v")
-type = 0
-item_name = ""
-up_stat = 0
+upgrade = ExtResource("3_bf3sr")
+hazard = ExtResource("1_2fgli")
+type = 3
+item_name = "Heavy Oil"
+up_stat = 4
 down_stat = 0

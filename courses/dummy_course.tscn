@@ -25,25 +25,25 @@ point_count = 8
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ybion"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_it8i0"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5r7dq"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_fvt34"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k470h"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_kec5w"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_l57cc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_logxn"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_t61ky"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_gcba2"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_wxddy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5yd6b"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_th4e0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_u26nm"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
@@ -131,61 +131,61 @@ material = SubResource("StandardMaterial3D_n62to")
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
 
-[node name="@Area3D@17239" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25874" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17240" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17239"]
-shape = SubResource("BoxShape3D_ybion")
+[node name="@CollisionShape3D@25875" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25874"]
+shape = SubResource("BoxShape3D_it8i0")
 
-[node name="@Area3D@17241" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25876" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.621191, 0, 0.783659, 0, 1, 0, -0.783659, 0, -0.621191, -340.703, 0, 136.791)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17242" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17241"]
-shape = SubResource("BoxShape3D_5r7dq")
+[node name="@CollisionShape3D@25877" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25876"]
+shape = SubResource("BoxShape3D_fvt34")
 
-[node name="@Area3D@17243" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25878" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.99753, 0, 0.0702485, 0, 1, 0, -0.0702485, 0, -0.99753, -117.023, 0, 59.1058)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17244" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17243"]
-shape = SubResource("BoxShape3D_k470h")
+[node name="@CollisionShape3D@25879" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25878"]
+shape = SubResource("BoxShape3D_kec5w")
 
-[node name="@Area3D@17245" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25880" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.999906, 0, -0.0136971, 0, 1, 0, 0.0136971, 0, -0.999906, 42.3651, 0, 176.973)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17246" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17245"]
-shape = SubResource("BoxShape3D_l57cc")
+[node name="@CollisionShape3D@25881" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25880"]
+shape = SubResource("BoxShape3D_logxn")
 
-[node name="@Area3D@17247" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25882" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.174496, 0, -0.984658, 0, 1, 0, 0.984658, 0, -0.174496, 137.462, 0, 28.2996)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17248" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17247"]
-shape = SubResource("BoxShape3D_t61ky")
+[node name="@CollisionShape3D@25883" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25882"]
+shape = SubResource("BoxShape3D_gcba2")
 
-[node name="@Area3D@17249" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25884" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0366731, 0, -0.999327, 0, 1, 0, 0.999327, 0, -0.0366731, 391.948, 0, -113.676)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17250" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17249"]
-shape = SubResource("BoxShape3D_wxddy")
+[node name="@CollisionShape3D@25885" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25884"]
+shape = SubResource("BoxShape3D_5yd6b")
 
-[node name="@Area3D@17251" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@25886" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.148861, 0, 0.988858, 0, 1, 0, -0.988858, 0, 0.148861, 18.2559, 0, -127.07)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17252" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17251"]
-shape = SubResource("BoxShape3D_th4e0")
+[node name="@CollisionShape3D@25887" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@25886"]
+shape = SubResource("BoxShape3D_u26nm")
 
 [node name="InnerPavement" type="CSGPolygon3D" parent="Track"]
 use_collision = true
@@ -285,6 +285,114 @@ part_type = 3
 [node name="MeshInstance3D" parent="ItemBox4" index="0"]
 mesh = SubResource("SphereMesh_mvrx4")
 
+[node name="ItemBox5" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.247016, 0, 0.969011, 0, 1, 0, -0.969011, 0, 0.247016, -190.483, 1.76581, 107.731)
+
+[node name="MeshInstance3D" parent="ItemBox5" index="0"]
+mesh = SubResource("SphereMesh_1eh20")
+
+[node name="ItemBox6" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.247016, 0, 0.969011, 0, 1, 0, -0.969011, 0, 0.247016, -195.63, 1.76581, 103.968)
+part_type = 1
+
+[node name="MeshInstance3D" parent="ItemBox6" index="0"]
+mesh = SubResource("SphereMesh_evp46")
+
+[node name="ItemBox7" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.247016, 0, 0.969011, 0, 1, 0, -0.969011, 0, 0.247016, -201.912, 1.76581, 99.9869)
+part_type = 2
+
+[node name="MeshInstance3D" parent="ItemBox7" index="0"]
+mesh = SubResource("SphereMesh_s2cqa")
+
+[node name="ItemBox8" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.247016, 0, 0.969011, 0, 1, 0, -0.969011, 0, 0.247016, -207.422, 1.76581, 95.9591)
+part_type = 3
+
+[node name="MeshInstance3D" parent="ItemBox8" index="0"]
+mesh = SubResource("SphereMesh_mvrx4")
+
+[node name="ItemBox9" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.808873, 0, -0.587983, 0, 1, 0, 0.587983, 0, 0.808873, -41.0418, 1.76582, 138.256)
+
+[node name="MeshInstance3D" parent="ItemBox9" index="0"]
+mesh = SubResource("SphereMesh_1eh20")
+
+[node name="ItemBox10" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.808873, 0, -0.587983, 0, 1, 0, 0.587983, 0, 0.808873, -35.6418, 1.76582, 134.866)
+part_type = 1
+
+[node name="MeshInstance3D" parent="ItemBox10" index="0"]
+mesh = SubResource("SphereMesh_evp46")
+
+[node name="ItemBox11" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.808873, 0, -0.587983, 0, 1, 0, 0.587983, 0, 0.808873, -29.619, 1.76582, 130.503)
+part_type = 2
+
+[node name="MeshInstance3D" parent="ItemBox11" index="0"]
+mesh = SubResource("SphereMesh_s2cqa")
+
+[node name="ItemBox12" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.808873, 0, -0.587983, 0, 1, 0, 0.587983, 0, 0.808873, -23.8385, 1.76582, 126.874)
+part_type = 3
+
+[node name="MeshInstance3D" parent="ItemBox12" index="0"]
+mesh = SubResource("SphereMesh_mvrx4")
+
+[node name="ItemBox13" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.291737, 0, -0.956499, 0, 1, 0, 0.956499, 0, 0.291737, 121.349, 1.76582, 81.3459)
+
+[node name="MeshInstance3D" parent="ItemBox13" index="0"]
+mesh = SubResource("SphereMesh_1eh20")
+
+[node name="ItemBox14" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.291737, 0, -0.956499, 0, 1, 0, 0.956499, 0, 0.291737, 127.701, 1.76582, 81.8915)
+part_type = 1
+
+[node name="MeshInstance3D" parent="ItemBox14" index="0"]
+mesh = SubResource("SphereMesh_evp46")
+
+[node name="ItemBox15" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.291737, 0, -0.956499, 0, 1, 0, 0.956499, 0, 0.291737, 135.137, 1.76582, 82.0343)
+part_type = 2
+
+[node name="MeshInstance3D" parent="ItemBox15" index="0"]
+mesh = SubResource("SphereMesh_s2cqa")
+
+[node name="ItemBox16" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(0.291737, 0, -0.956499, 0, 1, 0, 0.956499, 0, 0.291737, 141.937, 1.76582, 82.6178)
+part_type = 3
+
+[node name="MeshInstance3D" parent="ItemBox16" index="0"]
+mesh = SubResource("SphereMesh_mvrx4")
+
+[node name="ItemBox17" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(-0.923532, 0, -0.383522, 0, 1, 0, 0.383522, 0, -0.923532, 130.646, 1.76582, -226.788)
+
+[node name="MeshInstance3D" parent="ItemBox17" index="0"]
+mesh = SubResource("SphereMesh_1eh20")
+
+[node name="ItemBox18" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(-0.923532, 0, -0.383522, 0, 1, 0, 0.383522, 0, -0.923532, 130.722, 1.76582, -220.413)
+part_type = 1
+
+[node name="MeshInstance3D" parent="ItemBox18" index="0"]
+mesh = SubResource("SphereMesh_evp46")
+
+[node name="ItemBox19" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(-0.923532, 0, -0.383522, 0, 1, 0, 0.383522, 0, -0.923532, 131.304, 1.76582, -212.998)
+part_type = 2
+
+[node name="MeshInstance3D" parent="ItemBox19" index="0"]
+mesh = SubResource("SphereMesh_s2cqa")
+
+[node name="ItemBox20" parent="." instance=ExtResource("2_xp8vo")]
+transform = Transform3D(-0.923532, 0, -0.383522, 0, 1, 0, 0.383522, 0, -0.923532, 131.385, 1.76582, -206.174)
+part_type = 3
+
+[node name="MeshInstance3D" parent="ItemBox20" index="0"]
+mesh = SubResource("SphereMesh_mvrx4")
+
 [node name="ColorRect" type="ColorRect" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
@@ -318,3 +426,19 @@ theme_override_constants/v_separation = 0
 [editable path="ItemBox2"]
 [editable path="ItemBox3"]
 [editable path="ItemBox4"]
+[editable path="ItemBox5"]
+[editable path="ItemBox6"]
+[editable path="ItemBox7"]
+[editable path="ItemBox8"]
+[editable path="ItemBox9"]
+[editable path="ItemBox10"]
+[editable path="ItemBox11"]
+[editable path="ItemBox12"]
+[editable path="ItemBox13"]
+[editable path="ItemBox14"]
+[editable path="ItemBox15"]
+[editable path="ItemBox16"]
+[editable path="ItemBox17"]
+[editable path="ItemBox18"]
+[editable path="ItemBox19"]
+[editable path="ItemBox20"]
