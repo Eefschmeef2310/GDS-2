@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=14 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
@@ -10,11 +10,47 @@ script/source = "extends Button
 
 
 func _on_pressed() -> void:
-	get_tree().reload_current_scene()
+	get_tree().change_scene_to_file(\"res://menus/debugMultiplayer/devMultiplayerMenu.tscn\")
+"
+
+[sub_resource type="GDScript" id="GDScript_xp6ve"]
+resource_name = "feedbackButton"
+script/source = "extends Button
+
+
+func _on_pressed() -> void:
+	OS.shell_open(\"https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform\")
 "
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cap3"]
 font_size = 100
+
+[sub_resource type="Animation" id="Animation_873lu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/Minimap:anchors_preset")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/Minimap:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(96, 249)]
+}
 
 [sub_resource type="Animation" id="Animation_3jxgp"]
 resource_name = "multiplayer"
@@ -58,33 +94,6 @@ tracks/1/keys = {
 "values": [Vector2(95, 249)]
 }
 
-[sub_resource type="Animation" id="Animation_873lu"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/Minimap:anchors_preset")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [4]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("CanvasLayer/Minimap:position")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(96, 249)]
-}
-
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tnpum"]
 _data = {
 "RESET": SubResource("Animation_873lu"),
@@ -105,6 +114,7 @@ func _draw():
 "
 
 [node name="RaceInstance" type="Node"]
+process_mode = 3
 script = ExtResource("1_0d5f1")
 kart_scene = ExtResource("2_me725")
 debug_start = true
@@ -146,8 +156,14 @@ horizontal_alignment = 1
 
 [node name="ResetButton" type="Button" parent="DebugWin/VBoxContainer"]
 layout_mode = 2
-text = "Reset"
+text = "Back to Menu"
 script = SubResource("GDScript_2eq0k")
+
+[node name="FeedbackButton" type="Button" parent="DebugWin/VBoxContainer"]
+self_modulate = Color(1, 0.357633, 0.991534, 1)
+layout_mode = 2
+text = "Open Feedback Form"
+script = SubResource("GDScript_xp6ve")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -229,3 +245,4 @@ color = Color(1, 1, 1, 0.501961)
 [node name="Icons" type="Node2D" parent="CanvasLayer/Minimap"]
 
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]
+[connection signal="pressed" from="DebugWin/VBoxContainer/FeedbackButton" to="DebugWin/VBoxContainer/FeedbackButton" method="_on_pressed"]
