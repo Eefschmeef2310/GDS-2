@@ -15,7 +15,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_join_input()
 	no_controller_prompt.visible = connected_controllers.size() < 1
 		

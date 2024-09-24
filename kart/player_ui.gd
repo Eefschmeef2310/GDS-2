@@ -6,6 +6,8 @@ class_name PlayerUI
 @export var data : PlayerData
 @export var speed_label : Label
 
+@export var stats : Dictionary
+
 var ri : RaceInstance
 var kart : Kart
 
@@ -13,6 +15,8 @@ func _ready():
 	_on_player_data_container_hand_updated()
 	if owner is Kart:
 		kart = owner
+		
+	update_bars()
 
 func _physics_process(_delta):
 	if ri:
@@ -37,3 +41,10 @@ func _on_player_data_container_hand_updated() -> void:
 
 func update_speed(speed : float):
 	speed_label.text = str(snapped(speed * 10, 0.1)) + " km/h"
+
+func update_bars():
+	get_node(stats["Speed"]).update_bar("Speed")
+	get_node(stats["Acceleration"]).update_bar("Acceleration")
+	get_node(stats["Handling"]).update_bar("Handling")
+	get_node(stats["Boost Strength"]).update_bar("Boost Strength")
+	get_node(stats["Weight"]).update_bar("Weight")

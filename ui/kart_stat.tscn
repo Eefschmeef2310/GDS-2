@@ -5,12 +5,13 @@
 [sub_resource type="LabelSettings" id="LabelSettings_cgjw4"]
 font_size = 10
 
-[node name="Stat" type="VBoxContainer"]
+[node name="Stat" type="VBoxContainer" node_paths=PackedStringArray("progress_bar")]
 custom_minimum_size = Vector2(100, 0)
 offset_right = 150.0
 offset_bottom = 28.0
 theme_override_constants/separation = 0
 script = ExtResource("1_45p3u")
+progress_bar = NodePath("ProgressBar")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 2

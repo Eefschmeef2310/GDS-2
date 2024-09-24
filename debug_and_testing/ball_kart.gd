@@ -8,6 +8,7 @@ class_name Kart
 signal checkpoint_passed(kart : Kart, index : int)
 @warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
+signal stats_updated()
 
 	#Enums
 
@@ -22,13 +23,36 @@ signal hit_item_box(item : Resource)
 var can_control: bool = true
 
 @export_group("Stats")
-@export var max_speed : float = 30
-@export var gravity : float = 10
+var speed_cap = 30
+@export var max_speed : float = 30:
+	set(value):
+		max_speed = clamp(value, 0, speed_cap)
+		stats_updated.emit()
+		
+var max_weight = 20
+@export var gravity : float = 10:
+	set(value):
+		gravity = clamp(value, 0, max_weight)
+		stats_updated.emit()
+
+var max_acceleration = 3
 @export var acceleration : float = 1:
 	set(value):
-		acceleration = clamp(value, 0, 100)
-@export var turn_speed : float = 10
-@export var boost_multiplier : float = 3
+		acceleration = clamp(value, 0, max_acceleration)
+		stats_updated.emit()
+		
+var max_turn_strength = 20
+@export var turn_speed : float = 10:
+	set(value):
+		turn_speed = clamp(value, 0, max_turn_strength)
+		stats_updated.emit()
+
+var max_boost_strength = 30
+@export var boost_multiplier : float = 3:
+	set(value):
+		boost_multiplier = clamp(value, 0, max_boost_strength)
+		stats_updated.emit()
+
 @export var boost_acceleration : float = 10
 
 @export_group("Data")

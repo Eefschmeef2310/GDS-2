@@ -1,5 +1,5 @@
 extends VBoxContainer
-	#class_name
+class_name PlayerUIStat
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
@@ -14,6 +14,8 @@ extends VBoxContainer
 	#@export_subgroup("Subgroup")
 @export var ui : PlayerUI
 
+@export var progress_bar : ProgressBar
+
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -21,13 +23,7 @@ extends VBoxContainer
 #endregion
 
 #region Godot methods
-func _ready():
-	#Runs when all children have entered the tree
-	pass
 
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods
@@ -35,5 +31,21 @@ func _process(_delta):
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func update_bar(stat: String):
+	match stat:
+		"Speed":
+			progress_bar.max_value = ui.kart.speed_cap
+			progress_bar.value = ui.kart.max_speed
+		"Acceleration":
+			progress_bar.max_value = ui.kart.max_acceleration
+			progress_bar.value = ui.kart.acceleration
+		"Handling":
+			progress_bar.max_value = ui.kart.max_turn_strength
+			progress_bar.value = ui.kart.turn_speed
+		"Boost Strength":
+			progress_bar.max_value = ui.kart.max_boost_strength
+			progress_bar.value = ui.kart.boost_multiplier
+		"Weight":
+			progress_bar.max_value = ui.kart.max_weight
+			progress_bar.value = ui.kart.gravity
 #endregion

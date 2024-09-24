@@ -48,6 +48,13 @@ script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
 speed_label = NodePath("SpeedContainer/SpeedLabel")
+stats = {
+"Acceleration": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
+"Boost Strength": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
+"Handling": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Handling"),
+"Speed": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Speed"),
+"Weight": NodePath("MarginContainer/VBoxContainer/VBoxContainer/weight")
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 anchors_preset = 1
@@ -161,34 +168,39 @@ script = SubResource("GDScript_fbgso")
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="Speed" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_p75pr")]
+[node name="Speed" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
+ui = NodePath("../../../..")
 
 [node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed" index="0"]
 text = "Speed"
 
-[node name="Speed2" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_p75pr")]
+[node name="Acceleration" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
+ui = NodePath("../../../..")
 
-[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed2" index="0"]
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Acceleration" index="0"]
 text = "Acceleration"
 
-[node name="Speed3" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_p75pr")]
+[node name="Handling" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
+ui = NodePath("../../../..")
 
-[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed3" index="0"]
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Handling" index="0"]
 text = "Handling"
 
-[node name="Speed4" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_p75pr")]
+[node name="Boost Strength" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
+ui = NodePath("../../../..")
 
-[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed4" index="0"]
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength" index="0"]
 text = "Boost Strength"
 
-[node name="Speed5" parent="MarginContainer/VBoxContainer/VBoxContainer" instance=ExtResource("3_p75pr")]
+[node name="weight" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
+ui = NodePath("../../../..")
 
-[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed5" index="0"]
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
 text = "Weight"
 
 [node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
@@ -370,7 +382,7 @@ text = "XXX km/h"
 label_settings = SubResource("LabelSettings_fpday")
 
 [editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed"]
-[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed2"]
-[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed3"]
-[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed4"]
-[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed5"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/weight"]

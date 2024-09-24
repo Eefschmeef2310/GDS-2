@@ -180,3 +180,8 @@ shape = SubResource("BoxShape3D_thdqr")
 [connection signal="area_entered" from="CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
 
 [editable path="PlayerUI"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed2"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed3"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed4"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed5"]
