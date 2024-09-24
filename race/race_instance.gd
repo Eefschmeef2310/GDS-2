@@ -97,7 +97,7 @@ func start_race():
 	for n in number_of_racers:
 		var new_kart : Kart = kart_scene.instantiate()
 		new_kart.position = course.kart_spawns.get_child(n).position
-		new_kart.rotation = course.kart_spawns.get_child(n).rotation
+		new_kart.kart.rotation = course.kart_spawns.get_child(n).rotation
 		new_kart.can_control = false
 		
 		new_kart.checkpoint_passed.connect(_on_kart_checkpoint_passed)

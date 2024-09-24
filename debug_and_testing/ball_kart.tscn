@@ -319,11 +319,13 @@ albedo_color = Color(1, 0, 0.965711, 1)
 size = Vector3(2.5, 1, 2)
 
 [node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
 turn_speed = 8.0
 boost_acceleration = 5.0
+traction_coefficient = 2.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
 sphere = NodePath("Ball")
@@ -418,7 +420,7 @@ mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
 [node name="Camera3D" type="Camera3D" parent="Kart/Normal"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 6)
+transform = Transform3D(1, -4.21636e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
 fov = 90.0
 script = ExtResource("4_7exgq")
 tilt_max = 2.0
