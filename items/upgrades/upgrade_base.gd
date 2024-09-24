@@ -56,7 +56,7 @@ func apply_stat():
 			Item.Stat.Acceleration:
 				kart.acceleration += increase_stat_amount
 			Item.Stat.Handling:
-				kart.turn_speed += increase_stat_amount
+				kart.traction_coefficient += increase_stat_amount
 			Item.Stat.Boost_Strength:
 				kart.boost_multiplier += increase_stat_amount
 			Item.Stat.Weight:
@@ -68,7 +68,7 @@ func apply_stat():
 			Item.Stat.Acceleration:
 				kart.acceleration -= decrease_stat_amount
 			Item.Stat.Handling:
-				kart.turn_speed -= decrease_stat_amount
+				kart.traction_coefficient -= decrease_stat_amount
 			Item.Stat.Boost_Strength:
 				kart.boost_multiplier -= decrease_stat_amount
 			Item.Stat.Weight:
@@ -82,7 +82,7 @@ func unapply_stat():
 			Item.Stat.Acceleration:
 				kart.acceleration -= increase_stat_amount
 			Item.Stat.Handling:
-				kart.turn_speed -= increase_stat_amount
+				kart.traction_coefficient -= increase_stat_amount
 			Item.Stat.Boost_Strength:
 				kart.boost_multiplier -= increase_stat_amount
 			Item.Stat.Weight:
@@ -94,7 +94,7 @@ func unapply_stat():
 			Item.Stat.Acceleration:
 				kart.acceleration += decrease_stat_amount
 			Item.Stat.Handling:
-				kart.turn_speed += decrease_stat_amount
+				kart.traction_coefficient += decrease_stat_amount
 			Item.Stat.Boost_Strength:
 				kart.boost_multiplier += decrease_stat_amount
 			Item.Stat.Weight:

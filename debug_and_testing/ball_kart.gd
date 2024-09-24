@@ -43,11 +43,7 @@ var max_acceleration = 3
 		acceleration = clamp(value, 0, max_acceleration)
 		stats_updated.emit()
 		
-var max_turn_strength = 20
-@export var turn_speed : float = 10:
-	set(value):
-		turn_speed = clamp(value, 0, max_turn_strength)
-		stats_updated.emit()
+@export var turn_speed : float = 10
 
 var max_boost_strength = 10
 @export var boost_multiplier : float = 3:
@@ -56,7 +52,13 @@ var max_boost_strength = 10
 		stats_updated.emit()
 
 @export var boost_acceleration : float = 10
-@export var traction_coefficient : float = 1
+
+var max_handling = 3
+@export var traction_coefficient : float = 1:
+	set(value):
+		traction_coefficient = clamp(value, 0, max_handling)
+		stats_updated.emit()
+		
 
 @export_group("Data")
 @export var turbo_colors : Array[Color] = [Color.ALICE_BLUE, Color.ALICE_BLUE, Color.ALICE_BLUE]
@@ -142,7 +144,6 @@ func _physics_process(delta: float) -> void:
 			
 		# Perform jump animation here
 		
-		
 		if drifting:
 			var control : float = (remap_axis(steer_axis, .4, 2)) if (drift_direction == 1) else (remap_axis(steer_axis, 2, .4))
 			var power_control : float = remap_axis(steer_axis, .5, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .5)
@@ -186,7 +187,7 @@ func _physics_process(delta: float) -> void:
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
 		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
 		
-		print(drag_magnitude)
+		#print(drag_magnitude)
 			
 		#Update speed label
 		player_ui.update_speed(sphere.linear_velocity.length())
