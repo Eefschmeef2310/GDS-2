@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dkn4xq1es1gsc"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_27ni6"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_r4e1a"]
+[ext_resource type="PackedScene" uid="uid://cei8vdbsc55k0" path="res://items/upgrades/aluminium_upgrade.tscn" id="3_7vhsb"]
+
+[resource]
+script = ExtResource("2_r4e1a")
+upgrade = ExtResource("3_7vhsb")
+hazard = ExtResource("1_27ni6")
+type = 3
+item_name = "Aluminium Oil"
+up_stat = 0
+down_stat = 4

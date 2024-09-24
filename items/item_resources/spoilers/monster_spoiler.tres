@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://buruy0yxo81m8"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_43fbc"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_0x8sb"]
+[ext_resource type="PackedScene" uid="uid://c0en4qxx7032y" path="res://items/upgrades/monster_truck_upgrade.tscn" id="3_ewkmi"]
+
+[resource]
+script = ExtResource("2_0x8sb")
+upgrade = ExtResource("3_ewkmi")
+hazard = ExtResource("1_43fbc")
+type = 2
+item_name = "Monster Truck Spoiler"
+up_stat = 4
+down_stat = 1

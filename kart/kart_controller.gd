@@ -17,7 +17,7 @@ signal checkpoint_passed(kart : Kart, index : int)
 	#@export_subgroup("Subgroup")
 	
 @export_range(0, PI) var max_steer : float = 0.8 #IN RADIANS
-@export var max_speed = 500
+@export var max_speed = 200
 @export var engine_power : int = 300:
 	set(value):
 		engine_power = clamp(value, 0, max_speed)

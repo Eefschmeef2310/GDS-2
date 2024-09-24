@@ -20,7 +20,7 @@ func _ready():
 	set_left()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	for icon in icons.get_children():
 		if icon.kart:
 			var kart_position = icon.kart.ball.global_position

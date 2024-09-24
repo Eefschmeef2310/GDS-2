@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://c0en4qxx7032y"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_yakn5"]
+
+[node name="MonsterTruck" type="Node"]
+script = ExtResource("1_yakn5")
+increase_stat = 4
+increase_stat_amount = 5.0
+decrease_stat = 2
+decrease_stat_amount = 3.0

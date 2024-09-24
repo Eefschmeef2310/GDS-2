@@ -166,9 +166,16 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CheckpointDetector"]
 shape = SubResource("BoxShape3D_thdqr")
 
+[node name="RayCast3D" type="RayCast3D" parent="."]
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="area_entered" from="Hurtbox" to="." method="hurt"]
 [connection signal="body_entered" from="Hurtbox" to="." method="hurt"]
 [connection signal="area_entered" from="CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
 
 [editable path="PlayerUI"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed2"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed3"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed4"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed5"]

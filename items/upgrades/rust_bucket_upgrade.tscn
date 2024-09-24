@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnepsb4v5hx0o"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_m05f8"]
+
+[node name="RustBucketUpgrade" type="Node"]
+script = ExtResource("1_m05f8")
+increase_stat_amount = 3.0
+decrease_stat = 1
+decrease_stat_amount = 0.2

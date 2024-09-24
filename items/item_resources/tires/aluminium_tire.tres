@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://be8ge5gplpqc1"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8mwt0"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_ay50k"]
+[ext_resource type="PackedScene" uid="uid://cei8vdbsc55k0" path="res://items/upgrades/aluminium_upgrade.tscn" id="3_s3eyl"]
+
+[resource]
+script = ExtResource("2_ay50k")
+upgrade = ExtResource("3_s3eyl")
+hazard = ExtResource("1_8mwt0")
+type = 1
+item_name = "Aluminium Tire"
+up_stat = 0
+down_stat = 4

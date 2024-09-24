@@ -452,6 +452,7 @@ data = NodePath("../Scripts/PlayerDataContainer")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
+[connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
