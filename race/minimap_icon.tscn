@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cxsvqwxp36idx"]
+
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="1_cofai"]
+[ext_resource type="Script" path="res://race/minimap_icon.gd" id="2_1dbnx"]
+
+[node name="MinimapIcon" type="Sprite2D"]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("1_cofai")
+script = ExtResource("2_1dbnx")

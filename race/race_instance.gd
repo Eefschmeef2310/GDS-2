@@ -36,7 +36,7 @@ var number_of_racers : int = 8
 
 var countdown_timer = 3.0
 
-@onready var minimap: Control = $CanvasLayer/Minimap
+@onready var minimap: Minimap = $CanvasLayer/Minimap
 @onready var minimap_path: Path2D = $CanvasLayer/Minimap/Path2D
 
 func _ready():
@@ -112,12 +112,15 @@ func start_race():
 			new_kart.name = "Player " + str(n+1)
 			new_kart.data.device = connected_controllers[n]
 			course.add_kart_to_viewport_grid(new_kart)
+			minimap.add_icon(new_kart)
+			if n > 0:
+				minimap.set_centre()
 		else:
 			new_kart.name = debug_names[0]
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
 	
-	create_minimap_from_curve(course.track.curve)
+	create_minimap_from_curve()
 
 
 func release_karts():
@@ -209,10 +212,33 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 	pass
 
 
-func create_minimap_from_curve(curve: Curve3D):
-	var big_extents = course.get_track_extents()
-	var small_extents = [0., minimap.custom_minimum_size.x, 0., minimap.custom_minimum_size.y]
-	var scalar = (big_extents[1] - big_extents[0]) / (small_extents[1] - small_extents[0])
+func create_minimap_from_curve():
+	var big_extents : Array[float] = course.get_track_extents()
+	var small_extents : Array[float] = [0., minimap.custom_minimum_size.x, 0., minimap.custom_minimum_size.y]
+	var scalar = (small_extents[1] - small_extents[0]) / (big_extents[1] - big_extents[0]) 
 	
+	minimap.big_extents = big_extents
+	minimap.small_extents = small_extents
 	
-	print(scalar)
+	var add_point_function = func add_point(n, ignore_in_out : bool = false):
+		var point = course.track.curve.get_point_position(n)
+		
+		var point_position = Vector2.ZERO
+		point_position.x = lerp(small_extents[0], small_extents[1], inverse_lerp(big_extents[0], big_extents[1], point.x))
+		point_position.y = lerp(small_extents[2], small_extents[3], inverse_lerp(big_extents[2], big_extents[3], point.z))
+		
+		var inn = course.track.curve.get_point_in(n) * scalar
+		var out = course.track.curve.get_point_out(n) * scalar
+		
+		var point_in = Vector2(inn.x, inn.z)
+		var point_out = Vector2(out.x, out.z)
+		
+		if ignore_in_out:
+			minimap_path.curve.add_point(point_position)
+		else:
+			minimap_path.curve.add_point(point_position, point_in, point_out)
+	
+	minimap_path.curve.clear_points()
+	for i in range(course.track.curve.point_count - 1):
+		add_point_function.call(i)
+	add_point_function.call(0, true)
