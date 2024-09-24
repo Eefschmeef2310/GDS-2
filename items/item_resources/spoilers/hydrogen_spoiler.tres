@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bdoh4bi1rrul1"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8j14k"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_2ekd4"]
+[ext_resource type="PackedScene" uid="uid://bdmps41heha7q" path="res://items/upgrades/hydrogen_upgrade.tscn" id="3_koots"]
+
+[resource]
+script = ExtResource("2_2ekd4")
+upgrade = ExtResource("3_koots")
+hazard = ExtResource("1_8j14k")
+type = 2
+item_name = "Hydrogen Spoiler"
+up_stat = 3
+down_stat = 4
