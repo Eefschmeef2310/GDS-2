@@ -11,4 +11,4 @@ hazard = ExtResource("1_6xxoa")
 type = 1
 item_name = "Monster Truck Tire"
 up_stat = 4
-down_stat = 1
+down_stat = 2

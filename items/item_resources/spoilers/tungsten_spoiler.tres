@@ -8,7 +8,7 @@
 script = ExtResource("2_g1bop")
 upgrade = ExtResource("3_1omn8")
 hazard = ExtResource("1_8e11f")
-type = 3
-item_name = "Tungsten Oil"
+type = 2
+item_name = "Tungsten Spoiler"
 up_stat = 4
 down_stat = 0
