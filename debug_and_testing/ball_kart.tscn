@@ -318,7 +318,7 @@ albedo_color = Color(1, 0, 0.965711, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1htm1"]
 size = Vector3(2.5, 1, 2)
 
-[node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+[node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "front_ray", "rear_ray", "boost_timer", "kart", "player_ui")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
@@ -332,7 +332,8 @@ sphere = NodePath("Ball")
 front_wheels = NodePath("Kart/Normal/Parent/KartModel/FrontWheels")
 back_wheels = NodePath("Kart/Normal/Parent/KartModel/BackWheels")
 steering_wheel = NodePath("Kart/Normal/Parent/KartModel/SteeringWheel")
-hit_near = NodePath("Kart/HitNear")
+front_ray = NodePath("Kart/FrontRay")
+rear_ray = NodePath("Kart/RearRay")
 boost_timer = NodePath("Boost Timer")
 kart = NodePath("Kart")
 player_ui = NodePath("PlayerUI")
@@ -424,7 +425,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 transform = Transform3D(1, -4.21636e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
 fov = 90.0
 script = ExtResource("4_7exgq")
-tilt_max = 2.0
 
 [node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
 visible = false
@@ -432,8 +432,12 @@ visible = false
 [node name="Tube002" parent="Kart/KartModelOld" index="7"]
 transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
 
-[node name="HitNear" type="RayCast3D" parent="Kart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+[node name="FrontRay" type="RayCast3D" parent="Kart"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.243778, 0)
+target_position = Vector3(0, -2, 0)
+
+[node name="RearRay" type="RayCast3D" parent="Kart"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.243778, 0)
 target_position = Vector3(0, -2, 0)
 
 [node name="CheckpointDetector" type="Area3D" parent="Kart"]

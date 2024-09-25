@@ -70,7 +70,8 @@ var max_handling = 3
 @export var front_wheels : Node3D
 @export var back_wheels : Node3D
 @export var steering_wheel : Node3D
-@export var hit_near : RayCast3D
+@export var front_ray : RayCast3D
+@export var rear_ray : RayCast3D
 @export var boost_timer : Timer
 @export var kart : Node3D
 
@@ -192,9 +193,6 @@ func _physics_process(delta: float) -> void:
 		#Update speed label
 		player_ui.update_speed(sphere.linear_velocity.length())
 		
-		#Gravity
-		#sphere.apply_force(Vector3.DOWN * gravity)
-		
 		#Steering
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
 		
@@ -207,11 +205,15 @@ func _physics_process(delta: float) -> void:
 		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
 		
 		#Rotate according to slope
-		if hit_near.is_colliding():
-			kart_normal.basis = lerp(kart_model.basis, hit_near.get_collision_normal(), delta * 8)
+		if front_ray.is_colliding() or rear_ray.is_colliding():
+			var normal_front = front_ray.get_collision_normal() if front_ray.is_colliding() else Vector3.UP
+			var normal_rear = rear_ray.get_collision_normal() if rear_ray.is_colliding() else Vector3.UP
+			var average_normal = ((normal_front + normal_rear) / 2).normalized()
+			#var xform = align_with_y(kart.transform, average_normal)
+			#
+			#kart.transform = kart.transform.interpolate_with(xform, 0.1)
+			#kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
 			#kart_normal.rotation_degrees.y = rotation_degrees.y
-			#kart
-			gravity_direction = -hit_near.get_collision_normal()
 			
 		#Gravity
 		sphere.apply_force(gravity_direction * gravity)
@@ -229,6 +231,12 @@ func steer(direction : int, amount : float) -> void:
 func remap_axis(input : float, lower : float, higher : float) -> float:
 	var normalized = inverse_lerp(-1, 1, input)
 	return lerp(lower, higher, normalized)
+
+func align_with_y(xform, new_y):
+	xform.basis.y = new_y
+	xform.basis.x = -xform.basis.z.cross(new_y)
+	xform.basis = xform.basis.orthonormalized()
+	return xform
 
 func color_drift(): #This method handles drifting brackets (blue, orange, pink)
 	if !first:
