@@ -151,6 +151,12 @@ draw_pass_1 = SubResource("QuadMesh_dcobt")
 
 [node name="PlayerUI" parent="." instance=ExtResource("6_nwin5")]
 
+[node name="BackgroundCircle" parent="PlayerUI/MarginContainer/VBoxContainer/Control" index="0"]
+polygon = PackedVector2Array(-5.51091e-15, -30, 1.71266, -29.9511, 3.41974, -29.8045, 5.11567, -29.5606, 6.7949, -29.2204, 8.45198, -28.7848, 10.0815, -28.2553, 11.6781, -27.6337, 13.2366, -26.922, 14.752, -26.1224, 16.2192, -25.2376, 17.6336, -24.2705, 18.9904, -23.2242, 20.2852, -22.1022, 21.514, -20.9081, 22.6725, -19.6458, 23.7571, -18.3194, 24.7642, -16.9333, 25.6905, -15.4919, 26.533, -14, 27.289, -12.4625, 27.9559, -10.8842, 28.5317, -9.27051, 29.0144, -7.62655, 29.4025, -5.95771, 29.6946, -4.26944, 29.89, -2.56725, 29.9878, -0.856682, 29.9878, 0.856682, 29.89, 2.56725, 29.6946, 4.26944, 29.4025, 5.95771, 29.0144, 7.62655, 28.5317, 9.27051, 27.9559, 10.8842, 27.289, 12.4625, 26.533, 14, 25.6905, 15.4919, 24.7642, 16.9333, 23.7571, 18.3194, 22.6725, 19.6458, 21.514, 20.9081, 20.2852, 22.1022, 18.9904, 23.2242, 17.6336, 24.2705, 16.2192, 25.2376, 14.752, 26.1224, 13.2366, 26.922, 11.6781, 27.6337, 10.0815, 28.2553, 8.45198, 28.7848, 6.7949, 29.2204, 5.11567, 29.5606, 3.41974, 29.8045, 1.71266, 29.9511, 9.18485e-15, 30, -1.71266, 29.9511, -3.41974, 29.8045, -5.11567, 29.5606, -6.7949, 29.2204, -8.45198, 28.7848, -10.0815, 28.2553, -11.6781, 27.6337, -13.2366, 26.922, -14.752, 26.1224, -16.2192, 25.2376, -17.6336, 24.2705, -18.9904, 23.2242, -20.2852, 22.1022, -21.514, 20.9081, -22.6725, 19.6458, -23.7571, 18.3194, -24.7642, 16.9333, -25.6905, 15.4919, -26.533, 14, -27.289, 12.4625, -27.9559, 10.8842, -28.5317, 9.27051, -29.0144, 7.62655, -29.4025, 5.95771, -29.6946, 4.26944, -29.89, 2.56725, -29.9878, 0.856682, -29.9878, -0.856682, -29.89, -2.56725, -29.6946, -4.26944, -29.4025, -5.95771, -29.0144, -7.62655, -28.5317, -9.27051, -27.9559, -10.8842, -27.289, -12.4625, -26.533, -14, -25.6905, -15.4919, -24.7642, -16.9333, -23.7571, -18.3194, -22.6725, -19.6458, -21.514, -20.9081, -20.2852, -22.1022, -18.9904, -23.2242, -17.6336, -24.2705, -16.2192, -25.2376, -14.752, -26.1224, -13.2366, -26.922, -11.6781, -27.6337, -10.0815, -28.2553, -8.45198, -28.7848, -6.7949, -29.2204, -5.11567, -29.5606, -3.41974, -29.8045, -1.71266, -29.9511)
+
+[node name="Polygon2D2" parent="PlayerUI/MarginContainer/VBoxContainer/Control" index="1"]
+polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
+
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 8
@@ -175,7 +181,7 @@ shape = SubResource("BoxShape3D_thdqr")
 
 [editable path="PlayerUI"]
 [editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed2"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed3"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed4"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed5"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/weight"]

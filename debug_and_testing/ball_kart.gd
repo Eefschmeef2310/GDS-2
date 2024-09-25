@@ -83,6 +83,8 @@ var max_handling = 3
 var speed : float
 var current_speed : float
 
+var gravity_direction : Vector3 = Vector3.DOWN
+
 var new_rotate : float
 var current_rotate : float
 
@@ -187,13 +189,11 @@ func _physics_process(delta: float) -> void:
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
 		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
 		
-		#print(drag_magnitude)
-			
 		#Update speed label
 		player_ui.update_speed(sphere.linear_velocity.length())
 		
 		#Gravity
-		sphere.apply_force(Vector3.DOWN * gravity)
+		#sphere.apply_force(Vector3.DOWN * gravity)
 		
 		#Steering
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
@@ -208,8 +208,13 @@ func _physics_process(delta: float) -> void:
 		
 		#Rotate according to slope
 		if hit_near.is_colliding():
-			kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
+			kart_normal.basis = lerp(kart_model.basis, hit_near.get_collision_normal(), delta * 8)
 			#kart_normal.rotation_degrees.y = rotation_degrees.y
+			#kart
+			gravity_direction = -hit_near.get_collision_normal()
+			
+		#Gravity
+		sphere.apply_force(gravity_direction * gravity)
 #endregion
 
 #region Signal methods
