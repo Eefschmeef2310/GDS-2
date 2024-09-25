@@ -11,4 +11,4 @@ hazard = ExtResource("1_43fbc")
 type = 2
 item_name = "Monster Truck Spoiler"
 up_stat = 4
-down_stat = 1
+down_stat = 2

@@ -8,7 +8,7 @@
 script = ExtResource("2_w8106")
 upgrade = ExtResource("3_y7w2o")
 hazard = ExtResource("1_dmqkh")
-type = 3
-item_name = "Amoured Oil"
+type = 2
+item_name = "Amoured Spoiler"
 up_stat = 4
 down_stat = 1

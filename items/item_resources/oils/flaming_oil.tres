@@ -1,10 +1,14 @@
-[gd_resource type="Resource" script_class="Item" load_steps=2 format=3 uid="uid://mklpu4vleciv"]
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://mklpu4vleciv"]
 
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_4pgn7"]
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_alk6b"]
+[ext_resource type="PackedScene" uid="uid://cacuhpr74ca7c" path="res://items/upgrades/flaming_car_upgrade.tscn" id="3_xf2ww"]
 
 [resource]
 script = ExtResource("1_4pgn7")
-type = 0
-item_name = ""
-up_stat = 0
-down_stat = 0
+upgrade = ExtResource("3_xf2ww")
+hazard = ExtResource("1_alk6b")
+type = 3
+item_name = "Blazing Oil"
+up_stat = 1
+down_stat = 3
