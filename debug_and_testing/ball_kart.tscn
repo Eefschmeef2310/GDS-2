@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=40 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="1_kj480"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="3_57wie"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="3_axfps"]
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart_camera.gd" id="4_7exgq"]
+[ext_resource type="Script" path="res://debug_and_testing/ball_kart_fx.gd" id="4_v821p"]
+[ext_resource type="AudioStream" uid="uid://qpwo6iwneccw" path="res://audio/fx/brake_v01.wav" id="7_kpj8j"]
+[ext_resource type="AudioStream" uid="uid://sfpnohy5of52" path="res://audio/fx/engine_rumble_v00.wav" id="9_tulra"]
+[ext_resource type="AudioStream" uid="uid://bi2katsncdhn7" path="res://audio/fx/accelerate_loop_v00.wav" id="10_5j6hk"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
@@ -327,6 +331,11 @@ script = ExtResource("2_3ouaj")
 script = ExtResource("3_axfps")
 data = NodePath("../PlayerDataContainer")
 
+[node name="Audio" type="Node" parent="Scripts" node_paths=PackedStringArray("brake_fx", "accelerate_fx")]
+script = ExtResource("4_v821p")
+brake_fx = NodePath("../../SoundEffects/Brake")
+accelerate_fx = NodePath("../../SoundEffects/Accelerate")
+
 [node name="Ball" type="RigidBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 collision_layer = 5
@@ -397,6 +406,8 @@ fov = 90.0
 script = ExtResource("4_7exgq")
 tilt_max = 1.0
 
+[node name="AudioListener3D" type="AudioListener3D" parent="Kart/Normal/Camera3D"]
+
 [node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
 visible = false
 
@@ -421,9 +432,24 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
+[node name="SoundEffects" type="Node3D" parent="."]
+
+[node name="Brake" type="AudioStreamPlayer3D" parent="SoundEffects"]
+stream = ExtResource("7_kpj8j")
+
+[node name="Rumble" type="AudioStreamPlayer3D" parent="SoundEffects"]
+stream = ExtResource("9_tulra")
+autoplay = true
+
+[node name="Accelerate" type="AudioStreamPlayer3D" parent="SoundEffects"]
+stream = ExtResource("10_5j6hk")
+autoplay = true
+
+[connection signal="brake_pressed" from="." to="Scripts/Audio" method="_on_ball_kart_brake_pressed"]
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="area_entered" from="Kart/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
+[connection signal="finished" from="SoundEffects/Accelerate" to="Scripts/Audio" method="_on_accelerate_finished"]
 
 [editable path="Kart/KartModelOld"]
