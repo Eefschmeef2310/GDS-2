@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://ch7w4i4rvcnfx"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_sulw1"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_egxm0"]
+[ext_resource type="PackedScene" uid="uid://bc4pnj3ctrpih" path="res://items/upgrades/tungsten_upgrade.tscn" id="3_2l6cr"]
+
+[resource]
+script = ExtResource("2_egxm0")
+upgrade = ExtResource("3_2l6cr")
+hazard = ExtResource("1_sulw1")
+type = 1
+item_name = "Tungsten Tire"
+up_stat = 4
+down_stat = 0

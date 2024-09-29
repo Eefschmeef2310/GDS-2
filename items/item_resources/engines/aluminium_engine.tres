@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cdyd7gdi2583g"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_36ptu"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="1_frg62"]
+[ext_resource type="PackedScene" uid="uid://cei8vdbsc55k0" path="res://items/upgrades/aluminium_upgrade.tscn" id="3_duvx7"]
+
+[resource]
+script = ExtResource("1_frg62")
+upgrade = ExtResource("3_duvx7")
+hazard = ExtResource("1_36ptu")
+type = 0
+item_name = "Aluminium Engine"
+up_stat = 0
+down_stat = 4

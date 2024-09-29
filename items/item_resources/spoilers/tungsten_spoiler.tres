@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://qv2y7pljq40x"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8e11f"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_g1bop"]
+[ext_resource type="PackedScene" uid="uid://bc4pnj3ctrpih" path="res://items/upgrades/tungsten_upgrade.tscn" id="3_1omn8"]
+
+[resource]
+script = ExtResource("2_g1bop")
+upgrade = ExtResource("3_1omn8")
+hazard = ExtResource("1_8e11f")
+type = 2
+item_name = "Tungsten Spoiler"
+up_stat = 4
+down_stat = 0

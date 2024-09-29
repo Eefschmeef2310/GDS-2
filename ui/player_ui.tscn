@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=8 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
+[ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rqmv5"]
@@ -47,6 +48,13 @@ script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
 speed_label = NodePath("SpeedContainer/SpeedLabel")
+stats = {
+"Acceleration": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
+"Boost Strength": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
+"Handling": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Handling"),
+"Speed": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Speed"),
+"Weight": NodePath("MarginContainer/VBoxContainer/VBoxContainer/weight")
+}
 
 [node name="MarginContainer" type="MarginContainer" parent="." node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 anchors_preset = 1
@@ -137,6 +145,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Control" type="Control" parent="MarginContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -154,6 +163,45 @@ offset = Vector2(50, 50)
 polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
 vertex_colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 script = SubResource("GDScript_fbgso")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+
+[node name="Speed" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Speed" index="0"]
+text = "Speed"
+
+[node name="Acceleration" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Acceleration" index="0"]
+text = "Acceleration"
+
+[node name="Handling" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Handling" index="0"]
+text = "Handling"
+
+[node name="Boost Strength" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength" index="0"]
+text = "Boost Strength"
+
+[node name="weight" parent="MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+layout_mode = 2
+ui = NodePath("../../../..")
+
+[node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
+text = "Weight"
 
 [node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
 anchors_preset = 5
@@ -332,3 +380,9 @@ theme_override_constants/margin_bottom = 60
 layout_mode = 2
 text = "XXX km/h"
 label_settings = SubResource("LabelSettings_fpday")
+
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="MarginContainer/VBoxContainer/VBoxContainer/weight"]

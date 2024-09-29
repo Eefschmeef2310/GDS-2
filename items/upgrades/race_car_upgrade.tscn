@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://k8agb8q46gsq"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_2sneo"]
+
+[node name="RaceCarUpgrade" type="Node"]
+script = ExtResource("1_2sneo")
+increase_stat = 2
+increase_stat_amount = 2.0
+decrease_stat = 3
+decrease_stat_amount = 2.0

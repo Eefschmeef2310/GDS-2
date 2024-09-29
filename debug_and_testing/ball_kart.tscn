@@ -295,10 +295,13 @@ shadow_mesh = SubResource("ArrayMesh_3f3nh")
 size = Vector3(2.5, 1, 2)
 
 [node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "hit_near", "boost_timer", "kart", "player_ui")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
+turn_speed = 8.0
 boost_acceleration = 5.0
+traction_coefficient = 2.0
 kart_model = NodePath("Kart/Normal/Parent/KartModel")
 kart_normal = NodePath("Kart/Normal")
 sphere = NodePath("Ball")
@@ -340,7 +343,7 @@ shape = SubResource("SphereShape3D_ita0d")
 [node name="Kart" type="Node3D" parent="."]
 
 [node name="Normal" type="Node3D" parent="Kart"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
 
 [node name="Parent" type="Node3D" parent="Kart/Normal"]
 
@@ -385,10 +388,10 @@ transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1,
 mesh = SubResource("ArrayMesh_xlfdd")
 
 [node name="Camera3D" type="Camera3D" parent="Kart/Normal"]
-transform = Transform3D(1, 0, 0, 0, 0.866025, 0.5, 0, -0.5, 0.866025, 0, 4, 6)
+transform = Transform3D(1, -4.21636e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
 fov = 90.0
 script = ExtResource("4_7exgq")
-tilt_max = 1.0
+tilt_max = 2.0
 
 [node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
 visible = false
@@ -414,7 +417,10 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
+[connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]

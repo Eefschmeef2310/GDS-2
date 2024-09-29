@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bhgotopjqb0al"]
+
+[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_17nhd"]
+[ext_resource type="Script" path="res://items/item_base.gd" id="2_s5741"]
+[ext_resource type="PackedScene" uid="uid://cnepsb4v5hx0o" path="res://items/upgrades/rust_bucket_upgrade.tscn" id="3_1toak"]
+
+[resource]
+script = ExtResource("2_s5741")
+upgrade = ExtResource("3_1toak")
+hazard = ExtResource("1_17nhd")
+type = 1
+item_name = "Rusty Tire"
+up_stat = 0
+down_stat = 1

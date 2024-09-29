@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cx78a6slbmso6"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_rlbaa"]
+
+[node name="ArmourUpgrade" type="Node"]
+script = ExtResource("1_rlbaa")
+increase_stat = 4
+increase_stat_amount = 3.0
+decrease_stat = 1
+decrease_stat_amount = 0.5

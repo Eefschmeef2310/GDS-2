@@ -8,6 +8,7 @@ class_name Kart
 signal checkpoint_passed(kart : Kart, index : int)
 @warning_ignore("unused_signal")
 signal hit_item_box(item : Resource)
+signal stats_updated()
 
 	#Enums
 
@@ -24,14 +25,40 @@ signal hit_item_box(item : Resource)
 var can_control: bool = true
 
 @export_group("Stats")
-@export var max_speed : float = 30
-@export var gravity : float = 10
+var speed_cap = 30
+@export var max_speed : float = 30:
+	set(value):
+		max_speed = clamp(value, 0, speed_cap)
+		stats_updated.emit()
+		
+var max_weight = 20
+@export var gravity : float = 10:
+	set(value):
+		gravity = clamp(value, 0, max_weight)
+		stats_updated.emit()
+
+var max_acceleration = 3
 @export var acceleration : float = 1:
 	set(value):
-		acceleration = clamp(value, 0, 100)
+		acceleration = clamp(value, 0, max_acceleration)
+		stats_updated.emit()
+		
 @export var turn_speed : float = 10
-@export var boost_multiplier : float = 3
+
+var max_boost_strength = 10
+@export var boost_multiplier : float = 3:
+	set(value):
+		boost_multiplier = clamp(value, 0, max_boost_strength)
+		stats_updated.emit()
+
 @export var boost_acceleration : float = 10
+
+var max_handling = 3
+@export var traction_coefficient : float = 1:
+	set(value):
+		traction_coefficient = clamp(value, 0, max_handling)
+		stats_updated.emit()
+		
 
 @export_group("Data")
 @export var turbo_colors : Array[Color] = [Color.ALICE_BLUE, Color.ALICE_BLUE, Color.ALICE_BLUE]
@@ -117,7 +144,6 @@ func _physics_process(delta: float) -> void:
 			
 		# Perform jump animation here
 		
-		
 		if drifting:
 			var control : float = (remap_axis(steer_axis, .4, 2)) if (drift_direction == 1) else (remap_axis(steer_axis, 2, .4))
 			var power_control : float = remap_axis(steer_axis, .5, 1) if (drift_direction == 1) else remap_axis(steer_axis, 1, .5)
@@ -152,6 +178,16 @@ func _physics_process(delta: float) -> void:
 			sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
 		else:
 			sphere.apply_force(kart.global_transform.basis.z * current_speed)
+		
+		# Sideways Drag
+		var vel = sphere.linear_velocity
+		var local_z_dir = kart.transform.basis.z
+		var vel_in_local_z = vel.dot(local_z_dir)
+		
+		var drag_magnitude = -vel_in_local_z * traction_coefficient
+		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
+		
+		#print(drag_magnitude)
 			
 		#Update speed label
 		player_ui.update_speed(sphere.linear_velocity.length())

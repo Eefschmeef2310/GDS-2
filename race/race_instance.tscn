@@ -149,7 +149,7 @@ grow_vertical = 2
 
 [node name="Label" type="Label" parent="DebugWin/VBoxContainer"]
 layout_mode = 2
-text = "You have completed three laps of the Grand Anarchy Bowl and proven yourself
+text = "You have completed three laps of the Anarchy Crater and proven yourself
 as the coolest and most badass racer in all of the Outlands.
 
 Now go, dear racer, and tell us how buggy our game is

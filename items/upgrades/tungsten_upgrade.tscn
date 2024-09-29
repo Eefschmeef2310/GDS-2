@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bc4pnj3ctrpih"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_xf2er"]
+
+[node name="TungstenUpgrade" type="Node"]
+script = ExtResource("1_xf2er")
+increase_stat = 4
+increase_stat_amount = 3.0
+decrease_stat_amount = 3.0
