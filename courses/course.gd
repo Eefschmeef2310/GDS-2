@@ -13,10 +13,12 @@ func get_track_closest_offset(pos : Vector3):
 
 func add_kart_to_viewport_grid(kart: Kart):
 	var container = PLAYER_VIEWPORT_CONTAINER.instantiate()
-	viewport_grid.add_child(container)
 	
-	if viewport_grid.get_child_count() >= 2:
-		viewport_grid.columns = 2
+	if viewport_grid:
+		viewport_grid.add_child(container)
+		
+		if viewport_grid.get_child_count() >= 2:
+			viewport_grid.columns = 2
 	
 	container.get_child(0).add_child(kart)
 

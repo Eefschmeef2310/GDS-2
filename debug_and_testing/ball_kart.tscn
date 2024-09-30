@@ -1,7 +1,6 @@
-[gd_scene load_steps=38 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=37 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
-[ext_resource type="PackedScene" uid="uid://bc3lrrei6l485" path="res://debug_and_testing/Kart.FBX" id="1_kj480"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
 [ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="3_57wie"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="3_axfps"]
@@ -17,7 +16,7 @@ radius = 1.5
 resource_name = "Hurtbox"
 script/source = "extends Area3D
 #region Variables
-@onready var ball_kart: PlayerKart = $\"..\"
+@onready var ball_kart: Kart = $\"..\"
 
 #endregion
 
@@ -318,24 +317,26 @@ albedo_color = Color(1, 0, 0.965711, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_1htm1"]
 size = Vector3(2.5, 1, 2)
 
-[node name="BallKart" type="Node3D" node_paths=PackedStringArray("data", "kart_model", "kart_normal", "sphere", "front_wheels", "back_wheels", "steering_wheel", "front_ray", "rear_ray", "boost_timer", "kart", "player_ui")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 0)
+[node name="BallKart" type="RigidBody3D" node_paths=PackedStringArray("data", "kart", "kart_model", "front_wheels", "back_wheels", "steering_wheel", "ray", "boost_timer", "player_ui")]
+collision_layer = 4
+collision_mask = 5
+physics_material_override = SubResource("PhysicsMaterial_1ruac")
+gravity_scale = 0.0
+linear_damp = 0.3
+angular_damp = 10.0
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
 max_speed = 20.0
 turn_speed = 8.0
 boost_acceleration = 5.0
 traction_coefficient = 2.0
-kart_model = NodePath("Kart/Normal/Parent/KartModel")
-kart_normal = NodePath("Kart/Normal")
-sphere = NodePath("Ball")
-front_wheels = NodePath("Kart/Normal/Parent/KartModel/FrontWheels")
-back_wheels = NodePath("Kart/Normal/Parent/KartModel/BackWheels")
-steering_wheel = NodePath("Kart/Normal/Parent/KartModel/SteeringWheel")
-front_ray = NodePath("Kart/FrontRay")
-rear_ray = NodePath("Kart/RearRay")
-boost_timer = NodePath("Boost Timer")
 kart = NodePath("Kart")
+kart_model = NodePath("Kart/KartModel")
+front_wheels = NodePath("Kart/KartModel/FrontWheels")
+back_wheels = NodePath("Kart/KartModel/BackWheels")
+steering_wheel = NodePath("Kart/KartModel/SteeringWheel")
+ray = NodePath("Kart/DownwardCast")
+boost_timer = NodePath("Boost Timer")
 player_ui = NodePath("PlayerUI")
 
 [node name="Scripts" type="Node" parent="."]
@@ -347,18 +348,12 @@ script = ExtResource("2_3ouaj")
 script = ExtResource("3_axfps")
 data = NodePath("../PlayerDataContainer")
 
-[node name="Ball" type="RigidBody3D" parent="."]
+[node name="BallShape" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
-collision_layer = 4
-collision_mask = 5
-physics_material_override = SubResource("PhysicsMaterial_1ruac")
-gravity_scale = 0.0
-linear_damp = 0.3
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball"]
 shape = SubResource("SphereShape3D_qnbc7")
 
 [node name="Hurtbox" type="Area3D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 script = SubResource("GDScript_ghuyg")
@@ -368,85 +363,71 @@ shape = SubResource("SphereShape3D_ita0d")
 
 [node name="Kart" type="Node3D" parent="."]
 
-[node name="Normal" type="Node3D" parent="Kart"]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 0, 0, 0)
+[node name="KartModel" type="Node3D" parent="Kart"]
 
-[node name="Parent" type="Node3D" parent="Kart/Normal"]
-
-[node name="KartModel" type="Node3D" parent="Kart/Normal/Parent"]
-
-[node name="FrontWheels" type="Node3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="FrontWheels" type="Node3D" parent="Kart/KartModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.481, 0.347, 0)
 
-[node name="LeftFrontWheel" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel/FrontWheels"]
+[node name="LeftFrontWheel" type="MeshInstance3D" parent="Kart/KartModel/FrontWheels"]
 transform = Transform3D(-0.725338, 0, 0, 0, -0.725338, 0, 0, 0, -1, 0, 0, -0.504)
 mesh = SubResource("ArrayMesh_vo78h")
 surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 
-[node name="RightFrontWheel" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel/FrontWheels"]
+[node name="RightFrontWheel" type="MeshInstance3D" parent="Kart/KartModel/FrontWheels"]
 transform = Transform3D(0.725338, 0, 8.74228e-08, 0, -0.725338, 0, -6.34111e-08, 0, 1, 0, 0, 0.742)
 mesh = SubResource("ArrayMesh_vo78h")
 surface_material_override/0 = SubResource("StandardMaterial3D_q6cka")
 
-[node name="BackWheels" type="Node3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="BackWheels" type="Node3D" parent="Kart/KartModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.901, 0.464, 0)
 
-[node name="BackLeftWheel" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel/BackWheels"]
+[node name="BackLeftWheel" type="MeshInstance3D" parent="Kart/KartModel/BackWheels"]
 transform = Transform3D(-0.85792, 0, 0, 0, -0.85792, 0, 0, 0, -1.18279, 0, 0, -0.504)
 mesh = SubResource("ArrayMesh_wru5q")
 surface_material_override/0 = SubResource("StandardMaterial3D_hajm8")
 
-[node name="BackRightWheel" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel/BackWheels"]
+[node name="BackRightWheel" type="MeshInstance3D" parent="Kart/KartModel/BackWheels"]
 transform = Transform3D(0.85792, 0, 0, 0, 0.85792, 0, 0, 0, 1.18279, 0, 0, 0.742)
 mesh = SubResource("ArrayMesh_4j76b")
 surface_material_override/0 = SubResource("StandardMaterial3D_7csmw")
 
-[node name="Body" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="Body" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(4.1314, 0, 0, 0, -8.11654e-08, 1.61933, 0, -1.85685, -7.07833e-08, 0.0406498, 0.201033, 0.109311)
 mesh = SubResource("ArrayMesh_vs8jx")
 surface_material_override/0 = SubResource("StandardMaterial3D_kq67i")
 
-[node name="SteeringWheel" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="SteeringWheel" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(1.12473, 6.71674e-08, -0.67995, 2.412, -1.05432e-07, 0.317066, -6.71674e-08, -2.66134, -2.97215e-08, 0.591341, 0.887154, 0.109311)
 mesh = SubResource("ArrayMesh_qvcre")
 surface_material_override/0 = SubResource("StandardMaterial3D_tn8rf")
 
-[node name="RightExhaust" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="RightExhaust" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(0.917401, 0.397964, -1.73956e-08, -0.397964, 0.917401, -4.01009e-08, -1.77636e-15, 4.37114e-08, 1, -0.636298, 0.874706, 0.648662)
 mesh = SubResource("ArrayMesh_0tx7j")
 surface_material_override/0 = SubResource("StandardMaterial3D_r3rhy")
 
-[node name="LeftExhaust" type="MeshInstance3D" parent="Kart/Normal/Parent/KartModel"]
+[node name="LeftExhaust" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
 mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
-[node name="Camera3D" type="Camera3D" parent="Kart/Normal"]
-transform = Transform3D(1, -4.21636e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
-fov = 90.0
-script = ExtResource("4_7exgq")
-
-[node name="KartModelOld" parent="Kart" instance=ExtResource("1_kj480")]
-visible = false
-
-[node name="Tube002" parent="Kart/KartModelOld" index="7"]
-transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
-
-[node name="FrontRay" type="RayCast3D" parent="Kart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, 0.243778, 0)
-target_position = Vector3(0, -2, 0)
-
-[node name="RearRay" type="RayCast3D" parent="Kart"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.85, 0.243778, 0)
-target_position = Vector3(0, -2, 0)
-
-[node name="CheckpointDetector" type="Area3D" parent="Kart"]
+[node name="CheckpointDetector" type="Area3D" parent="Kart/KartModel"]
+transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Kart/CheckpointDetector"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Kart/KartModel/CheckpointDetector"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("BoxShape3D_1htm1")
+
+[node name="Camera3D" type="Camera3D" parent="Kart"]
+transform = Transform3D(1, -4.21637e-08, -1.37576e-08, 4.33936e-08, 0.99426, 0.106993, 9.1674e-09, -0.106993, 0.99426, 0, 4.0682, 6)
+current = true
+fov = 90.0
+script = ExtResource("4_7exgq")
+
+[node name="DownwardCast" type="RayCast3D" parent="Kart"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Boost Timer" type="Timer" parent="."]
 one_shot = true
@@ -454,13 +435,9 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
-[connection signal="area_entered" from="Kart/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]
-
-[editable path="Kart/KartModelOld"]
+[connection signal="area_entered" from="Kart/KartModel/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]

@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 class_name Kart
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
@@ -17,8 +17,6 @@ signal stats_updated()
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-@onready var ball: RigidBody3D = $Ball
-
 @export var data : PlayerData
 
 @export var is_player : bool
@@ -29,19 +27,19 @@ var speed_cap = 30
 @export var max_speed : float = 30:
 	set(value):
 		max_speed = clamp(value, 0, speed_cap)
-		stats_updated.emit()
+		are_stats_updated()
 		
 var max_weight = 20
 @export var gravity : float = 10:
 	set(value):
 		gravity = clamp(value, 0, max_weight)
-		stats_updated.emit()
+		are_stats_updated()
 
 var max_acceleration = 3
 @export var acceleration : float = 1:
 	set(value):
 		acceleration = clamp(value, 0, max_acceleration)
-		stats_updated.emit()
+		are_stats_updated()
 		
 @export var turn_speed : float = 10
 
@@ -49,7 +47,7 @@ var max_boost_strength = 10
 @export var boost_multiplier : float = 3:
 	set(value):
 		boost_multiplier = clamp(value, 0, max_boost_strength)
-		stats_updated.emit()
+		are_stats_updated()
 
 @export var boost_acceleration : float = 10
 
@@ -57,23 +55,20 @@ var max_handling = 3
 @export var traction_coefficient : float = 1:
 	set(value):
 		traction_coefficient = clamp(value, 0, max_handling)
-		stats_updated.emit()
+		are_stats_updated()
 		
 
 @export_group("Data")
 @export var turbo_colors : Array[Color] = [Color.ALICE_BLUE, Color.ALICE_BLUE, Color.ALICE_BLUE]
 
 @export_group("Node References")
+@export var kart : Node3D
 @export var kart_model : Node3D
-@export var kart_normal : Node3D
-@export var sphere : RigidBody3D
 @export var front_wheels : Node3D
 @export var back_wheels : Node3D
 @export var steering_wheel : Node3D
-@export var front_ray : RayCast3D
-@export var rear_ray : RayCast3D
+@export var ray : RayCast3D
 @export var boost_timer : Timer
-@export var kart : Node3D
 
 @export_subgroup("UI")
 @export var player_ui : PlayerUI
@@ -119,10 +114,9 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if is_player:
 		# Move kart model to sphere
-		kart.position = sphere.position - Vector3(0, 0.4, 0);
+		kart.position = position - Vector3(0, -1, 0);
 		
 		# Get acceleration/brake
-		
 		if accelerating:
 			speed = max_speed
 		elif braking:
@@ -178,45 +172,42 @@ func _physics_process(delta: float) -> void:
 		
 		#Forward acceleration
 		if !drifting:
-			sphere.apply_force(kart_model.global_transform.basis.x * current_speed)
+			apply_central_force(kart_model.global_transform.basis.x * current_speed)
 		else:
-			sphere.apply_force(kart.global_transform.basis.z * current_speed)
+			apply_central_force(kart_model.global_transform.basis.x * current_speed)
 		
 		# Sideways Drag
-		var vel = sphere.linear_velocity
-		var local_z_dir = kart.transform.basis.z
+		var vel = linear_velocity
+		var local_z_dir = kart_model.transform.basis.z
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
-		sphere.apply_force(kart.global_transform.basis.x * drag_magnitude)
+		#apply_central_force(kart_model.global_transform.basis.x * drag_magnitude)
 		
 		#Update speed label
-		player_ui.update_speed(sphere.linear_velocity.length())
+		player_ui.update_speed(linear_velocity.length())
 		
 		#Steering
+		#var new_basis = kart_model.global_transform.basis.rotated(kart_model.global_transform.basis.y, steer_axis)
+		#kart_model.global_transform.basis = kart_model.global_transform.basis.slerp(new_basis, turn_speed * delta)
+		#kart_model.global_transform = kart_model.global_transform.orthonormalized()
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
 		
 		#Animate wheels
 		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
-		front_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		back_wheels.rotation_degrees -= Vector3(0,0, sphere.linear_velocity.length()/2)
-		
-		#Steering wheel animate
+		front_wheels.rotation_degrees -= Vector3(0,0, linear_velocity.length()/2)
+		back_wheels.rotation_degrees -= Vector3(0,0, linear_velocity.length()/2)
 		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
 		
-		#Rotate according to slope
-		if front_ray.is_colliding() or rear_ray.is_colliding():
-			var normal_front = front_ray.get_collision_normal() if front_ray.is_colliding() else Vector3.UP
-			var normal_rear = rear_ray.get_collision_normal() if rear_ray.is_colliding() else Vector3.UP
-			var average_normal = ((normal_front + normal_rear) / 2).normalized()
-			#var xform = align_with_y(kart.transform, average_normal)
-			#
-			#kart.transform = kart.transform.interpolate_with(xform, 0.1)
-			#kart_normal.basis.y = lerp(kart_model.basis.y, hit_near.get_collision_normal(), delta * 8)
-			#kart_normal.rotation_degrees.y = rotation_degrees.y
+		#Rotate according to slope and get correct gravity
+		if ray.is_colliding():
+			gravity_direction = -ray.get_collision_normal()
+			
+			var xform = align_with_y(kart_model.global_transform, ray.get_collision_normal())
+			kart_model.global_transform = kart_model.global_transform.interpolate_with(xform, 10.0 * delta)
 			
 		#Gravity
-		sphere.apply_force(gravity_direction * gravity)
+		#apply_central_force(gravity_direction * gravity)
 #endregion
 
 #region Signal methods
@@ -235,7 +226,7 @@ func remap_axis(input : float, lower : float, higher : float) -> float:
 func align_with_y(xform, new_y):
 	xform.basis.y = new_y
 	xform.basis.x = -xform.basis.z.cross(new_y)
-	xform.basis = xform.basis.orthonormalized()
+	#xform.basis = xform.basis.orthonormalized()
 	return xform
 
 func color_drift(): #This method handles drifting brackets (blue, orange, pink)
@@ -274,11 +265,15 @@ func boost():
 func hurt(_hazard: Node3D):
 	current_rotate = 0
 	current_speed = 0
-	sphere.linear_velocity /= 5
+	linear_velocity /= 5
 	drifting = false
 	is_stunned = true
 	await get_tree().create_timer(1).timeout
 	is_stunned = false
 		
 	#print("Starting boost for " + str(boost_timer.wait_time))
+
+func are_stats_updated():
+	if player_ui and player_ui.kart:
+		stats_updated.emit()
 #endregion

@@ -130,7 +130,7 @@ func release_karts():
 
 func update_kart_placements():
 	for kart in kart_placements.keys():
-		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.ball.global_position)
+		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.global_position)
 	
 	karts_sorted.sort_custom(sort_karts_by_placement)
 	

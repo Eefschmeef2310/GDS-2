@@ -13,6 +13,8 @@ var kart : Kart
 
 func _ready():
 	_on_player_data_container_hand_updated()
+	print("gin")
+	print(get_parent())
 	if owner is Kart:
 		kart = owner
 		
