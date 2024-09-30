@@ -362,6 +362,7 @@ script = SubResource("GDScript_ghuyg")
 shape = SubResource("SphereShape3D_ita0d")
 
 [node name="Kart" type="Node3D" parent="."]
+top_level = true
 
 [node name="KartModel" type="Node3D" parent="Kart"]
 
