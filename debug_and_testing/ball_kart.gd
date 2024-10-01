@@ -110,11 +110,11 @@ var drift_released : bool
 func _ready():
 	if !is_player:
 		player_ui.queue_free()
-
+	
 func _physics_process(delta: float) -> void:
 	if is_player:
 		# Move kart model to sphere
-		kart.position = position - Vector3(0, -1, 0);
+		kart.position = position;
 		
 		# Get acceleration/brake
 		if accelerating:
@@ -163,10 +163,10 @@ func _physics_process(delta: float) -> void:
 		
 		#Apply extra rotation for drifting
 		if !drifting:
-			kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , 90 + steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
+			kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
 		else:
 			var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-			kart_model.get_parent().rotation_degrees = Vector3(0, move_toward(kart_model.get_parent().rotation_degrees.y, (control * 15 * drift_direction), 10), 0)
+			kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, (control * 15 * drift_direction), 10), 0)
 		
 		###############################################################################################
 		
@@ -174,7 +174,7 @@ func _physics_process(delta: float) -> void:
 		if !drifting:
 			apply_central_force(kart_model.global_transform.basis.x * current_speed)
 		else:
-			apply_central_force(kart_model.global_transform.basis.x * current_speed)
+			apply_central_force(kart.global_transform.basis.x * current_speed)
 		
 		# Sideways Drag
 		var vel = linear_velocity
@@ -182,7 +182,7 @@ func _physics_process(delta: float) -> void:
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
-		#apply_central_force(kart_model.global_transform.basis.x * drag_magnitude)
+		apply_central_force(kart_model.global_transform.basis.x * drag_magnitude)
 		
 		#Update speed label
 		player_ui.update_speed(linear_velocity.length())
@@ -207,7 +207,7 @@ func _physics_process(delta: float) -> void:
 			kart_model.global_transform = kart_model.global_transform.interpolate_with(xform, 10.0 * delta)
 			
 		#Gravity
-		#apply_central_force(gravity_direction * gravity)
+		apply_central_force(gravity_direction * gravity)
 #endregion
 
 #region Signal methods
@@ -260,7 +260,7 @@ func boost():
 	second = false
 	third = false
 	
-	kart_model.get_parent().rotation_degrees = Vector3.ZERO
+	kart_model.rotation_degrees = Vector3.ZERO
 	
 func hurt(_hazard: Node3D):
 	current_rotate = 0
