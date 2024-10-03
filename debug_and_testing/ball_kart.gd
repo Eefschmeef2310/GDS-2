@@ -201,10 +201,10 @@ func _physics_process(delta: float) -> void:
 		
 		#Rotate according to slope and get correct gravity
 		if ray.is_colliding():
-			gravity_direction = -ray.get_collision_normal()
+			gravity_direction = -ray.get_collision_normal().normalized()
 			
-			var xform = align_with_y(kart_model.global_transform, ray.get_collision_normal())
-			kart_model.global_transform = kart_model.global_transform.interpolate_with(xform, 10.0 * delta)
+			#var xform = align_with_y(kart.global_transform, ray.get_collision_normal())
+			#kart.global_transform = kart.global_transform.interpolate_with(xform, 10.0 * delta)
 			
 		#Gravity
 		apply_central_force(gravity_direction * gravity)
@@ -227,6 +227,7 @@ func align_with_y(xform, new_y):
 	xform.basis.y = new_y
 	xform.basis.x = -xform.basis.z.cross(new_y)
 	#xform.basis = xform.basis.orthonormalized()
+
 	return xform
 
 func color_drift(): #This method handles drifting brackets (blue, orange, pink)

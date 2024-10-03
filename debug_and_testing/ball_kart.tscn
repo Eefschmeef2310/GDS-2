@@ -1,10 +1,9 @@
-[gd_scene load_steps=37 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=36 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
 [ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="3_57wie"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="3_axfps"]
-[ext_resource type="Script" path="res://debug_and_testing/ball_kart_camera.gd" id="4_7exgq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
@@ -335,7 +334,7 @@ kart_model = NodePath("Kart/KartModel")
 front_wheels = NodePath("Kart/KartModel/FrontWheels")
 back_wheels = NodePath("Kart/KartModel/BackWheels")
 steering_wheel = NodePath("Kart/KartModel/SteeringWheel")
-ray = NodePath("Kart/DownwardCast")
+ray = NodePath("Kart/KartModel/DownwardCast")
 boost_timer = NodePath("Boost Timer")
 player_ui = NodePath("PlayerUI")
 
@@ -424,9 +423,8 @@ shape = SubResource("BoxShape3D_1htm1")
 transform = Transform3D(-3.78552e-08, 0.5, -0.866026, 2.18557e-08, 0.866025, 0.5, 1, 1.77636e-15, -4.37114e-08, -6, 5.068, 0)
 current = true
 fov = 90.0
-script = ExtResource("4_7exgq")
 
-[node name="DownwardCast" type="RayCast3D" parent="Kart"]
+[node name="DownwardCast" type="RayCast3D" parent="Kart/KartModel"]
 target_position = Vector3(0, -3, 0)
 
 [node name="Boost Timer" type="Timer" parent="."]
