@@ -37,6 +37,4 @@ func get_track_extents() -> Array[float]:
 		if point.z > extents[3]:
 			extents[3] = point.z
 	
-	
-	
 	return extents
