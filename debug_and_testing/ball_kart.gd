@@ -173,16 +173,10 @@ func _physics_process(delta: float) -> void:
 		###############################################################################################
 		
 		#Steering
-		#var new_basis = kart_model.global_transform.basis.rotated(kart_model.global_transform.basis.y, steer_axis)
-		#kart_model.global_transform.basis = kart_model.global_transform.basis.slerp(new_basis, turn_speed * delta)
-		#kart_model.global_transform = kart_model.global_transform.orthonormalized()
 		kart.rotation_degrees = lerp(kart.rotation_degrees, Vector3(0, kart.rotation_degrees.y + current_rotate, 0), delta * 5)
 		
 		#Forward acceleration
-		if !drifting:
-			apply_central_force(kart.transform.basis.x * current_speed)
-		else:
-			apply_central_force(kart.transform.basis.x * current_speed)
+		apply_central_force(kart.transform.basis.x * current_speed)
 		
 		# Sideways Drag
 		var vel = linear_velocity
@@ -190,7 +184,7 @@ func _physics_process(delta: float) -> void:
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
-		#apply_central_force(kart_model.global_transform.basis.x * drag_magnitude)
+		#apply_central_force(kart_model.transform.basis.z * drag_magnitude)
 		
 		#Update speed label
 		player_ui.update_speed(linear_velocity.length())
@@ -203,16 +197,14 @@ func _physics_process(delta: float) -> void:
 		
 		#Rotate according to slope and get correct gravity
 		if ray.is_colliding():
+			#pass
 			gravity_direction = -ray.get_collision_normal().normalized()
 			
 			align_with_floor(ray.get_collision_normal())
-			kart_model.global_transform = kart_model.global_transform.interpolate_with(xform, 0.3)
-			
-			#var xform = align_with_y(kart.global_transform, ray.get_collision_normal())
-			#kart.global_transform = kart.global_transform.interpolate_with(xform, 10.0 * delta)
+			kart.transform = kart.transform.interpolate_with(xform, 0.3)
 			
 		#Gravity
-		#apply_central_force(gravity_direction * gravity)
+		apply_central_force(gravity_direction * gravity)
 #endregion
 
 #region Signal methods
@@ -229,7 +221,7 @@ func remap_axis(input : float, lower : float, higher : float) -> float:
 	return lerp(lower, higher, normalized)
 
 func align_with_floor(floor_normal):
-	xform = kart.global_transform
+	xform = kart.transform
 	
 	xform.basis.y = floor_normal
 	xform.basis.x = -xform.basis.z.cross(floor_normal)
