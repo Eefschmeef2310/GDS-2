@@ -116,7 +116,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	if is_player:
 		# Move kart model to sphere
-		kart.position = position
+		kart.position = position - Vector3(0,1.5,0)
 		
 		# Get acceleration/brake
 		if accelerating:

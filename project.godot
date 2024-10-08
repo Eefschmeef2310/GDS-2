@@ -46,6 +46,7 @@ folder_colors={
 "res://kart/": "green",
 "res://menus/": "meow meow meow!",
 "res://menus/debugMultiplayer/": "red",
+"res://particles/": "yellow",
 "res://player/": "blue",
 "res://race/": "red"
 }
