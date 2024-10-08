@@ -114,7 +114,7 @@ func _ready():
 		player_ui.queue_free()
 
 func _physics_process(delta: float) -> void:
-	if is_player:
+	#if is_player:
 		# Move kart model to sphere
 		kart.position = sphere.position - Vector3(0, 0.4, 0);
 		
@@ -190,7 +190,8 @@ func _physics_process(delta: float) -> void:
 		#print(drag_magnitude)
 			
 		#Update speed label
-		player_ui.update_speed(sphere.linear_velocity.length())
+		if player_ui:
+			player_ui.update_speed(sphere.linear_velocity.length())
 		
 		#Gravity
 		sphere.apply_force(Vector3.DOWN * gravity)

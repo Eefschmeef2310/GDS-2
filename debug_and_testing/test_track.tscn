@@ -160,30 +160,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9602, 1.04245, -73.8472)
 linear_damp = 1.0
 angular_damp = 3.0
 
-[node name="LeftFrontWheel" parent="BallKart/Kart/Normal/Parent/KartModel/FrontWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="RightFrontWheel" parent="BallKart/Kart/Normal/Parent/KartModel/FrontWheels" index="1"]
-surface_material_override/0 = null
-
-[node name="BackLeftWheel" parent="BallKart/Kart/Normal/Parent/KartModel/BackWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="BackRightWheel" parent="BallKart/Kart/Normal/Parent/KartModel/BackWheels" index="1"]
-surface_material_override/0 = null
-
-[node name="Body" parent="BallKart/Kart/Normal/Parent/KartModel" index="2"]
-surface_material_override/0 = null
-
-[node name="SteeringWheel" parent="BallKart/Kart/Normal/Parent/KartModel" index="3"]
-surface_material_override/0 = null
-
-[node name="RightExhaust" parent="BallKart/Kart/Normal/Parent/KartModel" index="4"]
-surface_material_override/0 = null
-
-[node name="LeftExhaust" parent="BallKart/Kart/Normal/Parent/KartModel" index="5"]
-surface_material_override/0 = null
-
 [node name="Camera3D2" type="Camera3D" parent="BallKart/Kart/Normal" index="1"]
 transform = Transform3D(1, 0, 0, 0, 0.963003, 0.269492, 0, -0.269492, 0.963003, 9.53674e-07, 4.45611, 5.44022)
 script = SubResource("GDScript_r6rw7")

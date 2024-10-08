@@ -22,6 +22,7 @@ var total_laps : int = 3
 var race_timer : float
 
 @export var kart_scene : PackedScene
+@export var cpu_kart: PackedScene
 
 @export_group("Debug Start")
 @export var debug_start : bool = false
@@ -95,7 +96,8 @@ func start_race():
 	var check_count = course.track.curve.point_count - 1
 	
 	for n in number_of_racers:
-		var new_kart : Kart = kart_scene.instantiate()
+		var new_kart : Kart = kart_scene.instantiate() if(n < connected_controllers.size()) else cpu_kart.instantiate()
+		#var new_kart : Kart = kart_scene.instantiate()
 		new_kart.position = course.kart_spawns.get_child(n).position
 		new_kart.kart.rotation = course.kart_spawns.get_child(n).rotation
 		new_kart.can_control = false

@@ -181,7 +181,7 @@ shape = SubResource("BoxShape3D_thdqr")
 
 [editable path="PlayerUI"]
 [editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed2"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed3"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed4"]
-[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Speed5"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="PlayerUI/MarginContainer/VBoxContainer/VBoxContainer/weight"]
