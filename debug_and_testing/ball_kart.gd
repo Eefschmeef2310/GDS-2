@@ -10,6 +10,11 @@ signal checkpoint_passed(kart : Kart, index : int)
 signal hit_item_box(item : Resource)
 signal stats_updated()
 
+signal drift_started()
+signal drift_ended()
+signal boost_started()
+signal new_drift_mode(col : Color)
+
 	#Enums
 
 	#Constants
@@ -92,7 +97,10 @@ var drift_mode : int
 var first : bool
 var second : bool
 var third : bool
-var c : Color
+var c : Color:
+	set(value):
+		c = value
+		new_drift_mode.emit(c)
 
 #Stuff to do with getting hit
 var is_stunned: bool = false
@@ -151,8 +159,10 @@ func _physics_process(delta: float) -> void:
 			
 			color_drift()
 			
-		if drift_released and drifting:
-			boost()
+		if drift_released:
+			drift_ended.emit()
+			if drifting:
+				boost()
 		
 		if !boost_timer.is_stopped():
 			current_speed = move_toward(current_speed, max_speed * boost_multiplier, boost_acceleration)
@@ -228,6 +238,7 @@ func align_with_floor(floor_normal):
 	xform.basis = xform.basis.orthonormalized()
 
 func color_drift(): #This method handles drifting brackets (blue, orange, pink)
+	drift_started.emit()
 	if !first:
 		c = Color(0,0,0,0)
 		
@@ -243,10 +254,11 @@ func color_drift(): #This method handles drifting brackets (blue, orange, pink)
 	
 	if drift_power > 150 and !third:
 		third = true;
-		c = turbo_colors[0]
+		c = turbo_colors[2]
 		drift_mode = 3
 
 func boost():
+	boost_started.emit()
 	drifting = false
 	
 	if drift_mode > 0:

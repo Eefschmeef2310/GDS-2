@@ -1,10 +1,12 @@
-[gd_scene load_steps=51 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=88 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
 [ext_resource type="PackedScene" uid="uid://bxoqa1tw6o67n" path="res://ui/player_ui.tscn" id="3_57wie"]
 [ext_resource type="Script" path="res://player/item_user.gd" id="3_axfps"]
+[ext_resource type="Script" path="res://kart/particle_controller.gd" id="4_3noue"]
 [ext_resource type="Texture2D" uid="uid://dqkmqhwimyddv" path="res://particles/textures/title-bar-logo-gradient-white.png" id="4_fins0"]
+[ext_resource type="Texture2D" uid="uid://wyorgad5fp0s" path="res://particles/textures/Png.png" id="5_dks8u"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
@@ -316,7 +318,6 @@ albedo_color = Color(1, 0, 0.965711, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0yvt"]
 transparency = 1
-blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("4_fins0")
@@ -351,11 +352,26 @@ blend_mode = 1
 shading_mode = 0
 vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("4_fins0")
-billboard_mode = 3
+heightmap_scale = -16.0
 billboard_keep_scale = true
-particles_anim_h_frames = 1
-particles_anim_v_frames = 1
-particles_anim_loop = false
+grow_amount = 9.617
+
+[sub_resource type="Curve" id="Curve_mcmvc"]
+_data = [Vector2(0, 0.193708), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_vl7i2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_mi2yg"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_ho6di"]
+curve_x = SubResource("Curve_mcmvc")
+curve_y = SubResource("Curve_vl7i2")
+curve_z = SubResource("Curve_mi2yg")
 
 [sub_resource type="Curve" id="Curve_wvacs"]
 max_value = 3.0
@@ -366,30 +382,205 @@ point_count = 2
 curve = SubResource("Curve_wvacs")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_05i4e"]
-direction = Vector3(2, 1, -5)
+direction = Vector3(2, 3.71, -5)
 spread = 35.0
 initial_velocity_min = 2.0
-initial_velocity_max = 4.0
+initial_velocity_max = 3.0
 scale_min = 0.1
 scale_max = 0.1
-scale_curve = SubResource("CurveTexture_8327h")
+scale_curve = SubResource("CurveXYZTexture_ho6di")
 scale_over_velocity_max = 4.0
 scale_over_velocity_curve = SubResource("CurveTexture_ktkn1")
 alpha_curve = SubResource("CurveTexture_hmb4x")
 turbulence_noise_strength = 18.84
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_doumh"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_nu70o"]
+direction = Vector3(-5, 20, -15)
+spread = 20.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_curve = SubResource("CurveXYZTexture_ho6di")
+scale_over_velocity_max = 4.0
+scale_over_velocity_curve = SubResource("CurveTexture_ktkn1")
+alpha_curve = SubResource("CurveTexture_hmb4x")
+turbulence_noise_strength = 18.84
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qwc7u"]
 transparency = 1
 blend_mode = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
 albedo_texture = ExtResource("4_fins0")
-billboard_mode = 1
+heightmap_scale = -16.0
 billboard_keep_scale = true
+grow_amount = 9.617
 use_particle_trails = true
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_04vgb"]
-gravity = Vector3(0, 29.025, 0)
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_hkhxr"]
+material = SubResource("StandardMaterial3D_qwc7u")
+shape = 0
+section_segments = 8
 
-[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_1b8kw"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o3hsl"]
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("5_dks8u")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="Curve" id="Curve_jf7w2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_diqds"]
+curve = SubResource("Curve_jf7w2")
+
+[sub_resource type="Curve" id="Curve_n8d8d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_ullfn"]
+min_value = -1.0
+_data = [Vector2(0, -0.5), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_j47mv"]
+curve_x = SubResource("Curve_n8d8d")
+curve_y = SubResource("Curve_ullfn")
+
+[sub_resource type="Curve" id="Curve_8nis7"]
+_data = [Vector2(0, 0), 0.0, 4.0269, 0, 0, Vector2(0.252762, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.53811, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gfjev"]
+curve = SubResource("Curve_8nis7")
+
+[sub_resource type="Curve" id="Curve_yjx1n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.164365, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.95277, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bvfsd"]
+curve = SubResource("Curve_yjx1n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_h78ex"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+directional_velocity_min = -1.00002
+directional_velocity_max = -1.00002
+directional_velocity_curve = SubResource("CurveXYZTexture_j47mv")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_bvfsd")
+alpha_curve = SubResource("CurveTexture_diqds")
+emission_curve = SubResource("CurveTexture_gfjev")
+
+[sub_resource type="QuadMesh" id="QuadMesh_os3l4"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hhjwk"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+directional_velocity_min = -1.00002
+directional_velocity_max = -1.00002
+directional_velocity_curve = SubResource("CurveXYZTexture_j47mv")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_bvfsd")
+alpha_curve = SubResource("CurveTexture_diqds")
+emission_curve = SubResource("CurveTexture_gfjev")
+
+[sub_resource type="Curve" id="Curve_lalip"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.259136, 1), 0.0, 0.0, 0, 0, Vector2(0.508306, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_snoqp"]
+curve = SubResource("Curve_lalip")
+
+[sub_resource type="Curve" id="Curve_71yj1"]
+_data = [Vector2(0, 0.193708), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_knfyp"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_cela8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_mthi2"]
+curve_x = SubResource("Curve_71yj1")
+curve_y = SubResource("Curve_knfyp")
+curve_z = SubResource("Curve_cela8")
+
+[sub_resource type="Curve" id="Curve_pfj5x"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, -3.0, 0, 1, Vector2(1, 0), -3.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_k0bm4"]
+curve = SubResource("Curve_pfj5x")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ax7q6"]
+direction = Vector3(2, 3.71, 5)
+spread = 35.0
+initial_velocity_min = 2.0
+initial_velocity_max = 3.0
+scale_min = 0.1
+scale_max = 0.1
+scale_curve = SubResource("CurveXYZTexture_mthi2")
+scale_over_velocity_max = 4.0
+scale_over_velocity_curve = SubResource("CurveTexture_k0bm4")
+alpha_curve = SubResource("CurveTexture_snoqp")
+turbulence_noise_strength = 18.84
+
+[sub_resource type="Curve" id="Curve_cxghc"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.259136, 1), 0.0, 0.0, 0, 0, Vector2(0.508306, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_1af0d"]
+curve = SubResource("Curve_cxghc")
+
+[sub_resource type="Curve" id="Curve_oeff8"]
+_data = [Vector2(0, 0.193708), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_3dw1y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_vejjm"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_sm8cm"]
+curve_x = SubResource("Curve_oeff8")
+curve_y = SubResource("Curve_3dw1y")
+curve_z = SubResource("Curve_vejjm")
+
+[sub_resource type="Curve" id="Curve_m8ays"]
+max_value = 3.0
+_data = [Vector2(0, 3), 0.0, -3.0, 0, 1, Vector2(1, 0), -3.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_bvia2"]
+curve = SubResource("Curve_m8ays")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7p0jt"]
+direction = Vector3(-5, 20, 15)
+spread = 20.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+scale_curve = SubResource("CurveXYZTexture_sm8cm")
+scale_over_velocity_max = 4.0
+scale_over_velocity_curve = SubResource("CurveTexture_bvia2")
+alpha_curve = SubResource("CurveTexture_1af0d")
+turbulence_noise_strength = 18.84
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_1htm1"]
 size = Vector3(2.5, 1, 2)
@@ -407,6 +598,7 @@ max_speed = 20.0
 turn_speed = 8.0
 boost_acceleration = 5.0
 traction_coefficient = 2.0
+turbo_colors = Array[Color]([Color(0.305335, 0.971588, 1, 1), Color(1, 0.573833, 0, 1), Color(0.939905, 0.247426, 0.806414, 1)])
 kart = NodePath("Kart")
 kart_model = NodePath("Kart/KartModel")
 front_wheels = NodePath("Kart/KartModel/FrontWheels")
@@ -488,35 +680,100 @@ transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1,
 mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
-[node name="Particles" type="Node3D" parent="Kart/KartModel"]
+[node name="Particles" type="Node3D" parent="Kart/KartModel" node_paths=PackedStringArray("wheel_particles", "thrust_particles")]
+script = ExtResource("4_3noue")
+wheel_particles = [NodePath("BackLeft/Glow"), NodePath("BackRight/Glow"), NodePath("BackRight/BigSparks"), NodePath("BackLeft/BigSparks"), NodePath("BackLeft/Sparks"), NodePath("BackRight/Sparks")]
+thrust_particles = [NodePath("BackLeft/Thrust"), NodePath("BackRight/Thrust")]
 
 [node name="BackLeft" type="Node3D" parent="Kart/KartModel/Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.1, -1)
 
 [node name="Glow" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackLeft"]
-visible = false
 material_override = SubResource("StandardMaterial3D_f0yvt")
+emitting = false
 amount = 20
 lifetime = 0.2
+local_coords = true
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_y4c31")
 draw_pass_1 = SubResource("QuadMesh_fp2ej")
 
 [node name="Sparks" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackLeft"]
-visible = false
 material_override = SubResource("StandardMaterial3D_0kr1h")
-amount = 50
-lifetime = 0.3
-transform_align = 1
+emitting = false
+amount = 10
+lifetime = 0.2
+local_coords = true
+transform_align = 3
 process_material = SubResource("ParticleProcessMaterial_05i4e")
 draw_pass_1 = SubResource("QuadMesh_fp2ej")
 
 [node name="BigSparks" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackLeft"]
-material_override = SubResource("StandardMaterial3D_doumh")
+emitting = false
+amount = 1
 lifetime = 0.3
+local_coords = true
+transform_align = 3
 trail_enabled = true
-process_material = SubResource("ParticleProcessMaterial_04vgb")
-draw_pass_1 = SubResource("RibbonTrailMesh_1b8kw")
+process_material = SubResource("ParticleProcessMaterial_nu70o")
+draw_pass_1 = SubResource("RibbonTrailMesh_hkhxr")
+
+[node name="Thrust" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackLeft"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.15, 0.55)
+material_override = SubResource("StandardMaterial3D_o3hsl")
+emitting = false
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.38
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_h78ex")
+draw_pass_1 = SubResource("QuadMesh_os3l4")
+
+[node name="BackRight" type="Node3D" parent="Kart/KartModel/Particles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.1, 1.2)
+
+[node name="Glow" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackRight"]
+material_override = SubResource("StandardMaterial3D_f0yvt")
+emitting = false
+amount = 20
+lifetime = 0.2
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_hhjwk")
+draw_pass_1 = SubResource("QuadMesh_fp2ej")
+
+[node name="Sparks" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackRight"]
+material_override = SubResource("StandardMaterial3D_0kr1h")
+emitting = false
+amount = 10
+lifetime = 0.2
+local_coords = true
+transform_align = 3
+process_material = SubResource("ParticleProcessMaterial_ax7q6")
+draw_pass_1 = SubResource("QuadMesh_fp2ej")
+
+[node name="BigSparks" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackRight"]
+emitting = false
+amount = 1
+lifetime = 0.3
+local_coords = true
+transform_align = 3
+trail_enabled = true
+process_material = SubResource("ParticleProcessMaterial_7p0jt")
+draw_pass_1 = SubResource("RibbonTrailMesh_hkhxr")
+
+[node name="Thrust" type="GPUParticles3D" parent="Kart/KartModel/Particles/BackRight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 1.15, -0.5)
+material_override = SubResource("StandardMaterial3D_o3hsl")
+emitting = false
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.38
+local_coords = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_h78ex")
+draw_pass_1 = SubResource("QuadMesh_os3l4")
 
 [node name="CheckpointDetector" type="Area3D" parent="Kart/KartModel"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
@@ -541,7 +798,11 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
+[connection signal="boost_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_boost_started"]
+[connection signal="drift_ended" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_ended"]
+[connection signal="drift_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_started"]
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
+[connection signal="new_drift_mode" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_new_drift_mode"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
