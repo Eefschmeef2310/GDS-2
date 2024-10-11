@@ -35,6 +35,7 @@ enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://audio/": "red",
 "res://autoloads/": "pink",
 "res://courses/": "purple",
 "res://debug_and_testing/": "red",
@@ -50,6 +51,10 @@ folder_colors={
 "res://player/": "blue",
 "res://race/": "red"
 }
+
+[global_group]
+
+play_hit_sound_on_contact="Used if the crash sound must be played if collided with (players and track edges)"
 
 [input]
 

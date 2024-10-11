@@ -10,10 +10,14 @@ signal checkpoint_passed(kart : Kart, index : int)
 signal hit_item_box(item : Resource)
 signal stats_updated()
 
+#Signals for child nodes to hook in to.
 signal drift_started()
 signal drift_ended()
 signal boost_started()
 signal new_drift_mode(col : Color)
+
+signal acceleration_update(accelerating : bool)
+signal crashed()
 
 	#Enums
 
@@ -188,6 +192,10 @@ func _physics_process(delta: float) -> void:
 		#Forward acceleration
 		apply_central_force(kart.transform.basis.x * current_speed)
 		
+		#emit whetehr or not we're moving forward
+		print(linear_velocity.length())
+		acceleration_update.emit(linear_velocity.length() > 1)
+		
 		# Sideways Drag
 		var vel = linear_velocity
 		var local_z_dir = kart_model.transform.basis.z
@@ -220,6 +228,10 @@ func _physics_process(delta: float) -> void:
 #region Signal methods
 func _on_checkpoint_detector_area_entered(area: Area3D) -> void:
 	checkpoint_passed.emit(self, area.get_index())
+	
+func on_crash_detected(body : Node) -> void:
+	if body.is_in_group("play_hit_sound_on_contact"):
+		crashed.emit()
 #endregion
 
 #region Other methods (please try to separate and organise!)

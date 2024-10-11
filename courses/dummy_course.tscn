@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://db0xaaj1kg4bb"]
+[gd_scene load_steps=26 format=3 uid="uid://db0xaaj1kg4bb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_cnisg"]
 [ext_resource type="Script" path="res://courses/checkpoints.gd" id="2_cksux"]
@@ -158,27 +158,6 @@ point_count = 8
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gmh34"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_3ssew"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_wupvf"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_pibsu"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_jp8iy"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_4xd1m"]
-size = Vector3(5, 100, 50)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_d5fx7"]
-size = Vector3(5, 100, 50)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
 albedo_color = Color(1, 0, 0, 1)
 
@@ -274,63 +253,7 @@ material = SubResource("StandardMaterial3D_n62to")
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
 
-[node name="@Area3D@17239" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17240" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17239"]
-shape = SubResource("BoxShape3D_gmh34")
-
-[node name="@Area3D@17241" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.621191, 0, 0.783659, 0, 1, 0, -0.783659, 0, -0.621191, -407.741, 88.203, 83.4869)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17242" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17241"]
-shape = SubResource("BoxShape3D_3ssew")
-
-[node name="@Area3D@17243" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.99753, 0, 0.0702485, 0, 1, 0, -0.0702485, 0, -0.99753, -117.023, 0, 59.106)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17244" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17243"]
-shape = SubResource("BoxShape3D_wupvf")
-
-[node name="@Area3D@17245" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.999906, 0, -0.0136971, 0, 1, 0, 0.0136971, 0, -0.999906, 42.3651, 0, 176.973)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17246" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17245"]
-shape = SubResource("BoxShape3D_pibsu")
-
-[node name="@Area3D@17247" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.174496, 0, -0.984658, 0, 1, 0, 0.984658, 0, -0.174496, 137.462, 0, 28.2996)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17248" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17247"]
-shape = SubResource("BoxShape3D_jp8iy")
-
-[node name="@Area3D@17249" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(-0.0366731, 0, -0.999327, 0, 1, 0, 0.999327, 0, -0.0366731, 391.948, 0, -113.676)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17250" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17249"]
-shape = SubResource("BoxShape3D_4xd1m")
-
-[node name="@Area3D@17251" type="Area3D" parent="Track/Checkpoints"]
-transform = Transform3D(0.148861, 0, 0.988858, 0, 1, 0, -0.988858, 0, 0.148861, 18.2559, 0, -127.07)
-collision_layer = 2
-collision_mask = 0
-
-[node name="@CollisionShape3D@17252" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17251"]
-shape = SubResource("BoxShape3D_d5fx7")
-
-[node name="InnerPavement" type="CSGPolygon3D" parent="Track"]
+[node name="InnerPavement" type="CSGPolygon3D" parent="Track" groups=["play_hit_sound_on_contact"]]
 use_collision = true
 polygon = PackedVector2Array(-21, 0, -21, 3, -19, 3, -20, 0)
 mode = 2
@@ -345,7 +268,7 @@ path_u_distance = 1.0
 path_joined = true
 smooth_faces = true
 
-[node name="OuterPavement" type="CSGPolygon3D" parent="Track"]
+[node name="OuterPavement" type="CSGPolygon3D" parent="Track" groups=["play_hit_sound_on_contact"]]
 use_collision = true
 polygon = PackedVector2Array(21, 0, 21, 3, 19, 3, 20, 0)
 mode = 2

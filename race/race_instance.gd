@@ -89,6 +89,7 @@ func start_race():
 	# start tracking the race and shit
 	# probably an rpc call in here too
 	
+	
 	course = course_scene.instantiate()
 	add_child(course)
 	#course.camera.current = false
