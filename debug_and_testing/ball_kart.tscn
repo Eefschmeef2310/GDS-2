@@ -1,4 +1,4 @@
-[gd_scene load_steps=93 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=94 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://kart/particle_controller.gd" id="4_3noue"]
 [ext_resource type="Texture2D" uid="uid://dqkmqhwimyddv" path="res://particles/textures/title-bar-logo-gradient-white.png" id="4_fins0"]
 [ext_resource type="Texture2D" uid="uid://wyorgad5fp0s" path="res://particles/textures/Png.png" id="5_dks8u"]
+[ext_resource type="Script" path="res://debug_and_testing/ball_kart_camera.gd" id="7_d8kp8"]
 [ext_resource type="Script" path="res://debug_and_testing/sound_effect_controller.gd" id="8_nkqy7"]
 [ext_resource type="PackedScene" uid="uid://d07bgrqtigjrb" path="res://audio/sound_effect.tscn" id="9_2ky60"]
 [ext_resource type="AudioStream" uid="uid://dhdyigyw5bgcj" path="res://audio/sound_effects/accelerate_no_fade.ogg" id="10_kidww"]
@@ -801,6 +802,7 @@ shape = SubResource("BoxShape3D_1htm1")
 transform = Transform3D(-4.31132e-08, 0.164876, -0.986314, 7.20692e-09, 0.986314, 0.164876, 1, 2.88658e-14, -4.37114e-08, -5, 4, 0)
 current = true
 fov = 90.0
+script = ExtResource("7_d8kp8")
 
 [node name="Boost Timer" type="Timer" parent="."]
 one_shot = true

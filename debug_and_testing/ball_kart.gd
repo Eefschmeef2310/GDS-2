@@ -14,6 +14,7 @@ signal stats_updated()
 signal drift_started()
 signal drift_ended()
 signal boost_started()
+signal boost_ended()
 signal new_drift_mode(col : Color)
 
 signal acceleration_update(accelerating : bool)
@@ -298,4 +299,7 @@ func hurt(_hazard: Node3D):
 func are_stats_updated():
 	if player_ui and player_ui.kart:
 		stats_updated.emit()
+
+func is_boosting():
+	return !boost_timer.is_stopped()
 #endregion
