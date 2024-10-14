@@ -816,11 +816,14 @@ crash = NodePath("Crash")
 [node name="Accelertating" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_kidww")
 max_db = -17.614
+bus = &"Master"
 
 [node name="Braking" parent="Audio Sources" instance=ExtResource("9_2ky60")]
+bus = &"Master"
 
 [node name="Crash" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
+bus = &"Master"
 
 [connection signal="acceleration_update" from="." to="Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="body_entered" from="." to="." method="on_crash_detected"]

@@ -41,6 +41,8 @@ folder_colors={
 "res://debug_and_testing/": "red",
 "res://item_boxes/": "teal",
 "res://items/": "yellow",
+"res://items/hazards/engine/": "red",
+"res://items/hazards/spoilers/": "green",
 "res://items/item_resources/engines/": "red",
 "res://items/item_resources/oils/": "blue",
 "res://items/item_resources/spoilers/": "green",

@@ -193,7 +193,7 @@ func _physics_process(delta: float) -> void:
 		apply_central_force(kart.transform.basis.x * current_speed)
 		
 		#emit whetehr or not we're moving forward
-		print(linear_velocity.length())
+		#print(linear_velocity.length())
 		acceleration_update.emit(linear_velocity.length() > 1)
 		
 		# Sideways Drag

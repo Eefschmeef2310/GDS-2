@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgk7adg1mlwdo"]
+
+[ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_hazard.gd" id="1_boajw"]
+[ext_resource type="Script" path="res://items/hazards/spoilers/path_follower.gd" id="2_cf1bs"]
+[ext_resource type="Script" path="res://items/hazards/spoilers/hurtbox.gd" id="3_8fuqg"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="3_pv3bb"]
+
+[sub_resource type="Curve3D" id="Curve3D_jqkil"]
+_data = {
+"points": PackedVector3Array(0, 0, 0, 1, 0, 0, 0, 0, -2, 0, 0, -1, 0, 0, 1, 2, 0, 0, 1, 0, 0, -1, 0, 0, 0, 0, 2, 0, 0, 1, 0, 0, -2, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -2),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0)
+}
+point_count = 5
+
+[sub_resource type="BoxMesh" id="BoxMesh_5e5p7"]
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ls0vp"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+
+[node name="Spoiler Hazard" type="Node3D"]
+script = ExtResource("1_boajw")
+
+[node name="Path3D" type="Path3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+curve = SubResource("Curve3D_jqkil")
+
+[node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
+transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, -2.00018, 0, -0.0242033)
+progress = 9.31329
+rotation_mode = 0
+script = ExtResource("2_cf1bs")
+speed = 0.75
+
+[node name="Hurtbox" type="Area3D" parent="Path3D/PathFollow3D"]
+transform = Transform3D(0.989907, 0, 0.141715, 0, 1, 0, -0.141715, 0, 0.989907, 0, 0, 0)
+script = ExtResource("3_8fuqg")
+spin_speed = 250.0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/Hurtbox"]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
+mesh = SubResource("BoxMesh_5e5p7")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/Hurtbox"]
+transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
+shape = SubResource("ConcavePolygonShape3D_ls0vp")
+
+[node name="BallKart" parent="." instance=ExtResource("3_pv3bb")]
+
+[connection signal="body_entered" from="Path3D/PathFollow3D/Hurtbox" to="." method="_on_hitbox_body_entered"]

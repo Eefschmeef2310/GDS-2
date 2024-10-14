@@ -34,7 +34,8 @@ func _process(_delta: float) -> void:
 	
 	if MultiplayerInput.is_action_just_released(data.device, "throw"):
 		if data and data.inventory["hand"]:
-			var hazard: Hazard = data.inventory["hand"].hazard.instantiate()
+			#Can't cast as certain node because we have a hazard area AND node - E
+			var hazard = data.inventory["hand"].hazard.instantiate()
 			hazard.caster = owner
 			get_owner().add_sibling(hazard)
 			data.inventory["hand"] = null
