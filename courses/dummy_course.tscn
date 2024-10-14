@@ -241,6 +241,26 @@ directional_shadow_split_3 = 0.032
 directional_shadow_blend_splits = true
 directional_shadow_max_distance = 8192.0
 
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.60986, -0.509932, 0.606664, -0.389888, 0.859504, 0.330514, -0.689969, -0.0349636, -0.722993, 0, 1.48, 0)
+light_energy = 0.15
+shadow_opacity = 0.75
+directional_shadow_split_1 = 0.011
+directional_shadow_split_2 = 0.015
+directional_shadow_split_3 = 0.032
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 8192.0
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.785388, -0.122981, -0.606663, -0.389888, 0.859504, 0.330514, 0.480783, 0.496113, -0.722993, 0, 1.48, 0)
+light_energy = 0.15
+shadow_opacity = 0.75
+directional_shadow_split_1 = 0.011
+directional_shadow_split_2 = 0.015
+directional_shadow_split_3 = 0.032
+directional_shadow_blend_splits = true
+directional_shadow_max_distance = 8192.0
+
 [node name="Floor" type="StaticBody3D" parent="."]
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]

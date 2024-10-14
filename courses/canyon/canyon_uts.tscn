@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dewfonsg8h7ep"]
+
+[ext_resource type="PackedScene" uid="uid://cc6k25eqns5av" path="res://courses/canyon/models/uts.glb" id="1_urjtk"]
+[ext_resource type="Material" uid="uid://wojjuo2ixsng" path="res://courses/canyon/uts_material.tres" id="2_h06sh"]
+
+[node name="uts" instance=ExtResource("1_urjtk")]
+
+[node name="Cube" parent="." index="0"]
+material_override = ExtResource("2_h06sh")
