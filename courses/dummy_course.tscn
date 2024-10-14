@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://db0xaaj1kg4bb"]
+[gd_scene load_steps=33 format=3 uid="uid://db0xaaj1kg4bb"]
 
 [ext_resource type="Script" path="res://courses/course.gd" id="1_cnisg"]
 [ext_resource type="Script" path="res://courses/checkpoints.gd" id="2_cksux"]
@@ -139,17 +139,17 @@ ambient_light_sky_contribution = 0.0
 volumetric_fog_sky_affect = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_ndcnv"]
-size = Vector2(1000, 1000)
+size = Vector2(5000, 5000)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3ruin"]
 albedo_color = Color(0.785249, 0.572799, 7.70092e-07, 1)
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_bpd1i"]
-points = PackedVector3Array(-500, 0, -500, -500, 0, 500, 500, 0, -500, 500, 0, 500)
+[sub_resource type="BoxShape3D" id="BoxShape3D_yhwvf"]
+size = Vector3(5000, 0.1, 5000)
 
 [sub_resource type="Curve3D" id="Curve3D_qnr0h"]
 _data = {
-"points": PackedVector3Array(153.636, 0, 65.6066, -153.636, 0, -65.6066, -150.996, 0, -72.192, -87.0609, 0, -109.831, 87.0609, 0, 109.831, -407.741, 88.203, 83.4869, -95.0972, 0, -6.69699, 95.0972, 0, 6.69699, -117.023, 0, 59.106, -97.776, 0, 1.33937, 97.776, 0, -1.33937, 42.3651, 0, 176.973, -18.7515, 0, 105.812, 18.7515, 0, -105.812, 137.462, 0, 28.2996, -5.35767, 0, 145.994, 5.35767, 0, -145.994, 391.948, 0, -113.676, 18.7516, 0, -124.564, -18.7516, 0, 124.564, 18.2559, 0, -127.07, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
+"points": PackedVector3Array(153.636, 0, 65.6066, -153.636, 0, -65.6066, -150.996, 0, -72.192, -87.0609, 0, -109.831, 87.0609, 0, 109.831, -407.741, 0, 83.487, -95.0972, 0, -6.69699, 95.0972, 0, 6.69699, -117.023, 0, 59.106, -97.776, 0, 1.33937, 97.776, 0, -1.33937, 42.3651, 0, 176.973, -18.7515, 0, 105.812, 18.7515, 0, -105.812, 137.462, 0, 28.2996, -5.35767, 0, 145.994, 5.35767, 0, -145.994, 396, 0, -96, 18.7516, 0, -124.564, -18.7516, 0, 124.564, 18.2559, 0, -127.07, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 8
@@ -157,6 +157,27 @@ point_count = 8
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n62to"]
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_n4shh"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5iln7"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g5538"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wb77s"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_mfpit"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tye3g"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_b5qwk"]
+size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
 albedo_color = Color(1, 0, 0, 1)
@@ -228,7 +249,7 @@ skeleton = NodePath("../..")
 surface_material_override/0 = SubResource("StandardMaterial3D_3ruin")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
-shape = SubResource("ConvexPolygonShape3D_bpd1i")
+shape = SubResource("BoxShape3D_yhwvf")
 
 [node name="Track" type="Path3D" parent="."]
 curve = SubResource("Curve3D_qnr0h")
@@ -252,6 +273,62 @@ material = SubResource("StandardMaterial3D_n62to")
 [node name="Checkpoints" type="Node3D" parent="Track"]
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
+
+[node name="@Area3D@31873" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31874" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31873"]
+shape = SubResource("BoxShape3D_n4shh")
+
+[node name="@Area3D@31875" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.621191, 0, 0.783659, 0, 1, 0, -0.783659, 0, -0.621191, -407.741, 0, 83.487)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31876" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31875"]
+shape = SubResource("BoxShape3D_5iln7")
+
+[node name="@Area3D@31877" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.99753, 0, 0.0702485, 0, 1, 0, -0.0702485, 0, -0.99753, -117.023, 0, 59.106)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31878" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31877"]
+shape = SubResource("BoxShape3D_g5538")
+
+[node name="@Area3D@31879" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.999906, 0, -0.0136971, 0, 1, 0, 0.0136971, 0, -0.999906, 42.3651, 0, 176.973)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31880" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31879"]
+shape = SubResource("BoxShape3D_wb77s")
+
+[node name="@Area3D@31881" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.174496, 0, -0.984658, 0, 1, 0, 0.984658, 0, -0.174496, 137.462, 0, 28.2996)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31882" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31881"]
+shape = SubResource("BoxShape3D_mfpit")
+
+[node name="@Area3D@31883" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(-0.0366731, 0, -0.999327, 0, 1, 0, 0.999327, 0, -0.0366731, 396, 0, -96)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31884" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31883"]
+shape = SubResource("BoxShape3D_tye3g")
+
+[node name="@Area3D@31885" type="Area3D" parent="Track/Checkpoints"]
+transform = Transform3D(0.148861, 0, 0.988858, 0, 1, 0, -0.988858, 0, 0.148861, 18.2559, 0, -127.07)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@31886" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@31885"]
+shape = SubResource("BoxShape3D_b5qwk")
 
 [node name="InnerPavement" type="CSGPolygon3D" parent="Track" groups=["play_hit_sound_on_contact"]]
 use_collision = true

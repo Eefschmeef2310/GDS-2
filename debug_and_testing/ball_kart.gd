@@ -198,11 +198,11 @@ func _physics_process(delta: float) -> void:
 		
 		# Sideways Drag
 		var vel = linear_velocity
-		var local_z_dir = kart_model.transform.basis.z
+		var local_z_dir = kart.transform.basis.z
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
-		#apply_central_force(kart_model.transform.basis.z * drag_magnitude)
+		apply_central_force(kart.transform.basis.z * drag_magnitude)
 		
 		#Update speed label
 		player_ui.update_speed(linear_velocity.length())

@@ -601,11 +601,11 @@ physics_material_override = SubResource("PhysicsMaterial_1ruac")
 gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
-linear_damp = 0.3
-angular_damp = 10.0
+linear_damp = 1.0
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
-max_speed = 20.0
+max_speed = 60.0
+acceleration = 3.0
 turn_speed = 8.0
 boost_acceleration = 5.0
 traction_coefficient = 2.0
@@ -816,11 +816,14 @@ crash = NodePath("Crash")
 [node name="Accelertating" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_kidww")
 max_db = -17.614
+bus = &"Master"
 
 [node name="Braking" parent="Audio Sources" instance=ExtResource("9_2ky60")]
+bus = &"Master"
 
 [node name="Crash" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
+bus = &"Master"
 
 [connection signal="acceleration_update" from="." to="Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="body_entered" from="." to="." method="on_crash_detected"]
