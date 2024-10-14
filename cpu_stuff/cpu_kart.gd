@@ -1,5 +1,6 @@
 extends Kart
-class_name CPUKart
+class_name CpuKart
+
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
