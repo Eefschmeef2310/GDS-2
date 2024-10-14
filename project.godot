@@ -35,6 +35,7 @@ enabled=PackedStringArray("res://addons/multiplayer_input/plugin.cfg")
 [file_customization]
 
 folder_colors={
+"res://audio/": "red",
 "res://autoloads/": "pink",
 "res://courses/": "purple",
 "res://debug_and_testing/": "red",
@@ -46,9 +47,14 @@ folder_colors={
 "res://kart/": "green",
 "res://menus/": "meow meow meow!",
 "res://menus/debugMultiplayer/": "red",
+"res://particles/": "yellow",
 "res://player/": "blue",
 "res://race/": "red"
 }
+
+[global_group]
+
+play_hit_sound_on_contact="Used if the crash sound must be played if collided with (players and track edges)"
 
 [input]
 
@@ -140,3 +146,8 @@ fullscreen={
 3d_physics/layer_2="Checkpoints"
 3d_physics/layer_3="Karts"
 3d_physics/layer_4="Hazards"
+
+[rendering]
+
+textures/vram_compression/import_s3tc_bptc=true
+textures/vram_compression/import_etc2_astc=true

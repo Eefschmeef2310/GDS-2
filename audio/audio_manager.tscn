@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bpe44jxgv1wl8"]
+
+[ext_resource type="Script" path="res://audio/audio_manager.gd" id="1_wgnah"]
+
+[node name="AudioManager" type="Node"]
+script = ExtResource("1_wgnah")
+
+[node name="TrackThemePlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
