@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://dgk7adg1mlwdo"]
 
-[ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_hazard.gd" id="1_boajw"]
+[ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_hazard_node.gd" id="1_cpq18"]
 [ext_resource type="Script" path="res://items/hazards/spoilers/path_follower.gd" id="2_cf1bs"]
 [ext_resource type="Script" path="res://items/hazards/spoilers/hurtbox.gd" id="3_8fuqg"]
 
@@ -17,21 +17,23 @@ point_count = 5
 data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
 
 [node name="Spoiler Hazard" type="Node3D"]
-script = ExtResource("1_boajw")
+script = ExtResource("1_cpq18")
 
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 curve = SubResource("Curve3D_jqkil")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 1.34364, 0, 1.40579)
-progress = 4.68867
+transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 0.763219, 0, 1.8144)
+progress = 5.401
 rotation_mode = 0
 script = ExtResource("2_cf1bs")
 speed = 0.75
 
 [node name="Hurtbox" type="Area3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(0.64614, 0, -0.763218, 0, 1, 0, 0.763218, 0, 0.64614, 0, 0, 0)
+transform = Transform3D(0.529862, 0, -0.848083, 0, 1, 0, 0.848083, 0, 0.529862, 0, 0, 0)
+collision_layer = 8
+collision_mask = 12
 script = ExtResource("3_8fuqg")
 spin_speed = 250.0
 

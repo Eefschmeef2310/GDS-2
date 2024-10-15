@@ -203,13 +203,14 @@ ui = NodePath("../../../..")
 [node name="Label" parent="MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
 text = "Weight"
 
-[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name")]
+[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name", "throw_item_type")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -235.5
-offset_right = 235.5
-offset_bottom = 163.0
+offset_left = -258.5
+offset_top = 10.0
+offset_right = 258.5
+offset_bottom = 173.0
 grow_horizontal = 2
 columns = 5
 script = ExtResource("3_rts2l")
@@ -217,33 +218,62 @@ current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemS
 current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
 stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
 item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
+throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 
 [node name="Panel" type="Panel" parent="Hand"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 
-[node name="Label3" type="Label" parent="Hand/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Hand/Panel"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -82.5
-offset_top = -11.5
-offset_right = 82.5
-offset_bottom = 11.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "THROW!
-(non functional
-rn :(        )"
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Old Item" type="VBoxContainer" parent="Hand/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Hand/Panel/MarginContainer/Old Item"]
+layout_mode = 2
+text = "Throw"
+horizontal_alignment = 1
+
+[node name="Panel" type="Panel" parent="Hand/Panel/MarginContainer/Old Item"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CurrentItemLabel" type="Label" parent="Hand/Panel/MarginContainer/Old Item/Panel"]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -21.0
+offset_right = 21.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="CurrentItemStats" type="Label" parent="Hand/Panel/MarginContainer/Old Item"]
+visible = false
+layout_mode = 2
+text = "^ Speed
+V Acceleration"
+
 [node name="Label" type="Label" parent="Hand"]
 layout_mode = 2
-text = "L
+text = "Press L
 <-"
 horizontal_alignment = 1
 
@@ -270,17 +300,21 @@ size_flags_vertical = 3
 
 [node name="HandItemName" type="Label" parent="Hand/Current Item/MarginContainer/Old Item/Panel"]
 layout_mode = 1
-anchors_preset = 13
+anchors_preset = 8
 anchor_left = 0.5
+anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -21.0
-offset_right = 21.0
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -24.0
+offset_right = 45.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Item here"
+text = "Item Here"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Stat" type="Label" parent="Hand/Current Item/MarginContainer/Old Item"]
 layout_mode = 2
@@ -289,7 +323,7 @@ V Stat 2"
 
 [node name="Label2" type="Label" parent="Hand"]
 layout_mode = 2
-text = "R
+text = "Press R
 ->"
 horizontal_alignment = 1
 
@@ -308,6 +342,11 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item"]
+layout_mode = 2
+text = "Equip"
+horizontal_alignment = 1
 
 [node name="Panel" type="Panel" parent="Hand/Current Slot/MarginContainer/Old Item"]
 custom_minimum_size = Vector2(0, 100)

@@ -18,6 +18,7 @@ signal new_drift_mode(col : Color)
 
 signal acceleration_update(accelerating : bool)
 signal crashed()
+signal hit_by_item()
 
 	#Enums
 
@@ -149,7 +150,7 @@ func _physics_process(delta: float) -> void:
 				steer(dir, amount)
 		
 		# Drift
-		if drift_input and !drifting and steer_axis != 0:
+		if drift_input and !drifting and steer_axis != 0 and get_colliding_bodies().size() > 0: #so you can't drift when airborne
 			drifting = true
 			drift_direction = sign(steer_axis)
 			
@@ -208,7 +209,7 @@ func _physics_process(delta: float) -> void:
 		player_ui.update_speed(linear_velocity.length())
 		
 		#Animate wheels
-		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15, front_wheels.rotation_degrees.z)
+		front_wheels.rotation_degrees = Vector3(0, steer_axis * 15 * (-1 if braking else 1), front_wheels.rotation_degrees.z)
 		front_wheels.rotation_degrees -= Vector3(0,0, linear_velocity.length()/2)
 		back_wheels.rotation_degrees -= Vector3(0,0, linear_velocity.length()/2)
 		steering_wheel.rotation_degrees = Vector3(-25, -90, steer_axis * 45)
@@ -285,12 +286,14 @@ func boost():
 	kart_model.rotation_degrees = Vector3.ZERO
 	
 func hurt(_hazard: Node3D):
+	hit_by_item.emit()
+	
 	current_rotate = 0
 	current_speed = 0
 	linear_velocity /= 5
 	drifting = false
 	is_stunned = true
-	await get_tree().create_timer(1).timeout
+	await get_tree().create_timer(1, false).timeout
 	is_stunned = false
 		
 	#print("Starting boost for " + str(boost_timer.wait_time))

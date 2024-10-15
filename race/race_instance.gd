@@ -222,9 +222,9 @@ func create_minimap_from_curve():
 	var z_len = big_extents[3] - big_extents[2]
 	var big_aspect = x_len/z_len
 	
-	print(x_len)
-	print(z_len)
-	print(big_aspect)
+	#print(x_len)
+	#print(z_len)
+	#print(big_aspect)
 	
 	if big_aspect > 1: # longer x than z
 		big_extents[2] *= big_aspect

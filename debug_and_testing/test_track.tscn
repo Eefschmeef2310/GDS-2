@@ -209,15 +209,6 @@ surface_material_override/0 = null
 [node name="LeftExhaust" parent="BallKart/Kart/KartModel" index="5"]
 surface_material_override/0 = null
 
-[node name="Accelertating" parent="BallKart/Audio Sources" index="0"]
-bus = &"Master"
-
-[node name="Braking" parent="BallKart/Audio Sources" index="1"]
-bus = &"Master"
-
-[node name="Crash" parent="BallKart/Audio Sources" index="2"]
-bus = &"Master"
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_myymi")
 

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bwgqik8oivde7"]
 
-[ext_resource type="PackedScene" uid="uid://dxmv5qnutjwvr" path="res://items/hazards/oil/oil_hazard.tscn" id="1_rsww0"]
+[ext_resource type="PackedScene" uid="uid://dgk7adg1mlwdo" path="res://items/hazards/spoilers/spoiler_hazard.tscn" id="1_gigv0"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_k8b7m"]
 [ext_resource type="PackedScene" uid="uid://cnepsb4v5hx0o" path="res://items/upgrades/rust_bucket_upgrade.tscn" id="3_53k7j"]
 
 [resource]
 script = ExtResource("2_k8b7m")
 upgrade = ExtResource("3_53k7j")
-hazard = ExtResource("1_rsww0")
+hazard = ExtResource("1_gigv0")
 type = 2
 item_name = "Rusty Spoiler"
 up_stat = 0

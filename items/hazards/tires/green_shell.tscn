@@ -1,23 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1lfpnadj0jq0"]
+[gd_scene load_steps=7 format=3 uid="uid://b1lfpnadj0jq0"]
+
+[ext_resource type="Script" path="res://items/hazards/hazard_base_area.gd" id="1_hlana"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ci04h"]
+friction = 0.0
 
 [sub_resource type="GDScript" id="GDScript_6gmne"]
 resource_name = "explosion_hazard"
-script/source = "extends HazardNode
-#class_name
+script/source = "extends RigidBody3D
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
 @export var projectile_strength: float = 50
+
+var caster: Kart #Set in code
 #endregion
 
 #region Godot methods
 func _ready():
-	super._ready()
 	if caster:
-		var direction = Vector3.FORWARD.rotated(Vector3.UP, rotation.y + deg_to_rad(180))
+		var direction = caster.kart.basis.x
 		global_position = caster.global_position + 3*direction
 		rotation = caster.rotation
-		$\".\".apply_impulse(direction*projectile_strength)
+		apply_central_impulse(direction*projectile_strength)
 
 func _on_timer_timeout() -> void:
 	queue_free()
@@ -32,7 +37,10 @@ radius = 0.589335
 radius = 0.97939
 
 [node name="GreenShell" type="RigidBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_layer = 0
+physics_material_override = SubResource("PhysicsMaterial_ci04h")
+gravity_scale = 10.0
 script = SubResource("GDScript_6gmne")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -44,6 +52,7 @@ shape = SubResource("SphereShape3D_tbogy")
 [node name="Hitbox" type="Area3D" parent="."]
 collision_layer = 8
 collision_mask = 4
+script = ExtResource("1_hlana")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hitbox"]
 shape = SubResource("SphereShape3D_gpvsa")

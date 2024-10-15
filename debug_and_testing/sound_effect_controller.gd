@@ -2,6 +2,7 @@ extends Node
 
 @export var accelerating : AudioStreamPlayer3D
 @export var crash : AudioStreamPlayer3D
+@export var hit_by_item : AudioStreamPlayer3D
 
 func _on_ball_kart_acceleration_update(acceleration: bool) -> void:
 	if acceleration:
@@ -10,7 +11,10 @@ func _on_ball_kart_acceleration_update(acceleration: bool) -> void:
 	else:
 		accelerating.stop()
 
-
 func _on_ball_kart_crashed() -> void:
 	if !crash.playing:
 		crash.play()
+		
+func _on_ball_kart_hit_by_item() -> void:
+	if !hit_by_item.playing:
+		hit_by_item.play()

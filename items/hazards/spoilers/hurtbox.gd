@@ -9,7 +9,7 @@ extends HazardArea
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	rotation_degrees.y += delta * spin_speed
-	wrap(rotation_degrees.y, 0, 360)
+	rotation_degrees.y = wrap(rotation_degrees.y, 0, 360)
 
 func _on_area_entered(area: Area3D) -> void:
 	if area is HazardArea:

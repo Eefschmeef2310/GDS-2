@@ -20,6 +20,7 @@ extends GridContainer
 @export var stat: Label
 @export var item_name : Label
 @export_subgroup("Throw")
+@export var throw_item_type : Label
 
 	#Onready Variables
 
@@ -30,6 +31,10 @@ extends GridContainer
 #region Other methods (please try to separate and organise!)
 func update(data : PlayerData):
 	if data.inventory["hand"]:
+		#Update throw text
+		throw_item_type.text = Item.Part.keys()[data.inventory["hand"].type]
+		
+		#Update currently equipped item
 		var current_item = data.inventory[data.inventory["hand"].type]
 		if current_item: #If slot already exists
 			current_slot_desc.visible = current_item != null
