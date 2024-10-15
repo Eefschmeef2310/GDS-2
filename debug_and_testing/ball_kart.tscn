@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=89 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
@@ -76,10 +76,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e8e2b")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5pdwf"]
-albedo_color = Color(0, 0.0405426, 1, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6cka"]
-albedo_color = Color(0.135105, 1, 0, 1)
+albedo_color = Color(0.0551378, 9.07565e-06, 0.0683496, 1)
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_l28c2"]
 _surfaces = [{
@@ -115,9 +112,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_l28c2")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hajm8"]
-albedo_color = Color(1, 0.94292, 0, 1)
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_xpt6p"]
 _surfaces = [{
 "aabb": AABB(-0.441262, -0.440853, -0.437953, 0.882523, 0.881706, 0.875906),
@@ -151,9 +145,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_xpt6p")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7csmw"]
-albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_52ili"]
 resource_name = "Carroza"
@@ -195,7 +186,7 @@ blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lhch6")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kq67i"]
-albedo_color = Color(0.552512, 0, 1, 1)
+albedo_color = Color(0.510519, 0.155034, 4.81308e-08, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k6py"]
 resource_name = "Material #27"
@@ -238,8 +229,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_bdcj1")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tn8rf"]
-albedo_color = Color(0, 0.992108, 1, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utx2h"]
+albedo_color = Color(0.6, 0.6, 0.6, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ycafr"]
 resource_name = "Standardmaterial"
@@ -281,9 +272,6 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_e6xnn")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r3rhy"]
-albedo_color = Color(1, 0.457709, 0, 1)
-
 [sub_resource type="ArrayMesh" id="ArrayMesh_3f3nh"]
 _surfaces = [{
 "aabb": AABB(-0.906874, -0.198697, -0.155885, 0.964068, 0.397394, 0.391357),
@@ -317,9 +305,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_3f3nh")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_utx2h"]
-albedo_color = Color(1, 0, 0.965711, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f0yvt"]
 transparency = 1
@@ -657,7 +642,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 [node name="RightFrontWheel" type="MeshInstance3D" parent="Kart/KartModel/FrontWheels"]
 transform = Transform3D(0.725338, 0, 8.74228e-08, 0, -0.725338, 0, -6.34111e-08, 0, 1, 0, 0, 0.742)
 mesh = SubResource("ArrayMesh_vo78h")
-surface_material_override/0 = SubResource("StandardMaterial3D_q6cka")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 
 [node name="BackWheels" type="Node3D" parent="Kart/KartModel"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.901, 0.464, 0)
@@ -665,12 +650,12 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.901, 0.464, 0)
 [node name="BackLeftWheel" type="MeshInstance3D" parent="Kart/KartModel/BackWheels"]
 transform = Transform3D(-0.85792, 0, 0, 0, -0.85792, 0, 0, 0, -1.18279, 0, 0, -0.504)
 mesh = SubResource("ArrayMesh_wru5q")
-surface_material_override/0 = SubResource("StandardMaterial3D_hajm8")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 
 [node name="BackRightWheel" type="MeshInstance3D" parent="Kart/KartModel/BackWheels"]
 transform = Transform3D(0.85792, 0, 0, 0, 0.85792, 0, 0, 0, 1.18279, 0, 0, 0.742)
 mesh = SubResource("ArrayMesh_4j76b")
-surface_material_override/0 = SubResource("StandardMaterial3D_7csmw")
+surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 
 [node name="Body" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(4.1314, 0, 0, 0, -8.11654e-08, 1.61933, 0, -1.85685, -7.07833e-08, 0.0406498, 0.201033, 0.109311)
@@ -680,12 +665,12 @@ surface_material_override/0 = SubResource("StandardMaterial3D_kq67i")
 [node name="SteeringWheel" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(1.12473, 6.71674e-08, -0.67995, 2.412, -1.05432e-07, 0.317066, -6.71674e-08, -2.66134, -2.97215e-08, 0.591341, 0.887154, 0.109311)
 mesh = SubResource("ArrayMesh_qvcre")
-surface_material_override/0 = SubResource("StandardMaterial3D_tn8rf")
+surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
 [node name="RightExhaust" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(0.917401, 0.397964, -1.73956e-08, -0.397964, 0.917401, -4.01009e-08, -1.77636e-15, 4.37114e-08, 1, -0.636298, 0.874706, 0.648662)
 mesh = SubResource("ArrayMesh_0tx7j")
-surface_material_override/0 = SubResource("StandardMaterial3D_r3rhy")
+surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
 [node name="LeftExhaust" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1, -0.636298, 0.874706, -0.411143)
