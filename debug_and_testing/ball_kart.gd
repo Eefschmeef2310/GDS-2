@@ -14,6 +14,7 @@ signal stats_updated()
 signal drift_started()
 signal drift_ended()
 signal boost_started()
+signal boost_ended()
 signal new_drift_mode(col : Color)
 
 signal acceleration_update(accelerating : bool)
@@ -199,11 +200,11 @@ func _physics_process(delta: float) -> void:
 		
 		# Sideways Drag
 		var vel = linear_velocity
-		var local_z_dir = kart_model.transform.basis.z
+		var local_z_dir = kart.transform.basis.z
 		var vel_in_local_z = vel.dot(local_z_dir)
 		
 		var drag_magnitude = -vel_in_local_z * traction_coefficient
-		#apply_central_force(kart_model.transform.basis.z * drag_magnitude)
+		apply_central_force(kart.transform.basis.z * drag_magnitude)
 		
 		#Update speed label
 		player_ui.update_speed(linear_velocity.length())
@@ -301,4 +302,7 @@ func hurt(_hazard: Node3D):
 func are_stats_updated():
 	if player_ui and player_ui.kart:
 		stats_updated.emit()
+
+func is_boosting():
+	return !boost_timer.is_stopped()
 #endregion

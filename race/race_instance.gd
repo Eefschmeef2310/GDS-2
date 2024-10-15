@@ -35,6 +35,7 @@ var course_scene : PackedScene
 var number_of_racers : int = 8
 
 var countdown_timer = 3.0
+var countdown_started = false
 
 @onready var minimap: Minimap = $CanvasLayer/Minimap
 @onready var minimap_path: Path2D = $CanvasLayer/Minimap/Path2D
@@ -55,6 +56,9 @@ func _physics_process(_delta):
 func _process(delta):
 	if !$DebugWin.visible:
 		race_timer += delta
+		if !countdown_started:
+			$Countdown.play()
+			countdown_started = true
 	
 	if countdown_timer > -1:
 		var still_counting = countdown_timer > 0

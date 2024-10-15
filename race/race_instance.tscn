@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
-[ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="3_8vgv8"]
+[ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="3_lgcxf"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]
@@ -122,7 +122,7 @@ process_mode = 3
 script = ExtResource("1_0d5f1")
 kart_scene = ExtResource("2_me725")
 debug_start = true
-debug_start_course_scene = ExtResource("3_8vgv8")
+debug_start_course_scene = ExtResource("3_lgcxf")
 
 [node name="DebugWin" type="CanvasLayer" parent="."]
 visible = false
@@ -254,7 +254,6 @@ texture = ExtResource("5_l63o3")
 
 [node name="Countdown" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_wa3pu")
-autoplay = true
 
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]
 [connection signal="pressed" from="DebugWin/VBoxContainer/FeedbackButton" to="DebugWin/VBoxContainer/FeedbackButton" method="_on_pressed"]
