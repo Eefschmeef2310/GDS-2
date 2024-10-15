@@ -34,8 +34,8 @@ signal hit_by_item()
 var can_control: bool = true
 
 @export_group("Stats")
-var speed_cap = 30
-@export var max_speed : float = 30:
+var speed_cap = 80
+@export var max_speed : float = 60:
 	set(value):
 		max_speed = clamp(value, 0, speed_cap)
 		are_stats_updated()

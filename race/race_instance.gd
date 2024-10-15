@@ -103,6 +103,10 @@ func start_race():
 	var check_count = course.track.curve.point_count - 1
 	
 	for n in number_of_racers:
+		
+		if n >= connected_controllers.size():
+			continue
+		
 		var new_kart : Kart = kart_scene.instantiate() if(n < connected_controllers.size()) else cpu_kart.instantiate()
 		#var new_kart : Kart = kart_scene.instantiate()
 		new_kart.position = course.kart_spawns.get_child(n).position

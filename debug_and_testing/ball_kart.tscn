@@ -587,7 +587,6 @@ max_contacts_reported = 1
 linear_damp = 1.0
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
-max_speed = 60.0
 acceleration = 3.0
 turn_speed = 8.0
 boost_acceleration = 5.0
