@@ -1,6 +1,46 @@
-[gd_scene load_steps=2 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=3 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
+
+[sub_resource type="GDScript" id="GDScript_n0lgt"]
+script/source = "extends Button
+	#class_name
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	grab_focus()
+
+func _process(_delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
 
 [node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt")]
 layout_mode = 3
@@ -33,7 +73,7 @@ alignment = 1
 layout_mode = 2
 size_flags_vertical = 0
 bbcode_enabled = true
-text = "[center][font_size=75][wave amp=50]Modline Drift Sprint 3 Edition!"
+text = "[center][font_size=75][wave amp=50]Modline Drift Sprint 4 Edition!"
 fit_content = true
 
 [node name="Subtitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
@@ -69,6 +109,7 @@ modulate = Color(0, 0.75194, 0.220737, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Start Race!"
+script = SubResource("GDScript_n0lgt")
 
 [node name="FeedbackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 modulate = Color(0.920769, 0.281647, 1, 1)
