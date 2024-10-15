@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bl8xxpdfaxxmf"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_6xf38"]
+[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/tires/green_shell.tscn" id="1_oh6fd"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_u8a4y"]
 [ext_resource type="PackedScene" uid="uid://k8agb8q46gsq" path="res://items/upgrades/race_car_upgrade.tscn" id="3_lrt6u"]
 
 [resource]
 script = ExtResource("2_u8a4y")
 upgrade = ExtResource("3_lrt6u")
-hazard = ExtResource("1_6xf38")
+hazard = ExtResource("1_oh6fd")
 type = 1
 item_name = "F1 Tire"
 up_stat = 2

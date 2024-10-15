@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://b32ir203vonwn"]
 
+[ext_resource type="PackedScene" uid="uid://dxmv5qnutjwvr" path="res://items/hazards/oil/oil_hazard.tscn" id="1_0p7w1"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_5605v"]
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_f70ux"]
 [ext_resource type="PackedScene" uid="uid://bc4pnj3ctrpih" path="res://items/upgrades/tungsten_upgrade.tscn" id="3_nxcgh"]
 
 [resource]
 script = ExtResource("1_5605v")
 upgrade = ExtResource("3_nxcgh")
-hazard = ExtResource("1_f70ux")
+hazard = ExtResource("1_0p7w1")
 type = 3
 item_name = "Tungsten Oil"
 up_stat = 4

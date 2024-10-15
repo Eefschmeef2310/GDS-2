@@ -10,3 +10,8 @@ extends HazardArea
 func _process(delta: float) -> void:
 	rotation_degrees.y += delta * spin_speed
 	wrap(rotation_degrees.y, 0, 360)
+
+func _on_area_entered(area: Area3D) -> void:
+	if area is HazardArea:
+		area.queue_free()
+		queue_free()

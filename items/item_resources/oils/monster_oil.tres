@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bni0xfxv834lq"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_bp33n"]
+[ext_resource type="PackedScene" uid="uid://dxmv5qnutjwvr" path="res://items/hazards/oil/oil_hazard.tscn" id="1_nxfbv"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_yqts4"]
 [ext_resource type="PackedScene" uid="uid://c0en4qxx7032y" path="res://items/upgrades/monster_truck_upgrade.tscn" id="3_78awd"]
 
 [resource]
 script = ExtResource("1_yqts4")
 upgrade = ExtResource("3_78awd")
-hazard = ExtResource("1_bp33n")
+hazard = ExtResource("1_nxfbv")
 type = 3
 item_name = "Monster Oil"
 up_stat = 4

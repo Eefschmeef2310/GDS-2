@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://ckwtipj03hc4f"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_56jli"]
+[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/tires/green_shell.tscn" id="1_j8roy"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_ikue1"]
 [ext_resource type="PackedScene" uid="uid://cacuhpr74ca7c" path="res://items/upgrades/flaming_car_upgrade.tscn" id="3_u4ixl"]
 
 [resource]
 script = ExtResource("2_ikue1")
 upgrade = ExtResource("3_u4ixl")
-hazard = ExtResource("1_56jli")
+hazard = ExtResource("1_j8roy")
 type = 1
 item_name = "Flaming Tire"
 up_stat = 1

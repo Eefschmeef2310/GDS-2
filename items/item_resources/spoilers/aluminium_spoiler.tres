@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dcuardofbdw4"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_3bmtm"]
+[ext_resource type="PackedScene" uid="uid://dxmv5qnutjwvr" path="res://items/hazards/oil/oil_hazard.tscn" id="1_dcqt7"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_324oi"]
 [ext_resource type="PackedScene" uid="uid://cei8vdbsc55k0" path="res://items/upgrades/aluminium_upgrade.tscn" id="3_um5kx"]
 
 [resource]
 script = ExtResource("2_324oi")
 upgrade = ExtResource("3_um5kx")
-hazard = ExtResource("1_3bmtm")
+hazard = ExtResource("1_dcqt7")
 type = 2
 item_name = "Aluminium Spoiler"
 up_stat = 0

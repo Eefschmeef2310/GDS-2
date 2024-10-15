@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://fsk8a3rbrjwq"]
 
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_0istp"]
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_r8meg"]
+[ext_resource type="PackedScene" uid="uid://dxmv5qnutjwvr" path="res://items/hazards/oil/oil_hazard.tscn" id="1_lmic5"]
 [ext_resource type="PackedScene" uid="uid://bdmps41heha7q" path="res://items/upgrades/hydrogen_upgrade.tscn" id="3_5w32v"]
 
 [resource]
 script = ExtResource("1_0istp")
 upgrade = ExtResource("3_5w32v")
-hazard = ExtResource("1_r8meg")
+hazard = ExtResource("1_lmic5")
 type = 3
 item_name = "Hydrogen Oil"
 up_stat = 3

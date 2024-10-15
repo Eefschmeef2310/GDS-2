@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://nux4haf58n1y"]
 
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_52cop"]
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_m2h5p"]
+[ext_resource type="PackedScene" uid="uid://ugmoryxtdxdn" path="res://items/hazards/engine/engine_hazard.tscn" id="1_f6m4j"]
 [ext_resource type="PackedScene" uid="uid://cnepsb4v5hx0o" path="res://items/upgrades/rust_bucket_upgrade.tscn" id="3_088t2"]
 
 [resource]
 script = ExtResource("1_52cop")
 upgrade = ExtResource("3_088t2")
-hazard = ExtResource("1_m2h5p")
+hazard = ExtResource("1_f6m4j")
 type = 0
 item_name = "Rusty Engine"
 up_stat = 0

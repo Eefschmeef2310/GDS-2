@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://jf3yx7ytqpre"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_i5r8n"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_qp0qc"]
+[ext_resource type="PackedScene" uid="uid://ugmoryxtdxdn" path="res://items/hazards/engine/engine_hazard.tscn" id="1_xgfhn"]
 [ext_resource type="PackedScene" uid="uid://cacuhpr74ca7c" path="res://items/upgrades/flaming_car_upgrade.tscn" id="3_80b5g"]
 
 [resource]
 script = ExtResource("1_qp0qc")
 upgrade = ExtResource("3_80b5g")
-hazard = ExtResource("1_i5r8n")
+hazard = ExtResource("1_xgfhn")
 type = 0
 item_name = "Blazing Engine"
 up_stat = 1

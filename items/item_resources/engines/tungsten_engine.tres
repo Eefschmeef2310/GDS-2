@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://bke5dki2dcgsh"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_3l7rj"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_bqsxx"]
+[ext_resource type="PackedScene" uid="uid://ugmoryxtdxdn" path="res://items/hazards/engine/engine_hazard.tscn" id="1_lmgf4"]
 [ext_resource type="PackedScene" uid="uid://bc4pnj3ctrpih" path="res://items/upgrades/tungsten_upgrade.tscn" id="3_0wsgb"]
 
 [resource]
 script = ExtResource("1_bqsxx")
 upgrade = ExtResource("3_0wsgb")
-hazard = ExtResource("1_3l7rj")
+hazard = ExtResource("1_lmgf4")
 type = 0
 item_name = "Tungsten Engine"
 up_stat = 4
