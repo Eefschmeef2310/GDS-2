@@ -15,7 +15,7 @@ func _on_explosion_timer_timeout() -> void:
 	
 	for body in get_overlapping_bodies():
 		if body is Kart:
-			body.hurt()
+			body.hurt(self)
 	
 	var particles = EXPLOSION_PARTICLES.instantiate()
 	particles.global_position = global_position

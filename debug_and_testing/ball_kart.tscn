@@ -801,24 +801,19 @@ hit_by_item = NodePath("HitByItem")
 [node name="Accelertating" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_kidww")
 max_db = -17.614
-bus = &"Master"
 
 [node name="Bonk" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 volume_db = -5.0
-bus = &"Master"
 
 [node name="Braking" parent="Audio Sources" instance=ExtResource("9_2ky60")]
-bus = &"Master"
 
 [node name="HitByItem" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_w2a2y")
 volume_db = -12.5
-bus = &"Master"
 
 [node name="Crash" parent="Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
-bus = &"Master"
 
 [connection signal="acceleration_update" from="." to="Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="body_entered" from="." to="." method="on_crash_detected"]
