@@ -57,22 +57,47 @@ func set_target_pos() -> void:
 	target_pos = curve_target_pos * path_transform
 	
 	var track_direction = closest_point.direction_to(target_pos)
+	
+	var far_out = target_pos + track_direction * 20
+	var dir_far_out = cpu_kart.global_position.direction_to(far_out)
+	
 	var track_up_vector = curve.sample_baked_up_vector(offset, false)
 	track_right_vector = track_direction.cross(track_up_vector).normalized()
 	var dir_to_point = cpu_kart.global_position.direction_to(target_pos).normalized()
 	#dir_to_point.rotated(track_up_vector, deg_to_rad(-90))
 	var vel = cpu_kart.linear_velocity.normalized()
-	turn_direction = sign(vel.dot(track_right_vector))
-	turn_amount = abs(dir_to_point.dot(track_right_vector)) #Gives value between 0 and 1
-	print("turn amount: " + str(turn_amount))
-	print("turn direction: " + str(turn_direction))
-	print("track Up vector: " + str(track_up_vector))
+	
+	var dot = kart_dir.dot(dir_to_point)
+	var angle_to_direction = kart_dir.signed_angle_to(dir_to_point, Vector3.UP)
+	
+	if dot > 0:
+		cpu_kart.accelerating = true
+		cpu_kart.braking = false
+	else:
+		cpu_kart.accelerating = false
+		cpu_kart.braking = true
+		
+	if (abs(angle_to_direction) < 0.3):
+		turn_amount = 0
+	elif (angle_to_direction > 0):
+		turn_amount = 1;
+	else:
+		turn_amount = -1;
+	print("Angle to Diretcion: " + str(angle_to_direction))
+	#var value = (dir_far_out - kart_dir).normalized()
+	#var value = (kart_dir.angle_to(dir_far_out))
+	#print("value " + str(value))
+	#turn_direction = sign(kart_dir.dot(dir_to_point))
+	#turn_amount = abs(value) #Gives value between 0 and 1
+	#print("turn amount: " + str(turn_amount))
+	#print("turn direction: " + str(turn_direction))
+	#print("track Up vector: " + str(track_up_vector))
 
 
 func update_kart_input():
 	drift_released = false
 	if !drift_input:
-		if turn_amount < 0.1:
+		if abs(turn_amount) < 0.1:
 			turn_amount = 0
 		#if turn_amount > 0.6:
 			#drift_input = true
@@ -84,12 +109,10 @@ func update_kart_input():
 			#turn_amount = 1
 			#turn_direction *= -1
 			
-	steer_axis = turn_amount * turn_direction
+	steer_axis = turn_amount
 	
 	print("steer axis: " + str(steer_axis))
 	cpu_kart.steer_axis = steer_axis
-	cpu_kart.accelerating = true
-	cpu_kart.braking = false
 	cpu_kart.drift_input = drift_input
 	cpu_kart.drift_released = drift_released
 
