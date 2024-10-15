@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://343m60taxeo2"]
+
+[ext_resource type="Script" path="res://cpu_stuff/cpu_kart.gd" id="1_kwu5n"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="1_neexj"]
+[ext_resource type="Script" path="res://cpu_stuff/cpu_input_manager.gd" id="4_gscc5"]
+
+[node name="CpuKart" instance=ExtResource("1_neexj")]
+script = ExtResource("1_kwu5n")
+max_speed = 30.0
+turn_speed = 10.0
+
+[node name="CpuInput" type="Node" parent="Scripts" index="2" node_paths=PackedStringArray("cpu_kart")]
+script = ExtResource("4_gscc5")
+cpu_kart = NodePath("../..")
+
+[node name="Camera3D" parent="Kart" index="1"]
+process_mode = 4
+
+[node name="PlayerUI" parent="." index="5"]
+process_mode = 4
+visible = false

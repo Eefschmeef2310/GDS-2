@@ -128,7 +128,7 @@ func _ready():
 		player_ui.queue_free()
 	
 func _physics_process(delta: float) -> void:
-	if is_player:
+	#if is_player:
 		# Move kart model to sphere
 		kart.position = position - Vector3(0,1.5,0)
 		
