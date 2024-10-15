@@ -36,6 +36,7 @@ var course_scene : PackedScene
 var number_of_racers : int = 8
 
 var countdown_timer = 3.0
+var countdown_started = false
 
 @onready var minimap: Minimap = $CanvasLayer/Minimap
 @onready var minimap_path: Path2D = $CanvasLayer/Minimap/Path2D
@@ -56,6 +57,9 @@ func _physics_process(_delta):
 func _process(delta):
 	if !$DebugWin.visible:
 		race_timer += delta
+		if !countdown_started:
+			$Countdown.play()
+			countdown_started = true
 	
 	if countdown_timer > -1:
 		var still_counting = countdown_timer > 0
@@ -227,9 +231,9 @@ func create_minimap_from_curve():
 	var z_len = big_extents[3] - big_extents[2]
 	var big_aspect = x_len/z_len
 	
-	print(x_len)
-	print(z_len)
-	print(big_aspect)
+	#print(x_len)
+	#print(z_len)
+	#print(big_aspect)
 	
 	if big_aspect > 1: # longer x than z
 		big_extents[2] *= big_aspect

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cvfysdolvp17o"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_8cgot"]
+[ext_resource type="PackedScene" uid="uid://ugmoryxtdxdn" path="res://items/hazards/engine/engine_hazard.tscn" id="1_2svv3"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="1_8d7hf"]
 [ext_resource type="PackedScene" uid="uid://cx78a6slbmso6" path="res://items/upgrades/armour_upgrade.tscn" id="3_ddlx4"]
 
 [resource]
 script = ExtResource("1_8d7hf")
 upgrade = ExtResource("3_ddlx4")
-hazard = ExtResource("1_8cgot")
+hazard = ExtResource("1_2svv3")
 type = 0
 item_name = "Amoured Engine"
 up_stat = 4

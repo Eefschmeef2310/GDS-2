@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://dv110u33ri2xi"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_3ror5"]
+[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/tires/green_shell.tscn" id="1_sqfra"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_a8vtu"]
 [ext_resource type="PackedScene" uid="uid://bdmps41heha7q" path="res://items/upgrades/hydrogen_upgrade.tscn" id="3_c8n1k"]
 
 [resource]
 script = ExtResource("2_a8vtu")
 upgrade = ExtResource("3_c8n1k")
-hazard = ExtResource("1_3ror5")
+hazard = ExtResource("1_sqfra")
 type = 1
 item_name = "Hydrogen Tire"
 up_stat = 3

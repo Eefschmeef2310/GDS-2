@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cfwiiycq7hwfq"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_5hqyt"]
+[ext_resource type="PackedScene" uid="uid://b1lfpnadj0jq0" path="res://items/hazards/tires/green_shell.tscn" id="1_75e1r"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_0m8tl"]
 [ext_resource type="PackedScene" uid="uid://cx78a6slbmso6" path="res://items/upgrades/armour_upgrade.tscn" id="3_pvlgj"]
 
 [resource]
 script = ExtResource("2_0m8tl")
 upgrade = ExtResource("3_pvlgj")
-hazard = ExtResource("1_5hqyt")
+hazard = ExtResource("1_75e1r")
 type = 1
 item_name = "Amoured Tire"
 up_stat = 4

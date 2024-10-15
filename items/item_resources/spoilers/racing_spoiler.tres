@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://cpfpj6jorww1c"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_rrgbs"]
+[ext_resource type="PackedScene" uid="uid://dgk7adg1mlwdo" path="res://items/hazards/spoilers/spoiler_hazard.tscn" id="1_ej3bj"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_jh15p"]
 [ext_resource type="PackedScene" uid="uid://k8agb8q46gsq" path="res://items/upgrades/race_car_upgrade.tscn" id="3_8ahlh"]
 
 [resource]
 script = ExtResource("2_jh15p")
 upgrade = ExtResource("3_8ahlh")
-hazard = ExtResource("1_rrgbs")
+hazard = ExtResource("1_ej3bj")
 type = 2
 item_name = "F1 Spoiler"
 up_stat = 2

@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="Item" load_steps=4 format=3 uid="uid://c3fm76p146r45"]
 
-[ext_resource type="PackedScene" uid="uid://wq50p40geyro" path="res://items/hazards/test_hazard.tscn" id="1_6mnjg"]
+[ext_resource type="PackedScene" uid="uid://ugmoryxtdxdn" path="res://items/hazards/engine/engine_hazard.tscn" id="1_fvuek"]
 [ext_resource type="Script" path="res://items/item_base.gd" id="2_svyko"]
 [ext_resource type="PackedScene" uid="uid://c0en4qxx7032y" path="res://items/upgrades/monster_truck_upgrade.tscn" id="3_ybs1y"]
 
 [resource]
 script = ExtResource("2_svyko")
 upgrade = ExtResource("3_ybs1y")
-hazard = ExtResource("1_6mnjg")
+hazard = ExtResource("1_fvuek")
 type = 0
 item_name = "Monster Truck Engine"
 up_stat = 4

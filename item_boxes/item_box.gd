@@ -22,6 +22,6 @@ extends Area3D
 
 #region Signal methods
 func _on_body_entered(body: Node3D) -> void:
-	if body.get_parent() is Kart:
-		body.get_parent().hit_item_box.emit(ItemManager.get_random_item(part_type))
+	if body is Kart:
+		body.hit_item_box.emit(ItemManager.get_random_item(part_type))
 #endregion

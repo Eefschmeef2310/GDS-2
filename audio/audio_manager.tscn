@@ -6,4 +6,3 @@
 script = ExtResource("1_wgnah")
 
 [node name="TrackThemePlayer" type="AudioStreamPlayer" parent="."]
-bus = &"Music"
