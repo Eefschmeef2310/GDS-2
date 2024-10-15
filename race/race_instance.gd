@@ -120,6 +120,9 @@ func start_race():
 				minimap.set_centre()
 		else:
 			new_kart.name = debug_names[0]
+			new_kart.max_speed = randf_range(15, 25)
+			new_kart.turn_speed = randf_range(8, 15)
+			new_kart.acceleration = randf_range(0.1, 2)
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
 	

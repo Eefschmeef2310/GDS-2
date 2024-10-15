@@ -12,7 +12,6 @@ class_name CpuKart
 #region Godot methods
 func _ready():
 	#Grabs the positions of the checkpoints then adds them to waypoints
-	can_control = true
 	if has_node("../Track"):
 		track = get_node("../Track")
 #endregion
