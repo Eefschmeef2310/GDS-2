@@ -47,6 +47,8 @@ func _ready():
 		course_scene = debug_start_course_scene
 		number_of_racers = debug_start_number_of_racers
 		
+		#number_of_racers = connected_controllers.size()
+		
 		start_race()
 
 
