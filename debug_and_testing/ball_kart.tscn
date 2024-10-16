@@ -17,9 +17,6 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_qnbc7"]
-radius = 1.5
-
 [sub_resource type="GDScript" id="GDScript_ghuyg"]
 resource_name = "Hurtbox"
 script/source = "extends Area3D
@@ -31,6 +28,9 @@ script/source = "extends Area3D
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ita0d"]
 radius = 2.12327
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qnbc7"]
+radius = 1.5
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ty4aw"]
 resource_name = "Standardmaterial"
@@ -602,6 +602,15 @@ ray = NodePath("Kart/KartModel/DownwardCast")
 boost_timer = NodePath("Boost Timer")
 player_ui = NodePath("PlayerUI")
 
+[node name="Hurtbox" type="Area3D" parent="."]
+visible = false
+collision_layer = 4
+collision_mask = 8
+script = SubResource("GDScript_ghuyg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
+shape = SubResource("SphereShape3D_ita0d")
+
 [node name="Scripts" type="Node" parent="."]
 
 [node name="PlayerDataContainer" type="Node" parent="Scripts"]
@@ -613,15 +622,6 @@ data = NodePath("../PlayerDataContainer")
 
 [node name="BallShape" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_qnbc7")
-
-[node name="Hurtbox" type="Area3D" parent="."]
-visible = false
-collision_layer = 0
-collision_mask = 8
-script = SubResource("GDScript_ghuyg")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
-shape = SubResource("SphereShape3D_ita0d")
 
 [node name="Kart" type="Node3D" parent="."]
 top_level = true
@@ -829,7 +829,7 @@ bus = &"SFX"
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="new_drift_mode" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_new_drift_mode"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
+[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
-[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="area_entered" from="Kart/KartModel/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]

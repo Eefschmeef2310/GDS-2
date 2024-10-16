@@ -1,4 +1,4 @@
-extends Node3D
+extends Node
 
 @export var accelerating : AudioStreamPlayer3D
 @export var crash : AudioStreamPlayer3D
