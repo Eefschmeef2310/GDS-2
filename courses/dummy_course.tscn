@@ -158,16 +158,16 @@ point_count = 8
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fyluw"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_lmkde"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gsv20"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_gb7ue"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_q4lo2"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_uhk3e"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y670m"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_kjx78"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
@@ -293,7 +293,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17240" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17239"]
-shape = SubResource("BoxShape3D_fyluw")
+shape = SubResource("BoxShape3D_lmkde")
 
 [node name="@Area3D@17241" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.621191, 0, 0.783659, 0, 1, 0, -0.783659, 0, -0.621191, -407.741, 0, 83.487)
@@ -301,7 +301,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17242" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17241"]
-shape = SubResource("BoxShape3D_gsv20")
+shape = SubResource("BoxShape3D_gb7ue")
 
 [node name="@Area3D@17243" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.99753, 0, 0.0702485, 0, 1, 0, -0.0702485, 0, -0.99753, -117.023, 0, 59.106)
@@ -309,7 +309,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17244" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17243"]
-shape = SubResource("BoxShape3D_q4lo2")
+shape = SubResource("BoxShape3D_uhk3e")
 
 [node name="@Area3D@17245" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.999906, 0, -0.0136971, 0, 1, 0, 0.0136971, 0, -0.999906, 42.3651, 0, 176.973)
@@ -317,7 +317,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17246" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17245"]
-shape = SubResource("BoxShape3D_y670m")
+shape = SubResource("BoxShape3D_kjx78")
 
 [node name="InnerPavement" type="CSGPolygon3D" parent="Track" groups=["play_hit_sound_on_contact"]]
 use_collision = true

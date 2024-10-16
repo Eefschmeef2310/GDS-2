@@ -40,8 +40,8 @@ var speed_cap = 120
 		max_speed = clamp(value, 0, speed_cap)
 		are_stats_updated()
 		
-var max_weight = 40
-@export var gravity : float = 10:
+var max_weight = 100
+@export var gravity : float = 1:
 	set(value):
 		gravity = clamp(value, 0, max_weight)
 		are_stats_updated()
