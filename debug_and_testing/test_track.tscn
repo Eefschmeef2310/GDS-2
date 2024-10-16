@@ -178,12 +178,36 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.96
 script = SubResource("GDScript_kqd5g")
 is_player = true
 max_speed = 30.0
-turn_speed = 10.0
+turn_speed = 16.0
 boost_acceleration = 10.0
 traction_coefficient = 1.0
 
 [node name="Kart" parent="BallKart" index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.9602, 1.04245, -73.8472)
+
+[node name="LeftFrontWheel" parent="BallKart/Kart/KartModel/FrontWheels" index="0"]
+surface_material_override/0 = null
+
+[node name="RightFrontWheel" parent="BallKart/Kart/KartModel/FrontWheels" index="1"]
+surface_material_override/0 = null
+
+[node name="BackLeftWheel" parent="BallKart/Kart/KartModel/BackWheels" index="0"]
+surface_material_override/0 = null
+
+[node name="BackRightWheel" parent="BallKart/Kart/KartModel/BackWheels" index="1"]
+surface_material_override/0 = null
+
+[node name="Body" parent="BallKart/Kart/KartModel" index="2"]
+surface_material_override/0 = null
+
+[node name="SteeringWheel" parent="BallKart/Kart/KartModel" index="3"]
+surface_material_override/0 = null
+
+[node name="RightExhaust" parent="BallKart/Kart/KartModel" index="4"]
+surface_material_override/0 = null
+
+[node name="LeftExhaust" parent="BallKart/Kart/KartModel" index="5"]
+surface_material_override/0 = null
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_myymi")
