@@ -1,7 +1,8 @@
-[gd_scene load_steps=26 format=3 uid="uid://bl3rvj3gfbc12"]
+[gd_scene load_steps=32 format=3 uid="uid://bl3rvj3gfbc12"]
 
 [ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="1_ku3s0"]
 [ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="2_8vl0y"]
+[ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_h7qhg"]
 [ext_resource type="PackedScene" uid="uid://bgd1cxalv2sv4" path="res://courses/canyon/canyon_rock.tscn" id="2_xy1gd"]
 [ext_resource type="PackedScene" uid="uid://6pli2jgxnqus" path="res://courses/canyon/conyon_rock_2.tscn" id="3_i6aiu"]
 [ext_resource type="PackedScene" uid="uid://dewfonsg8h7ep" path="res://courses/canyon/canyon_uts.tscn" id="4_f6geg"]
@@ -20,32 +21,183 @@ point_count = 10
 albedo_color = Color(0.572549, 0.34902, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_14ye3"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w5lpo"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_npwva"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_auk2c"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8e5io"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_cc2f0"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ucqcy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jphk0"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ydejc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_n53ba"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_iinnq"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_trurb"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ocn55"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5d3oi"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ndla7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_go6f5"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ka24i"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_miiar"]
 size = Vector3(5, 100, 50)
+
+[sub_resource type="Shader" id="Shader_r5e82"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+uniform vec4 emission : source_color;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise : repeat_enable;
+uniform float noise_rotation_speed = 1.0;
+uniform float glitter_offset = 0.5;
+uniform vec4 glitter_color : source_color;
+
+uniform vec4 base_gradient_1 : source_color;
+uniform vec4 base_gradient_2 : source_color;
+uniform float base_gradient_power = 2;
+
+vec3 Unity_Hue_Degrees_float(vec3 In, float Offset)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 P = mix(vec4(In.bg, K.wz), vec4(In.gb, K.xy), step(In.b, In.g));
+    vec4 Q = mix(vec4(P.xyw, In.r), vec4(In.r, P.yzx), step(P.x, In.r));
+    float D = Q.x - min(Q.w, Q.y);
+    //float E = 1e-10;
+    vec3 hsv = vec3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + 1e-10)), D / (Q.x + 1e-10), Q.x);
+
+    float hue = hsv.x + Offset / 360.0;
+    hsv.x = (hue < 0.0) ? hue + 1.0 : ((hue > 1.0) ? hue - 1.0 : hue);
+
+    vec4 K2 = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 P2 = abs(fract(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+    return hsv.z * mix(K2.xxx, clamp(P2 - K2.xxx, 0, 1), hsv.y);
+}
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
+	
+	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
+	angle = clamp(angle, 0, 1);
+	
+	vec3 color = angle * glitter_color.rgb;
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
+	
+	//Base colour gradient
+	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
+	
+	ALBEDO = albedo_color.rgb;
+	
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	EMISSION = color * emission_energy;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw3ft"]
+render_priority = 0
+shader = SubResource("Shader_r5e82")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.53
+shader_parameter/glitter_color = Color(0.0958465, 1, 0, 1)
+shader_parameter/base_gradient_1 = Color(0.587784, 1, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.312739, 0.642562, 0.270571, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_b436j"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_qw3ft")
+flip_faces = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0cd8"]
+render_priority = 0
+shader = SubResource("Shader_r5e82")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.53
+shader_parameter/glitter_color = Color(0.0494852, 0, 1, 1)
+shader_parameter/base_gradient_1 = Color(0.530413, 0.5, 1, 1)
+shader_parameter/base_gradient_2 = Color(0.278469, 0.270571, 0.642562, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bugc2"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_w0cd8")
+flip_faces = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lt38"]
 transparency = 1
@@ -86,8 +238,8 @@ material = SubResource("StandardMaterial3D_rjyk1")
 [node name="CanyonCourse" instance=ExtResource("1_ku3s0")]
 
 [node name="DirectionalLight3D" parent="." index="1"]
-shadow_normal_bias = 6.014
-shadow_blur = 0.0
+shadow_opacity = 0.65
+shadow_blur = 0.756
 
 [node name="MeshInstance3D" parent="Floor" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_qqt20")
@@ -98,77 +250,77 @@ curve = SubResource("Curve3D_stwl6")
 [node name="Track" parent="Track" index="0"]
 material = SubResource("StandardMaterial3D_g30ma")
 
-[node name="@Area3D@19895" type="Area3D" parent="Track/Checkpoints" index="0"]
+[node name="@Area3D@90669" type="Area3D" parent="Track/Checkpoints" index="0"]
 transform = Transform3D(0.968442, 0, -0.249237, 0, 1, 0, 0.249237, 0, 0.968442, -150.996, 0, -72.192)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19896" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19895" index="0"]
-shape = SubResource("BoxShape3D_14ye3")
+[node name="@CollisionShape3D@90670" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90669" index="0"]
+shape = SubResource("BoxShape3D_w5lpo")
 
-[node name="@Area3D@19897" type="Area3D" parent="Track/Checkpoints" index="1"]
+[node name="@Area3D@90671" type="Area3D" parent="Track/Checkpoints" index="1"]
 transform = Transform3D(0.215662, 0, 0.976468, 0, 1, 0, -0.976468, 0, 0.215662, -359.435, 0, -35.6971)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19898" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19897" index="0"]
-shape = SubResource("BoxShape3D_npwva")
+[node name="@CollisionShape3D@90672" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90671" index="0"]
+shape = SubResource("BoxShape3D_auk2c")
 
-[node name="@Area3D@19899" type="Area3D" parent="Track/Checkpoints" index="2"]
+[node name="@Area3D@90673" type="Area3D" parent="Track/Checkpoints" index="2"]
 transform = Transform3D(-0.802513, 0, 0.596634, 0, 1, 0, -0.596634, 0, -0.802513, -234.623, 0, 47.5111)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19900" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19899" index="0"]
-shape = SubResource("BoxShape3D_8e5io")
+[node name="@CollisionShape3D@90674" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90673" index="0"]
+shape = SubResource("BoxShape3D_cc2f0")
 
-[node name="@Area3D@19901" type="Area3D" parent="Track/Checkpoints" index="3"]
+[node name="@Area3D@90675" type="Area3D" parent="Track/Checkpoints" index="3"]
 transform = Transform3D(-0.862812, 0, 0.505525, 0, 1, 0, -0.505525, 0, -0.862812, -213.821, 0, 154.235)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19902" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19901" index="0"]
-shape = SubResource("BoxShape3D_ucqcy")
+[node name="@CollisionShape3D@90676" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90675" index="0"]
+shape = SubResource("BoxShape3D_jphk0")
 
-[node name="@Area3D@19903" type="Area3D" parent="Track/Checkpoints" index="4"]
+[node name="@Area3D@90677" type="Area3D" parent="Track/Checkpoints" index="4"]
 transform = Transform3D(-0.320405, 0, -0.947281, 0, 1, 0, 0.947281, 0, -0.320405, -120.664, 0, 77.3575)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19904" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19903" index="0"]
-shape = SubResource("BoxShape3D_ydejc")
+[node name="@CollisionShape3D@90678" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90677" index="0"]
+shape = SubResource("BoxShape3D_n53ba")
 
-[node name="@Area3D@19905" type="Area3D" parent="Track/Checkpoints" index="5"]
+[node name="@Area3D@90679" type="Area3D" parent="Track/Checkpoints" index="5"]
 transform = Transform3D(-0.147311, 0, -0.98909, 0, 1, 0, 0.98909, 0, -0.147311, 22.4748, 0, 50.3682)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19906" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19905" index="0"]
-shape = SubResource("BoxShape3D_iinnq")
+[node name="@CollisionShape3D@90680" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90679" index="0"]
+shape = SubResource("BoxShape3D_trurb")
 
-[node name="@Area3D@19907" type="Area3D" parent="Track/Checkpoints" index="6"]
+[node name="@Area3D@90681" type="Area3D" parent="Track/Checkpoints" index="6"]
 transform = Transform3D(-0.00925866, 0, -0.999957, 0, 1, 0, 0.999957, 0, -0.00925866, 143.669, 0, -50.9287)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19908" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19907" index="0"]
-shape = SubResource("BoxShape3D_ocn55")
+[node name="@CollisionShape3D@90682" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90681" index="0"]
+shape = SubResource("BoxShape3D_5d3oi")
 
-[node name="@Area3D@19909" type="Area3D" parent="Track/Checkpoints" index="7"]
+[node name="@Area3D@90683" type="Area3D" parent="Track/Checkpoints" index="7"]
 transform = Transform3D(0.259974, 0, -0.965616, 0, 1, 0, 0.965616, 0, 0.259974, 37.8503, 0, -148.608)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19910" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19909" index="0"]
-shape = SubResource("BoxShape3D_ndla7")
+[node name="@CollisionShape3D@90684" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90683" index="0"]
+shape = SubResource("BoxShape3D_go6f5")
 
-[node name="@Area3D@19911" type="Area3D" parent="Track/Checkpoints" index="8"]
+[node name="@Area3D@90685" type="Area3D" parent="Track/Checkpoints" index="8"]
 transform = Transform3D(0.079745, 0, 0.996815, 0, 1, 0, -0.996815, 0, 0.079745, -67.9689, 0, -103.386)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@19912" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@19911" index="0"]
-shape = SubResource("BoxShape3D_ka24i")
+[node name="@CollisionShape3D@90686" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@90685" index="0"]
+shape = SubResource("BoxShape3D_miiar")
 
 [node name="Marker3D" parent="KartSpawns" index="0"]
 transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -126.098, 2.73757, -79.2321)
@@ -193,6 +345,12 @@ transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614
 
 [node name="Marker3D8" parent="KartSpawns" index="7"]
 transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -147.118, 2.73757, -52.782)
+
+[node name="MeshInstance3D" parent="ItemBox3" index="0"]
+mesh = SubResource("SphereMesh_b436j")
+
+[node name="MeshInstance3D" parent="ItemBox4" index="0"]
+mesh = SubResource("SphereMesh_bugc2")
 
 [node name="ItemBox5" parent="." index="13" instance=ExtResource("2_8vl0y")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -92.2532, 1.76581, 69.3117)

@@ -87,7 +87,7 @@ void fragment() {
 	angle = clamp(angle, 0, 1);
 	
 	vec3 color = angle * glitter_color.rgb;
-	color += glitter_color.rgb * fresnel(10.0, NORMAL, VIEW);
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
 	
 	//Base colour gradient
 	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
@@ -103,14 +103,14 @@ void fragment() {
 render_priority = 0
 shader = SubResource("Shader_r5e82")
 shader_parameter/albedo = Color(1, 1, 1, 0.278431)
-shader_parameter/point_size = 1.0
-shader_parameter/roughness = 0.3
+shader_parameter/point_size = 0.1
+shader_parameter/roughness = 0.0
 shader_parameter/metallic_texture_channel = null
-shader_parameter/specular = 0.5
+shader_parameter/specular = 0.0
 shader_parameter/metallic = 1.0
 shader_parameter/emission_energy = 15.83
 shader_parameter/emission = Color(1, 1, 1, 1)
-shader_parameter/uv1_scale = Vector3(20, 20, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
 shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
@@ -118,8 +118,8 @@ shader_parameter/noise_rotation_speed = 100.0
 shader_parameter/glitter_offset = 0.53
 shader_parameter/glitter_color = Color(0.525803, 0, 1, 1)
 shader_parameter/base_gradient_1 = Color(0.950952, 0.5, 1, 1)
-shader_parameter/base_gradient_2 = Color(0.169962, 0.0331859, 0.29634, 1)
-shader_parameter/base_gradient_power = -1.0
+shader_parameter/base_gradient_2 = Color(0.463916, 0.270571, 0.642562, 1)
+shader_parameter/base_gradient_power = -0.1
 shader_parameter/noise = ExtResource("2_i61nr")
 
 [sub_resource type="SphereMesh" id="SphereMesh_qhmx5"]
@@ -143,6 +143,7 @@ shape = SubResource("ConvexPolygonShape3D_utuoa")
 
 [node name="Sprite3D" type="Sprite3D" parent="."]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+cast_shadow = 0
 billboard = 1
 alpha_cut = 1
 texture = ExtResource("2_fwfxq")
