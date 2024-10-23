@@ -1,6 +1,8 @@
 extends CanvasLayer
 class_name PlayerUI
 
+signal speed_updated(speed : float)
+
 @export var hand : Control
 @export var slots : Control
 @export var data : PlayerData
@@ -41,6 +43,7 @@ func _on_player_data_container_hand_updated() -> void:
 
 func update_speed(speed : float):
 	speed_label.text = str(snapped(speed * 10, 0.1)) + " km/h"
+	speed_updated.emit(speed)
 
 func update_bars():
 	get_node(stats["Speed"]).update_bar(Item.Stat.Speed)

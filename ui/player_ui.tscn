@@ -1,9 +1,11 @@
-[gd_scene load_steps=8 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=13 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
 [ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
+[ext_resource type="Script" path="res://ui/speed_needle.gd" id="6_hdh75"]
+[ext_resource type="Script" path="res://ui/line_test.gd" id="6_u2wka"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_rqmv5"]
 font_size = 8
@@ -42,12 +44,27 @@ func update_polygon():
 [sub_resource type="LabelSettings" id="LabelSettings_fpday"]
 font_size = 30
 
+[sub_resource type="Curve2D" id="Curve2D_ybruq"]
+_data = {
+"points": PackedVector2Array(1.05946, 185.406, -1.05946, -185.406, 1623, 1012, -128.195, -1.05946, 128.195, 1.05946, 1877, 760)
+}
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_vh5w2"]
+interpolation_mode = 1
+offsets = PackedFloat32Array(0, 0.798283, 0.819743)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1)
+
+[sub_resource type="Curve" id="Curve_y7b2e"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
 [node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label")]
 layer = 0
 script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
-speed_label = NodePath("SpeedContainer/SpeedLabel")
+speed_label = NodePath("Speedometer/SpeedContainer/SpeedLabel")
 stats = {
 "Acceleration": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
 "Boost Strength": NodePath("MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
@@ -403,23 +420,57 @@ grow_vertical = 0
 text = "BOOSTING"
 horizontal_alignment = 2
 
-[node name="SpeedContainer" type="MarginContainer" parent="."]
+[node name="Speedometer" type="Control" parent="."]
+layout_mode = 3
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -75.0
-offset_top = -23.0
+offset_left = -40.0
+offset_top = -40.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="SpeedContainer" type="MarginContainer" parent="Speedometer"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -208.0
+offset_top = -177.0
+offset_right = -53.0
+offset_bottom = -75.0
 grow_horizontal = 0
 grow_vertical = 0
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 60
 
-[node name="SpeedLabel" type="Label" parent="SpeedContainer"]
+[node name="SpeedLabel" type="Label" parent="Speedometer/SpeedContainer"]
 layout_mode = 2
 text = "XXX km/h"
 label_settings = SubResource("LabelSettings_fpday")
+
+[node name="Path2D" type="Path2D" parent="Speedometer"]
+position = Vector2(-1880, -1040)
+curve = SubResource("Curve2D_ybruq")
+
+[node name="Line2D" type="Line2D" parent="Speedometer/Path2D" node_paths=PackedStringArray("path")]
+points = PackedVector2Array(1623, 1012, 1623, 1007.68, 1623.04, 1003.4, 1623.13, 999.157, 1623.27, 994.962, 1623.45, 990.809, 1623.68, 986.698, 1623.95, 982.63, 1624.27, 978.604, 1624.63, 974.62, 1625.03, 970.678, 1625.48, 966.778, 1625.97, 962.919, 1626.5, 959.102, 1627.08, 955.325, 1627.69, 951.591, 1628.35, 947.897, 1629.05, 944.244, 1629.79, 940.631, 1630.57, 937.06, 1631.39, 933.528, 1632.25, 930.037, 1633.15, 926.587, 1634.09, 923.176, 1635.06, 919.805, 1636.08, 916.474, 1637.13, 913.182, 1638.22, 909.931, 1639.34, 906.718, 1640.51, 903.545, 1641.71, 900.41, 1642.94, 897.315, 1644.21, 894.258, 1645.52, 891.24, 1646.86, 888.26, 1648.24, 885.319, 1649.65, 882.416, 1651.09, 879.551, 1652.57, 876.724, 1654.08, 873.935, 1655.62, 871.183, 1657.2, 868.469, 1658.8, 865.792, 1660.44, 863.153, 1662.11, 860.55, 1663.81, 857.985, 1665.55, 855.456, 1667.31, 852.964, 1669.1, 850.509, 1670.92, 848.09, 1672.77, 845.707, 1674.65, 843.36, 1676.56, 841.05, 1678.49, 838.775, 1680.46, 836.536, 1682.45, 834.332, 1684.46, 832.164, 1686.51, 830.031, 1688.58, 827.933, 1690.67, 825.87, 1692.8, 823.842, 1694.94, 821.849, 1697.11, 819.89, 1699.31, 817.966, 1701.53, 816.075, 1703.77, 814.219, 1706.04, 812.398, 1708.33, 810.61, 1710.64, 808.855, 1712.98, 807.135, 1715.33, 805.447, 1717.71, 803.793, 1720.11, 802.172, 1722.53, 800.584, 1724.97, 799.03, 1727.43, 797.507, 1729.91, 796.018, 1732.41, 794.561, 1734.93, 793.136, 1737.46, 791.743, 1740.02, 790.382, 1742.59, 789.054, 1745.18, 787.757, 1747.79, 786.491, 1750.41, 785.258, 1753.05, 784.055, 1755.71, 782.884, 1758.38, 781.743, 1761.07, 780.634, 1763.77, 779.556, 1766.49, 778.508, 1769.22, 777.49, 1771.97, 776.503, 1774.73, 775.546, 1777.5, 774.619, 1780.28, 773.722, 1783.08, 772.855, 1785.89, 772.018, 1788.71, 771.21, 1791.54, 770.431, 1794.39, 769.682, 1797.24, 768.962, 1800.11, 768.271, 1802.98, 767.608, 1805.87, 766.974, 1808.76, 766.369, 1811.66, 765.792, 1814.57, 765.244, 1817.49, 764.723, 1820.42, 764.231, 1823.35, 763.766, 1826.29, 763.329, 1829.24, 762.919, 1832.19, 762.537, 1835.15, 762.183, 1838.11, 761.855, 1841.08, 761.554, 1844.06, 761.28, 1847.04, 761.033, 1850.02, 760.813, 1853.01, 760.619, 1856, 760.451, 1858.99, 760.309, 1861.99, 760.193, 1864.99, 760.103, 1867.99, 760.039, 1870.99, 760.001, 1874, 759.988, 1877, 760)
+gradient = SubResource("Gradient_vh5w2")
+joint_mode = 2
+script = ExtResource("6_u2wka")
+path = NodePath("..")
+
+[node name="Needle" type="Line2D" parent="Speedometer"]
+position = Vector2(-5, -22)
+points = PackedVector2Array(0, -10, -251, -8)
+width_curve = SubResource("Curve_y7b2e")
+script = ExtResource("6_hdh75")
+
+[connection signal="speed_updated" from="." to="Speedometer/Needle" method="_on_player_ui_speed_updated"]
 
 [editable path="MarginContainer/VBoxContainer/VBoxContainer/Speed"]
 [editable path="MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]

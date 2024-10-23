@@ -137,6 +137,7 @@ sky_material = SubResource("ShaderMaterial_w2vas")
 background_mode = 2
 sky = SubResource("Sky_w6lmq")
 ambient_light_sky_contribution = 0.0
+sdfgi_y_scale = 2
 glow_enabled = true
 volumetric_fog_sky_affect = 0.0
 
@@ -160,25 +161,25 @@ point_count = 8
 albedo_color = Color(0, 0, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_berxj"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xb0ty"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6v6a7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_20t4b"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ye61d"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_nktr2"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_daaxl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_3fyqh"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_r6dok"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_nufn6"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1y6wf"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_stcin"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7lms4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_5b2p4"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hg2qt"]
@@ -404,6 +405,7 @@ environment = SubResource("Environment_o5eyd")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.910438, 0.413645, -6.85208e-07, -0.390436, 0.859357, 0.330251, 0.136607, -0.300672, 0.943893, 0, 0, 0)
+light_color = Color(1, 0.995475, 0.947203, 1)
 shadow_enabled = true
 shadow_opacity = 0.75
 directional_shadow_split_1 = 0.011
@@ -457,61 +459,61 @@ material = SubResource("StandardMaterial3D_n62to")
 script = ExtResource("2_cksux")
 checkpoint_collision_layer = 2
 
-[node name="@Area3D@57616" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46875" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.919659, 0, -0.392718, 0, 1, 0, 0.392718, 0, 0.919659, -150.996, 0, -72.192)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57617" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57616"]
-shape = SubResource("BoxShape3D_berxj")
+[node name="@CollisionShape3D@46876" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46875"]
+shape = SubResource("BoxShape3D_xb0ty")
 
-[node name="@Area3D@57618" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46877" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.621191, 0, 0.783659, 0, 1, 0, -0.783659, 0, -0.621191, -407.741, 0, 83.487)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57619" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57618"]
-shape = SubResource("BoxShape3D_6v6a7")
+[node name="@CollisionShape3D@46878" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46877"]
+shape = SubResource("BoxShape3D_20t4b")
 
-[node name="@Area3D@57620" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46879" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.99753, 0, 0.0702485, 0, 1, 0, -0.0702485, 0, -0.99753, -117.023, 0, 59.106)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57621" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57620"]
-shape = SubResource("BoxShape3D_ye61d")
+[node name="@CollisionShape3D@46880" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46879"]
+shape = SubResource("BoxShape3D_nktr2")
 
-[node name="@Area3D@57622" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46881" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.999906, 0, -0.0136971, 0, 1, 0, 0.0136971, 0, -0.999906, 42.3651, 0, 176.973)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57623" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57622"]
-shape = SubResource("BoxShape3D_daaxl")
+[node name="@CollisionShape3D@46882" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46881"]
+shape = SubResource("BoxShape3D_3fyqh")
 
-[node name="@Area3D@57624" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46883" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.174496, 0, -0.984658, 0, 1, 0, 0.984658, 0, -0.174496, 137.462, 0, 28.2996)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57625" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57624"]
-shape = SubResource("BoxShape3D_r6dok")
+[node name="@CollisionShape3D@46884" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46883"]
+shape = SubResource("BoxShape3D_nufn6")
 
-[node name="@Area3D@57626" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46885" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(-0.0366731, 0, -0.999327, 0, 1, 0, 0.999327, 0, -0.0366731, 396, 0, -96)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57627" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57626"]
-shape = SubResource("BoxShape3D_1y6wf")
+[node name="@CollisionShape3D@46886" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46885"]
+shape = SubResource("BoxShape3D_stcin")
 
-[node name="@Area3D@57628" type="Area3D" parent="Track/Checkpoints"]
+[node name="@Area3D@46887" type="Area3D" parent="Track/Checkpoints"]
 transform = Transform3D(0.148861, 0, 0.988858, 0, 1, 0, -0.988858, 0, 0.148861, 18.2559, 0, -127.07)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@57629" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57628"]
-shape = SubResource("BoxShape3D_7lms4")
+[node name="@CollisionShape3D@46888" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@46887"]
+shape = SubResource("BoxShape3D_5b2p4")
 
 [node name="InnerPavement" type="CSGPolygon3D" parent="Track" groups=["play_hit_sound_on_contact"]]
 use_collision = true
@@ -623,18 +625,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.11827, 1.08625e-05, 0.118337, 1)
-
-[node name="Label" type="Label" parent="ColorRect"]
-layout_mode = 0
-offset_left = 798.0
-offset_top = 423.0
-offset_right = 1024.0
-offset_bottom = 550.0
-text = "M-Masaka...
-
-You're...
-
-Playing with three people????"
 
 [node name="ViewportGrid" type="GridContainer" parent="."]
 anchors_preset = 15

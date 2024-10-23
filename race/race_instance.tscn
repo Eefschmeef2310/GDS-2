@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="3_lgcxf"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
+[ext_resource type="Script" path="res://ui/curve_drawer.gd" id="6_ra1j6"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]
 
 [sub_resource type="GDScript" id="GDScript_2eq0k"]
@@ -105,18 +106,6 @@ _data = {
 }
 
 [sub_resource type="Curve2D" id="Curve2D_bkdvv"]
-
-[sub_resource type="GDScript" id="GDScript_bsk8j"]
-script/source = "extends Path2D
-
-@export var color : Color
-
-
-
-func _draw():
-	draw_polyline(curve.get_baked_points(), color, 10.0)
-	
-"
 
 [node name="RaceInstance" type="Node"]
 process_mode = 3
@@ -244,8 +233,8 @@ grow_vertical = 2
 [node name="Path2D" type="Path2D" parent="CanvasLayer/Minimap"]
 position = Vector2(4, 4)
 curve = SubResource("Curve2D_bkdvv")
-script = SubResource("GDScript_bsk8j")
-color = Color(1, 1, 1, 0.501961)
+script = ExtResource("6_ra1j6")
+colors = Array[Color]([Color(1, 1, 1, 0.827451)])
 
 [node name="FinishLine" type="Sprite2D" parent="CanvasLayer/Minimap"]
 position = Vector2(309, 92)
