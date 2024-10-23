@@ -61,6 +61,7 @@ point_count = 2
 
 [node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label")]
 layer = 0
+follow_viewport_enabled = true
 script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("MarginContainer")
