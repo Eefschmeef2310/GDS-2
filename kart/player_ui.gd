@@ -7,6 +7,7 @@ signal speed_updated(speed : float)
 @export var slots : Control
 @export var data : PlayerData
 @export var speed_label : Label
+@export var placement_label : Label
 
 @export var stats : Dictionary
 
@@ -25,7 +26,7 @@ func _physics_process(_delta):
 		var s = ""
 		s += "Lap " + str(ri.kart_placements[kart].laps) + "/" + str(ri.total_laps)
 		s += "\nPlace " + str(ri.karts_sorted.find(kart)+1) + "/" + str(ri.karts_sorted.size())
-		$MarginContainer/VBoxContainer/PlacementLabel.text = s
+		placement_label.text = s
 		
 		var c = "Last checkpoint: " + str(ri.kart_placements[kart].last_checkpoint) + "\nCheckpoints: "
 		for check in ri.kart_placements[kart].checkpoints_crossed:
@@ -42,7 +43,7 @@ func _on_player_data_container_hand_updated() -> void:
 	slots.update(data)
 
 func update_speed(speed : float):
-	speed_label.text = str(snapped(speed * 10, 0.1)) + " km/h"
+	speed_label.text = str(snapped(speed * 5, 0.1)) + " km/h"
 	speed_updated.emit(speed)
 
 func update_bars():

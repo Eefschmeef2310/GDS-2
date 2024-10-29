@@ -4,6 +4,6 @@
 
 [node name="AluminiumUpgrade" type="Node"]
 script = ExtResource("1_fdhso")
-increase_stat_amount = 5.0
+increase_stat_amount = 10.0
 decrease_stat = 4
-decrease_stat_amount = 1.0
+decrease_stat_amount = 20.0

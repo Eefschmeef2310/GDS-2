@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=95 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
@@ -8,11 +8,16 @@
 [ext_resource type="Texture2D" uid="uid://dqkmqhwimyddv" path="res://particles/textures/title-bar-logo-gradient-white.png" id="4_fins0"]
 [ext_resource type="Texture2D" uid="uid://wyorgad5fp0s" path="res://particles/textures/Png.png" id="5_dks8u"]
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart_camera.gd" id="7_d8kp8"]
-[ext_resource type="Script" path="res://debug_and_testing/sound_effect_controller.gd" id="8_nkqy7"]
+[ext_resource type="Script" path="res://debug_and_testing/sound_effect_controller_3D.gd" id="8_nkqy7"]
 [ext_resource type="PackedScene" uid="uid://d07bgrqtigjrb" path="res://audio/sound_effect.tscn" id="9_2ky60"]
 [ext_resource type="AudioStream" uid="uid://dhdyigyw5bgcj" path="res://audio/sound_effects/accelerate_no_fade.ogg" id="10_kidww"]
 [ext_resource type="AudioStream" uid="uid://criebecl56c0v" path="res://audio/sound_effects/hit_by_item.ogg" id="10_w2a2y"]
 [ext_resource type="AudioStream" uid="uid://btane6g346xvq" path="res://audio/sound_effects/bonk.wav" id="11_v4vut"]
+[ext_resource type="AudioStream" uid="uid://dfbjxpp208o0x" path="res://audio/sound_effects/drifting spark.wav" id="14_nibch"]
+[ext_resource type="Script" path="res://debug_and_testing/player_audio_sources.gd" id="15_ists1"]
+[ext_resource type="PackedScene" uid="uid://cfpb3grjrbey" path="res://audio/sound_effect_base_audio_source.tscn" id="16_mvrpf"]
+[ext_resource type="AudioStream" uid="uid://nxyp8t6oskwd" path="res://audio/sound_effects/throwing item2.wav" id="17_6qgsr"]
+[ext_resource type="AudioStream" uid="uid://bwxihrh0pdbo6" path="res://audio/sound_effects/Item attach.wav" id="17_053k3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
@@ -585,13 +590,9 @@ gravity_scale = 0.0
 contact_monitor = true
 max_contacts_reported = 1
 linear_damp = 1.0
+angular_damp = 0.1
 script = ExtResource("1_i6kgw")
 data = NodePath("Scripts/PlayerDataContainer")
-gravity = 20.0
-acceleration = 3.0
-turn_speed = 8.0
-boost_acceleration = 5.0
-traction_coefficient = 2.0
 turbo_colors = Array[Color]([Color(0.305335, 0.971588, 1, 1), Color(1, 0.573833, 0, 1), Color(0.939905, 0.247426, 0.806414, 1)])
 kart = NodePath("Kart")
 kart_model = NodePath("Kart/KartModel")
@@ -792,39 +793,86 @@ one_shot = true
 [node name="PlayerUI" parent="." node_paths=PackedStringArray("data") instance=ExtResource("3_57wie")]
 data = NodePath("../Scripts/PlayerDataContainer")
 
-[node name="Audio Sources" type="Node3D" parent="." node_paths=PackedStringArray("accelerating", "crash", "hit_by_item")]
+[node name="AI Audio Sources" type="Node3D" parent="." node_paths=PackedStringArray("accelerating", "drift_sparks", "crash", "hit_by_item")]
 script = ExtResource("8_nkqy7")
 accelerating = NodePath("Accelertating")
+drift_sparks = NodePath("DriftingSparks")
 crash = NodePath("Bonk")
 hit_by_item = NodePath("HitByItem")
 
-[node name="Accelertating" parent="Audio Sources" instance=ExtResource("9_2ky60")]
+[node name="Accelertating" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_kidww")
+volume_db = -10.0
 
-[node name="Bonk" parent="Audio Sources" instance=ExtResource("9_2ky60")]
+[node name="Bonk" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 volume_db = -5.0
 
-[node name="Braking" parent="Audio Sources" instance=ExtResource("9_2ky60")]
-
-[node name="HitByItem" parent="Audio Sources" instance=ExtResource("9_2ky60")]
-stream = ExtResource("10_w2a2y")
-volume_db = -12.5
-
-[node name="Crash" parent="Audio Sources" instance=ExtResource("9_2ky60")]
+[node name="Crash" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 
-[connection signal="acceleration_update" from="." to="Audio Sources" method="_on_ball_kart_acceleration_update"]
+[node name="HitByItem" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
+stream = ExtResource("10_w2a2y")
+volume_db = -10.0
+
+[node name="DriftingSparks" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
+stream = ExtResource("14_nibch")
+
+[node name="Player Audio Sources" type="Node" parent="." node_paths=PackedStringArray("accelerating", "crash", "drift_sparks", "hit_by_item", "item_thrown", "item_use")]
+script = ExtResource("15_ists1")
+accelerating = NodePath("Accelerating")
+crash = NodePath("Crash")
+drift_sparks = NodePath("DriftingSparks")
+hit_by_item = NodePath("HitByItem")
+item_thrown = NodePath("ItemThrown")
+item_use = NodePath("ItemUse")
+
+[node name="Accelerating" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("10_kidww")
+volume_db = -10.0
+
+[node name="Bonk" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = SubResource("AudioStreamRandomizer_ngqaw")
+volume_db = -5.0
+
+[node name="Crash" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = SubResource("AudioStreamRandomizer_ngqaw")
+
+[node name="DriftingSparks" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("14_nibch")
+
+[node name="HitByItem" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("10_w2a2y")
+volume_db = -10.0
+
+[node name="ItemThrown" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("17_6qgsr")
+volume_db = 10.0
+
+[node name="ItemUse" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("17_053k3")
+
+[connection signal="acceleration_update" from="." to="AI Audio Sources" method="_on_ball_kart_acceleration_update"]
+[connection signal="acceleration_update" from="." to="Player Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="body_entered" from="." to="." method="on_crash_detected"]
 [connection signal="boost_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_boost_started"]
-[connection signal="crashed" from="." to="Audio Sources" method="_on_ball_kart_crashed"]
+[connection signal="crashed" from="." to="AI Audio Sources" method="_on_ball_kart_crashed"]
+[connection signal="crashed" from="." to="Player Audio Sources" method="_on_ball_kart_crashed"]
 [connection signal="drift_ended" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_ended"]
+[connection signal="drift_ended" from="." to="AI Audio Sources" method="_on_ball_kart_drift_ended"]
+[connection signal="drift_ended" from="." to="Player Audio Sources" method="_on_ball_kart_drift_ended"]
 [connection signal="drift_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_started"]
-[connection signal="hit_by_item" from="." to="Audio Sources" method="_on_ball_kart_hit_by_item"]
+[connection signal="drift_started" from="." to="AI Audio Sources" method="_on_ball_kart_drift_started"]
+[connection signal="drift_started" from="." to="Player Audio Sources" method="_on_ball_kart_drift_started"]
+[connection signal="hit_by_item" from="." to="AI Audio Sources" method="_on_ball_kart_hit_by_item"]
+[connection signal="hit_by_item" from="." to="Player Audio Sources" method="_on_ball_kart_hit_by_item"]
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="new_drift_mode" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_new_drift_mode"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
 [connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
-[connection signal="item_used" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="item_equipped" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="item_equipped" from="Scripts/ItemUser" to="Player Audio Sources" method="_on_item_user_item_used"]
+[connection signal="item_thrown" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
+[connection signal="item_thrown" from="Scripts/ItemUser" to="Player Audio Sources" method="_on_item_user_item_thrown"]
 [connection signal="area_entered" from="Kart/KartModel/CheckpointDetector" to="." method="_on_checkpoint_detector_area_entered"]

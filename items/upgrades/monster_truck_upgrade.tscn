@@ -5,6 +5,6 @@
 [node name="MonsterTruck" type="Node"]
 script = ExtResource("1_yakn5")
 increase_stat = 4
-increase_stat_amount = 5.0
+increase_stat_amount = 30.0
 decrease_stat = 2
-decrease_stat_amount = 3.0
+decrease_stat_amount = 0.5

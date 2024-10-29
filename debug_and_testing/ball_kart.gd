@@ -34,25 +34,25 @@ signal hit_by_item()
 var can_control: bool = true
 
 @export_group("Stats")
-var speed_cap = 120
-@export var max_speed : float = 60:
+var speed_cap = 100
+@export var max_speed : float = 50:
 	set(value):
 		max_speed = clamp(value, 0, speed_cap)
 		are_stats_updated()
 		
-var max_weight = 40
-@export var gravity : float = 10:
+var max_weight = 200
+@export var gravity : float = 100:
 	set(value):
 		gravity = clamp(value, 0, max_weight)
 		are_stats_updated()
 
 var max_acceleration = 6
-@export var acceleration : float = 1:
+@export var acceleration : float = 3:
 	set(value):
 		acceleration = clamp(value, 0, max_acceleration)
 		are_stats_updated()
 		
-@export var turn_speed : float = 16
+@export var turn_speed : float = 8
 
 var max_boost_strength = 6
 @export var boost_multiplier : float = 3:
@@ -60,10 +60,10 @@ var max_boost_strength = 6
 		boost_multiplier = clamp(value, 0, max_boost_strength)
 		are_stats_updated()
 
-@export var boost_acceleration : float = 10
+@export var boost_acceleration : float = 5
 
 var max_handling = 4
-@export var traction_coefficient : float = 1:
+@export var traction_coefficient : float = 2:
 	set(value):
 		traction_coefficient = clamp(value, 0, max_handling)
 		are_stats_updated()
@@ -196,7 +196,7 @@ func _physics_process(delta: float) -> void:
 		
 		#emit whetehr or not we're moving forward
 		#print(linear_velocity.length())
-		acceleration_update.emit(linear_velocity.length() > 1)
+		acceleration_update.emit(linear_velocity.length() > 1 and accelerating)
 		
 		# Sideways Drag
 		var vel = linear_velocity
@@ -252,7 +252,6 @@ func align_with_floor(floor_normal):
 	xform.basis = xform.basis.orthonormalized()
 
 func color_drift(): #This method handles drifting brackets (blue, orange, pink)
-	drift_started.emit()
 	if !first:
 		c = Color(0,0,0,0)
 		
@@ -270,6 +269,9 @@ func color_drift(): #This method handles drifting brackets (blue, orange, pink)
 		third = true;
 		c = turbo_colors[2]
 		drift_mode = 3
+	
+	if drift_power > 50:
+		drift_started.emit()
 
 func boost():
 	boost_started.emit()

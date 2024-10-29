@@ -173,9 +173,11 @@ func sort_karts_by_placement(a, b):
 
 
 func add_lap(kart : Kart):
+	$LapsIncreased.play()
 	kart_placements[kart].laps += 1
 	kart_placements[kart].checkpoints_crossed.clear()
 	if kart_placements[kart].laps == 4:
+		get_tree().paused = true
 		$DebugWin.show()
 
 

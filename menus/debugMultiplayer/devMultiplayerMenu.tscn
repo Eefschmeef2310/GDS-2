@@ -43,6 +43,7 @@ func _process(_delta):
 "
 
 [node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -50,10 +51,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
-controller_list = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList")
-no_controller_prompt = NodePath("MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList/NoControllerLabel")
+controller_list = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
+no_controller_prompt = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
+top_level = true
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -65,64 +67,90 @@ theme_override_constants/margin_top = 30
 theme_override_constants/margin_right = 30
 theme_override_constants/margin_bottom = 30
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="Title" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 0
-bbcode_enabled = true
-text = "[center][font_size=75][wave amp=50]Modline Drift Sprint 4 Edition!"
-fit_content = true
-
-[node name="Subtitle" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="Subtitle" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center]Press [i]E[/i] or [i]Start[/i] to Join! - Click to Remove"
 fit_content = true
 
-[node name="Panel" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ControllerList" type="VBoxContainer" parent="MarginContainer/VBoxContainer/Panel/MarginContainer"]
+[node name="ControllerList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="NoControllerLabel" type="Label" parent="MarginContainer/VBoxContainer/Panel/MarginContainer/ControllerList"]
+[node name="NoControllerLabel" type="Label" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList"]
 layout_mode = 2
 text = "~ No Controllers Connected ~"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 alignment = 1
 
-[node name="StartButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 modulate = Color(0, 0.75194, 0.220737, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Start Race!"
 script = SubResource("GDScript_n0lgt")
 
-[node name="FeedbackButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="FeedbackButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 modulate = Color(0.920769, 0.281647, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open Feedback Form"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 modulate = Color(0.993079, 0, 0.221936, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Quit"
 
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
-[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="Title" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Title" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Title"]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.643137)
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/shadow_offset_x = 4
+bbcode_enabled = true
+text = "[center][font_size=100][wave amp=50]Modline Drift 
+[font_size=75](Sprint 5 Edition)"
+fit_content = true
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

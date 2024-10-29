@@ -5,21 +5,21 @@ extends Control
 @export var no_controller_prompt : Label
 
 const MAX_PLAYERS : int = 8
+const DEV_MENU_VIEWPORT = preload("res://menus/dev_menu_viewport.tscn")
 
 var connected_controllers : Array[int]
+var created_viewport
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	created_viewport = DEV_MENU_VIEWPORT.instantiate()
+	add_child(created_viewport)
 	Input.joy_connection_changed.connect(_on_controller_changed)
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	handle_join_input()
 	no_controller_prompt.visible = connected_controllers.size() < 1
-		
-	pass
 
 func add_controller(controller_id : int):
 	connected_controllers.append(controller_id)
@@ -94,6 +94,8 @@ func get_unjoined_devices():
 #endregion
 
 func _on_start_button_pressed() -> void:
+	get_tree().paused = false
+	created_viewport.queue_free()
 	#send data to race manager thing
 	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
 	race_instance.connected_controllers = connected_controllers

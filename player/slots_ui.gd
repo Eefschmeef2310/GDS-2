@@ -25,9 +25,6 @@ extends MarginContainer
 #endregion
 
 #region Godot methods
-func _process(_delta):
-	#Runs per frame
-	pass
 #endregion
 
 #region Signal methods

@@ -1,10 +1,11 @@
-[gd_scene load_steps=18 format=3 uid="uid://ya4d7bvofid3"]
+[gd_scene load_steps=19 format=3 uid="uid://ya4d7bvofid3"]
 
 [ext_resource type="Script" path="res://item_boxes/item_box.gd" id="1_tqoeq"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="2_fwfxq"]
 [ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_i61nr"]
 [ext_resource type="Script" path="res://item_boxes/light.gd" id="3_s5714"]
 [ext_resource type="Script" path="res://item_boxes/particles.gd" id="5_fk6k0"]
+[ext_resource type="AudioStream" uid="uid://doql8a1b4qe01" path="res://audio/sound_effects/pick the item1.wav" id="6_qjxtp"]
 
 [sub_resource type="Shader" id="Shader_r5e82"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
@@ -82,20 +83,20 @@ void fragment() {
 	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
 	ROUGHNESS = roughness_tex * roughness;
 	//ALPHA *= albedo.a * albedo_tex.a;
-	
+
 	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
-	
+
 	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
 	angle = clamp(angle, 0, 1);
-	
+
 	vec3 color = angle * glitter_color.rgb;
 	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
-	
+
 	//Base colour gradient
 	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
-	
+
 	ALBEDO = albedo_color.rgb;
-	
+
 	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
 	EMISSION = color * emission_energy;
 }
@@ -117,7 +118,7 @@ shader_parameter/uv1_offset = Vector3(0, 0, 0)
 shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/noise_rotation_speed = 100.0
-shader_parameter/glitter_offset = 0.53
+shader_parameter/glitter_offset = 0.5
 shader_parameter/glitter_color = Color(0.525803, 0, 1, 1)
 shader_parameter/base_gradient_1 = Color(0.950952, 0.5, 1, 1)
 shader_parameter/base_gradient_2 = Color(0.463916, 0.270571, 0.642562, 1)
@@ -266,6 +267,20 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(1, 1, 1)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("BoxBroken")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_ixjep"]
 _data = {
@@ -293,6 +308,7 @@ mesh = NodePath("..")
 
 [node name="Sprite3D" type="Sprite3D" parent="MeshInstance3D"]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+visible = false
 cast_shadow = 0
 billboard = 1
 alpha_cut = 1
@@ -317,5 +333,10 @@ mesh = NodePath("../MeshInstance3D")
 libraries = {
 "": SubResource("AnimationLibrary_ixjep")
 }
+
+[node name="BoxBroken" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_qjxtp")
+volume_db = 5.0
+bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

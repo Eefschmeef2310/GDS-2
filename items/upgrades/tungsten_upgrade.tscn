@@ -5,5 +5,5 @@
 [node name="TungstenUpgrade" type="Node"]
 script = ExtResource("1_xf2er")
 increase_stat = 4
-increase_stat_amount = 3.0
-decrease_stat_amount = 3.0
+increase_stat_amount = 20.0
+decrease_stat_amount = 20.0

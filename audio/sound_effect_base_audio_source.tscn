@@ -1,0 +1,4 @@
+[gd_scene format=3 uid="uid://cfpb3grjrbey"]
+
+[node name="SoundEffect" type="AudioStreamPlayer"]
+bus = &"SFX"
