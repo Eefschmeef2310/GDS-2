@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bi143ovyc2636"]
+
+[sub_resource type="Gradient" id="Gradient_ogrdy"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_m7ui5"]
+gradient = SubResource("Gradient_ogrdy")
+fill_to = Vector2(1, 1)
+
+[node name="Decal" type="Decal"]
+size = Vector3(0.493164, 0.332275, 0.613525)
+texture_albedo = SubResource("GradientTexture2D_m7ui5")
+upper_fade = 0.0200958
+lower_fade = 0.011949
