@@ -8,6 +8,7 @@ signal speed_updated(speed : float)
 @export var data : PlayerData
 @export var speed_label : Label
 @export var placement_label : Label
+@export var checkpoints : Label
 
 @export var stats : Dictionary
 
@@ -31,9 +32,7 @@ func _physics_process(_delta):
 		var c = "Last checkpoint: " + str(ri.kart_placements[kart].last_checkpoint) + "\nCheckpoints: "
 		for check in ri.kart_placements[kart].checkpoints_crossed:
 			c += str(check) + ", "
-		$Checkpoints.text = c
-		
-		$IsBoosting.text = "BOOSTING" if !kart.boost_timer.is_stopped() else "not boosting"
+		checkpoints.text = c
 
 func _on_player_data_container_hand_updated() -> void:
 	hand.visible = data.inventory["hand"] != null

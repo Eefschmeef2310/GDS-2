@@ -337,6 +337,5 @@ libraries = {
 [node name="BoxBroken" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_qjxtp")
 volume_db = 5.0
-bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
