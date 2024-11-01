@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=4 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
+[ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
 
 [sub_resource type="GDScript" id="GDScript_n0lgt"]
 script/source = "extends Button
@@ -123,6 +124,7 @@ text = "Start Race!"
 script = SubResource("GDScript_n0lgt")
 
 [node name="FeedbackButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
+visible = false
 modulate = Color(0.920769, 0.281647, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
@@ -150,6 +152,11 @@ bbcode_enabled = true
 text = "[center][font_size=100][wave amp=50]Modline Drift 
 [font_size=75](Sprint 5 Edition)"
 fit_content = true
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5k28m")
+volume_db = -5.0
+autoplay = true
 
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]

@@ -161,6 +161,7 @@ text = "Back to Menu"
 script = SubResource("GDScript_2eq0k")
 
 [node name="FeedbackButton" type="Button" parent="DebugWin/VBoxContainer"]
+visible = false
 self_modulate = Color(1, 0.357633, 0.991534, 1)
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
@@ -227,9 +228,10 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+offset_left = 96.0
+offset_top = -316.0
+offset_right = 296.0
+offset_bottom = -116.0
 grow_vertical = 2
 script = ExtResource("4_32fo0")
 
