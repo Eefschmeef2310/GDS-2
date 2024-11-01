@@ -5,31 +5,31 @@
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="3_8uc2v"]
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart.gd" id="4_qrqgc"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dgpsy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_2gnq4"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dapwc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_oad8j"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_xmftc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_a54na"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hv3j7"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_mj4q0"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_5ttwd"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_e326t"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ltnj5"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_pi2vq"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_hx4sl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_h22xt"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_k8rpi"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xoxcc"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ektve"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_albr8"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htcxe"]
@@ -466,7 +466,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17274" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17273" index="0"]
-shape = SubResource("BoxShape3D_dgpsy")
+shape = SubResource("BoxShape3D_2gnq4")
 
 [node name="@Area3D@17275" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="1"]
 transform = Transform3D(0.215662, 0, 0.976468, 0, 1, 0, -0.976468, 0, 0.215662, -359.435, 0, -35.6971)
@@ -474,7 +474,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17276" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17275" index="0"]
-shape = SubResource("BoxShape3D_dapwc")
+shape = SubResource("BoxShape3D_oad8j")
 
 [node name="@Area3D@17277" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="2"]
 transform = Transform3D(-0.802513, 0, 0.596634, 0, 1, 0, -0.596634, 0, -0.802513, -246.288, 0, 47.511)
@@ -482,7 +482,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17278" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17277" index="0"]
-shape = SubResource("BoxShape3D_xmftc")
+shape = SubResource("BoxShape3D_a54na")
 
 [node name="@Area3D@17279" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="3"]
 transform = Transform3D(-0.862812, 0, 0.505525, 0, 1, 0, -0.505525, 0, -0.862812, -213.821, 0, 154.235)
@@ -490,7 +490,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17280" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17279" index="0"]
-shape = SubResource("BoxShape3D_hv3j7")
+shape = SubResource("BoxShape3D_mj4q0")
 
 [node name="@Area3D@17281" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="4"]
 transform = Transform3D(-0.320405, 0, -0.947281, 0, 1, 0, 0.947281, 0, -0.320405, -122.49, 0, 77.3401)
@@ -498,7 +498,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17282" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17281" index="0"]
-shape = SubResource("BoxShape3D_5ttwd")
+shape = SubResource("BoxShape3D_e326t")
 
 [node name="@Area3D@17283" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="5"]
 transform = Transform3D(-0.147311, 0, -0.98909, 0, 1, 0, 0.98909, 0, -0.147311, 22.4748, 0, 50.3682)
@@ -506,7 +506,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17284" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17283" index="0"]
-shape = SubResource("BoxShape3D_ltnj5")
+shape = SubResource("BoxShape3D_pi2vq")
 
 [node name="@Area3D@17285" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="6"]
 transform = Transform3D(-0.00925866, 0, -0.999957, 0, 1, 0, 0.999957, 0, -0.00925866, 143.669, 0, -50.9287)
@@ -514,7 +514,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17286" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17285" index="0"]
-shape = SubResource("BoxShape3D_hx4sl")
+shape = SubResource("BoxShape3D_h22xt")
 
 [node name="@Area3D@17287" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="7"]
 transform = Transform3D(0.259974, 0, -0.965616, 0, 1, 0, 0.965616, 0, 0.259974, 37.8503, 0, -148.608)
@@ -522,7 +522,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17288" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17287" index="0"]
-shape = SubResource("BoxShape3D_k8rpi")
+shape = SubResource("BoxShape3D_xoxcc")
 
 [node name="@Area3D@17289" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="8"]
 transform = Transform3D(0.079745, 0, 0.996815, 0, 1, 0, -0.996815, 0, 0.079745, -67.9689, 0, -103.386)
@@ -530,7 +530,7 @@ collision_layer = 2
 collision_mask = 0
 
 [node name="@CollisionShape3D@17290" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17289" index="0"]
-shape = SubResource("BoxShape3D_ektve")
+shape = SubResource("BoxShape3D_albr8")
 
 [node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox" index="2"]
 draw_pass_1 = SubResource("QuadMesh_btlr4")
@@ -556,14 +556,8 @@ visible = false
 [node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox5" index="2"]
 draw_pass_1 = SubResource("QuadMesh_tljr2")
 
-[node name="BoxBroken" parent="SubViewport/CanyonCourse/ItemBox5" index="4"]
-bus = &"Master"
-
 [node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox6" index="2"]
 draw_pass_1 = SubResource("QuadMesh_qqmj4")
-
-[node name="BoxBroken" parent="SubViewport/CanyonCourse/ItemBox6" index="4"]
-bus = &"Master"
 
 [node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox7" index="0"]
 mesh = SubResource("SphereMesh_78ws1")
@@ -571,17 +565,11 @@ mesh = SubResource("SphereMesh_78ws1")
 [node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox7" index="2"]
 draw_pass_1 = SubResource("QuadMesh_uaagn")
 
-[node name="BoxBroken" parent="SubViewport/CanyonCourse/ItemBox7" index="4"]
-bus = &"Master"
-
 [node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox8" index="0"]
 mesh = SubResource("SphereMesh_0ccoy")
 
 [node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox8" index="2"]
 draw_pass_1 = SubResource("QuadMesh_c1hr2")
-
-[node name="BoxBroken" parent="SubViewport/CanyonCourse/ItemBox8" index="4"]
-bus = &"Master"
 
 [node name="BallKart" parent="SubViewport" instance=ExtResource("3_8uc2v")]
 process_mode = 4
@@ -637,42 +625,6 @@ process_mode = 4
 
 [node name="weight" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="4"]
 process_mode = 4
-
-[node name="Accelertating" parent="SubViewport/BallKart/AI Audio Sources" index="0"]
-bus = &"Master"
-
-[node name="Bonk" parent="SubViewport/BallKart/AI Audio Sources" index="1"]
-bus = &"Master"
-
-[node name="Crash" parent="SubViewport/BallKart/AI Audio Sources" index="2"]
-bus = &"Master"
-
-[node name="HitByItem" parent="SubViewport/BallKart/AI Audio Sources" index="3"]
-bus = &"Master"
-
-[node name="DriftingSparks" parent="SubViewport/BallKart/AI Audio Sources" index="4"]
-bus = &"Master"
-
-[node name="Accelerating" parent="SubViewport/BallKart/Player Audio Sources" index="0"]
-bus = &"Master"
-
-[node name="Bonk" parent="SubViewport/BallKart/Player Audio Sources" index="1"]
-bus = &"Master"
-
-[node name="Crash" parent="SubViewport/BallKart/Player Audio Sources" index="2"]
-bus = &"Master"
-
-[node name="DriftingSparks" parent="SubViewport/BallKart/Player Audio Sources" index="3"]
-bus = &"Master"
-
-[node name="HitByItem" parent="SubViewport/BallKart/Player Audio Sources" index="4"]
-bus = &"Master"
-
-[node name="ItemThrown" parent="SubViewport/BallKart/Player Audio Sources" index="5"]
-bus = &"Master"
-
-[node name="ItemUse" parent="SubViewport/BallKart/Player Audio Sources" index="6"]
-bus = &"Master"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport/BallKart"]
 process_mode = 3

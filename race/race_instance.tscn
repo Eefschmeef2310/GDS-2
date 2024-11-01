@@ -1,13 +1,16 @@
-[gd_scene load_steps=19 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=22 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
 [ext_resource type="PackedScene" uid="uid://343m60taxeo2" path="res://cpu_stuff/cpu_kart.tscn" id="3_kkr21"]
 [ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="3_lgcxf"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
+[ext_resource type="Script" path="res://race/debug_win.gd" id="5_bmlpq"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
+[ext_resource type="AudioStream" uid="uid://digx6c5wruq5s" path="res://audio/music/AFTER.wav" id="6_q38y2"]
 [ext_resource type="Script" path="res://ui/curve_drawer.gd" id="6_ra1j6"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]
+[ext_resource type="AudioStream" uid="uid://ckk16ms0p4k55" path="res://audio/music/race (1).wav" id="7_prfy3"]
 [ext_resource type="AudioStream" uid="uid://c76l7eh8ry8ce" path="res://audio/sound_effects/circle count (next lap).wav" id="9_oxegi"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_vkluf"]
@@ -118,8 +121,11 @@ cpu_kart = ExtResource("3_kkr21")
 debug_start = true
 debug_start_course_scene = ExtResource("3_lgcxf")
 
-[node name="DebugWin" type="CanvasLayer" parent="."]
+[node name="DebugWin" type="CanvasLayer" parent="." node_paths=PackedStringArray("race_complete", "race_music")]
 visible = false
+script = ExtResource("5_bmlpq")
+race_complete = NodePath("RaceComplete")
+race_music = NodePath("RaceMusic")
 
 [node name="ColorRect" type="ColorRect" parent="DebugWin"]
 anchors_preset = 15
@@ -160,6 +166,15 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Open Feedback Form"
 script = SubResource("GDScript_xp6ve")
+
+[node name="RaceComplete" type="AudioStreamPlayer" parent="DebugWin"]
+stream = ExtResource("6_q38y2")
+volume_db = -5.0
+
+[node name="RaceMusic" type="AudioStreamPlayer" parent="DebugWin"]
+stream = ExtResource("7_prfy3")
+volume_db = -5.0
+autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -237,7 +252,7 @@ grow_vertical = 2
 position = Vector2(4, 4)
 curve = SubResource("Curve2D_bkdvv")
 script = ExtResource("6_ra1j6")
-colors = Array[Color]([Color(1, 1, 1, 0.827451)])
+colors = Array[Color]([Color(1, 1, 1, 0.678431)])
 
 [node name="FinishLine" type="Sprite2D" parent="CanvasLayer/Minimap"]
 position = Vector2(309, 92)
@@ -252,5 +267,6 @@ stream = ExtResource("6_wa3pu")
 [node name="LapsIncreased" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_oxegi")
 
+[connection signal="visibility_changed" from="DebugWin" to="DebugWin" method="_on_visibility_changed"]
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]
 [connection signal="pressed" from="DebugWin/VBoxContainer/FeedbackButton" to="DebugWin/VBoxContainer/FeedbackButton" method="_on_pressed"]

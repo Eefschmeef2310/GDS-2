@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cufgdt43hp4in"]
 
-[ext_resource type="AudioStream" uid="uid://8dnuyc6ovba2" path="res://menus/audio/music/02. Main Menu.mp3" id="1_3c3dx"]
 [ext_resource type="Script" path="res://menus/mainMenu/main_menu_script.gd" id="1_p4dfu"]
+[ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_0syua"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_i8ko2"]
 font_size = 80
@@ -163,8 +163,9 @@ mouse_filter = 2
 color = Color(0.128898, 1.82115e-05, 0.137505, 1)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationPlayer"]
-stream = ExtResource("1_3c3dx")
+stream = ExtResource("2_0syua")
 volume_db = -10.852
+autoplay = true
 
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/SingleButton" to="." method="_on_single_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/HBoxContainer/LocalButton" to="." method="_on_local_button_pressed"]

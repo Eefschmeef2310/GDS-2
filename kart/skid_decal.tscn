@@ -8,6 +8,7 @@ gradient = SubResource("Gradient_ogrdy")
 fill_to = Vector2(1, 1)
 
 [node name="Decal" type="Decal"]
+visible = false
 size = Vector3(0.493, 0.4, 0.614)
 texture_albedo = SubResource("GradientTexture2D_m7ui5")
 upper_fade = 0.0200958
