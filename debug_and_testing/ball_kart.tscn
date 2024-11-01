@@ -803,20 +803,25 @@ hit_by_item = NodePath("HitByItem")
 [node name="Accelertating" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_kidww")
 volume_db = -10.0
+bus = &"Master"
 
 [node name="Bonk" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 volume_db = -5.0
+bus = &"Master"
 
 [node name="Crash" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
+bus = &"Master"
 
 [node name="HitByItem" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("10_w2a2y")
 volume_db = -10.0
+bus = &"Master"
 
 [node name="DriftingSparks" parent="AI Audio Sources" instance=ExtResource("9_2ky60")]
 stream = ExtResource("14_nibch")
+bus = &"Master"
 
 [node name="Player Audio Sources" type="Node" parent="." node_paths=PackedStringArray("accelerating", "crash", "drift_sparks", "hit_by_item", "item_thrown", "item_use")]
 script = ExtResource("15_ists1")
@@ -830,27 +835,34 @@ item_use = NodePath("ItemUse")
 [node name="Accelerating" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("10_kidww")
 volume_db = -10.0
+bus = &"Master"
 
 [node name="Bonk" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 volume_db = -5.0
+bus = &"Master"
 
 [node name="Crash" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = SubResource("AudioStreamRandomizer_ngqaw")
+bus = &"Master"
 
 [node name="DriftingSparks" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("14_nibch")
+bus = &"Master"
 
 [node name="HitByItem" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("10_w2a2y")
 volume_db = -10.0
+bus = &"Master"
 
 [node name="ItemThrown" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("17_6qgsr")
 volume_db = 10.0
+bus = &"Master"
 
 [node name="ItemUse" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("17_053k3")
+bus = &"Master"
 
 [connection signal="acceleration_update" from="." to="AI Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="acceleration_update" from="." to="Player Audio Sources" method="_on_ball_kart_acceleration_update"]
