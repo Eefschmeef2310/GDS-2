@@ -583,6 +583,7 @@ streams_count = 1
 stream_0/stream = ExtResource("11_v4vut")
 
 [node name="BallKart" type="RigidBody3D" node_paths=PackedStringArray("data", "kart", "kart_model", "front_wheels", "back_wheels", "steering_wheel", "ray", "boost_timer", "player_ui") groups=["play_hit_sound_on_contact"]]
+process_mode = 1
 collision_layer = 4
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_1ruac")

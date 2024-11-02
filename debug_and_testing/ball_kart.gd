@@ -183,10 +183,10 @@ func _physics_process(delta: float) -> void:
 		
 		#Apply extra rotation for drifting
 		if !drifting:
-			kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , steer_axis * 15, kart_model.rotation_degrees.z), delta * 5)
+			kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0 , steer_axis * 15, kart_model.rotation_degrees.z), delta * 10)
 		else:
 			var control : float = remap_axis(steer_axis, .5, 2) if drift_direction == 1 else remap_axis(steer_axis, 2, .5)
-			kart_model.rotation_degrees = Vector3(0, move_toward(kart_model.rotation_degrees.y, (control * 15 * drift_direction), 10), 0)
+			kart_model.rotation_degrees = lerp(kart_model.rotation_degrees, Vector3(0, move_toward(kart_model.rotation_degrees.y, (control * 15 * drift_direction), 10), 0), delta * 10)
 		
 		###############################################################################################
 		
