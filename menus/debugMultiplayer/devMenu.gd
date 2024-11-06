@@ -15,11 +15,18 @@ func _ready() -> void:
 	created_viewport = DEV_MENU_VIEWPORT.instantiate()
 	add_child(created_viewport)
 	Input.joy_connection_changed.connect(_on_controller_changed)
+	#print(MultiplayerInput.device_actions)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	handle_join_input()
 	no_controller_prompt.visible = connected_controllers.size() < 1
+
+#func _input(event):
+	#for devices in Input.get_connected_joypads():
+		#if MultiplayerInput.get_action_name(devices, "equip") and \
+		#MultiplayerInput.is_action_just_pressed(devices, "equip"):
+			#print(devices)
 
 func add_controller(controller_id : int):
 	connected_controllers.append(controller_id)
