@@ -3,6 +3,8 @@ extends Control
 @export_subgroup("NodeRefences")
 @export var controller_list : VBoxContainer
 @export var no_controller_prompt : Label
+@export var start_button : Button
+@export var settings_menu : Control
 
 const MAX_PLAYERS : int = 8
 const DEV_MENU_VIEWPORT = preload("res://menus/dev_menu_viewport.tscn")
@@ -15,18 +17,12 @@ func _ready() -> void:
 	created_viewport = DEV_MENU_VIEWPORT.instantiate()
 	add_child(created_viewport)
 	Input.joy_connection_changed.connect(_on_controller_changed)
-	#print(MultiplayerInput.device_actions)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	handle_join_input()
 	no_controller_prompt.visible = connected_controllers.size() < 1
-
-#func _input(event):
-	#for devices in Input.get_connected_joypads():
-		#if MultiplayerInput.get_action_name(devices, "equip") and \
-		#MultiplayerInput.is_action_just_pressed(devices, "equip"):
-			#print(devices)
+	start_button.disabled = connected_controllers.size() < 1
 
 func add_controller(controller_id : int):
 	connected_controllers.append(controller_id)
@@ -39,8 +35,6 @@ func add_controller(controller_id : int):
 	controller_list.add_child(new_button)
 	# create button and bind to remove signal
 	pass
-
-	
 
 #remove disconnected controllers
 func _on_controller_changed(device : int, connected : bool):
@@ -111,13 +105,12 @@ func _on_start_button_pressed() -> void:
 	
 	pass # Replace with function body.
 
-
 func _on_feedback_button_pressed() -> void:
 	#load feedback form
 	OS.shell_open("https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform")
-	pass # Replace with function body.
-
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-	pass # Replace with function body.
+
+func _on_settings_button_pressed() -> void:
+	settings_menu.show()

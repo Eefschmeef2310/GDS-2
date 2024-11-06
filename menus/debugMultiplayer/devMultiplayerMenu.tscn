@@ -1,7 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=7 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
+[ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="3_jxdip"]
+[ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="3_unc12"]
 
 [sub_resource type="GDScript" id="GDScript_n0lgt"]
 script/source = "extends Button
@@ -43,7 +45,14 @@ func _process(_delta):
 #endregion
 "
 
-[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1d3fn"]
+bg_color = Color(0.262397, 0.262397, 0.262397, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt", "start_button", "settings_menu")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -52,8 +61,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
-controller_list = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
-no_controller_prompt = NodePath("MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
+controller_list = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
+no_controller_prompt = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
+start_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton")
+settings_menu = NodePath("Settings")
+
+[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5k28m")
+volume_db = -5.0
+autoplay = true
+bus = &"Music"
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 top_level = true
@@ -71,69 +88,81 @@ theme_override_constants/margin_bottom = 30
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 layout_mode = 2
 
-[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+alignment = 1
+
+[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 4
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 25
 theme_override_constants/margin_top = 25
 theme_override_constants/margin_right = 25
 theme_override_constants/margin_bottom = 25
 
-[node name="Buttons" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer"]
+[node name="Buttons" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Subtitle" type="RichTextLabel" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
+[node name="Subtitle" type="RichTextLabel" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[center]Press [i]E[/i] or [i]Start[/i] to Join! - Click to Remove"
 fit_content = true
 
-[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
+[node name="Panel" type="PanelContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 10
 
-[node name="ControllerList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer"]
+[node name="ControllerList" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer"]
 layout_mode = 2
 
-[node name="NoControllerLabel" type="Label" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList"]
+[node name="NoControllerLabel" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList"]
 layout_mode = 2
 text = "~ No Controllers Connected ~"
 horizontal_alignment = 1
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons"]
 layout_mode = 2
 alignment = 1
 
-[node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
+[node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 modulate = Color(0, 0.75194, 0.220737, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Start Race!"
 script = SubResource("GDScript_n0lgt")
 
-[node name="FeedbackButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
+[node name="FeedbackButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 visible = false
 modulate = Color(0.920769, 0.281647, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open Feedback Form"
 
-[node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
+[node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 modulate = Color(0.993079, 0, 0.221936, 1)
 layout_mode = 2
 size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
 text = "Quit"
 
 [node name="Title" type="VBoxContainer" parent="MarginContainer/HBoxContainer"]
@@ -153,11 +182,111 @@ text = "[center][font_size=100][wave amp=50]Modline Drift
 [font_size=75](Sprint 5 Edition)"
 fit_content = true
 
-[node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("2_5k28m")
-volume_db = -5.0
-autoplay = true
+[node name="Settings" type="MarginContainer" parent="." node_paths=PackedStringArray("settings_button", "focus_slider")]
+visible = false
+top_level = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+script = ExtResource("3_jxdip")
+settings_button = NodePath("../MarginContainer/HBoxContainer/VBoxContainer/SettingsButton")
+focus_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders/MasterSlider")
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
-[connection signal="pressed" from="MarginContainer/HBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[node name="PanelContainer" type="PanelContainer" parent="Settings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1d3fn")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Settings" type="HBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings"]
+custom_minimum_size = Vector2(291.51, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Master Volume"
+
+[node name="Label2" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music Volume"
+
+[node name="Label3" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SFX Volume"
+
+[node name="Sliders" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("3_unc12")
+bus_name = "Master"
+
+[node name="MusicSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("3_unc12")
+bus_name = "Music"
+
+[node name="SFXSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("3_unc12")
+bus_name = "SFX"
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_right = 300
+
+[node name="Back" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="visibility_changed" from="Settings" to="Settings" method="_on_visibility_changed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="Settings" method="_on_back_pressed"]

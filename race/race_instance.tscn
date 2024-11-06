@@ -114,18 +114,19 @@ _data = {
 [sub_resource type="Curve2D" id="Curve2D_bkdvv"]
 
 [node name="RaceInstance" type="Node"]
-process_mode = 3
+process_mode = 1
 script = ExtResource("1_0d5f1")
 kart_scene = ExtResource("2_me725")
 cpu_kart = ExtResource("3_kkr21")
 debug_start = true
 debug_start_course_scene = ExtResource("3_lgcxf")
 
-[node name="DebugWin" type="CanvasLayer" parent="." node_paths=PackedStringArray("race_complete", "race_music")]
+[node name="DebugWin" type="CanvasLayer" parent="." node_paths=PackedStringArray("race_complete", "race_music", "button")]
 visible = false
 script = ExtResource("5_bmlpq")
 race_complete = NodePath("RaceComplete")
 race_music = NodePath("RaceMusic")
+button = NodePath("VBoxContainer/ResetButton")
 
 [node name="ColorRect" type="ColorRect" parent="DebugWin"]
 anchors_preset = 15
