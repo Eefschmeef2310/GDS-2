@@ -289,7 +289,7 @@ _data = {
 }
 
 [node name="ItemBox" type="Area3D" node_paths=PackedStringArray("animation_player")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_tqoeq")
@@ -337,6 +337,5 @@ libraries = {
 [node name="BoxBroken" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_qjxtp")
 volume_db = 5.0
-bus = &"SFX"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

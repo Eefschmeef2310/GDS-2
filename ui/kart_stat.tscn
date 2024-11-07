@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://ui/kart_stat.gd" id="1_45p3u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_cgjw4"]
-font_size = 10
+font_size = 15
 
 [node name="Stat" type="VBoxContainer" node_paths=PackedStringArray("progress_bar")]
 custom_minimum_size = Vector2(100, 0)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=15 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
@@ -48,6 +48,9 @@ func update_polygon():
 		polygon = points
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhf34"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
 [sub_resource type="LabelSettings" id="LabelSettings_fpday"]
 font_size = 30
 
@@ -66,12 +69,13 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label", "placement_label")]
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label", "placement_label", "checkpoints")]
 script = ExtResource("1_u0skn")
 hand = NodePath("Hand")
 slots = NodePath("PanelContainer/MarginContainer")
 speed_label = NodePath("Speedometer/SpeedContainer/SpeedLabel")
 placement_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/PlacementLabel")
+checkpoints = NodePath("Checkpoints")
 stats = {
 "Acceleration": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
 "Boost Strength": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
@@ -318,6 +322,7 @@ horizontal_alignment = 1
 [node name="Current Item" type="PanelContainer" parent="Hand"]
 custom_minimum_size = Vector2(130, 100)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_lhf34")
 
 [node name="MarginContainer" type="MarginContainer" parent="Hand/Current Item"]
 layout_mode = 2

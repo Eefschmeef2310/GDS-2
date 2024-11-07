@@ -583,6 +583,7 @@ streams_count = 1
 stream_0/stream = ExtResource("11_v4vut")
 
 [node name="BallKart" type="RigidBody3D" node_paths=PackedStringArray("data", "kart", "kart_model", "front_wheels", "back_wheels", "steering_wheel", "ray", "boost_timer", "player_ui") groups=["play_hit_sound_on_contact"]]
+process_mode = 1
 collision_layer = 4
 collision_mask = 5
 physics_material_override = SubResource("PhysicsMaterial_1ruac")
@@ -675,10 +676,11 @@ transform = Transform3D(0.930418, 0.366501, 0, -0.366501, 0.930418, 0, 0, 0, -1,
 mesh = SubResource("ArrayMesh_xlfdd")
 surface_material_override/0 = SubResource("StandardMaterial3D_utx2h")
 
-[node name="Particles" type="Node3D" parent="Kart/KartModel" node_paths=PackedStringArray("wheel_particles", "thrust_particles")]
+[node name="Particles" type="Node3D" parent="Kart/KartModel" node_paths=PackedStringArray("wheel_particles", "thrust_particles", "decal_spawn_points")]
 script = ExtResource("4_3noue")
 wheel_particles = [NodePath("BackLeft/Glow"), NodePath("BackRight/Glow"), NodePath("BackRight/BigSparks"), NodePath("BackLeft/BigSparks"), NodePath("BackLeft/Sparks"), NodePath("BackRight/Sparks")]
 thrust_particles = [NodePath("BackLeft/Thrust"), NodePath("BackRight/Thrust")]
+decal_spawn_points = [NodePath("BackLeft/DecalSpawnPoint"), NodePath("BackRight/DecalSpawnPoint")]
 
 [node name="BackLeft" type="Node3D" parent="Kart/KartModel/Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.1, -1)
@@ -725,6 +727,9 @@ transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_h78ex")
 draw_pass_1 = SubResource("QuadMesh_os3l4")
 
+[node name="DecalSpawnPoint" type="Marker3D" parent="Kart/KartModel/Particles/BackLeft"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.3)
+
 [node name="BackRight" type="Node3D" parent="Kart/KartModel/Particles"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9, 0.1, 1.2)
 
@@ -769,6 +774,9 @@ local_coords = true
 transform_align = 1
 process_material = SubResource("ParticleProcessMaterial_h78ex")
 draw_pass_1 = SubResource("QuadMesh_os3l4")
+
+[node name="DecalSpawnPoint" type="Marker3D" parent="Kart/KartModel/Particles/BackRight"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.3)
 
 [node name="CheckpointDetector" type="Area3D" parent="Kart/KartModel"]
 transform = Transform3D(-1, 0, 1.50996e-07, 0, 1, 0, -1.50996e-07, 0, -1, 0, 0, 0)
@@ -870,6 +878,7 @@ bus = &"Master"
 [connection signal="boost_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_boost_started"]
 [connection signal="crashed" from="." to="AI Audio Sources" method="_on_ball_kart_crashed"]
 [connection signal="crashed" from="." to="Player Audio Sources" method="_on_ball_kart_crashed"]
+[connection signal="drift_continuing" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_continuing"]
 [connection signal="drift_ended" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_ended"]
 [connection signal="drift_ended" from="." to="AI Audio Sources" method="_on_ball_kart_drift_ended"]
 [connection signal="drift_ended" from="." to="Player Audio Sources" method="_on_ball_kart_drift_ended"]
