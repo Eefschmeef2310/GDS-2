@@ -1,5 +1,7 @@
 extends Control
 
+signal button_pressed()
+
 @export_subgroup("NodeRefences")
 @export var controller_list : VBoxContainer
 @export var no_controller_prompt : Label
@@ -34,6 +36,7 @@ func add_controller(controller_id : int):
 	new_button.pressed.connect(func(): _on_controller_changed(controller_id, false))
 	controller_list.add_child(new_button)
 	# create button and bind to remove signal
+	button_pressed.emit()
 	pass
 
 #remove disconnected controllers

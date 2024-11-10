@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://cm1lx10pvoyva"]
+[gd_scene load_steps=11 format=3 uid="uid://cm1lx10pvoyva"]
 
 [ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_01uuy"]
 [ext_resource type="Script" path="res://menus/pause_menu/pause_menu.gd" id="1_elche"]
+[ext_resource type="PackedScene" uid="uid://crrtfeywvjvc4" path="res://ui/button_pressed.tscn" id="2_uybij"]
 [ext_resource type="Script" path="res://menus/pause_menu/quit_warning.gd" id="3_r3vys"]
 [ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="4_7pxnp"]
 [ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="5_othla"]
@@ -37,6 +38,8 @@ script = ExtResource("1_elche")
 quit_warning = NodePath("QuitWarning")
 continue_button = NodePath("PauseMenu/MarginContainer/Continue")
 settings_menu = NodePath("Settings")
+
+[node name="ButtonPressed" parent="." instance=ExtResource("2_uybij")]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_plk2x")
@@ -242,10 +245,16 @@ theme_override_font_sizes/font_size = 32
 text = "Back"
 
 [connection signal="pressed" from="PauseMenu/MarginContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer/Continue" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer3/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer3/Settings" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="PauseMenu/MarginContainer2/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer2/Quit" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="visibility_changed" from="QuitWarning" to="QuitWarning" method="_on_visibility_changed"]
 [connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/No" to="QuitWarning" method="_on_no_pressed"]
+[connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/No" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Yes" to="QuitWarning" method="_on_yes_pressed"]
+[connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Yes" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="visibility_changed" from="Settings" to="Settings" method="_on_visibility_changed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="Settings" method="_on_back_pressed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="ButtonPressed" method="on_button_pressed"]

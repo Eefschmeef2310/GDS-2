@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=96 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cfpb3grjrbey" path="res://audio/sound_effect_base_audio_source.tscn" id="16_mvrpf"]
 [ext_resource type="AudioStream" uid="uid://nxyp8t6oskwd" path="res://audio/sound_effects/throwing item2.wav" id="17_6qgsr"]
 [ext_resource type="AudioStream" uid="uid://bwxihrh0pdbo6" path="res://audio/sound_effects/Item attach.wav" id="17_053k3"]
+[ext_resource type="AudioStream" uid="uid://dinsqht71jx15" path="res://audio/sound_effects/drift 2.wav" id="17_jajs7"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
@@ -831,7 +832,7 @@ bus = &"Master"
 stream = ExtResource("14_nibch")
 bus = &"Master"
 
-[node name="Player Audio Sources" type="Node" parent="." node_paths=PackedStringArray("accelerating", "crash", "drift_sparks", "hit_by_item", "item_thrown", "item_use")]
+[node name="Player Audio Sources" type="Node" parent="." node_paths=PackedStringArray("accelerating", "crash", "drift_sparks", "hit_by_item", "item_thrown", "item_use", "boosted")]
 script = ExtResource("15_ists1")
 accelerating = NodePath("Accelerating")
 crash = NodePath("Crash")
@@ -839,6 +840,7 @@ drift_sparks = NodePath("DriftingSparks")
 hit_by_item = NodePath("HitByItem")
 item_thrown = NodePath("ItemThrown")
 item_use = NodePath("ItemUse")
+boosted = NodePath("DriftBoost")
 
 [node name="Accelerating" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("10_kidww")
@@ -854,6 +856,10 @@ bus = &"Master"
 stream = SubResource("AudioStreamRandomizer_ngqaw")
 bus = &"Master"
 
+[node name="DriftBoost" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
+stream = ExtResource("17_jajs7")
+volume_db = 15.0
+
 [node name="DriftingSparks" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("14_nibch")
 bus = &"Master"
@@ -865,7 +871,7 @@ bus = &"Master"
 
 [node name="ItemThrown" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
 stream = ExtResource("17_6qgsr")
-volume_db = 10.0
+volume_db = 7.5
 bus = &"Master"
 
 [node name="ItemUse" parent="Player Audio Sources" instance=ExtResource("16_mvrpf")]
@@ -876,6 +882,7 @@ bus = &"Master"
 [connection signal="acceleration_update" from="." to="Player Audio Sources" method="_on_ball_kart_acceleration_update"]
 [connection signal="body_entered" from="." to="." method="on_crash_detected"]
 [connection signal="boost_started" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_boost_started"]
+[connection signal="boost_started" from="." to="Player Audio Sources" method="_on_ball_kart_boost_started"]
 [connection signal="crashed" from="." to="AI Audio Sources" method="_on_ball_kart_crashed"]
 [connection signal="crashed" from="." to="Player Audio Sources" method="_on_ball_kart_crashed"]
 [connection signal="drift_continuing" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_drift_continuing"]
