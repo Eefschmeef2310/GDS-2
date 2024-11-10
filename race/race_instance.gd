@@ -50,7 +50,7 @@ func _ready():
 		
 		#number_of_racers = connected_controllers.size()
 		
-		start_race()
+	start_race()
 
 
 func _physics_process(_delta):

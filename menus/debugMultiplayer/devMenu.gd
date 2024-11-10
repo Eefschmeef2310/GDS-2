@@ -7,12 +7,15 @@ signal button_pressed()
 @export var no_controller_prompt : Label
 @export var start_button : Button
 @export var settings_menu : Control
+@export var track_container : Control
 
 const MAX_PLAYERS : int = 8
 const DEV_MENU_VIEWPORT = preload("res://menus/dev_menu_viewport.tscn")
 
 var connected_controllers : Array[int]
 var created_viewport
+
+var selected_track : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -102,7 +105,10 @@ func _on_start_button_pressed() -> void:
 	created_viewport.queue_free()
 	#send data to race manager thing
 	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
+	race_instance.debug_start = false
 	race_instance.connected_controllers = connected_controllers
+	race_instance.course_scene = track_container.get_child(selected_track).track_scene
+	race_instance.number_of_racers = 8
 	add_child(race_instance)
 	process_mode = PROCESS_MODE_DISABLED
 	
