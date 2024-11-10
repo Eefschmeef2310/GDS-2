@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=8 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
 [ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="3_jxdip"]
 [ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="3_unc12"]
+[ext_resource type="PackedScene" uid="uid://crrtfeywvjvc4" path="res://ui/button_pressed.tscn" id="3_ytlcv"]
 
 [sub_resource type="GDScript" id="GDScript_n0lgt"]
 script/source = "extends Button
@@ -71,6 +72,8 @@ stream = ExtResource("2_5k28m")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
+
+[node name="ButtonPressed" parent="." instance=ExtResource("3_ytlcv")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 top_level = true
@@ -284,9 +287,14 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Back"
 
+[connection signal="button_pressed" from="." to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/SettingsButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="visibility_changed" from="Settings" to="Settings" method="_on_visibility_changed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="Settings" method="_on_back_pressed"]
