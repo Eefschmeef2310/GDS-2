@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
 [ext_resource type="PackedScene" uid="uid://343m60taxeo2" path="res://cpu_stuff/cpu_kart.tscn" id="3_kkr21"]
-[ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="3_lgcxf"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
+[ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="4_uouit"]
 [ext_resource type="Script" path="res://race/debug_win.gd" id="5_bmlpq"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
 [ext_resource type="AudioStream" uid="uid://digx6c5wruq5s" path="res://audio/music/AFTER.wav" id="6_q38y2"]
@@ -119,7 +119,7 @@ script = ExtResource("1_0d5f1")
 kart_scene = ExtResource("2_me725")
 cpu_kart = ExtResource("3_kkr21")
 debug_start = true
-debug_start_course_scene = ExtResource("3_lgcxf")
+debug_start_course_scene = ExtResource("4_uouit")
 
 [node name="DebugWin" type="CanvasLayer" parent="." node_paths=PackedStringArray("race_complete", "race_music", "button")]
 visible = false
