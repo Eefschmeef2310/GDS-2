@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://yqm5q2c2w3ln"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xsj4v"]
+emission_shape_scale = Vector3(0, 1, 0)
+spread = 180.0
+initial_velocity_min = 5.0
+initial_velocity_max = 10.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_mde2j"]
+
+[sub_resource type="GDScript" id="GDScript_0o7nt"]
+resource_name = "explosion_particles"
+script/source = "extends GPUParticles3D
+#Authored by Ethan. Please consult for any modifications or major feature requests.
+
+func _ready():
+	emitting = true
+
+func _on_finished() -> void:
+	queue_free()
+"
+
+[node name="ExplosionParticles" type="GPUParticles3D"]
+emitting = false
+amount = 20
+one_shot = true
+explosiveness = 1.0
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_xsj4v")
+draw_pass_1 = SubResource("QuadMesh_mde2j")
+script = SubResource("GDScript_0o7nt")
+
+[connection signal="finished" from="." to="." method="_on_finished"]

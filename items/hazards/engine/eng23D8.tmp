@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://ugmoryxtdxdn"]
+
+[ext_resource type="Script" path="res://items/hazards/engine/engine_hazard.gd" id="1_rv451"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_nmiir"]
+radius = 7.0
+
+[node name="EngineHazard" type="Area3D"]
+script = ExtResource("1_rv451")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_nmiir")
+
+[node name="ExplosionTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="KillTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="." to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

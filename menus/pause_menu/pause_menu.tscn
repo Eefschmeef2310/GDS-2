@@ -1,0 +1,251 @@
+[gd_scene load_steps=10 format=3 uid="uid://cm1lx10pvoyva"]
+
+[ext_resource type="Shader" path="res://shaders/blur.gdshader" id="1_01uuy"]
+[ext_resource type="Script" path="res://menus/pause_menu/pause_menu.gd" id="1_elche"]
+[ext_resource type="Script" path="res://menus/pause_menu/quit_warning.gd" id="3_r3vys"]
+[ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="4_7pxnp"]
+[ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="5_othla"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_plk2x"]
+shader = ExtResource("1_01uuy")
+shader_parameter/Directions = 16.0
+shader_parameter/Quality = 2.9
+shader_parameter/Size = 8.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_26xpm"]
+font_size = 256
+shadow_color = Color(0, 0, 0, 1)
+shadow_offset = Vector2(5, 5)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ysqdj"]
+bg_color = Color(0.262397, 0.262397, 0.262397, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0lnj0"]
+bg_color = Color(0.262397, 0.262397, 0.262397, 1)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[node name="PauseMenu" type="CanvasLayer" node_paths=PackedStringArray("quit_warning", "continue_button", "settings_menu")]
+process_mode = 3
+script = ExtResource("1_elche")
+quit_warning = NodePath("QuitWarning")
+continue_button = NodePath("PauseMenu/MarginContainer/Continue")
+settings_menu = NodePath("Settings")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_plk2x")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PauseMenu" type="VBoxContainer" parent="."]
+offset_right = 1920.0
+offset_bottom = 1080.0
+theme_override_constants/separation = 50
+alignment = 1
+
+[node name="Label" type="Label" parent="PauseMenu"]
+layout_mode = 2
+text = "PAUSED"
+label_settings = SubResource("LabelSettings_26xpm")
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_right = 500
+
+[node name="Continue" type="Button" parent="PauseMenu/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="MarginContainer3" type="MarginContainer" parent="PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_right = 500
+
+[node name="Settings" type="Button" parent="PauseMenu/MarginContainer3"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Settings"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PauseMenu"]
+layout_mode = 2
+theme_override_constants/margin_left = 500
+theme_override_constants/margin_right = 500
+
+[node name="Quit" type="Button" parent="PauseMenu/MarginContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Quit"
+
+[node name="QuitWarning" type="MarginContainer" parent="." node_paths=PackedStringArray("no_button", "quit_button")]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+script = ExtResource("3_r3vys")
+no_button = NodePath("PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/No")
+quit_button = NodePath("../PauseMenu/MarginContainer2/Quit")
+
+[node name="PanelContainer" type="PanelContainer" parent="QuitWarning"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ysqdj")
+
+[node name="MarginContainer" type="MarginContainer" parent="QuitWarning/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="QuitWarning/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 45
+alignment = 1
+
+[node name="Label" type="Label" parent="QuitWarning/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 80
+text = "Are you sure you want to quit?"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="QuitWarning/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="No" type="Button" parent="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "No"
+
+[node name="Yes" type="Button" parent="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 64
+text = "Yes"
+
+[node name="Settings" type="MarginContainer" parent="." node_paths=PackedStringArray("settings_button", "focus_slider")]
+visible = false
+top_level = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 200
+theme_override_constants/margin_top = 100
+theme_override_constants/margin_right = 200
+theme_override_constants/margin_bottom = 100
+script = ExtResource("4_7pxnp")
+settings_button = NodePath("../PauseMenu/MarginContainer3/Settings")
+focus_slider = NodePath("PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders/MasterSlider")
+
+[node name="PanelContainer" type="PanelContainer" parent="Settings"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0lnj0")
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 100
+theme_override_constants/margin_right = 100
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 100
+alignment = 1
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 128
+text = "Settings"
+horizontal_alignment = 1
+
+[node name="Settings" type="HBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Labels" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings"]
+custom_minimum_size = Vector2(291.51, 0)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Master Volume"
+
+[node name="Label2" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Music Volume"
+
+[node name="Label3" type="Label" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Labels"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "SFX Volume"
+
+[node name="Sliders" type="VBoxContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="MasterSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("5_othla")
+bus_name = "Master"
+
+[node name="MusicSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("5_othla")
+bus_name = "Music"
+
+[node name="SFXSlider" type="HSlider" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/Settings/Sliders"]
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+tick_count = 11
+ticks_on_borders = true
+script = ExtResource("5_othla")
+bus_name = "SFX"
+
+[node name="MarginContainer" type="MarginContainer" parent="Settings/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 300
+theme_override_constants/margin_right = 300
+
+[node name="Back" type="Button" parent="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Back"
+
+[connection signal="pressed" from="PauseMenu/MarginContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer3/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="PauseMenu/MarginContainer2/Quit" to="." method="_on_quit_pressed"]
+[connection signal="visibility_changed" from="QuitWarning" to="QuitWarning" method="_on_visibility_changed"]
+[connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/No" to="QuitWarning" method="_on_no_pressed"]
+[connection signal="pressed" from="QuitWarning/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Yes" to="QuitWarning" method="_on_yes_pressed"]
+[connection signal="visibility_changed" from="Settings" to="Settings" method="_on_visibility_changed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="Settings" method="_on_back_pressed"]

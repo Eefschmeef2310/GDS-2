@@ -20,6 +20,7 @@ extends GridContainer
 @export var stat: Label
 @export var item_name : Label
 @export_subgroup("Throw")
+@export var throw_item_type : Label
 
 	#Onready Variables
 
@@ -29,15 +30,20 @@ extends GridContainer
 
 #region Other methods (please try to separate and organise!)
 func update(data : PlayerData):
-	var current_item = data.inventory[data.inventory["hand"].type]
-	if current_item: #If slot already exists
-		current_slot_desc.visible = current_item != null
-		current_slot_desc.text = "+ " + current_item.up_stat + "\n- " + current_item.down_stat
-		current_slot_name.text = current_item.item_name
-	else:
-		current_slot_name.text = "Nothing\nequipped!"
+	if data.inventory["hand"]:
+		#Update throw text
+		throw_item_type.text = Item.Part.keys()[data.inventory["hand"].type]
 		
-	#Update hand section
-	item_name.text = data.inventory["hand"].item_name
-	stat.text = "+ " + data.inventory["hand"].up_stat + "\n- " + data.inventory["hand"].down_stat
+		#Update currently equipped item
+		var current_item = data.inventory[data.inventory["hand"].type]
+		if current_item: #If slot already exists
+			current_slot_desc.visible = current_item != null
+			current_slot_desc.text = "+ " + Item.Stat.keys()[current_item.up_stat] + "\n- " + Item.Stat.keys()[current_item.down_stat]
+			current_slot_name.text = current_item.item_name
+		else:
+			current_slot_name.text = "Nothing\nequipped!"
+			
+		#Update hand section
+		item_name.text = data.inventory["hand"].item_name
+		stat.text = "+ " + Item.Stat.keys()[data.inventory["hand"].up_stat] + "\n- " + Item.Stat.keys()[data.inventory["hand"].down_stat]
 #endregion

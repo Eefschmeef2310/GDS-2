@@ -22,6 +22,7 @@ var total_laps : int = 3
 var race_timer : float
 
 @export var kart_scene : PackedScene
+@export var cpu_kart: PackedScene
 
 @export_group("Debug Start")
 @export var debug_start : bool = false
@@ -35,6 +36,7 @@ var course_scene : PackedScene
 var number_of_racers : int = 8
 
 var countdown_timer = 3.0
+var countdown_started = false
 
 @onready var minimap: Minimap = $CanvasLayer/Minimap
 @onready var minimap_path: Path2D = $CanvasLayer/Minimap/Path2D
@@ -46,6 +48,8 @@ func _ready():
 		course_scene = debug_start_course_scene
 		number_of_racers = debug_start_number_of_racers
 		
+		#number_of_racers = connected_controllers.size()
+		
 		start_race()
 
 
@@ -55,6 +59,9 @@ func _physics_process(_delta):
 func _process(delta):
 	if !$DebugWin.visible:
 		race_timer += delta
+		if !countdown_started:
+			$Countdown.play()
+			countdown_started = true
 	
 	if countdown_timer > -1:
 		var still_counting = countdown_timer > 0
@@ -89,15 +96,21 @@ func start_race():
 	# start tracking the race and shit
 	# probably an rpc call in here too
 	
+	
 	course = course_scene.instantiate()
 	add_child(course)
 	#course.camera.current = false
 	var check_count = course.track.curve.point_count - 1
 	
 	for n in number_of_racers:
-		var new_kart : Kart = kart_scene.instantiate()
+		
+		if n >= connected_controllers.size():
+			continue
+		
+		var new_kart : Kart = kart_scene.instantiate() if(n < connected_controllers.size()) else cpu_kart.instantiate()
+		#var new_kart : Kart = kart_scene.instantiate()
 		new_kart.position = course.kart_spawns.get_child(n).position
-		new_kart.rotation = course.kart_spawns.get_child(n).rotation
+		new_kart.kart.rotation = course.kart_spawns.get_child(n).rotation
 		new_kart.can_control = false
 		
 		new_kart.checkpoint_passed.connect(_on_kart_checkpoint_passed)
@@ -117,6 +130,9 @@ func start_race():
 				minimap.set_centre()
 		else:
 			new_kart.name = debug_names[0]
+			new_kart.max_speed = randf_range(15, 25)
+			new_kart.turn_speed = randf_range(8, 15)
+			new_kart.acceleration = randf_range(0.1, 2)
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
 	
@@ -130,7 +146,7 @@ func release_karts():
 
 func update_kart_placements():
 	for kart in kart_placements.keys():
-		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.ball.global_position)
+		kart_placements[kart].track_offset = course.get_track_closest_offset(kart.global_position)
 	
 	karts_sorted.sort_custom(sort_karts_by_placement)
 	
@@ -157,9 +173,11 @@ func sort_karts_by_placement(a, b):
 
 
 func add_lap(kart : Kart):
+	$LapsIncreased.play()
 	kart_placements[kart].laps += 1
 	kart_placements[kart].checkpoints_crossed.clear()
 	if kart_placements[kart].laps == 4:
+		get_tree().paused = true
 		$DebugWin.show()
 
 
@@ -215,12 +233,31 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 func create_minimap_from_curve():
 	var big_extents : Array[float] = course.get_track_extents()
 	var small_extents : Array[float] = [0., minimap.custom_minimum_size.x, 0., minimap.custom_minimum_size.y]
-	var scalar = (small_extents[1] - small_extents[0]) / (big_extents[1] - big_extents[0]) 
+	
+	# Extrapolate big extents so that it is always square
+	var x_len = big_extents[1] - big_extents[0]
+	var z_len = big_extents[3] - big_extents[2]
+	var big_aspect = x_len/z_len
+	
+	#print(x_len)
+	#print(z_len)
+	#print(big_aspect)
+	
+	if big_aspect > 1: # longer x than z
+		big_extents[2] *= big_aspect
+		big_extents[3] *= big_aspect
+	elif big_aspect < 1: # longer z than x
+		big_extents[0] *= big_aspect
+		big_extents[1] *= big_aspect
+	else: # completely square, do nothing
+		pass
+	
+	var scalar = (small_extents[1] - small_extents[0]) / (big_extents[1] - big_extents[0])
 	
 	minimap.big_extents = big_extents
 	minimap.small_extents = small_extents
 	
-	var add_point_function = func add_point(n, ignore_in_out : bool = false):
+	var add_point_function = func add_point(n, use_in, use_out):
 		var point = course.track.curve.get_point_position(n)
 		
 		var point_position = Vector2.ZERO
@@ -230,15 +267,18 @@ func create_minimap_from_curve():
 		var inn = course.track.curve.get_point_in(n) * scalar
 		var out = course.track.curve.get_point_out(n) * scalar
 		
-		var point_in = Vector2(inn.x, inn.z)
-		var point_out = Vector2(out.x, out.z)
+		var point_in = Vector2(inn.x, inn.z) if use_in else Vector2.ZERO
+		var point_out = Vector2(out.x, out.z) if use_out else Vector2.ZERO
 		
-		if ignore_in_out:
-			minimap_path.curve.add_point(point_position)
-		else:
-			minimap_path.curve.add_point(point_position, point_in, point_out)
+		minimap_path.curve.add_point(point_position, point_in, point_out)
+		
+		if n == 0 and use_out:
+			var point2 = point_position + point_out
+			var dir = (point2 - point_position).normalized()
+			minimap.finish_line.rotation = atan2(dir.y, dir.x)
+			minimap.finish_line.position = point_position
 	
 	minimap_path.curve.clear_points()
 	for i in range(course.track.curve.point_count - 1):
-		add_point_function.call(i)
-	add_point_function.call(0, true)
+		add_point_function.call(i, true, true)
+	add_point_function.call(0, false, false)

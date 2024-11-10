@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c76l7eh8ry8ce"
+path="res://.godot/imported/circle count (next lap).wav-b9aaf889a4b80e44184502efa2f562c5.sample"
+
+[deps]
+
+source_file="res://audio/sound_effects/circle count (next lap).wav"
+dest_files=["res://.godot/imported/circle count (next lap).wav-b9aaf889a4b80e44184502efa2f562c5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -3,23 +3,26 @@ extends Control
 @export_subgroup("NodeRefences")
 @export var controller_list : VBoxContainer
 @export var no_controller_prompt : Label
+@export var start_button : Button
+@export var settings_menu : Control
 
 const MAX_PLAYERS : int = 8
+const DEV_MENU_VIEWPORT = preload("res://menus/dev_menu_viewport.tscn")
 
 var connected_controllers : Array[int]
+var created_viewport
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	created_viewport = DEV_MENU_VIEWPORT.instantiate()
+	add_child(created_viewport)
 	Input.joy_connection_changed.connect(_on_controller_changed)
-	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	handle_join_input()
 	no_controller_prompt.visible = connected_controllers.size() < 1
-		
-	pass
+	start_button.disabled = connected_controllers.size() < 1
 
 func add_controller(controller_id : int):
 	connected_controllers.append(controller_id)
@@ -32,8 +35,6 @@ func add_controller(controller_id : int):
 	controller_list.add_child(new_button)
 	# create button and bind to remove signal
 	pass
-
-	
 
 #remove disconnected controllers
 func _on_controller_changed(device : int, connected : bool):
@@ -94,6 +95,8 @@ func get_unjoined_devices():
 #endregion
 
 func _on_start_button_pressed() -> void:
+	get_tree().paused = false
+	created_viewport.queue_free()
 	#send data to race manager thing
 	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
 	race_instance.connected_controllers = connected_controllers
@@ -102,13 +105,12 @@ func _on_start_button_pressed() -> void:
 	
 	pass # Replace with function body.
 
-
 func _on_feedback_button_pressed() -> void:
 	#load feedback form
 	OS.shell_open("https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform")
-	pass # Replace with function body.
-
 
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
-	pass # Replace with function body.
+
+func _on_settings_button_pressed() -> void:
+	settings_menu.show()

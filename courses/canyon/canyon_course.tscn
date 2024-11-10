@@ -1,0 +1,957 @@
+[gd_scene load_steps=48 format=3 uid="uid://bl3rvj3gfbc12"]
+
+[ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="1_ku3s0"]
+[ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="2_8vl0y"]
+[ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_h7qhg"]
+[ext_resource type="PackedScene" uid="uid://bgd1cxalv2sv4" path="res://courses/canyon/canyon_rock.tscn" id="2_xy1gd"]
+[ext_resource type="PackedScene" uid="uid://6pli2jgxnqus" path="res://courses/canyon/conyon_rock_2.tscn" id="3_i6aiu"]
+[ext_resource type="PackedScene" uid="uid://dewfonsg8h7ep" path="res://courses/canyon/canyon_uts.tscn" id="4_f6geg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqt20"]
+albedo_color = Color(1, 0.762067, 0.259815, 1)
+
+[sub_resource type="Curve3D" id="Curve3D_stwl6"]
+_data = {
+"points": PackedVector3Array(65.5384, 0, 16.8669, -27.793, 0, -12.252, -153.487, 0, -73.3047, 32.5598, 0, -147.423, -32.5598, 0, 147.423, -359.435, 0, -35.6971, -40.4556, 0, -30.077, 40.4556, 0, 30.077, -246.288, 0, 47.511, -68.2994, 0, -40.0169, 68.2994, 0, 40.0169, -213.821, 0, 154.235, -20.8021, 0, 61.5017, 20.8021, 0, -61.5017, -122.49, 0, 77.3401, -12.6621, 0, 85.0171, 12.6621, 0, -85.0171, 22.4748, 0, 50.3682, -0.904419, 0, 97.6792, 0.904419, 0, -97.6792, 143.669, 0, -50.9287, 18.9932, 0, 70.5461, -18.9932, 0, -70.5461, 37.8503, 0, -148.608, 5.42661, 0, -67.8328, -5.42661, 0, 67.8328, -67.9689, 0, -103.386, 0, 0, 0, 0, 0, 0, -150.996, 0, -72.192),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 10
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g30ma"]
+albedo_color = Color(0.572549, 0.34902, 0, 1)
+uv1_scale = Vector3(0.04, 2.875, 0)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_orgid"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_48r56"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gfpc2"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_v0nxr"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ny5kl"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1kl3b"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xeep2"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1fk4d"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_unsl0"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="Shader" id="Shader_r5e82"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+uniform vec4 emission : source_color;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise : repeat_enable;
+uniform float noise_rotation_speed = 1.0;
+uniform float glitter_offset = 0.51;
+uniform vec4 glitter_color : source_color;
+
+uniform vec4 base_gradient_1 : source_color;
+uniform vec4 base_gradient_2 : source_color;
+uniform float base_gradient_power = 2;
+
+vec3 Unity_Hue_Degrees_float(vec3 In, float Offset)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 P = mix(vec4(In.bg, K.wz), vec4(In.gb, K.xy), step(In.b, In.g));
+    vec4 Q = mix(vec4(P.xyw, In.r), vec4(In.r, P.yzx), step(P.x, In.r));
+    float D = Q.x - min(Q.w, Q.y);
+    //float E = 1e-10;
+    vec3 hsv = vec3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + 1e-10)), D / (Q.x + 1e-10), Q.x);
+
+    float hue = hsv.x + Offset / 360.0;
+    hsv.x = (hue < 0.0) ? hue + 1.0 : ((hue > 1.0) ? hue - 1.0 : hue);
+
+    vec4 K2 = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 P2 = abs(fract(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+    return hsv.z * mix(K2.xxx, clamp(P2 - K2.xxx, 0, 1), hsv.y);
+}
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
+	
+	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
+	angle = clamp(angle, 0, 1);
+	
+	vec3 color = angle * glitter_color.rgb;
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
+	
+	//Base colour gradient
+	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
+	
+	ALBEDO = albedo_color.rgb;
+	
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	EMISSION = color * emission_energy;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3v5ee"]
+render_priority = 0
+shader = SubResource("Shader_r5e82")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 20.0
+shader_parameter/emission = Color(1, 0, 0, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(1, 0.0477067, 0, 1)
+shader_parameter/base_gradient_1 = Color(1, 0.520219, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.785124, 0.364791, 0.361582, 1)
+shader_parameter/base_gradient_power = 0.4
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mvire"]
+material = SubResource("ShaderMaterial_3v5ee")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f3vkf"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.0477067, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_lxhr1"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_f3vkf")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_csljl"]
+render_priority = 0
+shader = SubResource("Shader_r5e82")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.0
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 20.0
+shader_parameter/emission = Color(1, 0, 0, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(1, 0.983937, 0, 1)
+shader_parameter/base_gradient_1 = Color(1, 0.992658, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.785124, 0.772029, 0.361582, 1)
+shader_parameter/base_gradient_power = 0.4
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mbktj"]
+material = SubResource("ShaderMaterial_csljl")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qfedl"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.983937, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_vtpja"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_qfedl")
+
+[sub_resource type="Shader" id="Shader_5n32f"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+uniform vec4 emission : source_color;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise : repeat_enable;
+uniform float noise_rotation_speed = 1.0;
+uniform float glitter_offset = 0.51;
+uniform vec4 glitter_color : source_color;
+
+uniform vec4 base_gradient_1 : source_color;
+uniform vec4 base_gradient_2 : source_color;
+uniform float base_gradient_power = 2;
+
+vec3 Unity_Hue_Degrees_float(vec3 In, float Offset)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 P = mix(vec4(In.bg, K.wz), vec4(In.gb, K.xy), step(In.b, In.g));
+    vec4 Q = mix(vec4(P.xyw, In.r), vec4(In.r, P.yzx), step(P.x, In.r));
+    float D = Q.x - min(Q.w, Q.y);
+    //float E = 1e-10;
+    vec3 hsv = vec3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + 1e-10)), D / (Q.x + 1e-10), Q.x);
+
+    float hue = hsv.x + Offset / 360.0;
+    hsv.x = (hue < 0.0) ? hue + 1.0 : ((hue > 1.0) ? hue - 1.0 : hue);
+
+    vec4 K2 = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 P2 = abs(fract(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+    return hsv.z * mix(K2.xxx, clamp(P2 - K2.xxx, 0, 1), hsv.y);
+}
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
+	
+	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
+	angle = clamp(angle, 0, 1);
+	
+	vec3 color = angle * glitter_color.rgb;
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
+	
+	//Base colour gradient
+	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
+	
+	ALBEDO = albedo_color.rgb;
+	
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	EMISSION = color * emission_energy;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw3ft"]
+render_priority = 0
+shader = SubResource("Shader_5n32f")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(0.0958465, 1, 0, 1)
+shader_parameter/base_gradient_1 = Color(0.587784, 1, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.312739, 0.642562, 0.270571, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_b436j"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_qw3ft")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bmsan"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0958465, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_i6ot4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_bmsan")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0cd8"]
+render_priority = 0
+shader = SubResource("Shader_5n32f")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(0.0494852, 0, 1, 1)
+shader_parameter/base_gradient_1 = Color(0.530413, 0.5, 1, 1)
+shader_parameter/base_gradient_2 = Color(0.278469, 0.270571, 0.642562, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bugc2"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_w0cd8")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nn7dn"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0494852, 0, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_p8ha2"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_nn7dn")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7y6wc"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.0477067, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_cnovw"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_7y6wc")
+
+[sub_resource type="Shader" id="Shader_gs75g"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+uniform vec4 emission : source_color;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise : repeat_enable;
+uniform float noise_rotation_speed = 1.0;
+uniform float glitter_offset = 0.5;
+uniform vec4 glitter_color : source_color;
+
+uniform vec4 base_gradient_1 : source_color;
+uniform vec4 base_gradient_2 : source_color;
+uniform float base_gradient_power = 2;
+
+vec3 Unity_Hue_Degrees_float(vec3 In, float Offset)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 P = mix(vec4(In.bg, K.wz), vec4(In.gb, K.xy), step(In.b, In.g));
+    vec4 Q = mix(vec4(P.xyw, In.r), vec4(In.r, P.yzx), step(P.x, In.r));
+    float D = Q.x - min(Q.w, Q.y);
+    //float E = 1e-10;
+    vec3 hsv = vec3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + 1e-10)), D / (Q.x + 1e-10), Q.x);
+
+    float hue = hsv.x + Offset / 360.0;
+    hsv.x = (hue < 0.0) ? hue + 1.0 : ((hue > 1.0) ? hue - 1.0 : hue);
+
+    vec4 K2 = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 P2 = abs(fract(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+    return hsv.z * mix(K2.xxx, clamp(P2 - K2.xxx, 0, 1), hsv.y);
+}
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
+	
+	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
+	angle = clamp(angle, 0, 1);
+	
+	vec3 color = angle * glitter_color.rgb;
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
+	
+	//Base colour gradient
+	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
+	
+	ALBEDO = albedo_color.rgb;
+	
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	EMISSION = color * emission_energy;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wh0sk"]
+render_priority = 0
+shader = SubResource("Shader_gs75g")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.53
+shader_parameter/glitter_color = Color(1, 0.936231, 0, 1)
+shader_parameter/base_gradient_1 = Color(1, 0.983288, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.608618, 0.585432, 0.24427, 1)
+shader_parameter/base_gradient_power = -0.455
+shader_parameter/noise = ExtResource("2_h7qhg")
+
+[sub_resource type="SphereMesh" id="SphereMesh_mpv8v"]
+material = SubResource("ShaderMaterial_wh0sk")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_by633"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.936231, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_gpgob"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_by633")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ueulo"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0958465, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_wc2jl"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_ueulo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6j830"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0494852, 0, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_uirq1"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_6j830")
+
+[node name="CanyonCourse" instance=ExtResource("1_ku3s0")]
+
+[node name="DirectionalLight3D" parent="." index="1"]
+light_color = Color(1, 0.989904, 0.861708, 1)
+shadow_opacity = 0.65
+shadow_blur = 0.756
+
+[node name="MeshInstance3D" parent="Floor" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qqt20")
+
+[node name="Track" parent="." index="5"]
+curve = SubResource("Curve3D_stwl6")
+
+[node name="Track" parent="Track" index="0"]
+path_simplify_angle = 5.0
+material = SubResource("StandardMaterial3D_g30ma")
+
+[node name="@Area3D@17241" type="Area3D" parent="Track/Checkpoints" index="0"]
+transform = Transform3D(0.915035, 0, -0.403375, 0, 1, 0, 0.403375, 0, 0.915035, -153.487, 0, -73.3047)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17242" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17241" index="0"]
+shape = SubResource("BoxShape3D_orgid")
+
+[node name="@Area3D@17243" type="Area3D" parent="Track/Checkpoints" index="1"]
+transform = Transform3D(0.215662, 0, 0.976468, 0, 1, 0, -0.976468, 0, 0.215662, -359.435, 0, -35.6971)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17244" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17243" index="0"]
+shape = SubResource("BoxShape3D_48r56")
+
+[node name="@Area3D@17245" type="Area3D" parent="Track/Checkpoints" index="2"]
+transform = Transform3D(-0.802513, 0, 0.596634, 0, 1, 0, -0.596634, 0, -0.802513, -246.288, 0, 47.511)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17246" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17245" index="0"]
+shape = SubResource("BoxShape3D_gfpc2")
+
+[node name="@Area3D@17247" type="Area3D" parent="Track/Checkpoints" index="3"]
+transform = Transform3D(-0.862812, 0, 0.505525, 0, 1, 0, -0.505525, 0, -0.862812, -213.821, 0, 154.235)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17248" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17247" index="0"]
+shape = SubResource("BoxShape3D_v0nxr")
+
+[node name="@Area3D@17249" type="Area3D" parent="Track/Checkpoints" index="4"]
+transform = Transform3D(-0.320405, 0, -0.947281, 0, 1, 0, 0.947281, 0, -0.320405, -122.49, 0, 77.3401)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17250" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17249" index="0"]
+shape = SubResource("BoxShape3D_ny5kl")
+
+[node name="@Area3D@17251" type="Area3D" parent="Track/Checkpoints" index="5"]
+transform = Transform3D(-0.147311, 0, -0.98909, 0, 1, 0, 0.98909, 0, -0.147311, 22.4748, 0, 50.3682)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17252" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17251" index="0"]
+shape = SubResource("BoxShape3D_1kl3b")
+
+[node name="@Area3D@17253" type="Area3D" parent="Track/Checkpoints" index="6"]
+transform = Transform3D(-0.00925866, 0, -0.999957, 0, 1, 0, 0.999957, 0, -0.00925866, 143.669, 0, -50.9287)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17254" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17253" index="0"]
+shape = SubResource("BoxShape3D_xeep2")
+
+[node name="@Area3D@17255" type="Area3D" parent="Track/Checkpoints" index="7"]
+transform = Transform3D(0.259974, 0, -0.965616, 0, 1, 0, 0.965616, 0, 0.259974, 37.8503, 0, -148.608)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17256" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17255" index="0"]
+shape = SubResource("BoxShape3D_1fk4d")
+
+[node name="@Area3D@17257" type="Area3D" parent="Track/Checkpoints" index="8"]
+transform = Transform3D(0.079745, 0, 0.996815, 0, 1, 0, -0.996815, 0, 0.079745, -67.9689, 0, -103.386)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@17258" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@17257" index="0"]
+shape = SubResource("BoxShape3D_unsl0")
+
+[node name="InnerPavement" parent="Track" index="2"]
+polygon = PackedVector2Array(-21, 0, -21, 4, -19, 4, -20, 0)
+
+[node name="OuterPavement" parent="Track" index="3"]
+polygon = PackedVector2Array(21, 0, 21, 4, 19, 4, 20, 0)
+
+[node name="Marker3D" parent="KartSpawns" index="0"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -126.098, 2.73757, -79.2321)
+
+[node name="Marker3D2" parent="KartSpawns" index="1"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -129.216, 2.73757, -69.9591)
+
+[node name="Marker3D3" parent="KartSpawns" index="2"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -131.742, 2.73757, -61.2971)
+
+[node name="Marker3D4" parent="KartSpawns" index="3"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -135.017, 2.73757, -52.5395)
+
+[node name="Marker3D5" parent="KartSpawns" index="4"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -138.198, 2.73757, -79.4746)
+
+[node name="Marker3D6" parent="KartSpawns" index="5"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -141.317, 2.73757, -70.2016)
+
+[node name="Marker3D7" parent="KartSpawns" index="6"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -143.844, 2.73757, -61.5396)
+
+[node name="Marker3D8" parent="KartSpawns" index="7"]
+transform = Transform3D(-0.909614, 0, 0.415456, 0, 1, 0, -0.415456, 0, -0.909614, -147.118, 2.73757, -52.782)
+
+[node name="ItemBox" parent="." index="8"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -161.447, 2.7, -61.7371)
+
+[node name="MeshInstance3D" parent="ItemBox" index="0"]
+mesh = SubResource("SphereMesh_mvire")
+
+[node name="GPUParticles3D" parent="ItemBox" index="2"]
+draw_pass_1 = SubResource("QuadMesh_lxhr1")
+
+[node name="ItemBox2" parent="." index="9"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -159.072, 2.7, -67.6538)
+
+[node name="MeshInstance3D" parent="ItemBox2" index="0"]
+mesh = SubResource("SphereMesh_mbktj")
+
+[node name="OmniLight3D" parent="ItemBox2/MeshInstance3D" index="0"]
+light_color = Color(1, 0.983937, 0, 1)
+
+[node name="GPUParticles3D" parent="ItemBox2" index="2"]
+draw_pass_1 = SubResource("QuadMesh_vtpja")
+
+[node name="ItemBox3" parent="." index="10"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -156.766, 2.7, -74.7247)
+
+[node name="MeshInstance3D" parent="ItemBox3" index="0"]
+mesh = SubResource("SphereMesh_b436j")
+
+[node name="GPUParticles3D" parent="ItemBox3" index="2"]
+draw_pass_1 = SubResource("QuadMesh_i6ot4")
+
+[node name="ItemBox4" parent="." index="11"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -154.224, 2.7, -81.0588)
+
+[node name="MeshInstance3D" parent="ItemBox4" index="0"]
+mesh = SubResource("SphereMesh_bugc2")
+
+[node name="GPUParticles3D" parent="ItemBox4" index="2"]
+draw_pass_1 = SubResource("QuadMesh_p8ha2")
+
+[node name="ColorRect" parent="." index="12"]
+color = Color(0, 0, 0, 1)
+
+[node name="ItemBox5" parent="." index="13" instance=ExtResource("2_8vl0y")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -76.6799, 2.7, 72.4768)
+
+[node name="MeshInstance3D" parent="ItemBox5" index="0"]
+mesh = SubResource("SphereMesh_mvire")
+
+[node name="OmniLight3D" parent="ItemBox5/MeshInstance3D" index="0"]
+light_color = Color(1, 0.0477067, 0, 1)
+
+[node name="GPUParticles3D" parent="ItemBox5" index="2"]
+draw_pass_1 = SubResource("QuadMesh_cnovw")
+
+[node name="ItemBox6" parent="." index="14" instance=ExtResource("2_8vl0y")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -74.3049, 2.7, 66.5601)
+part_type = 1
+
+[node name="MeshInstance3D" parent="ItemBox6" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00335693, 0.00485337, 0.00614548)
+mesh = SubResource("SphereMesh_mpv8v")
+
+[node name="OmniLight3D" parent="ItemBox6/MeshInstance3D" index="0"]
+light_color = Color(1, 0.936231, 0, 1)
+
+[node name="GPUParticles3D" parent="ItemBox6" index="2"]
+draw_pass_1 = SubResource("QuadMesh_gpgob")
+
+[node name="ItemBox7" parent="." index="15" instance=ExtResource("2_8vl0y")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -71.9989, 2.7, 59.4892)
+part_type = 2
+
+[node name="MeshInstance3D" parent="ItemBox7" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00738525, 0, -0.0132332)
+mesh = SubResource("SphereMesh_b436j")
+
+[node name="OmniLight3D" parent="ItemBox7/MeshInstance3D" index="0"]
+light_color = Color(0.0958465, 1, 0, 1)
+
+[node name="GPUParticles3D" parent="ItemBox7" index="2"]
+draw_pass_1 = SubResource("QuadMesh_wc2jl")
+
+[node name="ItemBox8" parent="." index="16" instance=ExtResource("2_8vl0y")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -69.4569, 2.7, 53.1551)
+part_type = 3
+
+[node name="MeshInstance3D" parent="ItemBox8" index="0"]
+mesh = SubResource("SphereMesh_bugc2")
+
+[node name="OmniLight3D" parent="ItemBox8/MeshInstance3D" index="0"]
+light_color = Color(0.0494852, 0, 1, 1)
+
+[node name="GPUParticles3D" parent="ItemBox8" index="2"]
+draw_pass_1 = SubResource("QuadMesh_uirq1")
+
+[node name="Rocks" type="Node3D" parent="." index="18"]
+
+[node name="rock" parent="Rocks" index="0" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-9.95371, 0, -17.3471, 0, 20, 0, 17.3471, 0, -9.95371, -140.236, 0, -132.622)
+
+[node name="rock10" parent="Rocks" index="1" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-22.5054, 0, -16.9202, 0, 28.1565, 0, 16.9202, 0, -22.5054, -356.31, 0, 149.804)
+
+[node name="rock24" parent="Rocks" index="2" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-18.1385, 0, -21.5355, 0, 28.1565, 0, 21.5355, 0, -18.1385, 147.822, 13.4556, -191.081)
+
+[node name="rock22" parent="Rocks" index="3" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-27.9693, 0, 3.24067, 0, 28.1565, 0, -3.24067, 0, -27.9693, 205.021, 0, -54.3302)
+
+[node name="rock18" parent="Rocks" index="4" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-22.5054, 0, -16.9202, 0, 28.1565, 0, 16.9202, 0, -22.5054, 162.555, 0, 87.8529)
+
+[node name="rock19" parent="Rocks" index="5" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(6.2701, 0, -18.9936, 0, 20.0018, 0, 18.9936, 0, 6.2701, 121.658, -3.8147e-06, 91.4951)
+
+[node name="rock20" parent="Rocks" index="6" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-12.2888, 0.0350761, 15.7815, -0.0417903, 20.0016, -0.076997, -15.7815, -0.0802786, -12.2886, 146.6, -3.8147e-06, 138.086)
+
+[node name="rock17" parent="Rocks" index="7" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(38.1271, -15.7525, 12.5884, 15.6948, 6.2774, -39.6806, 12.6601, 39.6578, 11.2812, 124.452, 0, 285.09)
+
+[node name="rock11" parent="Rocks" index="8" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(18.6784, 0, 24.9117, 0, 31.1364, 0, -24.9117, 0, 18.6784, -296.437, 0, 194.955)
+
+[node name="rock4" parent="Rocks" index="9" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-19.4879, 0, 19.4124, 0, 35.0047, 0, -19.3841, 0, -19.5164, -380.909, -2.67029e-05, -149.218)
+
+[node name="rock26" parent="Rocks" index="10" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(2.24123, 0, 27.4353, 0, 35.0047, 0, -27.3952, 0, 2.24447, 22.9292, -2.67029e-05, -253.915)
+
+[node name="rock3" parent="Rocks" index="11" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(16.6668, 0, 29.9382, 0, 34.2648, 0, -29.9382, 0, 16.6668, -268.613, 3.8147e-06, -198.821)
+
+[node name="rock14" parent="Rocks" index="12" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(30.6994, -1.81646e-06, 15.2193, -5.69468e-07, -34.2648, -2.9409e-06, 15.2193, 2.38194e-06, -30.6994, -54.7382, 3.8147e-06, 214.567)
+
+[node name="rock32" parent="Rocks" index="13" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(13.8957, -8.22197e-07, 6.88882, -2.57763e-07, -15.5095, -1.33116e-06, 6.88882, 1.07816e-06, -13.8957, -177.471, -3.81469e-06, 100.076)
+
+[node name="rock35" parent="Rocks" index="14" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-2.51121, -11.0335, 10.6067, 1.07288e-06, -10.7485, -11.181, 15.3049, -1.81037, 1.74033, -220.355, -7.30917, -19.1553)
+
+[node name="rock36" parent="Rocks" index="15" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(2.56348, 12.846, -8.30389, 15.1461, -3.30836, -0.442256, -2.13762, -8.03621, -13.0918, -213.411, -1.41797, -21.2648)
+
+[node name="rock37" parent="Rocks" index="16" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-0.0754128, 3.48726, -15.1122, -1.19185, -15.069, -3.47134, -15.4635, 1.14444, 0.341251, -32.0361, -11.8403, 19.6401)
+
+[node name="rock38" parent="Rocks" index="17" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(6.46305, -11.285, 8.45118, 14.0271, 4.21101, -5.10421, 1.41934, 9.7704, 11.9612, -34.2523, -3.12601, 22.1949)
+
+[node name="rock33" parent="Rocks" index="18" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(15.278, -8.22197e-07, -2.66974, -9.95514e-07, -15.5095, -9.20534e-07, -2.66974, 1.07816e-06, -15.278, -169.443, -3.81469e-06, 70.5597)
+
+[node name="rock34" parent="Rocks" index="19" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(14.025, -10.3749, 13.6453, -11.1946, 7.808, 17.4427, -12.9813, -17.9424, -0.299582, -172.275, -10.4241, 35.1573)
+
+[node name="rock8" parent="Rocks" index="20" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(3.05973, -27.9839, 38.7859, 47.79, 3.3219, -1.3733, -1.88654, 38.7643, 28.1171, -449.205, 0.71188, 68.1048)
+
+[node name="rock39" parent="Rocks" index="21" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(1.76721, 8.53873, 26.2707, 27.602, 0.492526, -2.01684, -1.08961, 26.3255, -8.48327, -96.7695, -21.8457, -15.428)
+
+[node name="rock40" parent="Rocks" index="22" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-8.71944, 0.0687542, 26.2707, -5.86371, 26.9765, -2.01684, -25.608, -6.20048, -8.48327, 66.423, -15.3303, -50.5183)
+
+[node name="rock5" parent="Rocks" index="23" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(6.82894, -33.0924, -5.68674, 29.2876, 3.03225, 17.5248, -16.4219, -8.35338, 28.8898, -409.389, 3.8147e-06, -111.263)
+
+[node name="rock21" parent="Rocks" index="24" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(4.35424, -26.588, -21.1707, 33.4038, 7.28478, -2.27858, 6.26901, -20.3492, 26.8456, 198.253, 3.8147e-06, 20.8715)
+
+[node name="rock13" parent="Rocks" index="25" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(17.5839, 0.128065, -29.4086, 29.2876, 3.03225, 17.5248, 2.668, -34.1302, 1.44662, -125.127, 20.423, 267.942)
+
+[node name="rock25" parent="Rocks" index="26" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(29.0883, 15.1517, 9.91838, -17.8303, 20.6805, 20.6997, 3.16705, -22.7337, 25.4407, 105.411, 31.4023, -234.383)
+
+[node name="rock16" parent="Rocks" index="27" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(12.9113, 19.5954, -24.9679, 29.2876, 3.03225, 17.5248, 12.2316, -27.9447, -15.6065, 56.9272, 3.58952, 292.114)
+
+[node name="rock2" parent="Rocks" index="28" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-7.37801, -31.0179, -6.73556, -6.16306, 12.1077, -21.8343, 22.6406, -6.81208, -8.13855, -181.069, 20.2038, -160.708)
+
+[node name="rock28" parent="Rocks" index="29" instance=ExtResource("2_xy1gd")]
+transform = Transform3D(-15.8911, -26.4835, -16.5047, 23.6345, -25.4645, -1.3176, -9.42778, -19.1973, 24.5167, -49.455, 8.09461, -251.671)
+
+[node name="rock6" parent="Rocks" index="30" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(20.6502, 0, -14.0914, 0, 25, 0, 14.0914, 0, 20.6502, -321.449, 14.8118, -185.339)
+
+[node name="rock31" parent="Rocks" index="31" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(19.812, 9.63344, -0.0728418, -8.13608, 16.6425, -11.923, -5.15872, 10.7495, 18.5246, -294.587, 7.92882, -43.1144)
+
+[node name="rock7" parent="Rocks" index="32" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(23.5785, 14.6019, 11.4385, 14.7396, -25.9808, 2.78269, 11.2604, 3.4329, -27.5938, -428.708, 31.7273, -20.3922)
+
+[node name="rock27" parent="Rocks" index="33" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(-10.523, 4.62243, 16.8869, 17.1363, 6.75794, 8.82866, -3.58889, 18.7145, -7.35909, -123.272, 4.59818, -171.736)
+
+[node name="rock29" parent="Rocks" index="34" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(-17.0532, -6.79403, -8.96101, -10.6573, 4.56921, 16.8171, -3.58889, 18.7145, -7.35909, -94.0058, 4.59816, -202.491)
+
+[node name="rock15" parent="Rocks" index="35" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(0.00119877, -19.9031, 22.447, -24.3974, -13.063, -11.5812, 17.4575, -18.2546, -16.1866, -18.8077, 14.0489, 264.617)
+
+[node name="rock9" parent="Rocks" index="36" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(-34.7337, -1.4625, -4.05369, -4.13035, 1.90535, 34.7032, -1.22941, 34.9175, -2.06345, -439.55, 55.3968, 34.0876)
+
+[node name="rock30" parent="Rocks" index="37" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(-24.4986, -4.19585, -2.68544, -2.95025, 1.36096, 24.788, -4.01407, 24.6078, -1.82882, -0.817734, -1.18435, -91.4337)
+
+[node name="rock23" parent="Rocks" index="38" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(26.9465, 22.1747, -2.67775, 18.677, -24.6711, -16.3557, -12.2499, 11.1633, -30.8273, 190.082, 21.4174, -134.852)
+
+[node name="rock12" parent="Rocks" index="39" instance=ExtResource("3_i6aiu")]
+transform = Transform3D(9.92863, 16.0915, -29.4532, 32.7973, 1.86844, 12.0768, 7.1247, -31.0254, -14.5488, -201.589, 18.1339, 260.412)
+
+[node name="Obstacles" type="Node3D" parent="." index="19"]
+
+[node name="uts" parent="." index="20" instance=ExtResource("4_f6geg")]
+transform = Transform3D(28.793, 9.62026, 39.7293, -37.2606, 26.1618, 20.6689, -16.811, -41.5091, 22.2347, 56.4927, -42.1328, 268.68)
+
+[editable path="ItemBox"]
+[editable path="ItemBox2"]
+[editable path="ItemBox3"]
+[editable path="ItemBox4"]
+[editable path="ItemBox5"]
+[editable path="ItemBox6"]
+[editable path="ItemBox7"]
+[editable path="ItemBox8"]

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://6pli2jgxnqus"]
+
+[ext_resource type="PackedScene" uid="uid://dkf24snlrb3li" path="res://courses/canyon/models/rock2.glb" id="1_ucnd3"]
+[ext_resource type="Material" uid="uid://c2hnnsdi02cqy" path="res://courses/canyon/rock_material.tres" id="2_8bug2"]
+
+[node name="rock2" instance=ExtResource("1_ucnd3")]
+
+[node name="Icosphere_001" parent="." index="0"]
+material_override = ExtResource("2_8bug2")

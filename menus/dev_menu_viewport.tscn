@@ -1,0 +1,831 @@
+[gd_scene load_steps=51 format=3 uid="uid://dmwhlnpuscyar"]
+
+[ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="1_iwbkq"]
+[ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_wdh8l"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="3_8uc2v"]
+[ext_resource type="Script" path="res://debug_and_testing/ball_kart.gd" id="4_qrqgc"]
+[ext_resource type="PackedScene" uid="uid://343m60taxeo2" path="res://cpu_stuff/cpu_kart.tscn" id="5_8iixe"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1488t"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tw0gd"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_0rsos"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_idfdo"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ruk3t"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_38g4u"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_skywi"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r7d70"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1a1au"]
+size = Vector3(5, 100, 50)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_htcxe"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.0477067, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_btlr4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_htcxe")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u18uc"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.983937, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_qs5ti"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_u18uc")
+
+[sub_resource type="Shader" id="Shader_5n32f"]
+code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
+
+shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo : source_color, filter_linear_mipmap, repeat_enable;
+uniform float point_size : hint_range(0.1, 128.0, 0.1);
+
+uniform float roughness : hint_range(0.0, 1.0);
+uniform sampler2D texture_metallic : hint_default_white, filter_linear_mipmap, repeat_enable;
+uniform vec4 metallic_texture_channel;
+uniform sampler2D texture_roughness : hint_roughness_r, filter_linear_mipmap, repeat_enable;
+
+uniform float specular : hint_range(0.0, 1.0, 0.01);
+uniform float metallic : hint_range(0.0, 1.0, 0.01);
+
+uniform sampler2D texture_emission : source_color, hint_default_black, filter_linear_mipmap, repeat_enable;
+uniform float emission_energy : hint_range(0.0, 100.0, 0.01);
+uniform vec4 emission : source_color;
+
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+
+uniform sampler2D noise : repeat_enable;
+uniform float noise_rotation_speed = 1.0;
+uniform float glitter_offset = 0.51;
+uniform vec4 glitter_color : source_color;
+
+uniform vec4 base_gradient_1 : source_color;
+uniform vec4 base_gradient_2 : source_color;
+uniform float base_gradient_power = 2;
+
+vec3 Unity_Hue_Degrees_float(vec3 In, float Offset)
+{
+    vec4 K = vec4(0.0, -1.0 / 3.0, 2.0 / 3.0, -1.0);
+    vec4 P = mix(vec4(In.bg, K.wz), vec4(In.gb, K.xy), step(In.b, In.g));
+    vec4 Q = mix(vec4(P.xyw, In.r), vec4(In.r, P.yzx), step(P.x, In.r));
+    float D = Q.x - min(Q.w, Q.y);
+    //float E = 1e-10;
+    vec3 hsv = vec3(abs(Q.z + (Q.w - Q.y)/(6.0 * D + 1e-10)), D / (Q.x + 1e-10), Q.x);
+
+    float hue = hsv.x + Offset / 360.0;
+    hsv.x = (hue < 0.0) ? hue + 1.0 : ((hue > 1.0) ? hue - 1.0 : hue);
+
+    vec4 K2 = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+    vec3 P2 = abs(fract(hsv.xxx + K2.xyz) * 6.0 - K2.www);
+    return hsv.z * mix(K2.xxx, clamp(P2 - K2.xxx, 0, 1), hsv.y);
+}
+
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+void vertex() {
+	UV = UV * uv1_scale.xy + uv1_offset.xy;
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+
+	vec4 albedo_tex = texture(texture_albedo, base_uv);
+	//ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	float metallic_tex = dot(texture(texture_metallic, base_uv), metallic_texture_channel);
+	METALLIC = metallic_tex * metallic;
+	SPECULAR = specular;
+
+	vec4 roughness_texture_channel = vec4(1.0, 0.0, 0.0, 0.0);
+	float roughness_tex = dot(texture(texture_roughness, base_uv), roughness_texture_channel);
+	ROUGHNESS = roughness_tex * roughness;
+	//ALPHA *= albedo.a * albedo_tex.a;
+	
+	vec3 hue = Unity_Hue_Degrees_float(texture(noise, UV).rgb, TIME * noise_rotation_speed);
+	
+	float angle = dot(normalize(hue - glitter_offset), 1.0 - normalize(VIEW));
+	angle = clamp(angle, 0, 1);
+	
+	vec3 color = angle * glitter_color.rgb;
+	color += glitter_color.rgb * fresnel(7.0, NORMAL, VIEW);
+	
+	//Base colour gradient
+	vec4 albedo_color = mix(base_gradient_1, base_gradient_2, pow(UV.y, base_gradient_power));
+	
+	ALBEDO = albedo_color.rgb;
+	
+	vec3 emission_tex = texture(texture_emission, base_uv).rgb;
+	EMISSION = color * emission_energy;
+}
+"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qw3ft"]
+render_priority = 0
+shader = SubResource("Shader_5n32f")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(0.0958465, 1, 0, 1)
+shader_parameter/base_gradient_1 = Color(0.587784, 1, 0.5, 1)
+shader_parameter/base_gradient_2 = Color(0.312739, 0.642562, 0.270571, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_wdh8l")
+
+[sub_resource type="SphereMesh" id="SphereMesh_78ws1"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_qw3ft")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0pplg"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0958465, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_txs7p"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_0pplg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_w0cd8"]
+render_priority = 0
+shader = SubResource("Shader_5n32f")
+shader_parameter/albedo = Color(1, 1, 1, 0.278431)
+shader_parameter/point_size = 1.0
+shader_parameter/roughness = 0.3
+shader_parameter/metallic_texture_channel = null
+shader_parameter/specular = 0.5
+shader_parameter/metallic = 1.0
+shader_parameter/emission_energy = 15.83
+shader_parameter/emission = Color(1, 1, 1, 1)
+shader_parameter/uv1_scale = Vector3(5, 5, 1)
+shader_parameter/uv1_offset = Vector3(0, 0, 0)
+shader_parameter/uv2_scale = Vector3(1, 1, 1)
+shader_parameter/uv2_offset = Vector3(0, 0, 0)
+shader_parameter/noise_rotation_speed = 100.0
+shader_parameter/glitter_offset = 0.51
+shader_parameter/glitter_color = Color(0.0494852, 0, 1, 1)
+shader_parameter/base_gradient_1 = Color(0.530413, 0.5, 1, 1)
+shader_parameter/base_gradient_2 = Color(0.278469, 0.270571, 0.642562, 1)
+shader_parameter/base_gradient_power = -0.1
+shader_parameter/noise = ExtResource("2_wdh8l")
+
+[sub_resource type="SphereMesh" id="SphereMesh_0ccoy"]
+resource_local_to_scene = true
+material = SubResource("ShaderMaterial_w0cd8")
+flip_faces = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_wwb2o"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0494852, 0, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_uyajw"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_wwb2o")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_r1uid"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.0477067, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_tljr2"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_r1uid")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4sa1w"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.936231, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_qqmj4"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_4sa1w")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_djwuy"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0958465, 1, 0, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_uaagn"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_djwuy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l5g2j"]
+resource_local_to_scene = true
+transparency = 1
+blend_mode = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.0494852, 0, 1, 1)
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
+grow_amount = -9.585
+
+[sub_resource type="QuadMesh" id="QuadMesh_c1hr2"]
+resource_local_to_scene = true
+material = SubResource("StandardMaterial3D_l5g2j")
+
+[sub_resource type="Curve" id="Curve_jf7w2"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.247238, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_diqds"]
+curve = SubResource("Curve_jf7w2")
+
+[sub_resource type="Curve" id="Curve_n8d8d"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Curve" id="Curve_ullfn"]
+min_value = -1.0
+_data = [Vector2(0, -0.5), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="CurveXYZTexture" id="CurveXYZTexture_j47mv"]
+curve_x = SubResource("Curve_n8d8d")
+curve_y = SubResource("Curve_ullfn")
+
+[sub_resource type="Curve" id="Curve_8nis7"]
+_data = [Vector2(0, 0), 0.0, 4.0269, 0, 0, Vector2(0.252762, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.53811, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_gfjev"]
+curve = SubResource("Curve_8nis7")
+
+[sub_resource type="Curve" id="Curve_yjx1n"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.164365, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -1.95277, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_bvfsd"]
+curve = SubResource("Curve_yjx1n")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ypr0s"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+directional_velocity_min = -1.00002
+directional_velocity_max = -1.00002
+directional_velocity_curve = SubResource("CurveXYZTexture_j47mv")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_bvfsd")
+color = Color(1, 0, 0.97267, 1)
+alpha_curve = SubResource("CurveTexture_diqds")
+emission_curve = SubResource("CurveTexture_gfjev")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3laee"]
+angle_min = 1.07288e-05
+angle_max = 360.0
+directional_velocity_min = -1.00002
+directional_velocity_max = -1.00002
+directional_velocity_curve = SubResource("CurveXYZTexture_j47mv")
+gravity = Vector3(0, 0, 0)
+scale_min = 0.3
+scale_max = 0.4
+scale_curve = SubResource("CurveTexture_bvfsd")
+color = Color(1, 0, 0.974264, 1)
+alpha_curve = SubResource("CurveTexture_diqds")
+emission_curve = SubResource("CurveTexture_gfjev")
+
+[sub_resource type="Animation" id="Animation_g1mbw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Kart/KartModel/FrontWheels:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kart/KartModel/BackWheels:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7a8vm"]
+resource_name = "default"
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Kart/KartModel/FrontWheels:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -6.28319)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Kart/KartModel/BackWheels:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, -6.28319)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e2cni"]
+_data = {
+"RESET": SubResource("Animation_g1mbw"),
+"default": SubResource("Animation_7a8vm")
+}
+
+[sub_resource type="GDScript" id="GDScript_daahq"]
+resource_name = "control_on"
+script/source = "extends Node
+#class_name
+#Authored by AlexV. Please consult for any modifications or major feature requests.
+
+#region Variables
+	#Signals
+
+	#Enums
+
+	#Constants
+
+	#Exported Variables
+	#@export_group(\"Group\")
+	#@export_subgroup(\"Subgroup\")
+var cpu_karts: Array[CpuKart]
+	#Onready Variables
+
+	#Other Variables (please try to separate and organise!)
+
+#endregion
+
+#region Godot methods
+func _ready():
+	#Runs when all children have entered the tree
+	var cpu_karts = get_parent().find_children(\"CpuKart*\")
+	for kart in cpu_karts:
+		if kart.get_class() == \"CpuKart\":
+			kart.can_control = true
+
+func _process(delta):
+	#Runs per frame
+	pass
+#endregion
+
+#region Signal methods
+
+#endregion
+
+#region Other methods (please try to separate and organise!)
+
+#endregion
+"
+
+[node name="SubViewportContainer" type="SubViewportContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="."]
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+
+[node name="CanyonCourse" parent="SubViewport" instance=ExtResource("1_iwbkq")]
+process_mode = 4
+script = null
+
+[node name="@Area3D@21891" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="0"]
+transform = Transform3D(0.915035, 0, -0.403375, 0, 1, 0, 0.403375, 0, 0.915035, -153.487, 0, -73.3047)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21892" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21891" index="0"]
+shape = SubResource("BoxShape3D_1488t")
+
+[node name="@Area3D@21893" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="1"]
+transform = Transform3D(0.215662, 0, 0.976468, 0, 1, 0, -0.976468, 0, 0.215662, -359.435, 0, -35.6971)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21894" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21893" index="0"]
+shape = SubResource("BoxShape3D_tw0gd")
+
+[node name="@Area3D@21895" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="2"]
+transform = Transform3D(-0.802513, 0, 0.596634, 0, 1, 0, -0.596634, 0, -0.802513, -246.288, 0, 47.511)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21896" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21895" index="0"]
+shape = SubResource("BoxShape3D_0rsos")
+
+[node name="@Area3D@21897" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="3"]
+transform = Transform3D(-0.862812, 0, 0.505525, 0, 1, 0, -0.505525, 0, -0.862812, -213.821, 0, 154.235)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21898" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21897" index="0"]
+shape = SubResource("BoxShape3D_idfdo")
+
+[node name="@Area3D@21899" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="4"]
+transform = Transform3D(-0.320405, 0, -0.947281, 0, 1, 0, 0.947281, 0, -0.320405, -122.49, 0, 77.3401)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21900" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21899" index="0"]
+shape = SubResource("BoxShape3D_ruk3t")
+
+[node name="@Area3D@21901" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="5"]
+transform = Transform3D(-0.147311, 0, -0.98909, 0, 1, 0, 0.98909, 0, -0.147311, 22.4748, 0, 50.3682)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21902" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21901" index="0"]
+shape = SubResource("BoxShape3D_38g4u")
+
+[node name="@Area3D@21903" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="6"]
+transform = Transform3D(-0.00925866, 0, -0.999957, 0, 1, 0, 0.999957, 0, -0.00925866, 143.669, 0, -50.9287)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21904" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21903" index="0"]
+shape = SubResource("BoxShape3D_skywi")
+
+[node name="@Area3D@21905" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="7"]
+transform = Transform3D(0.259974, 0, -0.965616, 0, 1, 0, 0.965616, 0, 0.259974, 37.8503, 0, -148.608)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21906" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21905" index="0"]
+shape = SubResource("BoxShape3D_r7d70")
+
+[node name="@Area3D@21907" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="8"]
+transform = Transform3D(0.079745, 0, 0.996815, 0, 1, 0, -0.996815, 0, 0.079745, -67.9689, 0, -103.386)
+collision_layer = 2
+collision_mask = 0
+
+[node name="@CollisionShape3D@21908" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@21907" index="0"]
+shape = SubResource("BoxShape3D_1a1au")
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox" index="2"]
+draw_pass_1 = SubResource("QuadMesh_btlr4")
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox2" index="2"]
+draw_pass_1 = SubResource("QuadMesh_qs5ti")
+
+[node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox3" index="0"]
+mesh = SubResource("SphereMesh_78ws1")
+
+[node name="OmniLight3D" parent="SubViewport/CanyonCourse/ItemBox3/MeshInstance3D" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox3" index="2"]
+draw_pass_1 = SubResource("QuadMesh_txs7p")
+
+[node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox4" index="0"]
+mesh = SubResource("SphereMesh_0ccoy")
+
+[node name="OmniLight3D" parent="SubViewport/CanyonCourse/ItemBox4/MeshInstance3D" index="0"]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0)
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox4" index="2"]
+draw_pass_1 = SubResource("QuadMesh_uyajw")
+
+[node name="ColorRect" parent="SubViewport/CanyonCourse" index="12"]
+visible = false
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox5" index="2"]
+draw_pass_1 = SubResource("QuadMesh_tljr2")
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox6" index="2"]
+draw_pass_1 = SubResource("QuadMesh_qqmj4")
+
+[node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox7" index="0"]
+mesh = SubResource("SphereMesh_78ws1")
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox7" index="2"]
+draw_pass_1 = SubResource("QuadMesh_uaagn")
+
+[node name="MeshInstance3D" parent="SubViewport/CanyonCourse/ItemBox8" index="0"]
+mesh = SubResource("SphereMesh_0ccoy")
+
+[node name="GPUParticles3D" parent="SubViewport/CanyonCourse/ItemBox8" index="2"]
+draw_pass_1 = SubResource("QuadMesh_c1hr2")
+
+[node name="BallKart" parent="SubViewport" instance=ExtResource("3_8uc2v")]
+process_mode = 4
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -82.9503, 7.32179, 61.7082)
+script = ExtResource("4_qrqgc")
+gravity = 10.0
+acceleration = 1.0
+turn_speed = 16.0
+boost_acceleration = 10.0
+traction_coefficient = 1.0
+turbo_colors = Array[Color]([Color(0.941176, 0.972549, 1, 1), Color(0.941176, 0.972549, 1, 1), Color(0.941176, 0.972549, 1, 1)])
+
+[node name="Kart" parent="SubViewport/BallKart" index="3"]
+transform = Transform3D(0.962166, 0, -0.272465, 0, 1, 0, 0.272465, 0, 0.962166, -71.421, 1.19688, 49.9403)
+
+[node name="Thrust" parent="SubViewport/BallKart/Kart/KartModel/Particles/BackLeft" index="3"]
+process_mode = 3
+visible = false
+emitting = true
+one_shot = false
+process_material = SubResource("ParticleProcessMaterial_ypr0s")
+
+[node name="Thrust" parent="SubViewport/BallKart/Kart/KartModel/Particles/BackRight" index="3"]
+process_mode = 3
+visible = false
+emitting = true
+one_shot = false
+process_material = SubResource("ParticleProcessMaterial_3laee")
+
+[node name="Camera3D" parent="SubViewport/BallKart/Kart" index="1"]
+visible = false
+
+[node name="PlayerUI" parent="SubViewport/BallKart" index="5"]
+process_mode = 4
+visible = false
+script = null
+
+[node name="BackgroundCircle" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/Control" index="0"]
+polygon = PackedVector2Array(-5.51091e-15, -30, 1.71266, -29.9511, 3.41974, -29.8045, 5.11567, -29.5606, 6.7949, -29.2204, 8.45198, -28.7848, 10.0815, -28.2553, 11.6781, -27.6337, 13.2366, -26.922, 14.752, -26.1224, 16.2192, -25.2376, 17.6336, -24.2705, 18.9904, -23.2242, 20.2852, -22.1022, 21.514, -20.9081, 22.6725, -19.6458, 23.7571, -18.3194, 24.7642, -16.9333, 25.6905, -15.4919, 26.533, -14, 27.289, -12.4625, 27.9559, -10.8842, 28.5317, -9.27051, 29.0144, -7.62655, 29.4025, -5.95771, 29.6946, -4.26944, 29.89, -2.56725, 29.9878, -0.856682, 29.9878, 0.856682, 29.89, 2.56725, 29.6946, 4.26944, 29.4025, 5.95771, 29.0144, 7.62655, 28.5317, 9.27051, 27.9559, 10.8842, 27.289, 12.4625, 26.533, 14, 25.6905, 15.4919, 24.7642, 16.9333, 23.7571, 18.3194, 22.6725, 19.6458, 21.514, 20.9081, 20.2852, 22.1022, 18.9904, 23.2242, 17.6336, 24.2705, 16.2192, 25.2376, 14.752, 26.1224, 13.2366, 26.922, 11.6781, 27.6337, 10.0815, 28.2553, 8.45198, 28.7848, 6.7949, 29.2204, 5.11567, 29.5606, 3.41974, 29.8045, 1.71266, 29.9511, 9.18485e-15, 30, -1.71266, 29.9511, -3.41974, 29.8045, -5.11567, 29.5606, -6.7949, 29.2204, -8.45198, 28.7848, -10.0815, 28.2553, -11.6781, 27.6337, -13.2366, 26.922, -14.752, 26.1224, -16.2192, 25.2376, -17.6336, 24.2705, -18.9904, 23.2242, -20.2852, 22.1022, -21.514, 20.9081, -22.6725, 19.6458, -23.7571, 18.3194, -24.7642, 16.9333, -25.6905, 15.4919, -26.533, 14, -27.289, 12.4625, -27.9559, 10.8842, -28.5317, 9.27051, -29.0144, 7.62655, -29.4025, 5.95771, -29.6946, 4.26944, -29.89, 2.56725, -29.9878, 0.856682, -29.9878, -0.856682, -29.89, -2.56725, -29.6946, -4.26944, -29.4025, -5.95771, -29.0144, -7.62655, -28.5317, -9.27051, -27.9559, -10.8842, -27.289, -12.4625, -26.533, -14, -25.6905, -15.4919, -24.7642, -16.9333, -23.7571, -18.3194, -22.6725, -19.6458, -21.514, -20.9081, -20.2852, -22.1022, -18.9904, -23.2242, -17.6336, -24.2705, -16.2192, -25.2376, -14.752, -26.1224, -13.2366, -26.922, -11.6781, -27.6337, -10.0815, -28.2553, -8.45198, -28.7848, -6.7949, -29.2204, -5.11567, -29.5606, -3.41974, -29.8045, -1.71266, -29.9511)
+
+[node name="Polygon2D2" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/Control" index="1"]
+polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
+
+[node name="Speed" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="0"]
+process_mode = 4
+
+[node name="Acceleration" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="1"]
+process_mode = 4
+
+[node name="Handling" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="2"]
+process_mode = 4
+
+[node name="Boost Strength" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="3"]
+process_mode = 4
+
+[node name="weight" parent="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" index="4"]
+process_mode = 4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewport/BallKart"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_e2cni")
+}
+
+[node name="CpuKart" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -138.492, 2.54715, 136.732)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart9" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -180.877, 2.54715, 163.697)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart9" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart2" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -243.639, 2.54715, 131.267)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart2" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart10" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -247.097, 2.54715, 57.5807)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart10" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart3" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -324.719, 2.54712, 45.4284)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart3" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart11" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -364.574, 2.54712, -5.83968)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart11" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart4" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -341.304, 2.54711, -86.6931)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart4" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart12" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -257.943, 2.54711, -113.906)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart12" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart5" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -192.748, 2.54711, -102.521)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart5" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart13" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.802, 2.54711, -61.8037)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart13" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart6" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -61.395, 2.54711, -129.092)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart6" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart14" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.656, 2.54711, -176.71)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart14" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart15" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 140.108, 2.54711, -33.2688)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart15" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart7" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 91.605, 2.54711, -115.092)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart7" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="CpuKart8" parent="SubViewport" node_paths=PackedStringArray("track") instance=ExtResource("5_8iixe")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 34.605, 2.54711, 20.9081)
+track = NodePath("../CanyonCourse/Track")
+
+[node name="Kart" parent="SubViewport/CpuKart8" index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -102.256, 1.33975, 69.8748)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+transform = Transform3D(-0.48481, 0.127767, 0.865237, 0, 0.989272, -0.146083, -0.87462, -0.0708224, -0.479609, -67.315, 2.055, 49.7679)
+current = true
+
+[node name="TurnOnControl" type="Node" parent="SubViewport"]
+script = SubResource("GDScript_daahq")
+
+[editable path="SubViewport/CanyonCourse"]
+[editable path="SubViewport/CanyonCourse/ItemBox"]
+[editable path="SubViewport/CanyonCourse/ItemBox2"]
+[editable path="SubViewport/CanyonCourse/ItemBox3"]
+[editable path="SubViewport/CanyonCourse/ItemBox4"]
+[editable path="SubViewport/CanyonCourse/ItemBox5"]
+[editable path="SubViewport/CanyonCourse/ItemBox6"]
+[editable path="SubViewport/CanyonCourse/ItemBox7"]
+[editable path="SubViewport/CanyonCourse/ItemBox8"]
+[editable path="SubViewport/BallKart"]
+[editable path="SubViewport/BallKart/PlayerUI"]
+[editable path="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="SubViewport/BallKart/PlayerUI/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight"]
+[editable path="SubViewport/CpuKart"]
+[editable path="SubViewport/CpuKart9"]
+[editable path="SubViewport/CpuKart2"]
+[editable path="SubViewport/CpuKart10"]
+[editable path="SubViewport/CpuKart3"]
+[editable path="SubViewport/CpuKart11"]
+[editable path="SubViewport/CpuKart4"]
+[editable path="SubViewport/CpuKart12"]
+[editable path="SubViewport/CpuKart5"]
+[editable path="SubViewport/CpuKart13"]
+[editable path="SubViewport/CpuKart6"]
+[editable path="SubViewport/CpuKart14"]
+[editable path="SubViewport/CpuKart15"]
+[editable path="SubViewport/CpuKart7"]
+[editable path="SubViewport/CpuKart8"]

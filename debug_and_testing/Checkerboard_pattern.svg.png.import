@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cvwr2xp6rnpto"
 path.s3tc="res://.godot/imported/Checkerboard_pattern.svg.png-c9b65bc0c8b0909db3cce187b352f382.s3tc.ctex"
+path.etc2="res://.godot/imported/Checkerboard_pattern.svg.png-c9b65bc0c8b0909db3cce187b352f382.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://debug_and_testing/Checkerboard_pattern.svg.png"
-dest_files=["res://.godot/imported/Checkerboard_pattern.svg.png-c9b65bc0c8b0909db3cce187b352f382.s3tc.ctex"]
+dest_files=["res://.godot/imported/Checkerboard_pattern.svg.png-c9b65bc0c8b0909db3cce187b352f382.s3tc.ctex", "res://.godot/imported/Checkerboard_pattern.svg.png-c9b65bc0c8b0909db3cce187b352f382.etc2.ctex"]
 
 [params]
 

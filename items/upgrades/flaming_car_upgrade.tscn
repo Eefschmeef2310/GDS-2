@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://cacuhpr74ca7c"]
+
+[ext_resource type="Script" path="res://items/upgrades/upgrade_base.gd" id="1_d3od4"]
+
+[node name="FlamingCar" type="Node"]
+script = ExtResource("1_d3od4")
+increase_stat = 1
+increase_stat_amount = 0.5
+decrease_stat = 3
+decrease_stat_amount = 0.5
