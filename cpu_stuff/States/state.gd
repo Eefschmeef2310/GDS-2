@@ -10,6 +10,7 @@ signal Transitioned
 var cpu_kart: CpuKart
 var curve:Curve3D
 var target_pos: Vector3
+var item: Item
 
 #Kart variables we can override
 var steer_axis : float = 0
@@ -50,6 +51,7 @@ func set_target_pos():
 	var curve_target_pos = curve.sample_baked(offset + track_dist, false)
 	target_pos = curve_target_pos * path_transform
 
+#Overriden by other states
 func update_inputs():
 	return
 

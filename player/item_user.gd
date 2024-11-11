@@ -24,23 +24,11 @@ signal item_thrown()
 
 #region Godot methods
 func _process(_delta: float) -> void:
-	if MultiplayerInput.is_action_just_released(data.device, "equip"):
-		if data and data.inventory["hand"]:
-			var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
-			item.init(data.inventory["hand"])
-			data.inventory[data.inventory["hand"].type] = item
-			get_owner().add_child(item)
-			data.inventory["hand"] = null
-			item_equipped.emit()
+	if MultiplayerInput.is_action_just_released(data.device, "equip") && owner.is_player:
+		equip_item()
 	
-	if MultiplayerInput.is_action_just_released(data.device, "throw"):
-		if data and data.inventory["hand"]:
-			#Can't cast as certain node because we have a hazard area AND node - E
-			var hazard = data.inventory["hand"].hazard.instantiate()
-			hazard.caster = owner
-			get_owner().add_sibling(hazard)
-			data.inventory["hand"] = null
-			item_thrown.emit()
+	if MultiplayerInput.is_action_just_released(data.device, "throw") && owner.is_player:
+		throw_item()
 #endregion
 
 #region Signal methods
@@ -48,5 +36,21 @@ func _process(_delta: float) -> void:
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
+func equip_item():
+	if data and data.inventory["hand"]:
+		var item : Upgrade = data.inventory["hand"].upgrade.instantiate()
+		item.init(data.inventory["hand"])
+		data.inventory[data.inventory["hand"].type] = item
+		get_owner().add_child(item)
+		data.inventory["hand"] = null
+		item_equipped.emit()
+		
+func throw_item():
+	if data and data.inventory["hand"]:
+		#Can't cast as certain node because we have a hazard area AND node - E
+		var hazard = data.inventory["hand"].hazard.instantiate()
+		hazard.caster = owner
+		get_owner().add_sibling(hazard)
+		data.inventory["hand"] = null
+		item_thrown.emit()
 #endregion

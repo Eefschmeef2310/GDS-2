@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://343m60taxeo2"]
+
+[ext_resource type="Script" path="res://cpu_stuff/cpu_kart.gd" id="1_kwu5n"]
+[ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="1_neexj"]
+[ext_resource type="PackedScene" uid="uid://c3ckho3e6wjsy" path="res://cpu_stuff/States/state_machine.tscn" id="3_cgvuw"]
+[ext_resource type="Script" path="res://cpu_stuff/States/basic_state.gd" id="4_3k0fu"]
+
+[node name="CpuKart" instance=ExtResource("1_neexj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
+script = ExtResource("1_kwu5n")
+max_speed = 30.0
+turn_speed = 10.0
+
+[node name="StateMachine" parent="Scripts" index="2" node_paths=PackedStringArray("initial_state", "cpu_kart", "data_container") instance=ExtResource("3_cgvuw")]
+initial_state = NodePath("Basic")
+cpu_kart = NodePath("../..")
+data_container = NodePath("../PlayerDataContainer")
+
+[node name="Basic" type="Node" parent="Scripts/StateMachine" index="0"]
+script = ExtResource("4_3k0fu")
+
+[node name="Kart" parent="." index="3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
+
+[node name="Camera3D" parent="Kart" index="1"]
+process_mode = 4
+visible = false
+script = null
+
+[node name="PlayerUI" parent="." index="5"]
+process_mode = 4
+visible = false

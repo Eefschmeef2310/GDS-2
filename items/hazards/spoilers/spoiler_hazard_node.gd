@@ -1,5 +1,5 @@
 extends Node3D
-	#class_name
+#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables

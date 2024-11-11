@@ -5,6 +5,7 @@ class_name StateMachine
 #region Variables
 @export var initial_state: State
 @export var cpu_kart: CpuKart
+@export var data_container: PlayerData
 
 var current_state: State
 var states: Dictionary = {}

@@ -1,5 +1,5 @@
 extends State
-#class_name
+class_name BasicState
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Godot methods

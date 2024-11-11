@@ -4,9 +4,11 @@ class_name HazardArea
 
 #region Variables
 @export_group("Hazard Scene")
+@export var hit_self: bool = true
 #Hazard scene should contain stun time, type of hit (spin out or knock up), etc
 
 var caster: Kart #Set in code
+
 #endregion
 
 #region Godot methods
@@ -14,7 +16,7 @@ func _ready():
 	if caster:
 		global_position = caster.kart_model.global_position
 		rotation = caster.kart_model.rotation
-		get_tree().create_timer(0.5, false).timeout.connect(unlink_caster)
+		if hit_self: get_tree().create_timer(0.5, false).timeout.connect(unlink_caster)
 #endregion
 
 #region Signal methods

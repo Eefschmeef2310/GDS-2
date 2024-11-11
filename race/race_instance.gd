@@ -27,7 +27,7 @@ var race_timer : float
 @export_group("Debug Start")
 @export var debug_start : bool = false
 @export var debug_start_course_scene : PackedScene
-@export var debug_start_number_of_racers : int = 8
+@export var debug_start_number_of_racers : int = 2
 
 var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Shiver", "Frye", "Big Man"]
 
@@ -104,8 +104,8 @@ func start_race():
 	
 	for n in number_of_racers:
 		
-		if n >= connected_controllers.size():
-			continue
+		#if n >= connected_controllers.size():
+			#continue
 		
 		var new_kart : Kart = kart_scene.instantiate() if(n < connected_controllers.size()) else cpu_kart.instantiate()
 		#var new_kart : Kart = kart_scene.instantiate()

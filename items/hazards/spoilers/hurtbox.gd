@@ -7,6 +7,10 @@ extends HazardArea
 #TODO - Make sure this destorys contacted hazards
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
+func _ready() -> void:
+	super._ready()
+	hit_self = false
+
 func _process(delta: float) -> void:
 	rotation_degrees.y += delta * spin_speed
 	rotation_degrees.y = wrap(rotation_degrees.y, 0, 360)
