@@ -40,14 +40,19 @@ var debug_names = [
 	"Zale",
 	"Valere",
 	"Garl",
-	"Serai",
+	"Seraï",
 	"Resh'an",
 	"B'st",
 	"Okarun",
 	"Momo",
 	"Vi",
 	"Jinx",
-	"Caitlyn"
+	"Caitlyn",
+	"Clove",
+	"Jett",
+	"Cypher",
+	"Sage",
+	"Neon",
 	]
 #Values for cpu karts
 var max_speeds = [70, 55, 50, 45, 40, 35, 30]
