@@ -6,18 +6,15 @@ extends Node
 @export var cpu_kart: CpuKart
 @export var track_dist: float = 10
 
-var turn_direction: float
-var turn_amount:float
 var target_pos: Vector3
 var curve:Curve3D
 
-
 #Kart variables we can override
-var steer_axis : float
-var accelerating : bool
-var braking : bool
-var drift_input : bool
-var drift_released : bool
+var steer_axis : float = 0
+var accelerating : bool = true
+var braking : bool = false
+var drift_input : bool = false
+var drift_released : bool = false
 #endregion
 
 #region Godot methods
@@ -42,40 +39,35 @@ func set_target_pos() -> void:
 	var path_transform: Transform3D = cpu_kart.track.global_transform
 	var local_pos = cpu_kart.track.to_local(cpu_kart.kart.global_position)
 	var offset = curve.get_closest_offset(local_pos)
-	
 	var curve_target_pos = curve.sample_baked(offset + track_dist, false)
-	
-	var kart_dir = cpu_kart.kart.transform.basis.x.normalized()
-
 	target_pos = curve_target_pos * path_transform
 	
 	var dir_to_point = cpu_kart.global_position.direction_to(target_pos).normalized()
 	
+	var kart_dir = cpu_kart.kart.transform.basis.x.normalized()
 	var dot = kart_dir.dot(dir_to_point)
 	var angle_to_direction = kart_dir.signed_angle_to(dir_to_point, Vector3.UP)
 	
 	if dot > 0:
-		cpu_kart.accelerating = true
-		cpu_kart.braking = false
+		accelerating = true
+		braking = false
 	else:
-		cpu_kart.accelerating = false
-		cpu_kart.braking = true
-		
+		accelerating = false
+		braking = true
 	if (abs(angle_to_direction) < 0.3):
-		turn_amount = angle_to_direction
+		steer_axis = angle_to_direction
 	elif (angle_to_direction > 0):
-		turn_amount = 1;
+		steer_axis = 1;
 	else:
-		turn_amount = -1;
-
+		steer_axis = -1;
 
 func update_kart_input():
 	drift_released = false
 	if !drift_input:
-		if abs(turn_amount) < 0.1:
-			turn_amount = 0
-			
-	steer_axis = turn_amount
+		if abs(steer_axis) < 0.1:
+			steer_axis = 0
+	cpu_kart.accelerating = accelerating
+	cpu_kart.braking = braking
 	cpu_kart.steer_axis = steer_axis
 	cpu_kart.drift_input = drift_input
 	cpu_kart.drift_released = drift_released
