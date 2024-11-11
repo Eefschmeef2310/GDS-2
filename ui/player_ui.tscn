@@ -1,11 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=19 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
 [ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_uio62"]
+[ext_resource type="Texture2D" uid="uid://bucde2srug1ai" path="res://item_boxes/wheel_icon.png" id="4_a3gmt"]
+[ext_resource type="Texture2D" uid="uid://ci6qownxd3bwu" path="res://item_boxes/spoiler.png" id="5_p2ork"]
 [ext_resource type="Script" path="res://ui/speed_needle.gd" id="6_hdh75"]
+[ext_resource type="Texture2D" uid="uid://cugtfgcc73cre" path="res://item_boxes/oil_icon.png" id="6_maxfl"]
 [ext_resource type="Script" path="res://ui/line_test.gd" id="6_u2wka"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ap0js"]
@@ -102,10 +105,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 script = ExtResource("2_56hxx")
-engine = NodePath("VBoxContainer/Slots/Engine/Label")
-tire = NodePath("VBoxContainer/Slots/Tire/Label2")
-spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
-oil = NodePath("VBoxContainer/Slots/Oil/Label4")
+engine = NodePath("VBoxContainer/Slots/Engine/Icon")
+tire = NodePath("VBoxContainer/Slots/Tire/Icon")
+spoiler = NodePath("VBoxContainer/Slots/Spoiler/Icon")
+oil = NodePath("VBoxContainer/Slots/Oil/Icon")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -138,7 +141,7 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
 modulate = Color(1, 1, 1, 0.498039)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
@@ -169,6 +172,21 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Tire"]
+modulate = Color(1, 1, 1, 0.498039)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_a3gmt")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="Spoiler" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -183,6 +201,21 @@ grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Spoiler"]
+modulate = Color(1, 1, 1, 0.498039)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_p2ork")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Oil" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
@@ -199,6 +232,21 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Oil"]
+modulate = Color(1, 1, 1, 0.498039)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_maxfl")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 visible = false

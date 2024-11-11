@@ -1,40 +1,19 @@
 extends MarginContainer
-	#class_name
 #Authored by Ethan. Please consult for any modifications or major feature requests.
 
 #region Variables
-	#Signals
-
-	#Enums
-
-	#Constants
-
 	#Exported Variables
-	#@export_group("Group")
-	#@export_subgroup("Subgroup")
 @export_group("Slots")
-@export var engine : Label
-@export var tire : Label
-@export var spoiler : Label
-@export var oil : Label
-
-	#Onready Variables
-
-	#Other Variables (please try to separate and organise!)
-
-#endregion
-
-#region Godot methods
-#endregion
-
-#region Signal methods
-
+@export var engine : TextureRect
+@export var tire : TextureRect
+@export var spoiler : TextureRect
+@export var oil : TextureRect
 #endregion
 
 #region Other methods (please try to separate and organise!)
 func update(data : PlayerData):
-	engine.text = "Equipped" if data.inventory[Item.Part.Engine] else ""
-	tire.text = "Equipped" if data.inventory[Item.Part.Tire] else ""
-	spoiler.text = "Equipped" if data.inventory[Item.Part.Spoiler] else ""
-	oil.text = "Equipped" if data.inventory[Item.Part.Oil] else ""
+	engine.modulate.a = 1 if data.inventory[Item.Part.Engine] else 0.5
+	tire.modulate.a = 1 if data.inventory[Item.Part.Tire] else 0.5
+	spoiler.modulate.a = 1 if data.inventory[Item.Part.Spoiler] else 0.5
+	oil.modulate.a = 1 if data.inventory[Item.Part.Oil] else 0.5
 #endregion

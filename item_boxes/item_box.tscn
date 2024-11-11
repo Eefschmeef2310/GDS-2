@@ -307,8 +307,7 @@ script = ExtResource("3_s5714")
 mesh = NodePath("..")
 
 [node name="Sprite3D" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-visible = false
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 cast_shadow = 0
 billboard = 1
 alpha_cut = 1

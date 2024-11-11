@@ -172,11 +172,13 @@ script = SubResource("GDScript_xp6ve")
 [node name="RaceComplete" type="AudioStreamPlayer" parent="DebugWin"]
 stream = ExtResource("6_q38y2")
 volume_db = -5.0
+bus = &"Music"
 
 [node name="RaceMusic" type="AudioStreamPlayer" parent="DebugWin"]
 stream = ExtResource("7_prfy3")
 volume_db = -5.0
 autoplay = true
+bus = &"Music"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -265,9 +267,11 @@ texture = ExtResource("5_l63o3")
 
 [node name="Countdown" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("6_wa3pu")
+bus = &"Music"
 
 [node name="LapsIncreased" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("9_oxegi")
+bus = &"Music"
 
 [connection signal="visibility_changed" from="DebugWin" to="DebugWin" method="_on_visibility_changed"]
 [connection signal="pressed" from="DebugWin/VBoxContainer/ResetButton" to="DebugWin/VBoxContainer/ResetButton" method="_on_pressed"]
