@@ -2,7 +2,12 @@ extends Kart
 class_name PlayerKart
 #Created by Ethan
 
+@export var chasis_mat : StandardMaterial3D
+
 const PAUSE_MENU = preload("res://menus/pause_menu/pause_menu.tscn")
+
+func _ready():
+	chasis_mat.albedo_color = data.color
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:

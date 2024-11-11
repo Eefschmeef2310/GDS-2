@@ -11,6 +11,8 @@ signal hand_updated()
 # -2 = any controller
 var device : int = -1
 
+var color : Color
+
 @export var inventory : Dictionary = {
 	"hand" : null,
 	Item.Part.Engine : null,
@@ -22,6 +24,9 @@ var device : int = -1
 #endregion
 
 #region Signal methods
+func _ready():
+	print(color)
+	
 func _on_kart_hit_item_box(item: Resource) -> void:
 	if inventory["hand"] == null:
 		inventory["hand"] = item

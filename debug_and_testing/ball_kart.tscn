@@ -23,6 +23,10 @@
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_1ruac"]
 absorbent = true
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6ggg"]
+resource_local_to_scene = true
+albedo_color = Color(0.510519, 0.155034, 4.81308e-08, 1)
+
 [sub_resource type="GDScript" id="GDScript_ghuyg"]
 resource_name = "Hurtbox"
 script/source = "extends Area3D
@@ -187,9 +191,6 @@ _surfaces = [{
 }]
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lhch6")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kq67i"]
-albedo_color = Color(0.510519, 0.155034, 4.81308e-08, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4k6py"]
 resource_name = "Material #27"
@@ -594,6 +595,7 @@ max_contacts_reported = 1
 linear_damp = 1.0
 angular_damp = 0.1
 script = ExtResource("1_i6kgw")
+chasis_mat = SubResource("StandardMaterial3D_g6ggg")
 data = NodePath("Scripts/PlayerDataContainer")
 turbo_colors = Array[Color]([Color(0.305335, 0.971588, 1, 1), Color(1, 0.573833, 0, 1), Color(0.939905, 0.247426, 0.806414, 1)])
 kart = NodePath("Kart")
@@ -660,7 +662,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_5pdwf")
 [node name="Body" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(4.1314, 0, 0, 0, -8.11654e-08, 1.61933, 0, -1.85685, -7.07833e-08, 0.0406498, 0.201033, 0.109311)
 mesh = SubResource("ArrayMesh_vs8jx")
-surface_material_override/0 = SubResource("StandardMaterial3D_kq67i")
+surface_material_override/0 = SubResource("StandardMaterial3D_g6ggg")
 
 [node name="SteeringWheel" type="MeshInstance3D" parent="Kart/KartModel"]
 transform = Transform3D(1.12473, 6.71674e-08, -0.67995, 2.412, -1.05432e-07, 0.317066, -6.71674e-08, -2.66134, -2.97215e-08, 0.591341, 0.887154, 0.109311)
