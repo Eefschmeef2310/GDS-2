@@ -7,6 +7,7 @@ content_margin_left = 16.0
 content_margin_top = 8.0
 content_margin_right = 8.0
 content_margin_bottom = 8.0
+bg_color = Color(0.3, 0.3, 0.3, 1)
 
 [node name="RacerPlacement" type="PanelContainer"]
 theme_override_styles/panel = SubResource("StyleBoxFlat_iajit")

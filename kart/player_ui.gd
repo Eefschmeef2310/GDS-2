@@ -3,6 +3,7 @@ class_name PlayerUI
 
 signal speed_updated(speed : float)
 
+@export var control: Control
 @export var hand : Control
 @export var slots : Control
 @export var data : PlayerData

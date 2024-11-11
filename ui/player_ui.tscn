@@ -69,32 +69,42 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("hand", "slots", "speed_label", "placement_label", "checkpoints")]
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("control", "hand", "slots", "speed_label", "placement_label", "checkpoints")]
 script = ExtResource("1_u0skn")
-hand = NodePath("Hand")
-slots = NodePath("PanelContainer/MarginContainer")
-speed_label = NodePath("Speedometer/SpeedContainer/SpeedLabel")
-placement_label = NodePath("PanelContainer/MarginContainer/VBoxContainer/PlacementLabel")
-checkpoints = NodePath("Checkpoints")
+control = NodePath("Control")
+hand = NodePath("Control/Hand")
+slots = NodePath("Control/PanelContainer/MarginContainer")
+speed_label = NodePath("Control/Speedometer/SpeedContainer/SpeedLabel")
+placement_label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/PlacementLabel")
+checkpoints = NodePath("Control/Checkpoints")
 stats = {
-"Acceleration": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
-"Boost Strength": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
-"Handling": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling"),
-"Speed": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed"),
-"Weight": NodePath("PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight")
+"Acceleration": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
+"Boost Strength": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
+"Handling": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling"),
+"Speed": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed"),
+"Weight": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight")
 }
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
 offset_left = -238.0
-offset_bottom = 353.0
+offset_bottom = 417.0
 grow_horizontal = 0
 rotation = -0.00357665
 theme_override_styles/panel = SubResource("StyleBoxFlat_ap0js")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer" node_paths=PackedStringArray("engine", "tire", "spoiler", "oil")]
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 10
@@ -106,27 +116,27 @@ tire = NodePath("VBoxContainer/Slots/Tire/Label2")
 spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
 oil = NodePath("VBoxContainer/Slots/Oil/Label4")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="PlacementLabel" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="PlacementLabel" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Lap 0/3
 Place 1/8"
 horizontal_alignment = 2
 
-[node name="Slots" type="HBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Slots" type="HBoxContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 64)
 layout_mode = 2
 
-[node name="Engine" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
+[node name="Engine" type="ColorRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 0, 0, 1)
 
-[node name="Label" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
+[node name="Label" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -137,12 +147,12 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Tire" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
+[node name="Tire" type="ColorRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(1, 0.968331, 0, 1)
 
-[node name="Label2" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Tire"]
+[node name="Label2" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots/Tire"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -153,12 +163,12 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Spoiler" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
+[node name="Spoiler" type="ColorRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 1, 0.0199184, 1)
 
-[node name="Label3" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Spoiler"]
+[node name="Label3" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots/Spoiler"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -168,12 +178,12 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 vertical_alignment = 1
 
-[node name="Oil" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
+[node name="Oil" type="ColorRect" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
 color = Color(0, 0.0316691, 1, 1)
 
-[node name="Label4" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Oil"]
+[node name="Label4" type="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Slots/Oil"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -184,66 +194,67 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Control" type="Control" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
 custom_minimum_size = Vector2(100, 100)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 
-[node name="BackgroundCircle" type="Polygon2D" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
+[node name="BackgroundCircle" type="Polygon2D" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Control"]
 color = Color(0.124991, 0.155174, 0.423967, 1)
 offset = Vector2(50, 50)
 polygon = PackedVector2Array(-5.51091e-15, -30, 1.71266, -29.9511, 3.41974, -29.8045, 5.11567, -29.5606, 6.7949, -29.2204, 8.45198, -28.7848, 10.0815, -28.2553, 11.6781, -27.6337, 13.2366, -26.922, 14.752, -26.1224, 16.2192, -25.2376, 17.6336, -24.2705, 18.9904, -23.2242, 20.2852, -22.1022, 21.514, -20.9081, 22.6725, -19.6458, 23.7571, -18.3194, 24.7642, -16.9333, 25.6905, -15.4919, 26.533, -14, 27.289, -12.4625, 27.9559, -10.8842, 28.5317, -9.27051, 29.0144, -7.62655, 29.4025, -5.95771, 29.6946, -4.26944, 29.89, -2.56725, 29.9878, -0.856682, 29.9878, 0.856682, 29.89, 2.56725, 29.6946, 4.26944, 29.4025, 5.95771, 29.0144, 7.62655, 28.5317, 9.27051, 27.9559, 10.8842, 27.289, 12.4625, 26.533, 14, 25.6905, 15.4919, 24.7642, 16.9333, 23.7571, 18.3194, 22.6725, 19.6458, 21.514, 20.9081, 20.2852, 22.1022, 18.9904, 23.2242, 17.6336, 24.2705, 16.2192, 25.2376, 14.752, 26.1224, 13.2366, 26.922, 11.6781, 27.6337, 10.0815, 28.2553, 8.45198, 28.7848, 6.7949, 29.2204, 5.11567, 29.5606, 3.41974, 29.8045, 1.71266, 29.9511, 9.18485e-15, 30, -1.71266, 29.9511, -3.41974, 29.8045, -5.11567, 29.5606, -6.7949, 29.2204, -8.45198, 28.7848, -10.0815, 28.2553, -11.6781, 27.6337, -13.2366, 26.922, -14.752, 26.1224, -16.2192, 25.2376, -17.6336, 24.2705, -18.9904, 23.2242, -20.2852, 22.1022, -21.514, 20.9081, -22.6725, 19.6458, -23.7571, 18.3194, -24.7642, 16.9333, -25.6905, 15.4919, -26.533, 14, -27.289, 12.4625, -27.9559, 10.8842, -28.5317, 9.27051, -29.0144, 7.62655, -29.4025, 5.95771, -29.6946, 4.26944, -29.89, 2.56725, -29.9878, 0.856682, -29.9878, -0.856682, -29.89, -2.56725, -29.6946, -4.26944, -29.4025, -5.95771, -29.0144, -7.62655, -28.5317, -9.27051, -27.9559, -10.8842, -27.289, -12.4625, -26.533, -14, -25.6905, -15.4919, -24.7642, -16.9333, -23.7571, -18.3194, -22.6725, -19.6458, -21.514, -20.9081, -20.2852, -22.1022, -18.9904, -23.2242, -17.6336, -24.2705, -16.2192, -25.2376, -14.752, -26.1224, -13.2366, -26.922, -11.6781, -27.6337, -10.0815, -28.2553, -8.45198, -28.7848, -6.7949, -29.2204, -5.11567, -29.5606, -3.41974, -29.8045, -1.71266, -29.9511)
 script = SubResource("GDScript_fbgso")
 n = 110
 
-[node name="Polygon2D2" type="Polygon2D" parent="PanelContainer/MarginContainer/VBoxContainer/Control"]
+[node name="Polygon2D2" type="Polygon2D" parent="Control/PanelContainer/MarginContainer/VBoxContainer/Control"]
 offset = Vector2(50, 50)
 polygon = PackedVector2Array(-5.51091e-15, -30, 28.5317, -9.27051, 17.6336, 24.2705, -17.6336, 24.2705, -28.5317, -9.27051)
 vertex_colors = PackedColorArray(0, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1)
 script = SubResource("GDScript_fbgso")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
 
-[node name="Speed" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+[node name="Speed" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
-ui = NodePath("../../../../..")
+ui = NodePath("../../../../../..")
 
-[node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed" index="0"]
+[node name="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed" index="0"]
 text = "Speed"
 
-[node name="Acceleration" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+[node name="Acceleration" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
-ui = NodePath("../../../../..")
+ui = NodePath("../../../../../..")
 
-[node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration" index="0"]
+[node name="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration" index="0"]
 text = "Acceleration"
 
-[node name="Handling" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+[node name="Handling" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
-ui = NodePath("../../../../..")
+ui = NodePath("../../../../../..")
 
-[node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling" index="0"]
+[node name="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling" index="0"]
 text = "Handling"
 
-[node name="Boost Strength" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+[node name="Boost Strength" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
-ui = NodePath("../../../../..")
+ui = NodePath("../../../../../..")
 
-[node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength" index="0"]
+[node name="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength" index="0"]
 text = "Boost Strength"
 
-[node name="weight" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
+[node name="weight" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer" node_paths=PackedStringArray("ui") instance=ExtResource("3_p75pr")]
 layout_mode = 2
-ui = NodePath("../../../../..")
+ui = NodePath("../../../../../..")
 
-[node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
+[node name="Label" parent="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
 text = "Weight"
 
-[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name", "throw_item_type")]
+[node name="Hand" type="GridContainer" parent="Control" node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name", "throw_item_type")]
+layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -262,11 +273,11 @@ stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
 item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
 throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 
-[node name="Panel" type="Panel" parent="Hand"]
+[node name="Panel" type="Panel" parent="Control/Hand"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Hand/Panel"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Hand/Panel"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -278,22 +289,22 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Old Item" type="VBoxContainer" parent="Hand/Panel/MarginContainer"]
+[node name="Old Item" type="VBoxContainer" parent="Control/Hand/Panel/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Hand/Panel/MarginContainer/Old Item"]
+[node name="Label" type="Label" parent="Control/Hand/Panel/MarginContainer/Old Item"]
 layout_mode = 2
 text = "Throw"
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Hand/Panel/MarginContainer/Old Item"]
+[node name="Panel" type="Panel" parent="Control/Hand/Panel/MarginContainer/Old Item"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CurrentItemLabel" type="Label" parent="Hand/Panel/MarginContainer/Old Item/Panel"]
+[node name="CurrentItemLabel" type="Label" parent="Control/Hand/Panel/MarginContainer/Old Item/Panel"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -307,41 +318,41 @@ text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CurrentItemStats" type="Label" parent="Hand/Panel/MarginContainer/Old Item"]
+[node name="CurrentItemStats" type="Label" parent="Control/Hand/Panel/MarginContainer/Old Item"]
 visible = false
 layout_mode = 2
 text = "^ Speed
 V Acceleration"
 
-[node name="Label" type="Label" parent="Hand"]
+[node name="Label" type="Label" parent="Control/Hand"]
 layout_mode = 2
 text = "Press L
 <-"
 horizontal_alignment = 1
 
-[node name="Current Item" type="PanelContainer" parent="Hand"]
+[node name="Current Item" type="PanelContainer" parent="Control/Hand"]
 custom_minimum_size = Vector2(130, 100)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_lhf34")
 
-[node name="MarginContainer" type="MarginContainer" parent="Hand/Current Item"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Hand/Current Item"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Old Item" type="VBoxContainer" parent="Hand/Current Item/MarginContainer"]
+[node name="Old Item" type="VBoxContainer" parent="Control/Hand/Current Item/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Panel" type="Panel" parent="Hand/Current Item/MarginContainer/Old Item"]
+[node name="Panel" type="Panel" parent="Control/Hand/Current Item/MarginContainer/Old Item"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HandItemName" type="Label" parent="Hand/Current Item/MarginContainer/Old Item/Panel"]
+[node name="HandItemName" type="Label" parent="Control/Hand/Current Item/MarginContainer/Old Item/Panel"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -359,44 +370,44 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Stat" type="Label" parent="Hand/Current Item/MarginContainer/Old Item"]
+[node name="Stat" type="Label" parent="Control/Hand/Current Item/MarginContainer/Old Item"]
 layout_mode = 2
 text = "^ Stat 1
 V Stat 2"
 
-[node name="Label2" type="Label" parent="Hand"]
+[node name="Label2" type="Label" parent="Control/Hand"]
 layout_mode = 2
 text = "Press R
 ->"
 horizontal_alignment = 1
 
-[node name="Current Slot" type="PanelContainer" parent="Hand"]
+[node name="Current Slot" type="PanelContainer" parent="Control/Hand"]
 custom_minimum_size = Vector2(130, 100)
 layout_mode = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="Hand/Current Slot"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/Hand/Current Slot"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Old Item" type="VBoxContainer" parent="Hand/Current Slot/MarginContainer"]
+[node name="Old Item" type="VBoxContainer" parent="Control/Hand/Current Slot/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item"]
+[node name="Label" type="Label" parent="Control/Hand/Current Slot/MarginContainer/Old Item"]
 layout_mode = 2
 text = "Equip"
 horizontal_alignment = 1
 
-[node name="Panel" type="Panel" parent="Hand/Current Slot/MarginContainer/Old Item"]
+[node name="Panel" type="Panel" parent="Control/Hand/Current Slot/MarginContainer/Old Item"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CurrentItemLabel" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item/Panel"]
+[node name="CurrentItemLabel" type="Label" parent="Control/Hand/Current Slot/MarginContainer/Old Item/Panel"]
 layout_mode = 1
 anchors_preset = 13
 anchor_left = 0.5
@@ -410,14 +421,15 @@ text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="CurrentItemStats" type="Label" parent="Hand/Current Slot/MarginContainer/Old Item"]
+[node name="CurrentItemStats" type="Label" parent="Control/Hand/Current Slot/MarginContainer/Old Item"]
 visible = false
 layout_mode = 2
 text = "^ Speed
 V Acceleration"
 
-[node name="Checkpoints" type="Label" parent="."]
+[node name="Checkpoints" type="Label" parent="Control"]
 visible = false
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -431,8 +443,9 @@ grow_horizontal = 0
 grow_vertical = 0
 horizontal_alignment = 2
 
-[node name="IsBoosting" type="Label" parent="."]
+[node name="IsBoosting" type="Label" parent="Control"]
 visible = false
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -447,8 +460,8 @@ grow_vertical = 0
 text = "BOOSTING"
 horizontal_alignment = 2
 
-[node name="Speedometer" type="Control" parent="."]
-layout_mode = 3
+[node name="Speedometer" type="Control" parent="Control"]
+layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -459,7 +472,7 @@ offset_top = -40.0
 grow_horizontal = 0
 grow_vertical = 0
 
-[node name="SpeedContainer" type="MarginContainer" parent="Speedometer"]
+[node name="SpeedContainer" type="MarginContainer" parent="Control/Speedometer"]
 layout_mode = 1
 anchors_preset = 3
 anchor_left = 1.0
@@ -475,32 +488,32 @@ grow_vertical = 0
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 60
 
-[node name="SpeedLabel" type="Label" parent="Speedometer/SpeedContainer"]
+[node name="SpeedLabel" type="Label" parent="Control/Speedometer/SpeedContainer"]
 layout_mode = 2
 text = "XXX km/h"
 label_settings = SubResource("LabelSettings_fpday")
 
-[node name="Path2D" type="Path2D" parent="Speedometer"]
+[node name="Path2D" type="Path2D" parent="Control/Speedometer"]
 position = Vector2(-1880, -1040)
 curve = SubResource("Curve2D_ybruq")
 
-[node name="Line2D" type="Line2D" parent="Speedometer/Path2D" node_paths=PackedStringArray("path")]
+[node name="Line2D" type="Line2D" parent="Control/Speedometer/Path2D" node_paths=PackedStringArray("path")]
 points = PackedVector2Array(1623, 1012, 1623, 1007.68, 1623.04, 1003.4, 1623.13, 999.157, 1623.27, 994.962, 1623.45, 990.809, 1623.68, 986.698, 1623.95, 982.63, 1624.27, 978.604, 1624.63, 974.62, 1625.03, 970.678, 1625.48, 966.778, 1625.97, 962.919, 1626.5, 959.102, 1627.08, 955.325, 1627.69, 951.591, 1628.35, 947.897, 1629.05, 944.244, 1629.79, 940.631, 1630.57, 937.06, 1631.39, 933.528, 1632.25, 930.037, 1633.15, 926.587, 1634.09, 923.176, 1635.06, 919.805, 1636.08, 916.474, 1637.13, 913.182, 1638.22, 909.931, 1639.34, 906.718, 1640.51, 903.545, 1641.71, 900.41, 1642.94, 897.315, 1644.21, 894.258, 1645.52, 891.24, 1646.86, 888.26, 1648.24, 885.319, 1649.65, 882.416, 1651.09, 879.551, 1652.57, 876.724, 1654.08, 873.935, 1655.62, 871.183, 1657.2, 868.469, 1658.8, 865.792, 1660.44, 863.153, 1662.11, 860.55, 1663.81, 857.985, 1665.55, 855.456, 1667.31, 852.964, 1669.1, 850.509, 1670.92, 848.09, 1672.77, 845.707, 1674.65, 843.36, 1676.56, 841.05, 1678.49, 838.775, 1680.46, 836.536, 1682.45, 834.332, 1684.46, 832.164, 1686.51, 830.031, 1688.58, 827.933, 1690.67, 825.87, 1692.8, 823.842, 1694.94, 821.849, 1697.11, 819.89, 1699.31, 817.966, 1701.53, 816.075, 1703.77, 814.219, 1706.04, 812.398, 1708.33, 810.61, 1710.64, 808.855, 1712.98, 807.135, 1715.33, 805.447, 1717.71, 803.793, 1720.11, 802.172, 1722.53, 800.584, 1724.97, 799.03, 1727.43, 797.507, 1729.91, 796.018, 1732.41, 794.561, 1734.93, 793.136, 1737.46, 791.743, 1740.02, 790.382, 1742.59, 789.054, 1745.18, 787.757, 1747.79, 786.491, 1750.41, 785.258, 1753.05, 784.055, 1755.71, 782.884, 1758.38, 781.743, 1761.07, 780.634, 1763.77, 779.556, 1766.49, 778.508, 1769.22, 777.49, 1771.97, 776.503, 1774.73, 775.546, 1777.5, 774.619, 1780.28, 773.722, 1783.08, 772.855, 1785.89, 772.018, 1788.71, 771.21, 1791.54, 770.431, 1794.39, 769.682, 1797.24, 768.962, 1800.11, 768.271, 1802.98, 767.608, 1805.87, 766.974, 1808.76, 766.369, 1811.66, 765.792, 1814.57, 765.244, 1817.49, 764.723, 1820.42, 764.231, 1823.35, 763.766, 1826.29, 763.329, 1829.24, 762.919, 1832.19, 762.537, 1835.15, 762.183, 1838.11, 761.855, 1841.08, 761.554, 1844.06, 761.28, 1847.04, 761.033, 1850.02, 760.813, 1853.01, 760.619, 1856, 760.451, 1858.99, 760.309, 1861.99, 760.193, 1864.99, 760.103, 1867.99, 760.039, 1870.99, 760.001, 1874, 759.988, 1877, 760)
 gradient = SubResource("Gradient_vh5w2")
 joint_mode = 2
 script = ExtResource("6_u2wka")
 path = NodePath("..")
 
-[node name="Needle" type="Line2D" parent="Speedometer"]
+[node name="Needle" type="Line2D" parent="Control/Speedometer"]
 position = Vector2(-5, -22)
 points = PackedVector2Array(0, -10, -251, -8)
 width_curve = SubResource("Curve_y7b2e")
 script = ExtResource("6_hdh75")
 
-[connection signal="speed_updated" from="." to="Speedometer/Needle" method="_on_player_ui_speed_updated"]
+[connection signal="speed_updated" from="." to="Control/Speedometer/Needle" method="_on_player_ui_speed_updated"]
 
-[editable path="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
-[editable path="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
-[editable path="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling"]
-[editable path="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
-[editable path="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight"]
+[editable path="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Speed"]
+[editable path="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"]
+[editable path="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Handling"]
+[editable path="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"]
+[editable path="Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight"]

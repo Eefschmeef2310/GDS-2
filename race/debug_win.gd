@@ -29,7 +29,7 @@ func update_ranking(karts_sorted: Array[Kart]):
 		match i:
 			1: suffix = "st"; col = Color.GOLD
 			2: suffix = "nd"; col = Color.SILVER
-			3: suffix = "rd"; col = Color.SADDLE_BROWN
+			3: suffix = "rd"; col = Color.CHOCOLATE
 		
 		placement.show()
 		placement.placement_label.text = str(i) + suffix

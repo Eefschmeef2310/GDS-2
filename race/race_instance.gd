@@ -29,7 +29,26 @@ var race_timer : float
 @export var debug_start_course_scene : PackedScene
 @export var debug_start_number_of_racers : int = 8
 
-var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Shiver", "Frye", "Big Man"]
+var debug_names = [
+	"Callie",
+	"Marie",
+	"Pearl",
+	"Marina",
+	"Shiver",
+	"Frye",
+	"Big Man",
+	"Zale",
+	"Valere",
+	"Garl",
+	"Serai",
+	"Resh'an",
+	"B'st",
+	"Okarun",
+	"Momo",
+	"Vi",
+	"Jinx",
+	"Caitlyn"
+	]
 
 var connected_controllers : Array[int]
 var course_scene : PackedScene
@@ -108,8 +127,8 @@ func start_race():
 	
 	for n in number_of_racers:
 		
-		if n >= connected_controllers.size():
-			continue
+		#if n >= connected_controllers.size():
+			#continue
 		
 		var new_kart : Kart = kart_scene.instantiate() if(n < connected_controllers.size()) else cpu_kart.instantiate()
 		#var new_kart : Kart = kart_scene.instantiate()
@@ -133,8 +152,12 @@ func start_race():
 			minimap.add_icon(new_kart)
 			if n > 0:
 				minimap.set_centre()
+			if connected_controllers.size() == 2:
+				new_kart.player_ui.scale.y = 0.5
+				new_kart.player_ui.control.size.y *= 2
 		else:
-			new_kart.name = debug_names[0]
+			new_kart.name = debug_names.pick_random()
+			debug_names.erase(new_kart.name)
 			new_kart.max_speed = randf_range(15, 25)
 			new_kart.turn_speed = randf_range(8, 15)
 			new_kart.acceleration = randf_range(0.1, 2)
