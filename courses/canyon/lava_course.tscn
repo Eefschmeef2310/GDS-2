@@ -1,10 +1,156 @@
-[gd_scene load_steps=51 format=3 uid="uid://dc78w5kpsbvsn"]
+[gd_scene load_steps=59 format=3 uid="uid://dc78w5kpsbvsn"]
 
 [ext_resource type="PackedScene" uid="uid://db0xaaj1kg4bb" path="res://courses/dummy_course.tscn" id="1_7l075"]
 [ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_pfrlh"]
 [ext_resource type="PackedScene" uid="uid://ya4d7bvofid3" path="res://item_boxes/item_box.tscn" id="3_eegfc"]
 [ext_resource type="PackedScene" uid="uid://cy51hnuisb4qo" path="res://courses/canyon/lava_rock.tscn" id="4_by1oh"]
 [ext_resource type="PackedScene" uid="uid://bu2tscsqnje8b" path="res://courses/canyon/lava_rock_2.tscn" id="5_84o08"]
+
+[sub_resource type="Shader" id="Shader_whl4x"]
+code = "
+// NOTE: Shader automatically converted from Godot Engine 4.3.stable's ProceduralSkyMaterial.
+
+shader_type sky;
+render_mode use_debanding;
+
+uniform vec4 sky_top_color : source_color = vec4(0.385, 0.454, 0.55, 1.0);
+uniform vec4 sky_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float sky_curve : hint_range(0, 1) = 0.15;
+uniform float sky_energy = 1.0; // In Lux.
+uniform sampler2D sky_cover : filter_linear, source_color, hint_default_black;
+uniform vec4 sky_cover_modulate : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform vec4 ground_bottom_color : source_color = vec4(0.2, 0.169, 0.133, 1.0);
+uniform vec4 ground_horizon_color : source_color = vec4(0.646, 0.656, 0.67, 1.0);
+uniform float ground_curve : hint_range(0, 1) = 0.02;
+uniform float ground_energy = 1.0;
+uniform float sun_angle_max = 30.0;
+uniform float sun_curve : hint_range(0, 1) = 0.15;
+uniform float exposure : hint_range(0, 128) = 1.0;
+
+uniform vec4 cloud_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
+uniform sampler2D cloud_texture;
+uniform sampler2D cloud_texture2;
+uniform vec2 cloud_direction;
+uniform vec2 cloud_direction2;
+uniform vec2 cloud_scale;
+uniform float cloud_distance;
+uniform float cloud_speed;
+uniform float cloud_speed2;
+
+void sky() {
+	float v_angle = acos(clamp(EYEDIR.y, -1.0, 1.0));
+	float c = (1.0 - v_angle / (PI * 0.5));
+	vec3 sky = mix(sky_horizon_color.rgb, sky_top_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / sky_curve), 0.0, 1.0));
+	sky *= sky_energy;
+
+	if (LIGHT0_ENABLED) {
+		float sun_angle = acos(dot(LIGHT0_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT0_SIZE) {
+			sky = LIGHT0_COLOR * LIGHT0_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT0_SIZE) / (sun_angle_max - LIGHT0_SIZE);
+			sky = mix(LIGHT0_COLOR * LIGHT0_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT1_ENABLED) {
+		float sun_angle = acos(dot(LIGHT1_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT1_SIZE) {
+			sky = LIGHT1_COLOR * LIGHT1_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT1_SIZE) / (sun_angle_max - LIGHT1_SIZE);
+			sky = mix(LIGHT1_COLOR * LIGHT1_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT2_ENABLED) {
+		float sun_angle = acos(dot(LIGHT2_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT2_SIZE) {
+			sky = LIGHT2_COLOR * LIGHT2_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT2_SIZE) / (sun_angle_max - LIGHT2_SIZE);
+			sky = mix(LIGHT2_COLOR * LIGHT2_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	if (LIGHT3_ENABLED) {
+		float sun_angle = acos(dot(LIGHT3_DIRECTION, EYEDIR));
+		if (sun_angle < LIGHT3_SIZE) {
+			sky = LIGHT3_COLOR * LIGHT3_ENERGY;
+		} else if (sun_angle < sun_angle_max) {
+			float c2 = (sun_angle - LIGHT3_SIZE) / (sun_angle_max - LIGHT3_SIZE);
+			sky = mix(LIGHT3_COLOR * LIGHT3_ENERGY, sky, clamp(1.0 - pow(1.0 - c2, 1.0 / sun_curve), 0.0, 1.0));
+		}
+	}
+
+	vec4 sky_cover_texture = texture(sky_cover, SKY_COORDS);
+	sky += (sky_cover_texture.rgb * sky_cover_modulate.rgb) * sky_cover_texture.a * sky_cover_modulate.a * sky_energy;
+
+	c = (v_angle - (PI * 0.5)) / (PI * 0.5);
+	vec3 ground = mix(ground_horizon_color.rgb, ground_bottom_color.rgb, clamp(1.0 - pow(1.0 - c, 1.0 / ground_curve), 0.0, 1.0));
+	ground *= ground_energy;
+	
+	vec2 sky_uv = EYEDIR.xz / EYEDIR.y;
+	vec3 clouds = texture(cloud_texture, (sky_uv*cloud_scale) + (TIME*cloud_direction*cloud_speed*.01)).rgb - texture(cloud_texture2, (sky_uv * cloud_scale) + (TIME * cloud_direction2 * cloud_speed2*.01)).rgb;
+	clouds = clouds - smoothstep(0.0, EYEDIR.y, cloud_distance);
+	clouds = clamp(clouds,0,1);
+	clouds *= cloud_color.rgb;
+	sky += clouds;
+
+	COLOR = mix(ground, sky, step(0.0, EYEDIR.y)) * exposure;
+}
+"
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_k5c3w"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_uy4k5"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_k5c3w")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_hg4ko"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_7hgx1"]
+width = 1024
+height = 1024
+seamless = true
+noise = SubResource("FastNoiseLite_hg4ko")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_imhfa"]
+shader = SubResource("Shader_whl4x")
+shader_parameter/sky_top_color = Color(0.517348, 0, 0.165749, 1)
+shader_parameter/sky_horizon_color = Color(0.75, 0.5625, 0, 1)
+shader_parameter/sky_curve = 0.04
+shader_parameter/sky_energy = 1.25
+shader_parameter/sky_cover_modulate = Color(1, 1, 1, 1)
+shader_parameter/ground_bottom_color = Color(1, 0.416667, 0, 1)
+shader_parameter/ground_horizon_color = Color(1, 0.416667, 0, 1)
+shader_parameter/ground_curve = 0.02
+shader_parameter/ground_energy = 15.0
+shader_parameter/sun_angle_max = 0.0
+shader_parameter/sun_curve = 0.0
+shader_parameter/exposure = 1.0
+shader_parameter/cloud_color = Color(1, 0, 0, 1)
+shader_parameter/cloud_direction = Vector2(-1, 1)
+shader_parameter/cloud_direction2 = Vector2(1, -1)
+shader_parameter/cloud_scale = Vector2(0.05, 0.05)
+shader_parameter/cloud_distance = 0.035
+shader_parameter/cloud_speed = 0.01
+shader_parameter/cloud_speed2 = 0.01
+shader_parameter/cloud_texture = SubResource("NoiseTexture2D_uy4k5")
+shader_parameter/cloud_texture2 = SubResource("NoiseTexture2D_7hgx1")
+
+[sub_resource type="Sky" id="Sky_5vcsb"]
+sky_material = SubResource("ShaderMaterial_imhfa")
+
+[sub_resource type="Environment" id="Environment_uchep"]
+background_mode = 2
+sky = SubResource("Sky_5vcsb")
+ambient_light_sky_contribution = 0.0
+sdfgi_y_scale = 2
+glow_enabled = true
+volumetric_fog_sky_affect = 0.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qqt20"]
 albedo_color = Color(1, 0.416667, 0, 1)
@@ -20,43 +166,43 @@ point_count = 14
 albedo_color = Color(0.15, 0.085, 0, 1)
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_b0ayf"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_ln31q"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_y8xpx"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_i731m"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_cslsc"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_b8j25"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jct3m"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_jg62n"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7gvfm"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_p4ilj"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_haiwr"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_rwpcd"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_bh2w8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_iv4gi"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_fwepy"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_gxk7p"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_aw1k0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_1su2e"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_jlsv0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_xwik7"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_m1kd8"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_bvs4a"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_lq4ox"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_vl5ij"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_pyis4"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_60ciu"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="Shader" id="Shader_r5e82"]
@@ -619,6 +765,9 @@ material = SubResource("StandardMaterial3D_6j830")
 
 [node name="LavaCourse" instance=ExtResource("1_7l075")]
 
+[node name="WorldEnvironment" parent="." index="0"]
+environment = SubResource("Environment_uchep")
+
 [node name="DirectionalLight3D" parent="." index="1"]
 light_color = Color(1, 0.989904, 0.861708, 1)
 shadow_opacity = 0.65
@@ -634,109 +783,109 @@ curve = SubResource("Curve3D_stwl6")
 path_simplify_angle = 5.0
 material = SubResource("StandardMaterial3D_g30ma")
 
-[node name="@Area3D@23073" type="Area3D" parent="Track/Checkpoints" index="0"]
+[node name="@Area3D@237330" type="Area3D" parent="Track/Checkpoints" index="0"]
 transform = Transform3D(0.941677, 0, -0.336518, 0, 1, 0, 0.336518, 0, 0.941677, -153.487, 0, -73.3047)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23074" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23073" index="0"]
-shape = SubResource("BoxShape3D_b0ayf")
+[node name="@CollisionShape3D@237331" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237330" index="0"]
+shape = SubResource("BoxShape3D_ln31q")
 
-[node name="@Area3D@23075" type="Area3D" parent="Track/Checkpoints" index="1"]
+[node name="@Area3D@237332" type="Area3D" parent="Track/Checkpoints" index="1"]
 transform = Transform3D(0.577032, 0, 0.816722, 0, 1, 0, -0.816722, 0, 0.577032, -417.057, 0, -40.675)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23076" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23075" index="0"]
-shape = SubResource("BoxShape3D_y8xpx")
+[node name="@CollisionShape3D@237333" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237332" index="0"]
+shape = SubResource("BoxShape3D_i731m")
 
-[node name="@Area3D@23077" type="Area3D" parent="Track/Checkpoints" index="2"]
+[node name="@Area3D@237334" type="Area3D" parent="Track/Checkpoints" index="2"]
 transform = Transform3D(-0.999868, 0, 0.0162579, 0, 1, 0, -0.0162579, 0, -0.999868, -306.594, 0, 190.586)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23078" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23077" index="0"]
-shape = SubResource("BoxShape3D_cslsc")
+[node name="@CollisionShape3D@237335" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237334" index="0"]
+shape = SubResource("BoxShape3D_b8j25")
 
-[node name="@Area3D@23079" type="Area3D" parent="Track/Checkpoints" index="3"]
+[node name="@Area3D@237336" type="Area3D" parent="Track/Checkpoints" index="3"]
 transform = Transform3D(0.995434, 0, -0.0954523, 0, 1, 0, 0.0954523, 0, 0.995434, -305.609, 0, 268.361)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23080" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23079" index="0"]
-shape = SubResource("BoxShape3D_jct3m")
+[node name="@CollisionShape3D@237337" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237336" index="0"]
+shape = SubResource("BoxShape3D_jg62n")
 
-[node name="@Area3D@23081" type="Area3D" parent="Track/Checkpoints" index="4"]
+[node name="@Area3D@237338" type="Area3D" parent="Track/Checkpoints" index="4"]
 transform = Transform3D(-0.999083, 0, 0.0428178, 0, 1, 0, -0.0428178, 0, -0.999083, -311.516, 0, 347.121)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23082" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23081" index="0"]
-shape = SubResource("BoxShape3D_7gvfm")
+[node name="@CollisionShape3D@237339" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237338" index="0"]
+shape = SubResource("BoxShape3D_p4ilj")
 
-[node name="@Area3D@23083" type="Area3D" parent="Track/Checkpoints" index="5"]
+[node name="@Area3D@237340" type="Area3D" parent="Track/Checkpoints" index="5"]
 transform = Transform3D(-0.100751, 0, -0.994912, 0, 1, 0, 0.994912, 0, -0.100751, -160.228, 0, 245.957)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23084" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23083" index="0"]
-shape = SubResource("BoxShape3D_haiwr")
+[node name="@CollisionShape3D@237341" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237340" index="0"]
+shape = SubResource("BoxShape3D_rwpcd")
 
-[node name="@Area3D@23085" type="Area3D" parent="Track/Checkpoints" index="6"]
+[node name="@Area3D@237342" type="Area3D" parent="Track/Checkpoints" index="6"]
 transform = Transform3D(-0.668965, 0, -0.743294, 0, 1, 0, 0.743294, 0, -0.668965, -166.051, 0, 105.687)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23086" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23085" index="0"]
-shape = SubResource("BoxShape3D_bh2w8")
+[node name="@CollisionShape3D@237343" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237342" index="0"]
+shape = SubResource("BoxShape3D_iv4gi")
 
-[node name="@Area3D@23087" type="Area3D" parent="Track/Checkpoints" index="7"]
+[node name="@Area3D@237344" type="Area3D" parent="Track/Checkpoints" index="7"]
 transform = Transform3D(0.277224, 0, 0.960805, 0, 1, 0, -0.960805, 0, 0.277224, -77.6905, 0, 171.087)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23088" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23087" index="0"]
-shape = SubResource("BoxShape3D_fwepy")
+[node name="@CollisionShape3D@237345" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237344" index="0"]
+shape = SubResource("BoxShape3D_gxk7p")
 
-[node name="@Area3D@23089" type="Area3D" parent="Track/Checkpoints" index="8"]
+[node name="@Area3D@237346" type="Area3D" parent="Track/Checkpoints" index="8"]
 transform = Transform3D(-0.136637, 0, -0.990621, 0, 1, 0, 0.990621, 0, -0.136637, -7.67391, 0, 176.97)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23090" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23089" index="0"]
-shape = SubResource("BoxShape3D_aw1k0")
+[node name="@CollisionShape3D@237347" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237346" index="0"]
+shape = SubResource("BoxShape3D_1su2e")
 
-[node name="@Area3D@23091" type="Area3D" parent="Track/Checkpoints" index="9"]
+[node name="@Area3D@237348" type="Area3D" parent="Track/Checkpoints" index="9"]
 transform = Transform3D(-0.202732, 0, -0.979234, 0, 1, 0, 0.979234, 0, -0.202732, 101.356, 0, 119.857)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23092" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23091" index="0"]
-shape = SubResource("BoxShape3D_jlsv0")
+[node name="@CollisionShape3D@237349" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237348" index="0"]
+shape = SubResource("BoxShape3D_xwik7")
 
-[node name="@Area3D@23093" type="Area3D" parent="Track/Checkpoints" index="10"]
+[node name="@Area3D@237350" type="Area3D" parent="Track/Checkpoints" index="10"]
 transform = Transform3D(-0.0698896, 0, -0.997555, 0, 1, 0, 0.997555, 0, -0.0698896, -2.30783, 0, 32.5339)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23094" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23093" index="0"]
-shape = SubResource("BoxShape3D_m1kd8")
+[node name="@CollisionShape3D@237351" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237350" index="0"]
+shape = SubResource("BoxShape3D_bvs4a")
 
-[node name="@Area3D@23095" type="Area3D" parent="Track/Checkpoints" index="11"]
+[node name="@Area3D@237352" type="Area3D" parent="Track/Checkpoints" index="11"]
 transform = Transform3D(0.800356, 0, -0.599525, 0, 1, 0, 0.599525, 0, 0.800356, 12.2201, 0, -78.5993)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23096" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23095" index="0"]
-shape = SubResource("BoxShape3D_lq4ox")
+[node name="@CollisionShape3D@237353" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237352" index="0"]
+shape = SubResource("BoxShape3D_vl5ij")
 
-[node name="@Area3D@23097" type="Area3D" parent="Track/Checkpoints" index="12"]
+[node name="@Area3D@237354" type="Area3D" parent="Track/Checkpoints" index="12"]
 transform = Transform3D(0.925384, 0, -0.379031, 0, 1, 0, 0.379031, 0, 0.925384, -95.3979, 0, -50.0106)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@23098" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@23097" index="0"]
-shape = SubResource("BoxShape3D_pyis4")
+[node name="@CollisionShape3D@237355" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@237354" index="0"]
+shape = SubResource("BoxShape3D_60ciu")
 
 [node name="InnerPavement" parent="Track" index="2"]
 polygon = PackedVector2Array(-21, 0, -21, 4, -19, 4, -20, 0)

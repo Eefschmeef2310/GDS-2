@@ -27,6 +27,7 @@ uniform float sun_angle_max = 30.0;
 uniform float sun_curve : hint_range(0, 1) = 0.15;
 uniform float exposure : hint_range(0, 128) = 1.0;
 
+uniform vec4 cloud_color : source_color = vec4(1.0, 1.0, 1.0, 1.0);
 uniform sampler2D cloud_texture;
 uniform sampler2D cloud_texture2;
 uniform vec2 cloud_direction;
@@ -93,6 +94,7 @@ void sky() {
 	vec3 clouds = texture(cloud_texture, (sky_uv*cloud_scale) + (TIME*cloud_direction*cloud_speed*.01)).rgb - texture(cloud_texture2, (sky_uv * cloud_scale) + (TIME * cloud_direction2 * cloud_speed2*.01)).rgb;
 	clouds = clouds - smoothstep(0.0, EYEDIR.y, cloud_distance);
 	clouds = clamp(clouds,0,1);
+	clouds *= cloud_color.rgb;
 	sky += clouds;
 
 	COLOR = mix(ground, sky, step(0.0, EYEDIR.y)) * exposure;
@@ -121,6 +123,7 @@ shader_parameter/ground_energy = 1.0
 shader_parameter/sun_angle_max = 0.523599
 shader_parameter/sun_curve = 0.15
 shader_parameter/exposure = 1.0
+shader_parameter/cloud_color = Color(1, 1, 1, 1)
 shader_parameter/cloud_direction = Vector2(-1, 1)
 shader_parameter/cloud_direction2 = Vector2(1, -1)
 shader_parameter/cloud_scale = Vector2(0.05, 0.05)
