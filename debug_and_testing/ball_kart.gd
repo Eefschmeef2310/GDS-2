@@ -86,6 +86,7 @@ var max_handling = 4
 
 @export_subgroup("UI")
 @export var player_ui : PlayerUI
+var player_name : String
 
 	#Onready Variables
 

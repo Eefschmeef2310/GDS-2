@@ -12,8 +12,13 @@ var small_extents : Array[float] = [0,0,0,0]
 
 func add_icon(kart : Kart):
 	var new_icon = MINIMAP_ICON.instantiate()
-	new_icon.kart = kart
 	icons.add_child(new_icon)
+	new_icon.kart = kart
+	if kart.is_player:
+		new_icon.modulate = kart.data.color
+	else:
+		new_icon.scale = Vector2(0.06, 0.06)
+	icons.move_child(new_icon, 0)
 
 
 func _ready():
