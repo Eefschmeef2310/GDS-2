@@ -4,7 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
 [ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="3_jxdip"]
 [ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="3_unc12"]
-[ext_resource type="PackedScene" path="res://ui/button_pressed.tscn" id="3_ytlcv"]
+[ext_resource type="PackedScene" uid="uid://crrtfeywvjvc4" path="res://ui/button_pressed.tscn" id="3_ytlcv"]
 [ext_resource type="Texture2D" uid="uid://df5f8f28setl2" path="res://courses/thumbnails/canyon.png" id="4_ckx3c"]
 [ext_resource type="Script" path="res://menus/debugMultiplayer/track_button.gd" id="4_lvtsq"]
 [ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="5_hms7n"]
@@ -69,6 +69,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
+player_colors = Array[Color]([Color(1, 0.4, 0.4, 1), Color(1, 1, 0.4, 1), Color(0.4, 1, 0.43, 1), Color(0.43, 0.4, 1, 1)])
 controller_list = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
 no_controller_prompt = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
 start_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton")

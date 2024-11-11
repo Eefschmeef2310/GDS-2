@@ -34,6 +34,7 @@ var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Sh
 var connected_controllers : Array[int]
 var course_scene : PackedScene
 var number_of_racers : int = 8
+var player_colors : Array[Color]
 
 var countdown_timer = 3.0
 var countdown_started = false
@@ -124,6 +125,7 @@ func start_race():
 			new_kart.player_ui.ri = self
 			new_kart.name = "Player " + str(n+1)
 			new_kart.data.device = connected_controllers[n]
+			new_kart.data.color = player_colors[n]
 			course.add_kart_to_viewport_grid(new_kart)
 			minimap.add_icon(new_kart)
 			if n > 0:
