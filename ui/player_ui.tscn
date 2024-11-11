@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=16 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
 [ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_uio62"]
 [ext_resource type="Script" path="res://ui/speed_needle.gd" id="6_hdh75"]
 [ext_resource type="Script" path="res://ui/line_test.gd" id="6_u2wka"]
 
@@ -136,6 +137,21 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
+modulate = Color(1, 1, 1, 0.498039)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_uio62")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Tire" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
