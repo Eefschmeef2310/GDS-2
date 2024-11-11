@@ -2,8 +2,6 @@ extends Kart
 class_name PlayerKart
 #Created by Ethan
 
-@export var chasis_mat : StandardMaterial3D
-
 const PAUSE_MENU = preload("res://menus/pause_menu/pause_menu.tscn")
 
 func _ready():

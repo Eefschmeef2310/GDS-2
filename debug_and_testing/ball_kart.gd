@@ -4,6 +4,8 @@ class_name Kart
 
 #region Variables
 	#Signals
+@export var chasis_mat : StandardMaterial3D
+	
 @warning_ignore("unused_signal")
 signal checkpoint_passed(kart : Kart, index : int)
 @warning_ignore("unused_signal")
