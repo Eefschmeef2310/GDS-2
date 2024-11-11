@@ -145,7 +145,7 @@ func start_race():
 		if n < connected_controllers.size():
 			new_kart.is_player = true
 			new_kart.player_ui.ri = self
-			new_kart.name = "Player " + str(n+1)
+			new_kart.player_name = "Player " + str(n+1)
 			new_kart.data.device = connected_controllers[n]
 			new_kart.data.color = player_colors[n]
 			course.add_kart_to_viewport_grid(new_kart)
@@ -156,13 +156,14 @@ func start_race():
 				new_kart.player_ui.scale.y = 0.5
 				new_kart.player_ui.control.size.y *= 2
 		else:
-			new_kart.name = debug_names.pick_random()
-			debug_names.erase(new_kart.name)
+			new_kart.player_name = debug_names.pick_random()
+			debug_names.erase(new_kart.player_name)
 			new_kart.max_speed = randf_range(15, 25)
 			new_kart.turn_speed = randf_range(8, 15)
 			new_kart.acceleration = randf_range(0.1, 2)
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
+			minimap.add_icon(new_kart)
 	
 	create_minimap_from_curve()
 
@@ -182,7 +183,7 @@ func update_kart_placements():
 		var s = ""
 		for n in karts_sorted.size():
 			var kart = karts_sorted[n]
-			s += str(n+1) + ". " + kart.name + "\n"
+			s += str(n+1) + ". [color=#" + kart.data.color.to_html() + "]" + kart.player_name + "[/color]\n"
 		$CanvasLayer/DebugKartPlacements.text = s
 
 

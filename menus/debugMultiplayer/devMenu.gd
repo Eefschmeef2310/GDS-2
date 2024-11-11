@@ -112,7 +112,7 @@ func _on_start_button_pressed() -> void:
 	race_instance.connected_controllers = connected_controllers
 	race_instance.player_colors = player_colors.duplicate()
 	race_instance.course_scene = track_container.get_child(selected_track).track_scene
-	race_instance.number_of_racers = 4
+	race_instance.number_of_racers = 8
 	add_child(race_instance)
 	process_mode = PROCESS_MODE_DISABLED
 

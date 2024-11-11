@@ -34,7 +34,7 @@ func update_ranking(karts_sorted: Array[Kart]):
 		placement.show()
 		placement.placement_label.text = str(i) + suffix
 		placement.placement_label.add_theme_color_override("font_color", col)
-		placement.name_label.text = kart.name
+		placement.name_label.text = kart.player_name
 		
 		if kart.is_player:
 			var stylebox : StyleBoxFlat = placement.get_theme_stylebox("panel")

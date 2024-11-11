@@ -11,7 +11,7 @@ signal hand_updated()
 # -2 = any controller
 var device : int = -1
 
-var color : Color
+var color : Color = Color.WHITE
 
 @export var inventory : Dictionary = {
 	"hand" : null,
