@@ -69,6 +69,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
+player_colors = Array[Color]([Color(1, 0.4, 0.4, 1), Color(1, 1, 0.4, 1), Color(0.4, 1, 0.43, 1), Color(0.43, 0.4, 1, 1)])
 controller_list = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
 no_controller_prompt = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
 start_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton")
