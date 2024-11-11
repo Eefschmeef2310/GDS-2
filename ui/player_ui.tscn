@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=21 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
@@ -52,8 +52,22 @@ func update_polygon():
 		polygon = points
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udcba"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhf34"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dffel"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_fpday"]
 font_size = 30
@@ -142,7 +156,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
-modulate = Color(1, 1, 1, 0.498039)
+modulate = Color(1, 1, 1, 0.25098)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -173,7 +187,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Tire"]
-modulate = Color(1, 1, 1, 0.498039)
+modulate = Color(1, 1, 1, 0.25098)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -203,7 +217,7 @@ label_settings = SubResource("LabelSettings_rqmv5")
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Spoiler"]
-modulate = Color(1, 1, 1, 0.498039)
+modulate = Color(1, 1, 1, 0.25098)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -234,7 +248,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Oil"]
-modulate = Color(1, 1, 1, 0.498039)
+modulate = Color(1, 1, 1, 0.25098)
 custom_minimum_size = Vector2(40, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -307,7 +321,7 @@ ui = NodePath("../../../../..")
 [node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
 text = "Weight"
 
-[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name", "throw_item_type")]
+[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("modulate_me", "throw_item_type", "current_slot_desc", "current_slot_name", "stat", "item_name")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -320,15 +334,17 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(258, 0)
 columns = 5
 script = ExtResource("3_rts2l")
+modulate_me = [NodePath("Panel"), NodePath("Current Item/MarginContainer/Old Item/Panel"), NodePath("Current Slot")]
+throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
 current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
 stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
 item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
-throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 
 [node name="Panel" type="Panel" parent="Hand"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_udcba")
 
 [node name="MarginContainer" type="MarginContainer" parent="Hand/Panel"]
 layout_mode = 1
@@ -437,6 +453,7 @@ horizontal_alignment = 1
 [node name="Current Slot" type="PanelContainer" parent="Hand"]
 custom_minimum_size = Vector2(130, 100)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dffel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Hand/Current Slot"]
 layout_mode = 2

@@ -13,14 +13,15 @@ extends GridContainer
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export_group("Node References")
+@export var modulate_me : Array[Control]
+@export_subgroup("Throw")
+@export var throw_item_type : Label
 @export_subgroup("Current Slot")
 @export var current_slot_desc : Label
 @export var current_slot_name : Label
 @export_subgroup("Hand")
 @export var stat: Label
 @export var item_name : Label
-@export_subgroup("Throw")
-@export var throw_item_type : Label
 
 	#Onready Variables
 
@@ -31,6 +32,21 @@ extends GridContainer
 #region Other methods (please try to separate and organise!)
 func update(data : PlayerData):
 	if data.inventory["hand"]:
+		#Modulate hand to item colour
+		match data.inventory["hand"].type:
+			Item.Part.Engine:
+				for item in modulate_me:
+					item.self_modulate = Color("ff0000")
+			Item.Part.Tire:
+				for item in modulate_me:
+					item.self_modulate = Color("fff700")
+			Item.Part.Spoiler:
+				for item in modulate_me:
+					item.self_modulate = Color("00ff05")
+			Item.Part.Oil:
+				for item in modulate_me:
+					item.self_modulate = Color("0008ff")
+		
 		#Update throw text
 		throw_item_type.text = Item.Part.keys()[data.inventory["hand"].type]
 		
