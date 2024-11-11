@@ -189,7 +189,7 @@ func finish_race():
 	get_tree().paused = true
 	$CanvasLayer.hide()
 	$DebugWin.show()
-	$DebugWin.update_rankings(karts_sorted)
+	$DebugWin.update_ranking(karts_sorted)
 
 
 func _on_kart_checkpoint_passed(kart : Node3D, check : int):

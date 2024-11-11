@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://cvvvyxocbferf"]
+[gd_scene load_steps=26 format=3 uid="uid://cvvvyxocbferf"]
 
 [ext_resource type="Script" path="res://race/race_instance.gd" id="1_0d5f1"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
@@ -7,18 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="4_uouit"]
 [ext_resource type="Script" path="res://race/debug_win.gd" id="5_bmlpq"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
+[ext_resource type="PackedScene" uid="uid://bvu8cli1qkfwy" path="res://race/racer_placement.tscn" id="6_phxu0"]
 [ext_resource type="AudioStream" uid="uid://digx6c5wruq5s" path="res://audio/music/AFTER.wav" id="6_q38y2"]
 [ext_resource type="Script" path="res://ui/curve_drawer.gd" id="6_ra1j6"]
-[ext_resource type="Script" path="res://race/racer_placement.gd" id="6_uobx1"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]
 [ext_resource type="AudioStream" uid="uid://ckk16ms0p4k55" path="res://audio/music/race (1).wav" id="7_prfy3"]
 [ext_resource type="AudioStream" uid="uid://c76l7eh8ry8ce" path="res://audio/sound_effects/circle count (next lap).wav" id="9_oxegi"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_iajit"]
-content_margin_left = 16.0
-content_margin_top = 8.0
-content_margin_right = 8.0
-content_margin_bottom = 8.0
 
 [sub_resource type="LabelSettings" id="LabelSettings_vkluf"]
 font_size = 164
@@ -38,6 +32,68 @@ script/source = "extends Button
 func _on_pressed() -> void:
 	OS.shell_open(\"https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform\")
 "
+
+[sub_resource type="Animation" id="Animation_d7cn4"]
+resource_name = "auto"
+length = 2.0
+step = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 1.33333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rankings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1, 1.33333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pevap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rankings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nbkyk"]
+_data = {
+"RESET": SubResource("Animation_pevap"),
+"auto": SubResource("Animation_d7cn4")
+}
 
 [sub_resource type="LabelSettings" id="LabelSettings_0cap3"]
 font_size = 100
@@ -129,33 +185,11 @@ debug_start = true
 debug_start_course_scene = ExtResource("4_uouit")
 
 [node name="DebugWin" type="CanvasLayer" parent="." node_paths=PackedStringArray("race_complete", "race_music", "button")]
+visible = false
 script = ExtResource("5_bmlpq")
 race_complete = NodePath("RaceComplete")
 race_music = NodePath("RaceMusic")
 button = NodePath("Rankings/ResetButton")
-
-[node name="RacerPlacement" type="PanelContainer" parent="DebugWin"]
-visible = false
-offset_left = 655.0
-offset_top = 470.0
-offset_right = 1265.0
-offset_bottom = 531.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_iajit")
-script = ExtResource("6_uobx1")
-
-[node name="HBoxContainer" type="HBoxContainer" parent="DebugWin/RacerPlacement"]
-layout_mode = 2
-theme_override_constants/separation = 32
-
-[node name="Placement" type="Label" parent="DebugWin/RacerPlacement/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "1st"
-
-[node name="Name" type="Label" parent="DebugWin/RacerPlacement/HBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 32
-text = "Player 1"
 
 [node name="ColorRect" type="ColorRect" parent="DebugWin"]
 anchors_preset = 15
@@ -166,7 +200,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 0.784314)
 
 [node name="Label" type="Label" parent="DebugWin"]
-visible = false
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -183,6 +216,7 @@ label_settings = SubResource("LabelSettings_vkluf")
 horizontal_alignment = 1
 
 [node name="Rankings" type="VBoxContainer" parent="DebugWin"]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -198,7 +232,11 @@ grow_vertical = 2
 [node name="RacerContainer" type="VBoxContainer" parent="DebugWin/Rankings"]
 layout_mode = 2
 
+[node name="RacerPlacement" parent="DebugWin/Rankings/RacerContainer" instance=ExtResource("6_phxu0")]
+layout_mode = 2
+
 [node name="ResetButton" type="Button" parent="DebugWin/Rankings"]
+process_mode = 3
 layout_mode = 2
 theme_override_font_sizes/font_size = 48
 text = "Back to Menu"
@@ -221,10 +259,16 @@ stream = ExtResource("7_prfy3")
 volume_db = -5.0
 autoplay = true
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="DebugWin"]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_nbkyk")
+}
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="DebugKartPlacements" type="Label" parent="CanvasLayer"]
+visible = false
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 67.0
