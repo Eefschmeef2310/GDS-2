@@ -4,10 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_me725"]
 [ext_resource type="PackedScene" uid="uid://343m60taxeo2" path="res://cpu_stuff/cpu_kart.tscn" id="3_kkr21"]
 [ext_resource type="Script" path="res://race/minimap.gd" id="4_32fo0"]
-[ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="4_uouit"]
+[ext_resource type="PackedScene" path="res://courses/canyon/lava_course.tscn" id="4_uouit"]
 [ext_resource type="Script" path="res://race/debug_win.gd" id="5_bmlpq"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
-[ext_resource type="PackedScene" uid="uid://bvu8cli1qkfwy" path="res://race/racer_placement.tscn" id="6_phxu0"]
+[ext_resource type="PackedScene" path="res://race/racer_placement.tscn" id="6_phxu0"]
 [ext_resource type="AudioStream" uid="uid://digx6c5wruq5s" path="res://audio/music/AFTER.wav" id="6_q38y2"]
 [ext_resource type="Script" path="res://ui/curve_drawer.gd" id="6_ra1j6"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]
@@ -32,6 +32,33 @@ script/source = "extends Button
 func _on_pressed() -> void:
 	OS.shell_open(\"https://docs.google.com/forms/d/e/1FAIpQLSfoIufqY38w_qCgTdzpItG5QuTAq_OXacHTRoRw5ZPHYrA10w/viewform\")
 "
+
+[sub_resource type="Animation" id="Animation_pevap"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Rankings:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_d7cn4"]
 resource_name = "auto"
@@ -60,33 +87,6 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_pevap"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Label:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 1)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Rankings:modulate")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Color(1, 1, 1, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nbkyk"]
@@ -318,9 +318,10 @@ layout_mode = 3
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_top = -100.0
-offset_right = 200.0
-offset_bottom = 100.0
+offset_left = 96.0
+offset_top = -316.0
+offset_right = 296.0
+offset_bottom = -116.0
 grow_vertical = 2
 script = ExtResource("4_32fo0")
 

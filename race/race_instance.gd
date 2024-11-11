@@ -49,6 +49,10 @@ var debug_names = [
 	"Jinx",
 	"Caitlyn"
 	]
+#Values for cpu karts
+var max_speeds = [70, 55, 50, 45, 40, 35, 30]
+var turn_speeds = [20, 13, 11, 9, 8, 7, 6]
+var accelerations = [3, 2.5, 2.0, 2.0, 1.5, 1.0, 0.5]
 
 var connected_controllers : Array[int]
 var course_scene : PackedScene
@@ -158,9 +162,11 @@ func start_race():
 		else:
 			new_kart.name = debug_names.pick_random()
 			debug_names.erase(new_kart.name)
-			new_kart.max_speed = randf_range(15, 25)
-			new_kart.turn_speed = randf_range(8, 15)
-			new_kart.acceleration = randf_range(0.1, 2)
+			var index = n - connected_controllers.size()
+			new_kart.max_speed = max_speeds[index]
+			new_kart.turn_speed = turn_speeds[index]
+			new_kart.acceleration = accelerations[index]
+			new_kart.traction_coefficient = 4
 			debug_names.remove_at(0)
 			course.add_child(new_kart)
 	
