@@ -87,6 +87,9 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("debug_reset"):
 		get_tree().reload_current_scene()
+	
+	if Input.is_action_just_pressed("debug_finish"):
+		finish_race()
 
 func start_race():
 	# spawn karts
@@ -177,8 +180,14 @@ func add_lap(kart : Kart):
 	kart_placements[kart].laps += 1
 	kart_placements[kart].checkpoints_crossed.clear()
 	if kart_placements[kart].laps == 4:
-		get_tree().paused = true
-		$DebugWin.show()
+		finish_race()
+
+
+func finish_race():
+	get_tree().paused = true
+	$CanvasLayer.hide()
+	$DebugWin.show()
+	$DebugWin.update_rankings(karts_sorted)
 
 
 func _on_kart_checkpoint_passed(kart : Node3D, check : int):
