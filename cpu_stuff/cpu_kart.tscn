@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://343m60taxeo2"]
+[gd_scene load_steps=9 format=3 uid="uid://343m60taxeo2"]
 
 [ext_resource type="Script" path="res://cpu_stuff/cpu_kart.gd" id="1_kwu5n"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="1_neexj"]
@@ -12,11 +12,22 @@ size = Vector3(42.9657, 1, 4.29132)
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhrxm"]
 size = Vector3(27.7965, 1, 14.5551)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vu7h"]
+resource_local_to_scene = true
+albedo_color = Color(0.5, 0.35, 0.35, 1)
+
 [node name="CpuKart" instance=ExtResource("1_neexj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
 script = ExtResource("1_kwu5n")
+chasis_mat = SubResource("StandardMaterial3D_3vu7h")
+is_player = false
 max_speed = 30.0
+gravity = 100.0
+acceleration = 3.0
 turn_speed = 10.0
+boost_multiplier = 3.0
+boost_acceleration = 5.0
+traction_coefficient = 2.0
 
 [node name="StateMachine" parent="Scripts" index="2" node_paths=PackedStringArray("initial_state", "cpu_kart", "data_container") instance=ExtResource("3_cgvuw")]
 initial_state = NodePath("Basic")
@@ -37,29 +48,9 @@ back_hitbox = NodePath("../../Kart/BackHitbox")
 [node name="Kart" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
 
-[node name="LeftFrontWheel" parent="Kart/KartModel/FrontWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="RightFrontWheel" parent="Kart/KartModel/FrontWheels" index="1"]
-surface_material_override/0 = null
-
-[node name="BackLeftWheel" parent="Kart/KartModel/BackWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="BackRightWheel" parent="Kart/KartModel/BackWheels" index="1"]
-surface_material_override/0 = null
 
 [node name="Body" parent="Kart/KartModel" index="2"]
-surface_material_override/0 = null
-
-[node name="SteeringWheel" parent="Kart/KartModel" index="3"]
-surface_material_override/0 = null
-
-[node name="RightExhaust" parent="Kart/KartModel" index="4"]
-surface_material_override/0 = null
-
-[node name="LeftExhaust" parent="Kart/KartModel" index="5"]
-surface_material_override/0 = null
+surface_material_override/0 = SubResource("StandardMaterial3D_3vu7h")
 
 [node name="Camera3D" parent="Kart" index="1"]
 process_mode = 4

@@ -1,10 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=21 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
 [ext_resource type="PackedScene" uid="uid://bld70ufksg7ql" path="res://ui/kart_stat.tscn" id="3_p75pr"]
 [ext_resource type="Script" path="res://player/player_hand.gd" id="3_rts2l"]
+[ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_uio62"]
+[ext_resource type="Texture2D" uid="uid://bucde2srug1ai" path="res://item_boxes/wheel_icon.png" id="4_a3gmt"]
+[ext_resource type="Texture2D" uid="uid://ci6qownxd3bwu" path="res://item_boxes/spoiler.png" id="5_p2ork"]
 [ext_resource type="Script" path="res://ui/speed_needle.gd" id="6_hdh75"]
+[ext_resource type="Texture2D" uid="uid://cugtfgcc73cre" path="res://item_boxes/oil_icon.png" id="6_maxfl"]
 [ext_resource type="Script" path="res://ui/line_test.gd" id="6_u2wka"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ap0js"]
@@ -48,8 +52,22 @@ func update_polygon():
 		polygon = points
 "
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udcba"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhf34"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dffel"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="LabelSettings" id="LabelSettings_fpday"]
 font_size = 30
@@ -101,10 +119,10 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 15
 theme_override_constants/margin_bottom = 10
 script = ExtResource("2_56hxx")
-engine = NodePath("VBoxContainer/Slots/Engine/Label")
-tire = NodePath("VBoxContainer/Slots/Tire/Label2")
-spoiler = NodePath("VBoxContainer/Slots/Spoiler/Label3")
-oil = NodePath("VBoxContainer/Slots/Oil/Label4")
+engine = NodePath("VBoxContainer/Slots/Engine/Icon")
+tire = NodePath("VBoxContainer/Slots/Tire/Icon")
+spoiler = NodePath("VBoxContainer/Slots/Spoiler/Icon")
+oil = NodePath("VBoxContainer/Slots/Oil/Icon")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
 layout_mode = 2
@@ -137,6 +155,21 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Engine"]
+modulate = Color(1, 1, 1, 0.25098)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_uio62")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="Tire" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -153,6 +186,21 @@ label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Tire"]
+modulate = Color(1, 1, 1, 0.25098)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_a3gmt")
+expand_mode = 5
+stretch_mode = 5
+
 [node name="Spoiler" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -167,6 +215,21 @@ grow_horizontal = 2
 grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Spoiler"]
+modulate = Color(1, 1, 1, 0.25098)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_p2ork")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Oil" type="ColorRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots"]
 layout_mode = 2
@@ -183,6 +246,21 @@ grow_vertical = 2
 label_settings = SubResource("LabelSettings_rqmv5")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Icon" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer/Slots/Oil"]
+modulate = Color(1, 1, 1, 0.25098)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_maxfl")
+expand_mode = 5
+stretch_mode = 5
 
 [node name="Control" type="Control" parent="PanelContainer/MarginContainer/VBoxContainer"]
 visible = false
@@ -243,7 +321,7 @@ ui = NodePath("../../../../..")
 [node name="Label" parent="PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/weight" index="0"]
 text = "Weight"
 
-[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("current_slot_desc", "current_slot_name", "stat", "item_name", "throw_item_type")]
+[node name="Hand" type="GridContainer" parent="." node_paths=PackedStringArray("modulate_me", "throw_item_type", "current_slot_desc", "current_slot_name", "stat", "item_name")]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -256,15 +334,17 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(258, 0)
 columns = 5
 script = ExtResource("3_rts2l")
+modulate_me = [NodePath("Panel"), NodePath("Current Item/MarginContainer/Old Item/Panel"), NodePath("Current Slot")]
+throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
 current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
 stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
 item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
-throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 
 [node name="Panel" type="Panel" parent="Hand"]
 custom_minimum_size = Vector2(130, 0)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_udcba")
 
 [node name="MarginContainer" type="MarginContainer" parent="Hand/Panel"]
 layout_mode = 1
@@ -373,6 +453,7 @@ horizontal_alignment = 1
 [node name="Current Slot" type="PanelContainer" parent="Hand"]
 custom_minimum_size = Vector2(130, 100)
 layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_dffel")
 
 [node name="MarginContainer" type="MarginContainer" parent="Hand/Current Slot"]
 layout_mode = 2

@@ -1,16 +1,23 @@
 extends Control
 
+signal button_pressed()
+
+@export var player_colors : Array[Color]
+
 @export_subgroup("NodeRefences")
 @export var controller_list : VBoxContainer
 @export var no_controller_prompt : Label
 @export var start_button : Button
 @export var settings_menu : Control
+@export var track_container : Control
 
 const MAX_PLAYERS : int = 8
 const DEV_MENU_VIEWPORT = preload("res://menus/dev_menu_viewport.tscn")
 
 var connected_controllers : Array[int]
 var created_viewport
+
+var selected_track : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -30,10 +37,12 @@ func add_controller(controller_id : int):
 	if (controller_id == -1):
 		controller_name = "Keyboard"
 	var new_button : Button = Button.new()
+	new_button.modulate = player_colors[connected_controllers.size() - 1]
 	new_button.text = str(controller_id) + " : " + controller_name
 	new_button.pressed.connect(func(): _on_controller_changed(controller_id, false))
 	controller_list.add_child(new_button)
 	# create button and bind to remove signal
+	button_pressed.emit()
 	pass
 
 #remove disconnected controllers
@@ -99,11 +108,13 @@ func _on_start_button_pressed() -> void:
 	created_viewport.queue_free()
 	#send data to race manager thing
 	var race_instance : RaceInstance = load("res://race/race_instance.tscn").instantiate()
+	race_instance.debug_start = false
 	race_instance.connected_controllers = connected_controllers
+	race_instance.player_colors = player_colors.duplicate()
+	race_instance.course_scene = track_container.get_child(selected_track).track_scene
+	race_instance.number_of_racers = 4
 	add_child(race_instance)
 	process_mode = PROCESS_MODE_DISABLED
-	
-	pass # Replace with function body.
 
 func _on_feedback_button_pressed() -> void:
 	#load feedback form

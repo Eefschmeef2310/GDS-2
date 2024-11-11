@@ -1,9 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=15 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
 [ext_resource type="Script" path="res://menus/debugMultiplayer/settings.gd" id="3_jxdip"]
 [ext_resource type="Script" path="res://menus/audio/music/volume_slider.gd" id="3_unc12"]
+[ext_resource type="PackedScene" uid="uid://crrtfeywvjvc4" path="res://ui/button_pressed.tscn" id="3_ytlcv"]
+[ext_resource type="Texture2D" uid="uid://df5f8f28setl2" path="res://courses/thumbnails/canyon.png" id="4_ckx3c"]
+[ext_resource type="Script" path="res://menus/debugMultiplayer/track_button.gd" id="4_lvtsq"]
+[ext_resource type="PackedScene" uid="uid://bl3rvj3gfbc12" path="res://courses/canyon/canyon_course.tscn" id="5_hms7n"]
+[ext_resource type="Texture2D" uid="uid://2oumewwmwbta" path="res://courses/thumbnails/snow.png" id="5_x4g7t"]
+[ext_resource type="Texture2D" uid="uid://bd8dcrpuqswts" path="res://courses/thumbnails/lava.png" id="6_ujrro"]
+[ext_resource type="PackedScene" uid="uid://bka1o68c20fuk" path="res://courses/canyon/snow_course.tscn" id="7_2lup1"]
+[ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="9_dtovt"]
 
 [sub_resource type="GDScript" id="GDScript_n0lgt"]
 script/source = "extends Button
@@ -52,7 +60,7 @@ corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
 
-[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt", "start_button", "settings_menu")]
+[node name="DevMultiplayerMenu" type="Control" node_paths=PackedStringArray("controller_list", "no_controller_prompt", "start_button", "settings_menu", "track_container")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
@@ -61,16 +69,20 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_wil4j")
+player_colors = Array[Color]([Color(1, 0.4, 0.4, 1), Color(1, 1, 0.4, 1), Color(0.4, 1, 0.43, 1), Color(0.43, 0.4, 1, 1)])
 controller_list = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList")
 no_controller_prompt = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/Panel/MarginContainer/ControllerList/NoControllerLabel")
-start_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton")
+start_button = NodePath("MarginContainer/HBoxContainer/VBoxContainer/StartButton")
 settings_menu = NodePath("Settings")
+track_container = NodePath("MarginContainer/HBoxContainer/VBoxContainer/TrackContainer")
 
 [node name="MainMenuMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5k28m")
 volume_db = -5.0
 autoplay = true
 bus = &"Music"
+
+[node name="ButtonPressed" parent="." instance=ExtResource("3_ytlcv")]
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 top_level = true
@@ -139,19 +151,103 @@ horizontal_alignment = 1
 layout_mode = 2
 alignment = 1
 
-[node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
-modulate = Color(0, 0.75194, 0.220737, 1)
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Start Race!"
-script = SubResource("GDScript_n0lgt")
-
 [node name="FeedbackButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer"]
 visible = false
 modulate = Color(0.920769, 0.281647, 1, 1)
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Open Feedback Form"
+
+[node name="TrackContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 40
+alignment = 1
+
+[node name="Track" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer"]
+custom_minimum_size = Vector2(282, 312)
+layout_mode = 2
+script = ExtResource("4_lvtsq")
+track_scene = ExtResource("5_hms7n")
+
+[node name="TrackVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 266.0
+offset_bottom = 304.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track/TrackVBox"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+texture = ExtResource("4_ckx3c")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track/TrackVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Anarchy Canyon"
+horizontal_alignment = 1
+
+[node name="Track2" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer"]
+custom_minimum_size = Vector2(282, 312)
+layout_mode = 2
+script = ExtResource("4_lvtsq")
+track_scene = ExtResource("7_2lup1")
+
+[node name="TrackVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track2"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 266.0
+offset_bottom = 304.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track2/TrackVBox"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+texture = ExtResource("5_x4g7t")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track2/TrackVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Mount Garcia"
+horizontal_alignment = 1
+
+[node name="Track3" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer"]
+custom_minimum_size = Vector2(282, 312)
+layout_mode = 2
+script = ExtResource("4_lvtsq")
+track_scene = ExtResource("9_dtovt")
+
+[node name="TrackVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track3"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 266.0
+offset_bottom = 304.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track3/TrackVBox"]
+custom_minimum_size = Vector2(250, 250)
+layout_mode = 2
+texture = ExtResource("6_ujrro")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track3/TrackVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Hellworld"
+horizontal_alignment = 1
+
+[node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
+modulate = Color(0, 0.75194, 0.220737, 1)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Start Race!"
+script = SubResource("GDScript_n0lgt")
 
 [node name="SettingsButton" type="Button" parent="MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -284,9 +380,17 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "Back"
 
-[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="button_pressed" from="." to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/Panel/MarginContainer/Buttons/HBoxContainer/FeedbackButton" to="." method="_on_feedback_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track" to="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track2" to="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track2" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track3" to="MarginContainer/HBoxContainer/VBoxContainer/TrackContainer/Track3" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/StartButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/SettingsButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/VBoxContainer/QuitButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="visibility_changed" from="Settings" to="Settings" method="_on_visibility_changed"]
+[connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="Settings/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/Back" to="Settings" method="_on_back_pressed"]

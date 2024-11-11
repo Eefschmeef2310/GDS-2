@@ -29,11 +29,31 @@ var race_timer : float
 @export var debug_start_course_scene : PackedScene
 @export var debug_start_number_of_racers : int = 2
 
-var debug_names : PackedStringArray = ["Callie", "Marie", "Pearl", "Marina", "Shiver", "Frye", "Big Man"]
+var debug_names = [
+	"Callie",
+	"Marie",
+	"Pearl",
+	"Marina",
+	"Shiver",
+	"Frye",
+	"Big Man",
+	"Zale",
+	"Valere",
+	"Garl",
+	"Serai",
+	"Resh'an",
+	"B'st",
+	"Okarun",
+	"Momo",
+	"Vi",
+	"Jinx",
+	"Caitlyn"
+	]
 
 var connected_controllers : Array[int]
 var course_scene : PackedScene
 var number_of_racers : int = 8
+var player_colors : Array[Color]
 
 var countdown_timer = 3.0
 var countdown_started = false
@@ -50,7 +70,7 @@ func _ready():
 		
 		#number_of_racers = connected_controllers.size()
 		
-		start_race()
+	start_race()
 
 
 func _physics_process(_delta):
@@ -87,6 +107,9 @@ func _process(delta):
 	
 	if Input.is_action_just_pressed("debug_reset"):
 		get_tree().reload_current_scene()
+	
+	if Input.is_action_just_pressed("debug_finish"):
+		finish_race()
 
 func start_race():
 	# spawn karts
@@ -124,12 +147,17 @@ func start_race():
 			new_kart.player_ui.ri = self
 			new_kart.name = "Player " + str(n+1)
 			new_kart.data.device = connected_controllers[n]
+			new_kart.data.color = player_colors[n]
 			course.add_kart_to_viewport_grid(new_kart)
 			minimap.add_icon(new_kart)
 			if n > 0:
 				minimap.set_centre()
+			if connected_controllers.size() == 2:
+				new_kart.player_ui.scale.y = 0.5
+				new_kart.player_ui.control.size.y *= 2
 		else:
-			new_kart.name = debug_names[0]
+			new_kart.name = debug_names.pick_random()
+			debug_names.erase(new_kart.name)
 			new_kart.max_speed = randf_range(15, 25)
 			new_kart.turn_speed = randf_range(8, 15)
 			new_kart.acceleration = randf_range(0.1, 2)
@@ -177,8 +205,14 @@ func add_lap(kart : Kart):
 	kart_placements[kart].laps += 1
 	kart_placements[kart].checkpoints_crossed.clear()
 	if kart_placements[kart].laps == 4:
-		get_tree().paused = true
-		$DebugWin.show()
+		finish_race()
+
+
+func finish_race():
+	get_tree().paused = true
+	$CanvasLayer.hide()
+	$DebugWin.show()
+	$DebugWin.update_ranking(karts_sorted)
 
 
 func _on_kart_checkpoint_passed(kart : Node3D, check : int):

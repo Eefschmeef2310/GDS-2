@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://nitvuktlwi8e"]
+
+[ext_resource type="PackedScene" uid="uid://dkf24snlrb3li" path="res://courses/canyon/models/rock2.glb" id="1_dtot1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75f7p"]
+albedo_color = Color(0.9, 1, 0.991667, 1)
+
+[node name="rock2" instance=ExtResource("1_dtot1")]
+
+[node name="Icosphere_001" parent="." index="0"]
+material_override = SubResource("StandardMaterial3D_75f7p")

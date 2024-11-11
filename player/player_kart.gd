@@ -4,6 +4,9 @@ class_name PlayerKart
 
 const PAUSE_MENU = preload("res://menus/pause_menu/pause_menu.tscn")
 
+func _ready():
+	chasis_mat.albedo_color = data.color
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if is_player and can_control:

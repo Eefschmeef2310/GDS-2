@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b4d7d2twwcyu2" path="res://shaders/HurlNoise.png" id="2_i61nr"]
 [ext_resource type="Script" path="res://item_boxes/light.gd" id="3_s5714"]
 [ext_resource type="Script" path="res://item_boxes/particles.gd" id="5_fk6k0"]
-[ext_resource type="AudioStream" uid="uid://doql8a1b4qe01" path="res://audio/sound_effects/pick the item1.wav" id="6_qjxtp"]
+[ext_resource type="AudioStream" uid="uid://t0rthibd8tl7" path="res://audio/sound_effects/hit the item.wav" id="6_lrmvp"]
 
 [sub_resource type="Shader" id="Shader_r5e82"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.3.stable's StandardMaterial3D.
@@ -307,8 +307,7 @@ script = ExtResource("3_s5714")
 mesh = NodePath("..")
 
 [node name="Sprite3D" type="Sprite3D" parent="MeshInstance3D"]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
-visible = false
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 cast_shadow = 0
 billboard = 1
 alpha_cut = 1
@@ -335,7 +334,7 @@ libraries = {
 }
 
 [node name="BoxBroken" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("6_qjxtp")
+stream = ExtResource("6_lrmvp")
 volume_db = 5.0
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

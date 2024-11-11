@@ -6,6 +6,7 @@ extends Node
 @export var hit_by_item : AudioStreamPlayer
 @export var item_thrown : AudioStreamPlayer
 @export var item_use : AudioStreamPlayer
+@export var boosted : AudioStreamPlayer
 
 func _ready():
 	if !(get_parent() as Kart).is_player:
@@ -38,3 +39,6 @@ func _on_item_user_item_used() -> void:
 
 func _on_item_user_item_thrown() -> void:
 	item_thrown.play()
+
+func _on_ball_kart_boost_started() -> void:
+	boosted.play()
