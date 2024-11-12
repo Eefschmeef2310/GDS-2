@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://dv1xturrfehcb"]
+[gd_scene load_steps=14 format=3 uid="uid://dv1xturrfehcb"]
 
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="2_2ppmk"]
 [ext_resource type="Texture2D" uid="uid://fmj4kf8f7g18" path="res://icon.svg" id="3_hrvk1"]
@@ -124,6 +124,10 @@ func _process(_delta: float) -> void:
 		drift_released = !drift_input
 "
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7tt3w"]
+resource_local_to_scene = true
+albedo_color = Color(0.510519, 0.155034, 4.81308e-08, 1)
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8b5w4"]
 sky_cover = ExtResource("3_hrvk1")
 
@@ -176,6 +180,7 @@ smooth_faces = true
 [node name="BallKart" parent="." instance=ExtResource("2_2ppmk")]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -11.9602, 17.4045, -73.8472)
 script = SubResource("GDScript_kqd5g")
+chasis_mat = SubResource("StandardMaterial3D_7tt3w")
 is_player = true
 max_speed = 30.0
 turn_speed = 16.0
