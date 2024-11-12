@@ -4,7 +4,7 @@ extends HazardArea
 const EXPLOSION_PARTICLES = preload("res://items/hazards/engine/explosion_particles.tscn")
 
 @export var kill_timer : Timer
-@export var mesh : MeshInstance3D
+@export var mesh : Node3D
 
 func _on_explosion_timer_timeout() -> void:
 	#TODO - Check if this runs on enter if a body is already inside THEN monitoring is turned on

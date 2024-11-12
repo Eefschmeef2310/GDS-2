@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bxoqa1tw6o67n"]
+[gd_scene load_steps=24 format=3 uid="uid://bxoqa1tw6o67n"]
 
 [ext_resource type="Script" path="res://kart/player_ui.gd" id="1_u0skn"]
 [ext_resource type="Script" path="res://player/slots_ui.gd" id="2_56hxx"]
@@ -51,6 +51,27 @@ func update_polygon():
 		points.append(point)
 		polygon = points
 "
+
+[sub_resource type="Curve" id="Curve_mtgqm"]
+_data = [Vector2(0, 0), 0.0, 2.6479, 0, 0, Vector2(0.254286, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -4.81871, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_8ubki"]
+curve = SubResource("Curve_mtgqm")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dovq6"]
+particle_flag_disable_z = true
+angle_min = 1.07288e-05
+angle_max = 360.0
+spread = 180.0
+initial_velocity_min = 150.0
+initial_velocity_max = 150.0
+angular_velocity_min = -45.0
+angular_velocity_max = 45.0
+gravity = Vector3(0, 0, 0)
+scale_min = 10.0
+scale_max = 10.0
+alpha_curve = SubResource("CurveTexture_8ubki")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_udcba"]
 bg_color = Color(1, 1, 1, 1)
@@ -345,12 +366,19 @@ scale = Vector2(1.5, 1.5)
 pivot_offset = Vector2(258, 0)
 columns = 5
 script = ExtResource("3_rts2l")
-modulate_me = [NodePath("Panel"), NodePath("Current Item/MarginContainer/Old Item/Panel"), NodePath("Current Slot")]
+modulate_me = [NodePath("Panel"), NodePath("Current Item/MarginContainer/Old Item/Panel"), NodePath("Current Slot"), NodePath("GPUParticles2D")]
 throw_item_type = NodePath("Panel/MarginContainer/Old Item/Panel/CurrentItemLabel")
 current_slot_desc = NodePath("Current Slot/MarginContainer/Old Item/CurrentItemStats")
 current_slot_name = NodePath("Current Slot/MarginContainer/Old Item/Panel/CurrentItemLabel")
 stat = NodePath("Current Item/MarginContainer/Old Item/Stat")
 item_name = NodePath("Current Item/MarginContainer/Old Item/Panel/HandItemName")
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Control/Hand"]
+position = Vector2(258.333, 56.6667)
+scale = Vector2(0.666667, 0.666667)
+amount = 16
+process_material = SubResource("ParticleProcessMaterial_dovq6")
+explosiveness = 0.5
 
 [node name="Panel" type="Panel" parent="Control/Hand"]
 custom_minimum_size = Vector2(130, 0)
@@ -376,6 +404,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Control/Hand/Panel/MarginContainer/Old Item"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Throw"
 horizontal_alignment = 1
 
@@ -394,6 +423,7 @@ offset_left = -21.0
 offset_right = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -406,6 +436,7 @@ V Acceleration"
 
 [node name="Label" type="Label" parent="Control/Hand"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Press L
 <-"
 horizontal_alignment = 1
@@ -445,6 +476,7 @@ offset_right = 45.0
 offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 text = "Item Here"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -452,11 +484,13 @@ autowrap_mode = 2
 
 [node name="Stat" type="Label" parent="Control/Hand/Current Item/MarginContainer/Old Item"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "^ Stat 1
 V Stat 2"
 
 [node name="Label2" type="Label" parent="Control/Hand"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Press R
 ->"
 horizontal_alignment = 1
@@ -480,6 +514,7 @@ size_flags_vertical = 3
 
 [node name="Label" type="Label" parent="Control/Hand/Current Slot/MarginContainer/Old Item"]
 layout_mode = 2
+theme_override_constants/outline_size = 5
 text = "Equip"
 horizontal_alignment = 1
 
@@ -498,6 +533,7 @@ offset_left = -21.0
 offset_right = 21.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/outline_size = 5
 text = "Item here"
 horizontal_alignment = 1
 vertical_alignment = 1

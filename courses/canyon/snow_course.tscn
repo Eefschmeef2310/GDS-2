@@ -173,40 +173,40 @@ point_count = 13
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g30ma"]
 uv1_scale = Vector3(0.04, 2.875, 0)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_l2jbe"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_43l21"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_052mu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_t1dpb"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_riufu"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w0y6l"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_udm77"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v8b32"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_b3x1y"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_74lj5"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_etlfl"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_veqvu"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_dn2l0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_p5rsh"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_vwsug"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8idpd"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tiley"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dir4t"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_8xfsj"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_f6gb5"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_gwe0f"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6gsu"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_12mh0"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_doe5u"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="Curve" id="Curve_hlnwc"]
@@ -265,101 +265,101 @@ curve = SubResource("Curve3D_stwl6")
 path_simplify_angle = 5.0
 material = SubResource("StandardMaterial3D_g30ma")
 
-[node name="@Area3D@55460" type="Area3D" parent="Track/Checkpoints" index="0"]
+[node name="@Area3D@56984" type="Area3D" parent="Track/Checkpoints" index="0"]
 transform = Transform3D(0.941677, 0, -0.336518, 0, 1, 0, 0.336518, 0, 0.941677, -153.487, 0, -73.3047)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55461" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55460" index="0"]
-shape = SubResource("BoxShape3D_l2jbe")
+[node name="@CollisionShape3D@56985" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56984" index="0"]
+shape = SubResource("BoxShape3D_43l21")
 
-[node name="@Area3D@55462" type="Area3D" parent="Track/Checkpoints" index="1"]
+[node name="@Area3D@56986" type="Area3D" parent="Track/Checkpoints" index="1"]
 transform = Transform3D(0.022466, 0, -0.999748, 0, 1, 0, 0.999748, 0, 0.022466, -275.996, 0, -109.101)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55463" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55462" index="0"]
-shape = SubResource("BoxShape3D_052mu")
+[node name="@CollisionShape3D@56987" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56986" index="0"]
+shape = SubResource("BoxShape3D_t1dpb")
 
-[node name="@Area3D@55464" type="Area3D" parent="Track/Checkpoints" index="2"]
+[node name="@Area3D@56988" type="Area3D" parent="Track/Checkpoints" index="2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -101.277, 0, -176.625)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55465" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55464" index="0"]
-shape = SubResource("BoxShape3D_riufu")
+[node name="@CollisionShape3D@56989" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56988" index="0"]
+shape = SubResource("BoxShape3D_w0y6l")
 
-[node name="@Area3D@55466" type="Area3D" parent="Track/Checkpoints" index="3"]
+[node name="@Area3D@56990" type="Area3D" parent="Track/Checkpoints" index="3"]
 transform = Transform3D(0.135113, 0, -0.99083, 0, 1, 0, 0.99083, 0, 0.135113, -288.656, 0, -238.24)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55467" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55466" index="0"]
-shape = SubResource("BoxShape3D_udm77")
+[node name="@CollisionShape3D@56991" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56990" index="0"]
+shape = SubResource("BoxShape3D_v8b32")
 
-[node name="@Area3D@55468" type="Area3D" parent="Track/Checkpoints" index="4"]
+[node name="@Area3D@56992" type="Area3D" parent="Track/Checkpoints" index="4"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -114.837, 0, -277.274)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55469" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55468" index="0"]
-shape = SubResource("BoxShape3D_b3x1y")
+[node name="@CollisionShape3D@56993" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56992" index="0"]
+shape = SubResource("BoxShape3D_74lj5")
 
-[node name="@Area3D@55470" type="Area3D" parent="Track/Checkpoints" index="5"]
+[node name="@Area3D@56994" type="Area3D" parent="Track/Checkpoints" index="5"]
 transform = Transform3D(-0.986879, 0, 0.161459, 0, 1, 0, -0.161459, 0, -0.986879, 10.9261, 0, -361.679)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55471" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55470" index="0"]
-shape = SubResource("BoxShape3D_etlfl")
+[node name="@CollisionShape3D@56995" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56994" index="0"]
+shape = SubResource("BoxShape3D_veqvu")
 
-[node name="@Area3D@55472" type="Area3D" parent="Track/Checkpoints" index="6"]
+[node name="@Area3D@56996" type="Area3D" parent="Track/Checkpoints" index="6"]
 transform = Transform3D(0.707108, 0, 0.707106, 0, 1, 0, -0.707106, 0, 0.707108, 16.9747, 0, -265.917)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55473" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55472" index="0"]
-shape = SubResource("BoxShape3D_dn2l0")
+[node name="@CollisionShape3D@56997" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56996" index="0"]
+shape = SubResource("BoxShape3D_p5rsh")
 
-[node name="@Area3D@55474" type="Area3D" parent="Track/Checkpoints" index="7"]
+[node name="@Area3D@56998" type="Area3D" parent="Track/Checkpoints" index="7"]
 transform = Transform3D(-0.787718, 0, 0.616036, 0, 1, 0, -0.616036, 0, -0.787718, -6.644, 0, -163.569)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55475" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55474" index="0"]
-shape = SubResource("BoxShape3D_vwsug")
+[node name="@CollisionShape3D@56999" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@56998" index="0"]
+shape = SubResource("BoxShape3D_8idpd")
 
-[node name="@Area3D@55476" type="Area3D" parent="Track/Checkpoints" index="8"]
+[node name="@Area3D@57000" type="Area3D" parent="Track/Checkpoints" index="8"]
 transform = Transform3D(-0.916158, 0, 0.400818, 0, 1, 0, -0.400818, 0, -0.916158, 135.784, 0, -262.338)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55477" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55476" index="0"]
-shape = SubResource("BoxShape3D_tiley")
+[node name="@CollisionShape3D@57001" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57000" index="0"]
+shape = SubResource("BoxShape3D_dir4t")
 
-[node name="@Area3D@55478" type="Area3D" parent="Track/Checkpoints" index="9"]
+[node name="@Area3D@57002" type="Area3D" parent="Track/Checkpoints" index="9"]
 transform = Transform3D(0.563873, 0, 0.825862, 0, 1, 0, -0.825862, 0, 0.563873, 147.857, 0, -134.919)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55479" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55478" index="0"]
-shape = SubResource("BoxShape3D_8xfsj")
+[node name="@CollisionShape3D@57003" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57002" index="0"]
+shape = SubResource("BoxShape3D_f6gb5")
 
-[node name="@Area3D@55480" type="Area3D" parent="Track/Checkpoints" index="10"]
+[node name="@Area3D@57004" type="Area3D" parent="Track/Checkpoints" index="10"]
 transform = Transform3D(0.680632, 0, -0.732626, 0, 1, 0, 0.732626, 0, 0.680632, 23.9696, 0, -84.4343)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55481" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55480" index="0"]
-shape = SubResource("BoxShape3D_gwe0f")
+[node name="@CollisionShape3D@57005" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57004" index="0"]
+shape = SubResource("BoxShape3D_w6gsu")
 
-[node name="@Area3D@55482" type="Area3D" parent="Track/Checkpoints" index="11"]
+[node name="@Area3D@57006" type="Area3D" parent="Track/Checkpoints" index="11"]
 transform = Transform3D(0.925939, 0, -0.377673, 0, 1, 0, 0.377673, 0, 0.925939, -84.8744, 0, -43.7139)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@55483" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@55482" index="0"]
-shape = SubResource("BoxShape3D_12mh0")
+[node name="@CollisionShape3D@57007" type="CollisionShape3D" parent="Track/Checkpoints/@Area3D@57006" index="0"]
+shape = SubResource("BoxShape3D_doe5u")
 
 [node name="InnerPavement" parent="Track" index="2"]
 polygon = PackedVector2Array(-21, 0, -21, 4, -19, 4, -20, 0)

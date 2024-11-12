@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dgk7adg1mlwdo"]
+[gd_scene load_steps=8 format=3 uid="uid://dgk7adg1mlwdo"]
 
 [ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_hazard_node.gd" id="1_cpq18"]
 [ext_resource type="Script" path="res://items/hazards/spoilers/path_follower.gd" id="2_cf1bs"]
 [ext_resource type="Script" path="res://items/hazards/spoilers/hurtbox.gd" id="3_8fuqg"]
+[ext_resource type="PackedScene" uid="uid://wlrhpsh4kvab" path="res://items/hazards/spoilers/spoiler.fbx" id="4_13uwl"]
 
 [sub_resource type="Curve3D" id="Curve3D_jqkil"]
 _data = {
@@ -11,10 +12,11 @@ _data = {
 }
 point_count = 5
 
-[sub_resource type="BoxMesh" id="BoxMesh_5e5p7"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8c6pa"]
+albedo_color = Color(0, 0, 0, 1)
 
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_ls0vp"]
-data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+[sub_resource type="BoxShape3D" id="BoxShape3D_xb0sp"]
+size = Vector3(1, 0.462891, 2.43262)
 
 [node name="Spoiler Hazard" type="Node3D"]
 script = ExtResource("1_cpq18")
@@ -24,29 +26,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 curve = SubResource("Curve3D_jqkil")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, -2.12282, 0, -2.2169)
-progress = 18.1383
+transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 0.69583, 0, -3.26186)
+progress = 0.742501
 rotation_mode = 0
 script = ExtResource("2_cf1bs")
 speed = 0.75
 
 [node name="Hurtbox" type="Area3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(-0.834127, 0, -0.551571, 0, 1, 0, 0.551571, 0, -0.834127, 0, 0, 0)
+transform = Transform3D(0.773303, 0, -0.634035, 0, 1, 0, 0.634035, 0, 0.773303, 0, 0, 0)
 collision_layer = 8
 collision_mask = 12
 script = ExtResource("3_8fuqg")
 spin_speed = 250.0
 hit_self = false
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Path3D/PathFollow3D/Hurtbox"]
-transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-mesh = SubResource("BoxMesh_5e5p7")
-skeleton = NodePath("../..")
+[node name="spoiler" parent="Path3D/PathFollow3D/Hurtbox" instance=ExtResource("4_13uwl")]
+
+[node name="Cube" parent="Path3D/PathFollow3D/Hurtbox/spoiler" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_8c6pa")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Path3D/PathFollow3D/Hurtbox"]
-transform = Transform3D(1, 0, -5.96046e-08, 0, 1, 0, 5.96046e-08, 0, 1, 0, 0, 0)
-shape = SubResource("ConcavePolygonShape3D_ls0vp")
+transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, 0)
+shape = SubResource("BoxShape3D_xb0sp")
 
 [connection signal="area_entered" from="Path3D/PathFollow3D/Hurtbox" to="Path3D/PathFollow3D/Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Path3D/PathFollow3D/Hurtbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Path3D/PathFollow3D/Hurtbox" to="Path3D/PathFollow3D/Hurtbox" method="_on_hitbox_body_entered"]
+
+[editable path="Path3D/PathFollow3D/Hurtbox/spoiler"]

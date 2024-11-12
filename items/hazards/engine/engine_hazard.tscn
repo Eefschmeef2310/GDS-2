@@ -1,22 +1,59 @@
-[gd_scene load_steps=5 format=3 uid="uid://ugmoryxtdxdn"]
+[gd_scene load_steps=13 format=3 uid="uid://ugmoryxtdxdn"]
 
 [ext_resource type="Script" path="res://items/hazards/engine/engine_hazard.gd" id="1_rv451"]
+[ext_resource type="PackedScene" uid="uid://c08jmekhvnpvu" path="res://items/hazards/engine/engine.fbx" id="2_eb1jr"]
+[ext_resource type="Texture2D" uid="uid://dqkmqhwimyddv" path="res://particles/textures/title-bar-logo-gradient-white.png" id="2_oq40n"]
+
+[sub_resource type="Gradient" id="Gradient_4l4gd"]
+offsets = PackedFloat32Array(0.371711, 0.588816, 0.828947)
+colors = PackedColorArray(1, 0, 0, 1, 0.879558, 0.533801, 0.134275, 1, 0.0791031, 0.0791031, 0.0791031, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_4il64"]
+gradient = SubResource("Gradient_4l4gd")
+
+[sub_resource type="Curve" id="Curve_g5eg4"]
+_data = [Vector2(0, 0), 0.0, 2.37986, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_f2dla"]
+curve = SubResource("Curve_g5eg4")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_x36bm"]
+gravity = Vector3(0, 1, 0)
+scale_min = 0.3
+scale_max = 0.3
+scale_curve = SubResource("CurveTexture_f2dla")
+color_ramp = SubResource("GradientTexture1D_4il64")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q10wl"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_oq40n")
+
+[sub_resource type="QuadMesh" id="QuadMesh_043us"]
+material = SubResource("StandardMaterial3D_q10wl")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_nmiir"]
 radius = 7.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b14mu"]
-albedo_color = Color(0, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_urryy"]
-material = SubResource("StandardMaterial3D_b14mu")
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qf4f1"]
+albedo_color = Color(0.316706, 0.316706, 0.316706, 1)
+metallic = 1.0
+roughness = 0.0
 
 [node name="EngineHazard" type="Area3D" node_paths=PackedStringArray("kill_timer", "mesh")]
 collision_layer = 8
 collision_mask = 4
 script = ExtResource("1_rv451")
 kill_timer = NodePath("KillTimer")
-mesh = NodePath("MeshInstance3D")
+mesh = NodePath("engine")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.273594, 0)
+amount = 16
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_x36bm")
+draw_pass_1 = SubResource("QuadMesh_043us")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("SphereShape3D_nmiir")
@@ -28,9 +65,31 @@ autostart = true
 [node name="KillTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-mesh = SubResource("SphereMesh_urryy")
+[node name="engine" parent="." instance=ExtResource("2_eb1jr")]
+
+[node name="Cylinder" parent="engine" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cube_002" parent="engine" index="1"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cube_003" parent="engine" index="2"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cylinder_001" parent="engine" index="3"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cube_004" parent="engine" index="4"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cylinder_002" parent="engine" index="5"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
+
+[node name="Cylinder_003" parent="engine" index="6"]
+surface_material_override/0 = SubResource("StandardMaterial3D_qf4f1")
 
 [connection signal="body_entered" from="." to="." method="_on_hitbox_body_entered"]
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_explosion_timer_timeout"]
 [connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]
+
+[editable path="engine"]

@@ -13,7 +13,7 @@ extends GridContainer
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
 @export_group("Node References")
-@export var modulate_me : Array[Control]
+@export var modulate_me : Array[Node]
 @export_subgroup("Throw")
 @export var throw_item_type : Label
 @export_subgroup("Current Slot")

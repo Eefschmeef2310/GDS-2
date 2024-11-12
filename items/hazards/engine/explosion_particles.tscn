@@ -1,12 +1,41 @@
-[gd_scene load_steps=4 format=3 uid="uid://yqm5q2c2w3ln"]
+[gd_scene load_steps=10 format=3 uid="uid://yqm5q2c2w3ln"]
+
+[ext_resource type="Texture2D" uid="uid://dqkmqhwimyddv" path="res://particles/textures/title-bar-logo-gradient-white.png" id="1_ur5sl"]
+
+[sub_resource type="Gradient" id="Gradient_yo1ur"]
+offsets = PackedFloat32Array(0.223684, 0.463816)
+colors = PackedColorArray(1, 0, 0, 1, 0.221665, 0.221665, 0.221665, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_3mx42"]
+gradient = SubResource("Gradient_yo1ur")
+
+[sub_resource type="Curve" id="Curve_rm2u5"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -3.29593, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ihnir"]
+curve = SubResource("Curve_rm2u5")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xsj4v"]
 emission_shape_scale = Vector3(0, 1, 0)
 spread = 180.0
 initial_velocity_min = 5.0
 initial_velocity_max = 10.0
+scale_curve = SubResource("CurveTexture_ihnir")
+color_ramp = SubResource("GradientTexture1D_3mx42")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ahpma"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_ur5sl")
+billboard_mode = 3
+billboard_keep_scale = true
+particles_anim_h_frames = 1
+particles_anim_v_frames = 1
+particles_anim_loop = false
 
 [sub_resource type="QuadMesh" id="QuadMesh_mde2j"]
+material = SubResource("StandardMaterial3D_ahpma")
 
 [sub_resource type="GDScript" id="GDScript_0o7nt"]
 resource_name = "explosion_particles"
