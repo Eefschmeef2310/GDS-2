@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_hazard_node.gd" id="1_cpq18"]
 [ext_resource type="Script" path="res://items/hazards/spoilers/path_follower.gd" id="2_cf1bs"]
-[ext_resource type="Script" path="res://items/hazards/spoilers/hurtbox.gd" id="3_8fuqg"]
+[ext_resource type="Script" path="res://items/hazards/spoilers/spoiler_throwable_hurtbox.gd" id="3_8fuqg"]
 [ext_resource type="PackedScene" uid="uid://wlrhpsh4kvab" path="res://items/hazards/spoilers/spoiler.fbx" id="4_13uwl"]
 
 [sub_resource type="Curve3D" id="Curve3D_jqkil"]
@@ -18,22 +18,23 @@ albedo_color = Color(0, 0, 0, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_xb0sp"]
 size = Vector3(1, 0.462891, 2.43262)
 
-[node name="Spoiler Hazard" type="Node3D"]
+[node name="Spoiler Hazard" type="Node3D" node_paths=PackedStringArray("hurtbox")]
 script = ExtResource("1_cpq18")
+hurtbox = NodePath("Path3D/PathFollow3D/Hurtbox")
 
 [node name="Path3D" type="Path3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 curve = SubResource("Curve3D_jqkil")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 0.69583, 0, -3.26186)
-progress = 0.742501
+transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, -3.46202, 0, 0.239947)
+progress = 15.1979
 rotation_mode = 0
 script = ExtResource("2_cf1bs")
 speed = 0.75
 
 [node name="Hurtbox" type="Area3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(0.773303, 0, -0.634035, 0, 1, 0, 0.634035, 0, 0.773303, 0, 0, 0)
+transform = Transform3D(-0.260636, 0, -0.965436, 0, 1, 0, 0.965436, 0, -0.260636, 0, 0, 0)
 collision_layer = 8
 collision_mask = 12
 script = ExtResource("3_8fuqg")
@@ -49,6 +50,7 @@ surface_material_override/0 = SubResource("StandardMaterial3D_8c6pa")
 transform = Transform3D(1, 0, 5.96046e-08, 0, 1, 0, -5.96046e-08, 0, 1, 0, 0, 0)
 shape = SubResource("BoxShape3D_xb0sp")
 
+[connection signal="area_entered" from="Path3D/PathFollow3D/Hurtbox" to="Path3D/PathFollow3D/Hurtbox" method="_on_hitbox_body_entered"]
 [connection signal="area_entered" from="Path3D/PathFollow3D/Hurtbox" to="Path3D/PathFollow3D/Hurtbox" method="_on_area_entered"]
 [connection signal="body_entered" from="Path3D/PathFollow3D/Hurtbox" to="." method="_on_hitbox_body_entered"]
 [connection signal="body_entered" from="Path3D/PathFollow3D/Hurtbox" to="Path3D/PathFollow3D/Hurtbox" method="_on_hitbox_body_entered"]

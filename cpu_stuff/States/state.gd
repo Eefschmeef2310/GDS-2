@@ -23,7 +23,7 @@ var drift_released : bool =  false
 #region Godot methods
 func _ready():
 	await get_tree().process_frame
-	cpu_kart = get_parent().cpu_kart
+	cpu_kart = get_owner()
 	if cpu_kart.track:
 		curve = cpu_kart.track.curve
 #endregion
@@ -36,7 +36,13 @@ func update(delta):
 	return
 
 func physics_update(delta):
-	if (cpu_kart && cpu_kart.can_control && curve):
+	if cpu_kart && !cpu_kart.can_control:
+		cpu_kart.accelerating = false
+		cpu_kart.braking = false
+		cpu_kart.steer_axis = 0
+		cpu_kart.drift_input = false
+		cpu_kart.drift_released = !drift_input
+	elif (cpu_kart && curve):
 		set_target_pos()
 		update_inputs()
 		update_kart()

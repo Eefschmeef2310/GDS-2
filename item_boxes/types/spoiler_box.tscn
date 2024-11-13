@@ -116,9 +116,9 @@ shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/noise_rotation_speed = 100.0
 shader_parameter/glitter_offset = 0.51
-shader_parameter/glitter_color = Color(0.0958465, 1, 0, 1)
-shader_parameter/base_gradient_1 = Color(0.587784, 1, 0.5, 1)
-shader_parameter/base_gradient_2 = Color(0.312739, 0.642562, 0.270571, 1)
+shader_parameter/glitter_color = Color(0.0784314, 0.32549, 0.180392, 1)
+shader_parameter/base_gradient_1 = Color(0.479621, 0.606458, 0.287067, 1)
+shader_parameter/base_gradient_2 = Color(0.243137, 0.45098, 0.0470588, 1)
 shader_parameter/base_gradient_power = -0.1
 shader_parameter/noise = ExtResource("2_1ppw1")
 
@@ -132,7 +132,7 @@ resource_local_to_scene = true
 transparency = 1
 blend_mode = 1
 vertex_color_use_as_albedo = true
-albedo_color = Color(0.0958465, 1, 0, 1)
+albedo_color = Color(0.0784314, 0.32549, 0.180392, 1)
 billboard_mode = 3
 billboard_keep_scale = true
 particles_anim_h_frames = 1
@@ -151,7 +151,7 @@ part_type = 2
 mesh = SubResource("SphereMesh_begwp")
 
 [node name="OmniLight3D" parent="MeshInstance3D" index="0"]
-light_color = Color(0.0958465, 1, 0, 1)
+light_color = Color(0.0784314, 0.32549, 0.180392, 1)
 
 [node name="Sprite3D" parent="MeshInstance3D" index="1"]
 texture = ExtResource("3_ox8l0")

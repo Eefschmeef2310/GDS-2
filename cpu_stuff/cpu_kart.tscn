@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://343m60taxeo2"]
+[gd_scene load_steps=10 format=3 uid="uid://343m60taxeo2"]
 
 [ext_resource type="Script" path="res://cpu_stuff/cpu_kart.gd" id="1_kwu5n"]
 [ext_resource type="PackedScene" uid="uid://cin3xygvxjrxm" path="res://debug_and_testing/ball_kart.tscn" id="1_neexj"]
 [ext_resource type="PackedScene" uid="uid://c3ckho3e6wjsy" path="res://cpu_stuff/States/state_machine.tscn" id="3_cgvuw"]
 [ext_resource type="Script" path="res://cpu_stuff/States/basic_state.gd" id="4_3k0fu"]
 [ext_resource type="Script" path="res://cpu_stuff/item_logic.gd" id="5_sreav"]
+[ext_resource type="Script" path="res://cpu_stuff/rubberbanding.gd" id="6_21ed7"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3vu7h"]
 resource_local_to_scene = true
@@ -16,9 +17,10 @@ size = Vector3(42.9657, 1, 4.29132)
 [sub_resource type="BoxShape3D" id="BoxShape3D_bhrxm"]
 size = Vector3(27.7965, 1, 14.5551)
 
-[node name="CpuKart" instance=ExtResource("1_neexj")]
+[node name="CpuKart" node_paths=PackedStringArray("rubberband") instance=ExtResource("1_neexj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
 script = ExtResource("1_kwu5n")
+rubberband = NodePath("Scripts/Rubberbanding")
 chasis_mat = SubResource("StandardMaterial3D_3vu7h")
 max_speed = 30.0
 turn_speed = 10.0
@@ -39,6 +41,14 @@ item_user = NodePath("../ItemUser")
 stat_weights = Array[int]([5, 1, 3, 0, 1])
 front_hitbox = NodePath("../../Kart/FrontHitbox")
 back_hitbox = NodePath("../../Kart/BackHitbox")
+
+[node name="Rubberbanding" type="Node" parent="Scripts" index="4"]
+script = ExtResource("6_21ed7")
+bonus_speed = 20.0
+
+[node name="Timer" type="Timer" parent="Scripts/Rubberbanding" index="0"]
+wait_time = 5.0
+autostart = true
 
 [node name="Kart" parent="." index="3"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.156216, -0.178354, -0.121738)
@@ -95,3 +105,6 @@ shape = SubResource("BoxShape3D_bhrxm")
 [node name="PlayerUI" parent="." index="5"]
 process_mode = 4
 visible = false
+
+[connection signal="stats_updated" from="." to="Scripts/Rubberbanding" method="_on_cpu_kart_stats_updated"]
+[connection signal="timeout" from="Scripts/Rubberbanding/Timer" to="Scripts/Rubberbanding" method="_on_timer_timeout"]

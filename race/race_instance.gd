@@ -10,7 +10,7 @@ class KartPlacement:
 	var track_offset : float
 	
 	# If they've finished the race already, what place were they in?
-	var finished_placement : int = 99
+	var finished_placement : int = 0
 
 # key : Kart, value : KartPlacement
 var kart_placements : Dictionary
@@ -164,9 +164,9 @@ func start_race():
 			if connected_controllers.size() == 2:
 				new_kart.player_ui.scale.y = 0.5
 				new_kart.player_ui.control.size.y *= 2
-				new_kart.player_ui.finish.size.y *= 2
 		else:
 			new_kart.player_name = debug_names.pick_random()
+			new_kart.rubberband.ri = self
 			debug_names.erase(new_kart.player_name)
 			var index = n - connected_controllers.size()
 			new_kart.max_speed = max_speeds[index]
@@ -204,7 +204,7 @@ func sort_karts_by_placement(a, b):
 	# Sort karts with the same lap count by track offset
 	
 	if kart_placements[a].finished_placement != kart_placements[b].finished_placement:
-		return kart_placements[a].finished_placement < kart_placements[b].finished_placement
+		return kart_placements[a].finished_placement > kart_placements[b].finished_placement
 	
 	if kart_placements[a].laps != kart_placements[b].laps:
 		return kart_placements[a].laps > kart_placements[b].laps
@@ -216,19 +216,8 @@ func add_lap(kart : Kart):
 	$LapsIncreased.play()
 	kart_placements[kart].laps += 1
 	kart_placements[kart].checkpoints_crossed.clear()
-	if kart_placements[kart].laps > total_laps:
-		kart_placements[kart].finished_placement = karts_sorted.find(kart)
-		kart.can_control = false
-		if are_all_players_finished():
-			finish_race()
-
-
-func are_all_players_finished():
-	var n = 0
-	for kart : Kart in kart_placements.keys():
-		if kart.is_player and kart_placements[kart].finished_placement < 99:
-			n += 1
-	return n >= connected_controllers.size()
+	if kart_placements[kart].laps == 4:
+		finish_race()
 
 
 func finish_race():
@@ -250,17 +239,17 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 	var prev_check = wrap(last_check - 1, 0, check_count)
 
 
-	print("Detected checkpoint " + str(check))
-	print("Last checkpoint " + str(last_check))
-	print("Next checkpoint " + str(next_check))
-	print("Prev checkpoint " + str(prev_check))
+	#print("Detected checkpoint " + str(check))
+	#print("Last checkpoint " + str(last_check))
+	#print("Next checkpoint " + str(next_check))
+	#print("Prev checkpoint " + str(prev_check))
 	
 	if check == prev_check:
-		print("You just went backwards")
+		#print("We just went backwards")
 		kart_placements[kart].last_checkpoint = check
 
 	elif check == next_check:
-		print("You just went forwards")
+		#print("We just went forwards")
 		kart_placements[kart].last_checkpoint = check
 		if check == 0:
 			# We just crossed the finished line

@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=4 uid="uid://cin3xygvxjrxm"]
+[gd_scene load_steps=95 format=4 uid="uid://cin3xygvxjrxm"]
 
 [ext_resource type="Script" path="res://player/player_kart.gd" id="1_i6kgw"]
 [ext_resource type="Script" path="res://player/player_data.gd" id="2_3ouaj"]
@@ -26,15 +26,6 @@ absorbent = true
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g6ggg"]
 resource_local_to_scene = true
 albedo_color = Color(0.510519, 0.155034, 4.81308e-08, 1)
-
-[sub_resource type="GDScript" id="GDScript_ghuyg"]
-resource_name = "Hurtbox"
-script/source = "extends Area3D
-#region Variables
-@onready var ball_kart: Kart = $\"..\"
-
-#endregion
-"
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ita0d"]
 radius = 2.12327
@@ -610,7 +601,6 @@ player_ui = NodePath("PlayerUI")
 [node name="Hurtbox" type="Area3D" parent="."]
 collision_layer = 4
 collision_mask = 8
-script = SubResource("GDScript_ghuyg")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Hurtbox"]
 shape = SubResource("SphereShape3D_ita0d")
@@ -898,7 +888,6 @@ bus = &"Master"
 [connection signal="hit_item_box" from="." to="Scripts/PlayerDataContainer" method="_on_kart_hit_item_box"]
 [connection signal="new_drift_mode" from="." to="Kart/KartModel/Particles" method="_on_ball_kart_new_drift_mode"]
 [connection signal="stats_updated" from="." to="PlayerUI" method="update_bars"]
-[connection signal="area_entered" from="Hurtbox" to="Hurtbox" method="_on_area_entered"]
 [connection signal="hand_updated" from="Scripts/PlayerDataContainer" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_equipped" from="Scripts/ItemUser" to="PlayerUI" method="_on_player_data_container_hand_updated"]
 [connection signal="item_equipped" from="Scripts/ItemUser" to="Player Audio Sources" method="_on_item_user_item_used"]
