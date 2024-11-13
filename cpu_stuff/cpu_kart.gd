@@ -3,7 +3,9 @@ class_name CpuKart
 #Authored by AlexV. Please consult for any modifications or major feature requests.
 
 #region Variables
-@export var track : Path3D
+@export var rubberband: RubberBand
+
+var track : Path3D
 #endregion
 
 #region Godot methods
