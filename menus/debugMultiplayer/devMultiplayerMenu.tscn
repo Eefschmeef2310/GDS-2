@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=17 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bd8dcrpuqswts" path="res://courses/thumbnails/lava.png" id="6_ujrro"]
 [ext_resource type="PackedScene" uid="uid://bka1o68c20fuk" path="res://courses/canyon/snow_course.tscn" id="7_2lup1"]
 [ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="9_dtovt"]
+[ext_resource type="PackedScene" uid="uid://n27hgw4k5bpi" path="res://courses/canyon/psycho_course.tscn" id="11_7x00l"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgoxg"]
 bg_color = Color(0.07, 0.07, 0.07, 0.8)
@@ -182,11 +183,11 @@ text = "Open Feedback Form"
 
 [node name="TrackContainer" type="HBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_constants/separation = 40
+theme_override_constants/separation = 8
 alignment = 1
 
 [node name="Track" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer"]
-custom_minimum_size = Vector2(282, 312)
+custom_minimum_size = Vector2(232, 256)
 layout_mode = 2
 script = ExtResource("4_lvtsq")
 track_scene = ExtResource("5_hms7n")
@@ -195,11 +196,11 @@ track_scene = ExtResource("5_hms7n")
 layout_mode = 2
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 266.0
-offset_bottom = 304.0
+offset_right = 216.0
+offset_bottom = 254.0
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track/TrackVBox"]
-custom_minimum_size = Vector2(250, 250)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = ExtResource("4_ckx3c")
 expand_mode = 2
@@ -207,12 +208,12 @@ stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track/TrackVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "Anarchy Canyon"
 horizontal_alignment = 1
 
 [node name="Track2" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer"]
-custom_minimum_size = Vector2(282, 312)
+custom_minimum_size = Vector2(232, 256)
 layout_mode = 2
 script = ExtResource("4_lvtsq")
 track_scene = ExtResource("7_2lup1")
@@ -221,11 +222,11 @@ track_scene = ExtResource("7_2lup1")
 layout_mode = 2
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 266.0
-offset_bottom = 304.0
+offset_right = 216.0
+offset_bottom = 248.0
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track2/TrackVBox"]
-custom_minimum_size = Vector2(250, 250)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = ExtResource("5_x4g7t")
 expand_mode = 2
@@ -233,12 +234,12 @@ stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track2/TrackVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "Mount Garcia"
 horizontal_alignment = 1
 
 [node name="Track3" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer"]
-custom_minimum_size = Vector2(282, 312)
+custom_minimum_size = Vector2(232, 256)
 layout_mode = 2
 script = ExtResource("4_lvtsq")
 track_scene = ExtResource("9_dtovt")
@@ -247,11 +248,11 @@ track_scene = ExtResource("9_dtovt")
 layout_mode = 2
 offset_left = 16.0
 offset_top = 16.0
-offset_right = 266.0
-offset_bottom = 304.0
+offset_right = 216.0
+offset_bottom = 248.0
 
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track3/TrackVBox"]
-custom_minimum_size = Vector2(250, 250)
+custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
 texture = ExtResource("6_ujrro")
 expand_mode = 2
@@ -259,8 +260,34 @@ stretch_mode = 6
 
 [node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track3/TrackVBox"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 24
+theme_override_font_sizes/font_size = 20
 text = "Hellworld"
+horizontal_alignment = 1
+
+[node name="Track4" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer"]
+custom_minimum_size = Vector2(232, 256)
+layout_mode = 2
+script = ExtResource("4_lvtsq")
+track_scene = ExtResource("11_7x00l")
+
+[node name="TrackVBox" type="VBoxContainer" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4"]
+layout_mode = 2
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 216.0
+offset_bottom = 248.0
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4/TrackVBox"]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+texture = ExtResource("6_ujrro")
+expand_mode = 2
+stretch_mode = 6
+
+[node name="Label" type="Label" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4/TrackVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Bittoland"
 horizontal_alignment = 1
 
 [node name="StartButton" type="Button" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
@@ -406,6 +433,7 @@ text = "Back"
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track" to="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track2" to="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track2" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track3" to="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track3" method="_on_pressed"]
+[connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4" to="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4" method="_on_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/StartButton" to="ButtonPressed" method="on_button_pressed"]
 [connection signal="pressed" from="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
