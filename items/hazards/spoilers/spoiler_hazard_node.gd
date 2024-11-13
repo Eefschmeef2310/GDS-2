@@ -12,7 +12,7 @@ extends Node3D
 	#Exported Variables
 	#@export_group("Group")
 	#@export_subgroup("Subgroup")
-
+@export var hurtbox : HazardArea
 	#Onready Variables
 
 	#Other Variables (please try to separate and organise!)
@@ -21,6 +21,8 @@ var caster : Kart
 #endregion
 
 #region Godot methods
+func _ready():
+	hurtbox.caster = caster
 
 func _process(_delta):
 	global_position = caster.global_position

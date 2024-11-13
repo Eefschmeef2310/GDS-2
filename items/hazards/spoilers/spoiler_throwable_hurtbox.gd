@@ -8,8 +8,8 @@ extends HazardArea
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _ready() -> void:
-	super._ready()
 	hit_self = false
+	super._ready()
 
 func _process(delta: float) -> void:
 	rotation_degrees.y += delta * spin_speed
