@@ -166,6 +166,7 @@ func start_race():
 				new_kart.player_ui.control.size.y *= 2
 		else:
 			new_kart.player_name = debug_names.pick_random()
+			new_kart.rubberband.ri = self
 			debug_names.erase(new_kart.player_name)
 			var index = n - connected_controllers.size()
 			new_kart.max_speed = max_speeds[index]

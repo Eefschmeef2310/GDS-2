@@ -16,6 +16,6 @@ func _process(delta: float) -> void:
 	rotation_degrees.y = wrap(rotation_degrees.y, 0, 360)
 
 func _on_area_entered(area: Area3D) -> void:
-	if area is HazardArea:
+	if area is HazardArea and area.owner != caster:
 		area.queue_free()
 		queue_free()

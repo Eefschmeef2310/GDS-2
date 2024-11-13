@@ -16,8 +16,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.023468, 0)
 shape = SubResource("BoxShape3D_dxag3")
 
 [node name="Decal" type="Decal" parent="CollisionShape3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.206283, 0)
-size = Vector3(3, 0.563, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.391276, 0)
+size = Vector3(3, 0.932986, 3)
 texture_albedo = ExtResource("2_r81sq")
 upper_fade = 0.000459718
 lower_fade = 0.001
