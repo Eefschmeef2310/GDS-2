@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://n27hgw4k5bpi" path="res://courses/canyon/psycho_course.tscn" id="4_an52q"]
 [ext_resource type="Script" path="res://race/debug_win.gd" id="5_bmlpq"]
 [ext_resource type="Texture2D" uid="uid://cvwr2xp6rnpto" path="res://debug_and_testing/Checkerboard_pattern.svg.png" id="5_l63o3"]
-[ext_resource type="PackedScene" uid="uid://bvu8cli1qkfwy" path="res://race/racer_placement.tscn" id="6_phxu0"]
+[ext_resource type="PackedScene" path="res://race/racer_placement.tscn" id="6_phxu0"]
 [ext_resource type="AudioStream" uid="uid://digx6c5wruq5s" path="res://audio/music/AFTER.wav" id="6_q38y2"]
 [ext_resource type="Script" path="res://ui/curve_drawer.gd" id="6_ra1j6"]
 [ext_resource type="AudioStream" uid="uid://db0wf54iensqs" path="res://audio/sound_effects/count down.wav" id="6_wa3pu"]

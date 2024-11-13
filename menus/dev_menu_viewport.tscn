@@ -5,31 +5,31 @@
 [ext_resource type="Script" path="res://debug_and_testing/ball_kart.gd" id="4_qrqgc"]
 [ext_resource type="PackedScene" uid="uid://343m60taxeo2" path="res://cpu_stuff/cpu_kart.tscn" id="5_8iixe"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ppy22"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_6k8u0"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_tq1bs"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_c72tv"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_u8s3k"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_w6f7u"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_npki6"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_v3ivx"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_snwke"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_8rwwe"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_57auv"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_dbkao"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_6ma4h"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_uqfgg"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_po3dn"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_olegh"]
 size = Vector3(5, 100, 50)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_mlv6h"]
+[sub_resource type="BoxShape3D" id="BoxShape3D_eluei"]
 size = Vector3(5, 100, 50)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7o87j"]
@@ -282,77 +282,77 @@ render_target_update_mode = 4
 process_mode = 4
 script = null
 
-[node name="@Area3D@17399" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="0"]
+[node name="@Area3D@24076" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="0"]
 transform = Transform3D(0.915035, 0, -0.403375, 0, 1, 0, 0.403375, 0, 0.915035, -153.487, 0, -73.3047)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17400" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17399" index="0"]
-shape = SubResource("BoxShape3D_ppy22")
+[node name="@CollisionShape3D@24077" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24076" index="0"]
+shape = SubResource("BoxShape3D_6k8u0")
 
-[node name="@Area3D@17401" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="1"]
+[node name="@Area3D@24078" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="1"]
 transform = Transform3D(0.215662, 0, 0.976468, 0, 1, 0, -0.976468, 0, 0.215662, -359.435, 0, -35.6971)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17402" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17401" index="0"]
-shape = SubResource("BoxShape3D_tq1bs")
+[node name="@CollisionShape3D@24079" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24078" index="0"]
+shape = SubResource("BoxShape3D_c72tv")
 
-[node name="@Area3D@17403" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="2"]
+[node name="@Area3D@24080" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="2"]
 transform = Transform3D(-0.802513, 0, 0.596634, 0, 1, 0, -0.596634, 0, -0.802513, -246.288, 0, 47.511)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17404" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17403" index="0"]
-shape = SubResource("BoxShape3D_u8s3k")
+[node name="@CollisionShape3D@24081" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24080" index="0"]
+shape = SubResource("BoxShape3D_w6f7u")
 
-[node name="@Area3D@17405" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="3"]
+[node name="@Area3D@24082" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="3"]
 transform = Transform3D(-0.862812, 0, 0.505525, 0, 1, 0, -0.505525, 0, -0.862812, -213.821, 0, 154.235)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17406" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17405" index="0"]
-shape = SubResource("BoxShape3D_npki6")
+[node name="@CollisionShape3D@24083" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24082" index="0"]
+shape = SubResource("BoxShape3D_v3ivx")
 
-[node name="@Area3D@17407" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="4"]
+[node name="@Area3D@24084" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="4"]
 transform = Transform3D(-0.320405, 0, -0.947281, 0, 1, 0, 0.947281, 0, -0.320405, -122.49, 0, 77.3401)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17408" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17407" index="0"]
-shape = SubResource("BoxShape3D_snwke")
+[node name="@CollisionShape3D@24085" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24084" index="0"]
+shape = SubResource("BoxShape3D_8rwwe")
 
-[node name="@Area3D@17409" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="5"]
+[node name="@Area3D@24086" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="5"]
 transform = Transform3D(-0.147311, 0, -0.98909, 0, 1, 0, 0.98909, 0, -0.147311, 22.4748, 0, 50.3682)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17410" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17409" index="0"]
-shape = SubResource("BoxShape3D_57auv")
+[node name="@CollisionShape3D@24087" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24086" index="0"]
+shape = SubResource("BoxShape3D_dbkao")
 
-[node name="@Area3D@17411" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="6"]
+[node name="@Area3D@24088" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="6"]
 transform = Transform3D(-0.00925866, 0, -0.999957, 0, 1, 0, 0.999957, 0, -0.00925866, 143.669, 0, -50.9287)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17412" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17411" index="0"]
-shape = SubResource("BoxShape3D_6ma4h")
+[node name="@CollisionShape3D@24089" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24088" index="0"]
+shape = SubResource("BoxShape3D_uqfgg")
 
-[node name="@Area3D@17413" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="7"]
+[node name="@Area3D@24090" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="7"]
 transform = Transform3D(0.259974, 0, -0.965616, 0, 1, 0, 0.965616, 0, 0.259974, 37.8503, 0, -148.608)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17414" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17413" index="0"]
-shape = SubResource("BoxShape3D_po3dn")
+[node name="@CollisionShape3D@24091" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24090" index="0"]
+shape = SubResource("BoxShape3D_olegh")
 
-[node name="@Area3D@17415" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="8"]
+[node name="@Area3D@24092" parent="SubViewport/CanyonCourse/Track/Checkpoints" index="8"]
 transform = Transform3D(0.079745, 0, 0.996815, 0, 1, 0, -0.996815, 0, 0.079745, -67.9689, 0, -103.386)
 collision_layer = 2
 collision_mask = 0
 
-[node name="@CollisionShape3D@17416" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@17415" index="0"]
-shape = SubResource("BoxShape3D_mlv6h")
+[node name="@CollisionShape3D@24093" parent="SubViewport/CanyonCourse/Track/Checkpoints/@Area3D@24092" index="0"]
+shape = SubResource("BoxShape3D_eluei")
 
 [node name="EngineBox2" parent="SubViewport/CanyonCourse" index="13"]
 visible = false
@@ -380,30 +380,6 @@ turbo_colors = Array[Color]([Color(0.941176, 0.972549, 1, 1), Color(0.941176, 0.
 
 [node name="Kart" parent="SubViewport/BallKart" index="3"]
 transform = Transform3D(0.962166, 0, -0.272465, 0, 1, 0, 0.272465, 0, 0.962166, -71.421, 1.197, 49.37)
-
-[node name="LeftFrontWheel" parent="SubViewport/BallKart/Kart/KartModel/FrontWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="RightFrontWheel" parent="SubViewport/BallKart/Kart/KartModel/FrontWheels" index="1"]
-surface_material_override/0 = null
-
-[node name="BackLeftWheel" parent="SubViewport/BallKart/Kart/KartModel/BackWheels" index="0"]
-surface_material_override/0 = null
-
-[node name="BackRightWheel" parent="SubViewport/BallKart/Kart/KartModel/BackWheels" index="1"]
-surface_material_override/0 = null
-
-[node name="Body" parent="SubViewport/BallKart/Kart/KartModel" index="2"]
-surface_material_override/0 = null
-
-[node name="SteeringWheel" parent="SubViewport/BallKart/Kart/KartModel" index="3"]
-surface_material_override/0 = null
-
-[node name="RightExhaust" parent="SubViewport/BallKart/Kart/KartModel" index="4"]
-surface_material_override/0 = null
-
-[node name="LeftExhaust" parent="SubViewport/BallKart/Kart/KartModel" index="5"]
-surface_material_override/0 = null
 
 [node name="Thrust" parent="SubViewport/BallKart/Kart/KartModel/Particles/BackLeft" index="3"]
 process_mode = 3
