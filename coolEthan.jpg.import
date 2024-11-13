@@ -2,9 +2,9 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dto4t8eurbbid"
-path.s3tc="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.ctex"
-path.etc2="res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.ctex"
+uid="uid://duyoh0pt42u2y"
+path.s3tc="res://.godot/imported/coolEthan.jpg-570bfe1b01225ecd8606b1a16eb8c6a4.s3tc.ctex"
+path.etc2="res://.godot/imported/coolEthan.jpg-570bfe1b01225ecd8606b1a16eb8c6a4.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
@@ -12,8 +12,8 @@ metadata={
 
 [deps]
 
-source_file="res://icon.png"
-dest_files=["res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.s3tc.ctex", "res://.godot/imported/icon.png-487276ed1e3a0c39cad0279d744ee560.etc2.ctex"]
+source_file="res://coolEthan.jpg"
+dest_files=["res://.godot/imported/coolEthan.jpg-570bfe1b01225ecd8606b1a16eb8c6a4.s3tc.ctex", "res://.godot/imported/coolEthan.jpg-570bfe1b01225ecd8606b1a16eb8c6a4.etc2.ctex"]
 
 [params]
 

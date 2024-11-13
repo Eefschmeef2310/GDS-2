@@ -34,7 +34,7 @@ albedo_color = Color(0, 0, 0, 1)
 metallic = 0.3
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_tbogy"]
-radius = 0.589335
+radius = 0.781619
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gpvsa"]
 radius = 0.97939
@@ -47,6 +47,7 @@ gravity_scale = 10.0
 script = SubResource("GDScript_6gmne")
 
 [node name="wheel" parent="." instance=ExtResource("1_lfylx")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="Cylinder003" parent="wheel" index="0"]
 surface_material_override/0 = SubResource("StandardMaterial3D_nvel2")

@@ -4,6 +4,8 @@
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nucq2"]
 albedo_color = Color(0.9, 1, 0.991667, 1)
+subsurf_scatter_strength = 0.24
+subsurf_scatter_skin_mode = true
 
 [node name="rock" instance=ExtResource("1_8672k")]
 

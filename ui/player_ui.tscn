@@ -110,6 +110,7 @@ point_count = 2
 
 [node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("control", "hand", "slots", "speed_label", "placement_label", "checkpoints", "finish")]
 process_mode = 3
+follow_viewport_scale = 130.496
 script = ExtResource("1_u0skn")
 control = NodePath("Control")
 hand = NodePath("Control/Hand")

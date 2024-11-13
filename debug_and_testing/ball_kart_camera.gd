@@ -8,7 +8,8 @@ var default_fov : float
 
 func _ready():
 	default_fov = fov
-
+	if !owner.is_player:
+		queue_free()
 
 func _process(delta: float) -> void:
 	if owner.drifting:

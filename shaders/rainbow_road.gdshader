@@ -1,0 +1,23 @@
+shader_type spatial;
+render_mode diffuse_lambert;
+
+uniform float density: hint_range(0.0, 10.0) = 0.25;
+uniform float speed: hint_range(0.0, 10.0) = 1.0;
+
+uniform float saturation : hint_range(0.0, 1.0, 0.01) = 1.0;
+
+varying vec3 _vertex;
+
+vec3 hsv2rgb(vec3 c) {
+	vec4 K = vec4(1.0, 2.0 / 3.0, 1.0 / 3.0, 3.0);
+	vec3 p = abs(fract(c.xxx + K.xyz) * 6.0 - K.www);
+	return c.z * mix(K.xxx, clamp(p - K.xxx, 0.0, 1.0), c.y);
+}
+
+void vertex(){
+	_vertex = VERTEX;
+}
+
+void fragment() {
+	ALBEDO = hsv2rgb(vec3(_vertex.z * density - TIME * speed, saturation, 1.0));
+}
