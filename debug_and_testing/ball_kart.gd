@@ -307,7 +307,7 @@ func hurt(_hazard: Node3D):
 	#print("Starting boost for " + str(boost_timer.wait_time))
 
 func are_stats_updated():
-	if player_ui and player_ui.kart:
+	if is_instance_valid(player_ui) and player_ui.kart:
 		stats_updated.emit()
 
 func is_boosting():

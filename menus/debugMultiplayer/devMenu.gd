@@ -38,7 +38,8 @@ func add_controller(controller_id : int):
 		controller_name = "Keyboard"
 	var new_button : Button = Button.new()
 	new_button.modulate = player_colors[connected_controllers.size() - 1]
-	new_button.text = str(controller_id) + " : " + controller_name
+	new_button.text = controller_name
+	new_button.set_meta("controller_id", controller_id)
 	new_button.pressed.connect(func(): _on_controller_changed(controller_id, false))
 	controller_list.add_child(new_button)
 	# create button and bind to remove signal
@@ -49,13 +50,9 @@ func add_controller(controller_id : int):
 func _on_controller_changed(device : int, connected : bool):
 	#if not connected and GameManager.isLocal():
 	if not connected:
-		var controller_name : String = Input.get_joy_name(device)
-		if (device == -1):
-			controller_name = "Keyboard"
-		var check : String = str(device) + " : " + controller_name
 		connected_controllers.erase(device)
 		for button in controller_list.get_children():
-			if button.text == check:
+			if button.get_meta("controller_id") == device:
 				button.queue_free()
 
 #region Local Input Management
@@ -75,14 +72,8 @@ func handle_join_input():
 			pass
 
 func is_device_joined(device: int) -> bool:
-	var controller_name : String = Input.get_joy_name(device)
-	if (device == -1):
-		controller_name = "Keyboard"
-	var check : String = str(device) + " : " + controller_name
-	
 	for button in controller_list.get_children():
-		var d = button.text
-		if check == d: return true # controller is already connected
+		if button.get_meta("controller_id") == device: return true # controller is already connected
 	return false
 
 # returns a valid player integer for a new player.
