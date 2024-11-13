@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://is6nm3y05hix"]
+[gd_scene load_steps=18 format=3 uid="uid://is6nm3y05hix"]
 
 [ext_resource type="Script" path="res://menus/debugMultiplayer/devMenu.gd" id="1_wil4j"]
 [ext_resource type="AudioStream" uid="uid://c61r52j4vqqr2" path="res://audio/music/Menu.wav" id="2_5k28m"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bka1o68c20fuk" path="res://courses/canyon/snow_course.tscn" id="7_2lup1"]
 [ext_resource type="PackedScene" uid="uid://dc78w5kpsbvsn" path="res://courses/canyon/lava_course.tscn" id="9_dtovt"]
 [ext_resource type="PackedScene" uid="uid://n27hgw4k5bpi" path="res://courses/canyon/psycho_course.tscn" id="11_7x00l"]
+[ext_resource type="Texture2D" uid="uid://m71tou23ry37" path="res://courses/thumbnails/psycho.png" id="12_1rr47"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hgoxg"]
 bg_color = Color(0.07, 0.07, 0.07, 0.8)
@@ -280,7 +281,7 @@ offset_bottom = 248.0
 [node name="TextureRect" type="TextureRect" parent="MarginContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TrackContainer/Track4/TrackVBox"]
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 2
-texture = ExtResource("6_ujrro")
+texture = ExtResource("12_1rr47")
 expand_mode = 2
 stretch_mode = 6
 

@@ -1,5 +1,5 @@
 shader_type spatial;
-render_mode unshaded;
+render_mode diffuse_lambert;
 
 uniform float density: hint_range(0.0, 10.0) = 0.25;
 uniform float speed: hint_range(0.0, 10.0) = 1.0;
