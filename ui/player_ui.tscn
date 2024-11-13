@@ -109,6 +109,7 @@ _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
 [node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("control", "hand", "slots", "speed_label", "placement_label", "checkpoints")]
+layer = 2
 script = ExtResource("1_u0skn")
 control = NodePath("Control")
 hand = NodePath("Control/Hand")
