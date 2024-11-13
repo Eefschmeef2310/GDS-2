@@ -36,16 +36,16 @@ func update(data : PlayerData):
 		match data.inventory["hand"].type:
 			Item.Part.Engine:
 				for item in modulate_me:
-					item.self_modulate = Color("ff0000")
+					item.self_modulate = Color("ad2c32")
 			Item.Part.Tire:
 				for item in modulate_me:
-					item.self_modulate = Color("fff700")
+					item.self_modulate = Color("b8813c")
 			Item.Part.Spoiler:
 				for item in modulate_me:
-					item.self_modulate = Color("00ff05")
+					item.self_modulate = Color("3e730c")
 			Item.Part.Oil:
 				for item in modulate_me:
-					item.self_modulate = Color("0008ff")
+					item.self_modulate = Color("3f7c7c")
 		
 		#Update throw text
 		throw_item_type.text = Item.Part.keys()[data.inventory["hand"].type]
