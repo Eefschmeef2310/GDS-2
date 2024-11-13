@@ -73,7 +73,7 @@ func handle_join_input():
 
 func is_device_joined(device: int) -> bool:
 	for button in controller_list.get_children():
-		if button.get_meta("controller_id") == device: return true # controller is already connected
+		if button.has_meta("controller_id") && button.get_meta("controller_id") == device: return true # controller is already connected
 	return false
 
 # returns a valid player integer for a new player.
