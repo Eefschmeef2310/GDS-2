@@ -1,18 +1,6 @@
-[gd_scene load_steps=4 format=3 uid="uid://cueiakxfi4a0w"]
-
-[ext_resource type="Shader" path="res://shaders/pixelate.gdshader" id="1_kxmj4"]
-
-[sub_resource type="ViewportTexture" id="ViewportTexture_j3tst"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_g6442"]
-resource_local_to_scene = true
-shader = ExtResource("1_kxmj4")
-shader_parameter/pixel_size = 0.5
-shader_parameter/SCREEN_TEXTURE = SubResource("ViewportTexture_j3tst")
+[gd_scene format=3 uid="uid://cueiakxfi4a0w"]
 
 [node name="PlayerViewportContainer" type="SubViewportContainer"]
-material = SubResource("ShaderMaterial_g6442")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
