@@ -238,17 +238,17 @@ func _on_kart_checkpoint_passed(kart : Node3D, check : int):
 	var prev_check = wrap(last_check - 1, 0, check_count)
 
 
-	print("Detected checkpoint " + str(check))
-	print("Last checkpoint " + str(last_check))
-	print("Next checkpoint " + str(next_check))
-	print("Prev checkpoint " + str(prev_check))
+	#print("Detected checkpoint " + str(check))
+	#print("Last checkpoint " + str(last_check))
+	#print("Next checkpoint " + str(next_check))
+	#print("Prev checkpoint " + str(prev_check))
 	
 	if check == prev_check:
-		print("We just went backwards")
+		#print("We just went backwards")
 		kart_placements[kart].last_checkpoint = check
 
 	elif check == next_check:
-		print("We just went forwards")
+		#print("We just went forwards")
 		kart_placements[kart].last_checkpoint = check
 		if check == 0:
 			# We just crossed the finished line

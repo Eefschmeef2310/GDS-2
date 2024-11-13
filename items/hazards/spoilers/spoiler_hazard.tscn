@@ -26,14 +26,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 curve = SubResource("Curve3D_jqkil")
 
 [node name="PathFollow3D" type="PathFollow3D" parent="Path3D"]
-transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 0.69583, 0, -3.26186)
-progress = 0.742501
+transform = Transform3D(0.99996, 0, 0, 0, 1.00022, 0, 0, 0, 0.99996, 1.67356, 0, -2.54765)
+progress = 1.95542
 rotation_mode = 0
 script = ExtResource("2_cf1bs")
 speed = 0.75
 
 [node name="Hurtbox" type="Area3D" parent="Path3D/PathFollow3D"]
-transform = Transform3D(0.773303, 0, -0.634035, 0, 1, 0, 0.634035, 0, 0.773303, 0, 0, 0)
+transform = Transform3D(-0.999981, 0, -0.00597958, 0, 1, 0, 0.00597958, 0, -0.999981, 0, 0, 0)
 collision_layer = 8
 collision_mask = 12
 script = ExtResource("3_8fuqg")
