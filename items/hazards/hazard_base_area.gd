@@ -22,6 +22,7 @@ func _ready():
 #region Signal methods
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	if body != caster and body is Kart:
+		print(caster.name + ", " + body.name)
 		body.hurt(self)
 		queue_free()
 
@@ -30,5 +31,4 @@ func unlink_caster():
 #endregion
 
 #region Other methods (please try to separate and organise!)
-
 #endregion
