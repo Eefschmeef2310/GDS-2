@@ -10,6 +10,7 @@ signal speed_updated(speed : float)
 @export var speed_label : Label
 @export var placement_label : Label
 @export var checkpoints : Label
+@export var finish : Control
 
 @export var stats : Dictionary
 
@@ -26,7 +27,7 @@ func _ready():
 func _physics_process(_delta):
 	if ri:
 		var s = ""
-		s += "Lap " + str(ri.kart_placements[kart].laps) + "/" + str(ri.total_laps)
+		s += "Lap " + str(min(max(ri.kart_placements[kart].laps,1),ri.total_laps)) + "/" + str(ri.total_laps)
 		s += "\nPlace " + str(ri.karts_sorted.find(kart)+1) + "/" + str(ri.karts_sorted.size())
 		placement_label.text = s
 		
@@ -34,6 +35,9 @@ func _physics_process(_delta):
 		for check in ri.kart_placements[kart].checkpoints_crossed:
 			c += str(check) + ", "
 		checkpoints.text = c
+		
+		if is_instance_valid(finish):
+			finish.visible = ri.kart_placements[kart].laps > ri.total_laps
 
 func _on_player_data_container_hand_updated() -> void:
 	hand.visible = data.inventory["hand"] != null

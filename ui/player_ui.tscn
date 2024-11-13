@@ -108,8 +108,8 @@ colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 1)
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("control", "hand", "slots", "speed_label", "placement_label", "checkpoints")]
-layer = 2
+[node name="PlayerUI" type="CanvasLayer" node_paths=PackedStringArray("control", "hand", "slots", "speed_label", "placement_label", "checkpoints", "finish")]
+process_mode = 3
 script = ExtResource("1_u0skn")
 control = NodePath("Control")
 hand = NodePath("Control/Hand")
@@ -117,6 +117,7 @@ slots = NodePath("Control/PanelContainer/MarginContainer")
 speed_label = NodePath("Control/Speedometer/SpeedContainer/SpeedLabel")
 placement_label = NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/PlacementLabel")
 checkpoints = NodePath("Control/Checkpoints")
+finish = NodePath("Finish")
 stats = {
 "Acceleration": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Acceleration"),
 "Boost Strength": NodePath("Control/PanelContainer/MarginContainer/VBoxContainer/VBoxContainer/Boost Strength"),
@@ -627,6 +628,29 @@ position = Vector2(-5, -22)
 points = PackedVector2Array(0, -10, -251, -8)
 width_curve = SubResource("Curve_y7b2e")
 script = ExtResource("6_hdh75")
+
+[node name="Finish" type="ColorRect" parent="." groups=["player_finish"]]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 1080.0
+grow_horizontal = 2
+color = Color(0, 0, 0, 0.784314)
+
+[node name="Label" type="Label" parent="Finish"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.5
+offset_right = 0.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 128
+text = "FINISHED!"
 
 [connection signal="speed_updated" from="." to="Control/Speedometer/Needle" method="_on_player_ui_speed_updated"]
 

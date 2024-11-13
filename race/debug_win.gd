@@ -14,6 +14,8 @@ func _on_visibility_changed() -> void:
 		race_complete.play()
 		animation_player.play("auto")
 		button.grab_focus()
+		for node in get_tree().get_nodes_in_group("player_finish"):
+			node.queue_free()
 
 func update_ranking(karts_sorted: Array[Kart]):
 	for child in rankings.get_children():
